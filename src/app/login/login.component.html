@@ -1,0 +1,112 @@
+<div id="navbar" class="navbar navbar-default" style="display: block" appNorightclick>
+    <div class="quickLeftDiv" appNorightclick>
+        <div class="navbar-container navCon" >
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand mainLogo">FAMS</a>
+
+            </div>
+        </div>
+    </div>
+ 
+</div>
+
+<form [formGroup]="LoginForm" autocomplete="off" class="form" appNorightclick>
+  <div class="quickCheckLogin" >
+      
+      <div class="clearfix">
+      </div>
+      <div class="login-container" >
+      
+          <h1>
+              Login
+          </h1>
+          <div class="inset">
+              <p >
+              
+                  <label for="clientId">
+                      Client ID
+                  </label>
+                  <input [ngClass]="displayFieldCss('APPID')" name="APPID" type="text" class="form-control inputbox" (keypress)="Removelabel()" formControlName="APPID" placeholder="" />
+                  
+              </p>
+              <p >
+              
+                  <label for="email">
+                      Username
+                  </label>
+                  <input name="UserName" [ngClass]="displayFieldCss('UserName')" type="text" class="form-control inputbox" (keypress)="Removelabel()" formControlName="UserName" 
+
+ placeholder="" />
+                  
+              </p>
+
+              <p >
+              
+                  <label for="password">
+                      Password
+                  </label>
+                  <input name="Password" [ngClass]="displayFieldCss('Password')" type="password" class="form-control inputbox" (keypress)="Removelabel()" formControlName="Password" 
+
+placeholder="" />
+                  
+              </p>
+              <p >
+              
+                  <label for="captcha">
+                      Enter the text as shown in the image
+                  </label>
+                  <input name="captcha" maxlength="5" [ngClass]="displayFieldCss('captcha')" type="text" class="form-control inputbox" (keypress)="Removelabel()" formControlName="captcha" placeholder="" />
+                  
+              </p>
+              <div class="captchaCon">
+                <span class="captchaImg"><label  [ngClass]="randomcaptchavalue">{{randomcaptcha}}</label></span>
+                <i class="fa fa-refresh" (click)="BindRandomCaptcha()"></i>
+                <span class="forgotPass"  ><a routerLink="/ForgotPassword" routerLinkActive="active">Forgot password ?</a></span>
+              </div>
+              <label id="lblName">{{errormsg}}</label>
+              <input type="submit" value="Login" [disabled]="btnloginDisabled" (click)="onSubmit()" class="loginbtn" />
+            
+              <input type="submit" value="Reset" (click)="onReset()" class="loginbtn" />
+
+
+          </div>
+
+
+          
+
+
+          
+      </div>
+     
+  </div>
+</form>
+
+<div class="heroImg" appNorightclick>
+    <img src="../../assets/images/heroImg1.png" >
+
+</div>
+<div class="clearfix"></div>
+<div class="instructionBox" appNorightclick>
+    <ul>
+        <li>Mandatory fields are marked with an asterisk (*)</li>
+        <li> Do not provide your username and password anywhere other than in this page</li> 
+        <li>Your username and password are highly confidential.Never part with them.</li>
+    </ul>
+    <span class="veriSign"><img src="../../assets/images/veriSign.png" ></span>
+</div>
+<div class="linkContainer" appNorightclick> 
+<ul>
+    <li>About</li>
+    <li>Contact Us</li>
+    <li>Privacy</li>
+    <li>Security</li>
+    <li>Security Tips</li>
+</ul>
+
+</div>
+<div class="footer" style="display: block" appNorightclick>
+  <div class="footer-inner">
+      <span class="copyRight">Copyright &copy; 2016-2020 | QuickCheck | All Rights Reserved</span>
+   
+  </div>
+</div>

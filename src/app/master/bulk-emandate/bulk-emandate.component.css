@@ -1,0 +1,37 @@
+
+.labeltxt{padding: 4px 0px 4px 0px!important;
+    background: #003974;
+    color: #fff;}
+    .circlered{ background: red;
+        height: 10px;
+        width: 10px;
+        border-radius: 10px;
+        display: inline-block;}
+        .circleyellow{ background: yellow;
+            height: 10px;
+            width: 10px;
+            border-radius: 10px;
+            display: inline-block;}
+            .circlegreen{ background: #09f523;
+                height: 10px;
+                width: 10px;
+                border-radius: 10px;
+                display: inline-block;}
+                .paginationDivnew{    position: absolute;
+                    top: 2px;
+                    right: 8%;
+                }
+                .paginationDivnew .previousBtn,  .paginationDivnew .nextBtn {
+                    padding: 3px 8px;
+                    background: #ddd;
+                    margin-right: 10px;
+                    font-size: 11px;
+                    font-family: arial;
+                    cursor: pointer;
+                }
+                .paginationDivnew span {
+                    font-family: arial;
+                }
+                .paginationDivnew .previousBtn:hover, .paginationDivnew .nextBtn:hover {
+                    background: #e2dede;
+                    border: 1px solid #b1acac;}

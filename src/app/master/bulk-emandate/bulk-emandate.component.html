@@ -1,0 +1,335 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4  contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"> </span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content"> 
+                         <li>
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                               New
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Download Excel"></i>
+                            <label>
+                                    Download Excel
+                            </label>
+                        </li>
+                         <li>
+                            <i class="fa fa-eye" aria-hidden="true" title="View Created Mandate"></i>
+                            <label>
+                               View Created Mandate
+                            </label>
+                        </li>
+                        <li>
+                                <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to excel"></i>
+                                <label>
+                                    Export To Excel
+                                </label>
+                            </li> 
+                               <!-- <li>
+                                <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
+                                <label>
+                                    Back
+                                </label>
+                            </li>  -->
+                    </ul> 
+                </div>
+            </div>
+        </div>
+       
+      <div class="col-md-12 col-sm-12 col-xs-12 firstgriddiv"style="display: none;">
+    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv " id="tbldiv" style="display:block">
+        <div class="filter">
+            <input type="text" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </div>    
+          <ag-grid-angular 
+    style="width: 100%; height: 130px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+           
+            
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="paginationDiv">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                    </div>
+           </div>
+
+           </div>
+
+           <div class="col-md-12 col-sm-12 col-xs-12 secondgriddiv"  style="display: block;">
+            <div class="col-md-12 col-sm-12 col-xs-12"> 
+                <label class="pull-left">Total Mandate Created: 8</label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="" style="display:block">
+                <!-- <div class="filter">
+                    <input type="text" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>     -->
+
+               
+                  <ag-grid-angular
+            style="width: 100%; height: 130px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData1"
+            [columnDefs]="columnDefs1"
+            [enableFilter]="false"
+              [enableSorting]="true"
+              [showToolPanel]="true">
+        </ag-grid-angular>
+        
+      
+                </div>
+                      
+                <div class=" col-md-12 col-sm-12 col-xs-12 mt-2 btndiv">
+      
+            <div class="paginationDivnew">
+                    <span class="previousBtn">Previous</span>
+                    <span class="paginationCount">50 out of 200</span>
+                    <span class="nextBtn">Next</span>
+               
+                
+       </div>
+       <div class="btnbox">
+           <button type="button" class="btn btn-success pull-right">Bank Validation</button>
+       </div>
+    </div>
+
+               
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-3 p-0">
+
+            <div class=" col-md-6 col-sm-6 col-xs-6 pull-left" >
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 labeltxt">
+                    <div class="col-md-6"><label>Invalid Data</label></div> 
+                                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="" style="display:block">
+                   
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>     -->
+                      <ag-grid-angular
+                style="width: 100%; height: 130px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData2"
+                [columnDefs]="columnDefs2"
+                [enableFilter]="false"
+                  [enableSorting]="true"
+                  [showToolPanel]="true">
+            </ag-grid-angular>
+                       
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="paginationDiv">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                    </div>
+           </div>
+                    </div>
+                 
+
+
+            </div>
+
+            <div class=" col-md-6 col-xs-6 col-sm-6  pull-right" >
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 labeltxt">
+                    <div class="col-md-6"><label>validated Data</label></div> 
+                                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="" style="display:block">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>     -->
+                      <ag-grid-angular
+                style="width: 100%; height: 130px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData3"
+                [columnDefs]="columnDefs3"
+                [enableFilter]="false"
+                  [enableSorting]="true"
+                  [showToolPanel]="true">
+            </ag-grid-angular>
+                       
+            
+                    </div>
+                   
+
+
+            </div>
+            <div class=" col-md-12 col-sm-12 col-xs-12 mt-2 btndiv">
+      
+                <div class="paginationDivnew">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                   
+                    
+           </div>
+           <div class="btnbox">
+               <button type="button" class="btn btn-success pull-right">Account Validate</button>
+           </div>
+        </div>
+        </div>
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12 p-0 mt-5">
+
+            <div class=" col-md-4 col-sm-4 col-xs-4  pull-left">
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 labeltxt">
+                    <div class="col-md-6"><div class="circlered"  ></div><label>Account Related Issue</label></div> 
+                    <div class="col-md-6"><label class="pull-right">Count:1</label></div>
+                                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="" style="display:block">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>     -->
+                      <ag-grid-angular
+                style="width: 100%; height: 130px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData4"
+                [columnDefs]="columnDefs4"
+                [enableFilter]="false"
+                  [enableSorting]="true"
+                  [showToolPanel]="true">
+            </ag-grid-angular>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="paginationDiv">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                    </div>
+           </div>
+                        
+                    </div>
+                  
+
+
+            </div>
+
+           
+            <div class="col-sm-4 col-xs-4 col-md-4 pull-left" >
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 labeltxt">
+                    <div class="col-md-6"><div class="circleyellow"  ></div><label>Name Missmatch</label></div> 
+                    <div class="col-md-6"><label class="pull-right">Count:1</label></div>
+                                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 tableDiv" id="" style="display:block">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>     -->
+                      <ag-grid-angular
+                style="width: 100%; height: 130px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData5"
+                [columnDefs]="columnDefs5"
+                [enableFilter]="false"
+                  [enableSorting]="true"
+                  [showToolPanel]="true">
+            </ag-grid-angular>
+                       
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="paginationDiv">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                    </div>
+           </div>  
+                    </div>
+                    
+
+
+            </div>
+            <div class="col-sm-4 col-xs-4 col-md-4 pull-left" >
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 labeltxt">
+                    <div class="col-md-6"><div class="circlegreen"  ></div> <label>Account Related Issue</label></div> 
+                    <div class="col-md-6"><label class="pull-right">Count:1</label></div>
+                                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0 tableDiv" id="" style="display:block">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>     -->
+                      <ag-grid-angular
+                style="width: 100%; height: 130px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData6"
+                [columnDefs]="columnDefs6"
+                [enableFilter]="false"
+                  [enableSorting]="true"
+                  [showToolPanel]="true">
+            </ag-grid-angular>
+                       
+                        
+                    </div>
+                 
+
+
+            </div>
+            <div class=" col-md-12 col-sm-12 col-xs-12 mt-2 btndiv">
+      
+                <div class="paginationDivnew">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                   
+                    
+           </div>
+           <div class="btnbox">
+               <button type="button" class="btn btn-success pull-right">Create Mandate</button>
+           </div>
+        </div>
+    
+        </div>
+
+                   </div>
+
+                   <div class="col-md-12 col-sm-12 col-xs-12 thirdgriddiv"style="display: none;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv " id="tbldiv" style="display:block">
+                        <div class="filter">
+                            <input type="text" placeholder="Search" />
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>    
+                          <ag-grid-angular 
+                    style="width: 100%; height: 130px;"
+                    class="ag-theme-alpine"
+                    [rowData]="rowData8"
+                    [columnDefs]="columnDefs8"
+                    [enableFilter]="false"
+                      [enableSorting]="true"
+                      [showToolPanel]="true">
+                </ag-grid-angular>
+                           
+                            
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="paginationDiv">
+                                        <span class="previousBtn">Previous</span>
+                                        <span class="paginationCount">50 out of 200</span>
+                                        <span class="nextBtn">Next</span>
+                                    </div>
+                           </div>
+                
+                           </div>
+
+    </div>
+
+</div>
+
+
+
+

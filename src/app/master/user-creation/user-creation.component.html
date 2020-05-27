@@ -1,0 +1,479 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+                        
+                          
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Download Template
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                            <label>
+                                Upload User
+                            </label>
+                        </li>
+                        <li (click)="onClick($event)">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+            <!-- <div class="col-md-3 col-sm-4 col-xs-4">
+                <div class="form-group" id="divSearch">
+                    <label class="col-sm-5 col-md-4 col-xs-4 control-label" for="form-field-1">
+                        Search
+                    </label>
+                    <div class="col-sm-7 col-md-8 col-xs-7 displayinlineblock">
+                        <input type="text" id="txtSearch" class="col-sm-12 col-md-12 col-xs-12" />
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+       
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <!-- <div class="exportDiv">
+                <span class="excelBtn" (click)="onClick($event)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                <span class="excelBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                
+            
+
+            </div> -->
+            
+            <ag-grid-angular
+    style="width: 100%; height: 130px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+            <!-- <table class="tbluserlist">
+                <thead>
+                    <tr>
+                       
+                        <th>Sr No.</th>
+                        <th>User Name</th>
+                        <th>Email Address</th>
+                        <th>Contact No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>user@gmail.com</td>
+                        <td>9876543210</td>
+                    </tr>
+                </tbody>
+
+            </table> -->
+            
+        </div>
+        <!-- <div class="btnDiv mt-4">
+            <input type="button" class="btn btn-success mr-2" value="Download Template"/>
+            <input type="button" class="btn btn-success mr-2"  value="Upload User"  />
+          </div> -->
+       
+
+        <div class="modal" id="createuser" [style.display]="myModal ? 'block' : 'none'">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hide()">&times;</button>
+                
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                            <h4 class="pageTitle">
+                                Create User
+                                 </h4>
+            
+                        </div>
+                        <div class="rightmenu">
+                            <div class="toolbar pull-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" *ngIf="formid">
+                              <form [formGroup]="UserForm"> 
+                                  
+                                     
+                                                    <div class="row no-padding mt-2">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    User Name
+                                                                </label>
+                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text" name="UserName" formControlName="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Phone Number
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text" name="phoneno" formControlName="phoneno"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Email ID
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text" name="EmailId" formControlName="EmailId"
+                                                                           class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Utility Code 
+                                                                </label>
+                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                        <!--<select class="withbankdrp">
+                                                                                <option selected="" value="">Select</option>
+                                                                                <option>option 1</option>
+                                                                                </select>-->
+                                                                                <div class="chipsContainer" (click)="showDropDown1($event)">
+                                                                                    <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible1}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                                    <ul>
+                                                                                     <li *ngFor="let UtilityCode  of MultiDroputilityArray" value="{{UtilityCode.UtilityCodeId}}">{{UtilityCode.UtilityCode}}<span class="deleteCity"  (click)="removeUtilityCode(UtilityCode.UtilityCodeId)">X</span></li>
+                                                                                    </ul>
+                                                                                  </div>
+                                                                                  <div class="citiList" [hidden]="!isDropDownVisible1">
+                                                                                    <div class="filterdropdown">
+                                                                                      <input placeholder="Search" (input)="filterUtilityCode()" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                                                                                    </div>
+                                                                                    <ul>
+                                                                                      <li *ngFor="let UtilityCode  of table3" [ngClass]="{'selected':UtilityCode.selected}">
+                                                                                        <label>
+                                                                                          <input type="checkbox" value="{{UtilityCode.UtilityCodeId}}" [checked]="UtilityCode.selected"  (change)="onChangeUtilitycode($event,UtilityCode); UtilityCode.selected = !(UtilityCode.selected)" />{{UtilityCode.name}}
+                                                                                        </label>
+                                                                                      </li> 
+                                                                                    </ul>
+                                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Sponsor Bank Code 
+                                                                </label>
+                                                                        <!-- <select class="withbankdrp">
+                                                                                <option selected="" value="">Select</option>
+                                                                                <option>option 1</option>
+                                                                                </select> -->
+                                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock" style="position:absolute">
+                     
+                                                                                    <div class="chipsContainer" (click)="showDropDown($event)">
+                                                                                      <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                                      <ul>
+                                                                                       <li *ngFor="let SponsorBankCode  of MultiDropArray" value="{{SponsorBankCode.SponsorBankCodeId}}">{{SponsorBankCode.name}}<span class="deleteCity"  (click)="removeBank(SponsorBankCode); SponsorBankCode.selected = !(SponsorBankCode.selected)">X</span></li>
+                                                                                      </ul>
+                                                                                    </div>
+                                                                                    <div class="citiList" [hidden]="!isDropDownVisible">
+                                                                                      <div class="filterdropdown">
+                                                                                        <input placeholder="Search" (input)="filterBank()" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                                                                                      </div>
+                                                                                      <ul>
+                                                                                        <li *ngFor="let SponsorBankCode  of sponsorbankcode" [ngClass]="{'selected':SponsorBankCode.selected}">
+                                                                                          <label>
+                                                                                            <input type="checkbox" value="{{SponsorBankCode.SponsorBankCodeId}}" [checked]="SponsorBankCode.selected"  (change)="onChangeSponsorbankcode($event,SponsorBankCode); SponsorBankCode.selected = !(SponsorBankCode.selected)" />{{SponsorBankCode.name}}
+                                                                                          </label>
+                                                                                        </li> 
+                                                                                      </ul>
+                                                                                    </div>
+                                                                                  </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Category Code 
+                                                                </label>
+                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                       <!-- <select class="withbankdrp">
+                                                                                <option selected="" value="">Select</option>
+                                                                                <option>option 1</option>
+                                                                                </select>-->
+                                                                                <div class="chipsContainer" (click)="showDropDown2($event)">
+                                                                                    <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible2}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                                    <ul>
+                                                                                     <li *ngFor="let CategoryCode  of MultiDropcategoryArray" value="{{CategoryCode.categoryId}}">{{CategoryCode.name}}<span class="deleteCity"  (click)="removecatcode(CategoryCode);CategoryCode.selected = !(CategoryCode.selected)">X</span></li>
+                                                                                    </ul>
+                                                                                  </div>
+                                                                                  <div class="citiList" [hidden]="!isDropDownVisible2">
+                                                                                    <div class="filterdropdown">
+                                                                                      <input placeholder="Search" (input)="filterCatCode()" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                                                                                    </div>
+                                                                                    <ul>
+                                                                                      <li *ngFor="let CategoryCode  of table2" [ngClass]="{'selected':CategoryCode.selected}">
+                                                                                        <label>
+                                                                                          <input type="checkbox" value="{{CategoryCode.categoryId}}" [checked]="CategoryCode.selected"  (change)="onChangeCategorycode($event,CategoryCode); CategoryCode.selected = !(CategoryCode.selected)" />{{CategoryCode.name}}
+                                                                                        </label>
+                                                                                      </li> 
+                                                                                    </ul>
+                                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                        Client Code 
+                                                                    </label>
+                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                           <!-- <select class="withbankdrp">
+                                                                                    <option selected="" value="">Select</option>
+                                                                                    <option>option 1</option>
+                                                                                    </select> -->
+                                                                                    <div class="chipsContainer" (click)="showDropDown3($event)">
+                                                                                        <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible3}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                                        <ul>
+                                                                                         <li *ngFor="let ClientCode  of MultiDropclientcodeArray" value="{{ClientCode.CliendID}}">{{ClientCode.Clientcode}}<span class="deleteCity"  (click)="removeClientCode(ClientCode);ClientCode.selected = !(ClientCode.selected)">X</span></li>
+                                                                                        </ul>
+                                                                                      </div>
+                                                                                      <div class="citiList" [hidden]="!isDropDownVisible3">
+                                                                                        <div class="filterdropdown">
+                                                                                          <input placeholder="Search" (input)="filterClientCode()" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                                                                                        </div>
+                                                                                        <ul>
+                                                                                          <li *ngFor="let ClientCode  of table4" [ngClass]="{'selected':ClientCode.selected}">
+                                                                                            <label>
+                                                                                              <input type="checkbox" value="{{ClientCode.CliendID}}" [checked]="ClientCode.selected"  (change)="onChangeClientcode($event,ClientCode); ClientCode.selected = !(ClientCode.selected)" />{{ClientCode.Clientcode}}
+                                                                                            </label>
+                                                                                          </li> 
+                                                                                        </ul>
+                                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                        Region 
+                                                                    </label>
+                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                           <select class="withbankdrp" formControlName="region" name="region">
+                                                                                    <option value="">Select</option>
+                                                                                    <option *ngFor="let data of table6" value="{{data.RegionId}}"> {{data.name}} </option>
+                                                                                    </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                            Product 
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <select class="withbankdrp" formControlName="product" name="product">
+                                                                                        <option value="">Select</option>
+                                                                                        <option *ngFor="let data of table5" value="{{data.ProductId}}"> {{data.name}} </option>
+                                                                                   
+                                                                                        </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                            Primary Branch
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <select class="withbankdrp" formControlName="branch" name="branch">
+                                                                                        <option value="">Select</option>
+                                                                                        <option *ngFor="let data of table7" value="{{data.BranchId}}"> {{data.name}} </option>
+                                                                                        </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                            Secondary Branches
+                                                                        </label>
+                                                                        <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <!--<select class="withbankdrp">
+                                                                                        <option selected="" value="">Select</option>
+                                                                                        <option>option 1</option>
+                                                                                        </select>-->
+                                                                                        <div class="chipsContainer" (click)="showDropDown4($event)">
+                                                                                            <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible4}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                                            <ul>
+                                                                                             <li *ngFor="let secbranch  of MultiDropsecbranchArray" value="{{secbranch.BranchId}}">{{secbranch.name}}<span class="deleteCity"  (click)="removeSecBranch(secbranch);secbranch.selected = !(secbranch.selected)">X</span></li>
+                                                                                            </ul>
+                                                                                          </div>
+                                                                                          <div class="citiList" [hidden]="!isDropDownVisible4">
+                                                                                            <div class="filterdropdown">
+                                                                                              <input placeholder="Search" (input)="filterSecBranch()" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                                                                                            </div>
+                                                                                            <ul>
+                                                                                              <li *ngFor="let secbranch  of table7" [ngClass]="{'selected':secbranch.selected}">
+                                                                                                <label>
+                                                                                                  <input type="checkbox" value="{{secbranch.BranchId}}" [checked]="secbranch.selected"  (change)="onChangeSecbranch($event,secbranch); secbranch.selected = !(secbranch.selected)" />{{secbranch.name}}
+                                                                                                </label>
+                                                                                              </li> 
+                                                                                            </ul>
+                                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                No. for edit for one Mandate
+                                                                        </label>
+                                                                        <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <input type="text" name="editcount" 
+                                                                                   class="col-sm-12 col-md-12 col-xs-12" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div class="row no-padding">
+                                                                <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                            No. of mandates per reference no. 
+                                                                                    </label>
+                                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                        <input type="text" name="mandatecount" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                                    </div>
+                                                                                </div>
+                                                                        </div>
+                                                                <!-- <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                    Mobile User
+                                                                            </label>
+                                                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> -->
+                                                                    <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                    Active
+                                                                            </label>
+                                                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <input type="checkbox" name="chkactive" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        
+                                                                      
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            
+                    
+                    
+                                   
+                                </form>
+                            </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+               <button type="button" class="btn btn-success">Edit</button>
+                <button type="button" class="btn btn-success">Save</button>
+                </div>
+                
+                </div>
+                </div>
+                </div>
+
+
+
+
+
+
+    </div>
+
+   
+  
+</div>

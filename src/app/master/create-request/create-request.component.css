@@ -1,0 +1,62 @@
+.card-header {
+    padding: 0px;
+}
+
+.logo-img {
+    border: 1px solid #cdcdcd;
+}
+
+.radio input[type=radio] {
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 0px !important;
+}
+
+form {
+    display: block;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: 0% !important;
+}
+
+#tblsecondgrd {
+    border:1px solid #cdcdcd;
+}
+.maincontainer {
+    position: relative;
+    float:left;
+    width: 88%;
+}
+.heading{ font-size: 15px;
+    font-weight: bold;
+    color: #003974;
+    font-family: 'Segoe UI Regular';
+    padding: 3px 10px;
+    background: #ddd;
+    border-radius: 2px;}
+.panel-default {
+    border: 1px solid #CDD8E3 !important;
+}
+#divform .form-group > label{
+    /* margin-bottom: 0px; */
+    display: inline-block;
+    padding: 4px 0px 0px !important;
+}
+.loaderposition {
+    position: absolute;
+    left: 0% !important;
+    z-index: 9999 !important;
+    top: 0% !important;
+}
+.divScroll{overflow-y: scroll;
+    max-height: 570px;}
+.addMore{ position: absolute;
+    right: -18px;
+    top: 13px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #266cb5; cursor:pointer}
+.btnDiv{ position: absolute;
+    right: 15px;
+    bottom: 15px;}
+.btnDiv .btn{ margin-right: 5px;}

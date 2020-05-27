@@ -1,0 +1,150 @@
+.card-header {
+    padding: 0px;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px !important;
+}
+
+.lblfont {
+    font-weight: 400 !important;
+}
+
+
+
+.hasDatepicker{height: 25px;} 
+.form-group input[type=text] {
+    height: 25px !important;
+}
+
+.radio{margin-top:4px !important;}
+
+label {
+ margin-bottom: 0px !important;
+}
+
+.withbankdrp{width:99%;margin-left:6px;}
+
+.checkboxmrg{margin-top:4px}
+.catogeriebox {
+    position: absolute;
+    top: 0px;
+    left: 35%;
+}
+
+.labeldiv label {
+    margin: 4px 0 0 0px !important;
+
+}
+
+
+.textboxwidth{width: 352px;}
+.checkbox, .radio {
+    margin-bottom: 0px !important;
+}
+.labeldiv {
+    height: 25px;
+    background: #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.border {
+    border: 1px solid #ffffff !important;
+}
+
+#btnSave {
+    float: right;
+}
+
+#btnBack {
+    float: right;
+}
+
+.form-group {
+    margin-bottom: 0% !important;
+    display: block;
+    overflow: hidden;
+    margin-top: 0% !important;
+    clear: both;
+}
+
+.boxhead {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: -12px !important;
+    background-color: #f1f2f3;
+}
+.btnDiv{position: absolute;
+    bottom: 15px;
+    right: 5px;}
+.maincontainer {
+    position: relative;
+    float:left;
+    width: 88%;
+}
+
+.rightmenu {
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 21px;
+}
+
+.card-header {
+    background-color: #888888 !important;
+}
+
+.displayinlineblock {
+    display: inline-block;
+}
+
+
+
+.toolbar-content a {
+    color: inherit !important
+}
+
+#lblDispMessagezipnach {
+    position: absolute;
+    bottom: 20%;
+    font-size: 11.5px;
+}
+.accepted{background:#B2DCD2; border:1px solid #8EC3B7}
+.rejected{background:#E6CDCD; border:1px solid #F9BABA}
+.ifscbg, .bankbg{margin-bottom:2% !important;}
+.modal-header {
+    padding: 15px;
+    border-bottom: 0px;
+    background-color: transparent;
+}
+.modal-title{color:#05274a; font-weight: 600;}
+
+.close{    color: #05274a;
+    opacity: 1;}
+    .fa-close{color: #ef4f4f !important;}
+.instruct{font-size: 11px;
+    color: #bd1818;
+    line-height: 16px;
+    font-weight: bold;}
+#imageCropPopup .modal-dialog{ max-width: 960px !important;
+        width: 960px !important; margin: 60px auto !important;}
+      
+#imageCropPopup .modal-dialog .modal-header {
+            padding: 0px !important;}
+.imgCon{ width:100%; height:500px; background: #969494;}
+.rightCon{padding:0px !important; margin-top:20px}
+.imageContainer{height:360px}
+.details{}
+.details h5{ padding-left:10px; padding-bottom:3px; font-size: 15px;
+    color: #0c335a;
+    font-weight: bold;
+    border-bottom: 1px solid #b3b3af;}
+.details p{ padding-left:10px; text-align: left;
+    color: #19232d;
+    font-size: 12px;
+    font-weight: 600;}
+ #imageCropPopup .modal-header .close{z-index:999}
+ .heading{ width: 116px !important;
+    display: inline-block;}

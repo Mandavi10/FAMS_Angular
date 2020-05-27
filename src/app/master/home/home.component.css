@@ -1,0 +1,36 @@
+.maincontainer{ position: relative;
+    float:left;
+    width: 88%;}
+.menuBox{width: 19%;
+    background: transparent;
+    border-radius: 0px;
+    padding: 10px 6px 0px 6px;
+    display: inline-block;
+    text-align: left;
+    color: #003974;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 10px;
+margin-top:10px;
+cursor:pointer;
+vertical-align: middle;
+list-style:none;
+/* box-shadow: 1px 1px 2px 1px #cccfd0;*/
+border-right: 1px solid #dfe6e8;
+}
+.menuBox:hover{ background: #f3f3f3;
+    box-shadow: 1px 1px 2px 1px #d6dade;}
+.menuItem{border-bottom: 1px solid #dfe6e8; padding-bottom: 20px;}
+.submenuBox{ width: 98%; font-size:13px; list-style:none}
+.menuImg{ background: #003974;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block; text-align: center;
+    vertical-align: middle; box-shadow: 1px 1px 2px 1px #b3bac3;}
+.menuImg i{ color: #fff;
+    font-size: 15px;
+    vertical-align: middle;}
+.menuTitle{ width: 165px;
+    display: inline-block;
+    padding-left: 5px;}

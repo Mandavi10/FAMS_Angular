@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KollectQuickZip</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css"> 
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <app-root></app-root>
+  <script>
+    function togglenav() {
+        var x = document.getElementsByClassName("dvLinks");
+        if (x.style.display === "none"){
+            x.style.display = "block";
+            //document.getElementById("sidenav").style.left = "0";
+            //            document.getElementById("sidemenu").style.transition = "all 2s";
+            //document.getElementById("main").className = "main-panel";
+            //document.getElementById("menuClose").style.display = "block";
+           // document.getElementsByClassName("dvLinks").style.display = "none";
+
+        } else{
+            x.style.display = "none";
+           document.getElementsByClassName("maincontainer").className = "mainAAA";
+           // document.getElementsByClassName("dvLinks").style.display  = "block";
+            //document.getElementById("menuClose").style.display = "none";
+        }
+    }
+
+
+</script>
+</body>
+</html>

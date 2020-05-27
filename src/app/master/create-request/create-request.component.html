@@ -1,0 +1,379 @@
+<div class="main-content maincontainer">
+    <div class="content">
+
+        <div class="col-md-12 col-sm-6 col-xs-4">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal"></span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-print" aria-hidden="true" title="Print"></i>
+                            <label>
+                                Print
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-paperclip" aria-hidden="true" title="Attachment"></i>
+                            <label>
+                                Attachment
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                            <label>
+                                Edit
+                            </label>
+                        </li>
+
+
+                        <li style="display: none">
+                            <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
+                            <label>
+                                Back
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:none">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <!-- <div class="exportDiv">
+                <span class="excelBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+
+            </div> -->
+
+            <ag-grid-angular style="width: 100%; height: 180px;" class="ag-theme-alpine" [rowData]="rowData"
+                [columnDefs]="columnDefs" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
+            </ag-grid-angular>
+
+
+        </div>
+        <div id="divform" class=" col-md-12 col-sm-12 col-xs-12 no-padding">
+            <form>
+                <div class="col-md-12 col-sm-12 col-xs-12 divScroll">
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Corporate Name
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" maxlength="50"
+                                                    class="col-sm-12 col-md-12 col-xs-12 p-0" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="row repeatBox">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Sponsored Bank Code
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Utility Code
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-plus-square addMore" aria-hidden="true" (click)="addRow()"></i>
+                                <div class="row repeatBox" *ngIf="isShow">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Sponsored Bank Code
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Utility Code
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="row repeatBox">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Client Code
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Account No.
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-plus-square addMore" aria-hidden="true" (click)="addRow1()"></i>
+                                <div class="row repeatBox" *ngIf="isShow1">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Client Code
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Account No.
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Client Business Code
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <select class="col-sm-12 col-md-12 col-xs-12">
+                                                    <option selected="" value="">Select</option>
+                                                    <option>option 1</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Physical
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                E-Mandate
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Debit Presentation
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Account Validation
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 heading">Primary Contact Details</div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Name
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Email
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Phone No.
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Address
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <textarea class="col-sm-12 col-md-12 col-xs-12"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 heading">E-Mandate Contact Details</div>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Email
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12"
+                                                    formControlName="UtilityCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-5 control-label no-padding"
+                                                for="form-field-1">
+                                                Phone No.
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
+                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                           
+
+                           
+                           
+                        </div>
+
+                    </div>
+                </div>
+               
+            </form>
+
+        </div>
+
+        <div class="btnDiv mt-4"> 
+            <button type="button" class="btn btn-success">Reset</button>
+            <button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-success">Confirm</button>                    
+            <button type="button" class="btn btn-success">Cancel</button>
+            <button type="button" class="btn btn-success">Proceed</button>
+            <button type="button" class="btn btn-success">Complete</button>
+             </div>
+
+
+
+
+
+    </div>

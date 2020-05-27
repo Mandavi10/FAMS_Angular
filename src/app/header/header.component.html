@@ -1,0 +1,83 @@
+<div class="zipNachTheme">
+    <div id="navbar" class="navbar navbar-default ace-save-state" style=" background: #fff !important;">
+        <div class="quickLeftDiv">
+            <div class="navbar-container navCon" >
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand mainLogo">FAMS</a>
+    
+                </div>
+            </div>
+            <div class="breadcrum" ><i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()"></i>   <span>Mannapuram Finance Limited</span><i class="fa fa-angle-right" aria-hidden="true"></i>   <span>Home</span>
+                <div class="corporateList" *ngIf="isShow1" >
+                    <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i aria-hidden="true" class="fa fa-search"></i>
+                    </div>
+                    <ul>
+                        <li>Corporate 1</li>
+                        <li>Corporate 2</li>
+                        <li>Corporate 3</li>
+                        <li>Corporate 4</li>
+                        <li>Corporate 5</li>
+                        <li>Corporate 6</li>
+                    </ul>
+
+                </div>
+            </div>
+           
+        </div>
+        <!-- <div class="quickrightDiv">
+            <div class="kotakLogo">
+                <img src="../../assets/images/kotak-bank-logo.png" />
+                </div>
+          
+    
+        </div> -->
+      
+        <div class="userDetails">
+            <div class="navbar-buttons navbar-header pull-right adminddl" role="navigation">
+                <ul class="nav ace-nav">
+                   
+                    <li class="light-blue dropdown-modal">
+                        <span class="guidelines" (click)="toggleDisplay()">
+                            <!-- <i class="logoutdiv ace-icon fa fa-file-text">
+                            </i><span>Guidelines</span> -->
+                            <i class="ace-icon fa fa-lightbulb-o" aria-hidden="true"></i>
+                        </span>
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle no-padding" style="display:inline-block">
+                            <i class="fa fa-user-circle-o usericon" aria-hidden="true"></i>
+
+                        </a>
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
+                            id="rbllogpassword">
+                           <li class="userName">User 1</li>
+                            <li class="logouthover" >
+                                <i class="logoutdiv ace-icon fa fa-key"
+                                   aria-hidden="true"></i><span class="logoutcolor">Change Password</span>
+                            </li>
+                            <li class="logouthover" >
+                                <i class="logoutdiv ace-icon fa fa-power-off">
+                                </i><span class="logoutcolor" (click)="logout()">Log Out</span>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div  *ngIf="isShow" id="guidelines" >
+                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                     <ul style="margin-left: 15px;">
+                        <li>
+                            For Physical Mandate Registration, upload file format should be JPEG, should not
+                            be more than 3MB and resolution must be equal to or greater than 300dpi.
+                        </li>
+                        <li>Mandate form has to be filled by black gel pen only.</li>
+                    </ul>
+                </div>
+            
+            </div>
+        </div>
+        <div id="sidenav" (click)="togglenav()">
+            <i class="fa fa-th" aria-hidden="true"></i></div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+.dvLinks ul li {
+    width: 99%;
+}
+
+.dvLinks {
+    width: 12%;
+    box-shadow: -1px -3px 4px 1px #b1b6bd;
+    height: 100%;
+    float: left;
+    max-height: 611px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+.nav > li > ul, .nav > li > ul > li > ul{ list-style:none;}
+.nav > li > ul > li > a, .nav > li > ul > li > ul > li > a  {    cursor: pointer;
+    padding: 5px 5px 5px 10px !important;
+    font-size: 12px;
+    font-weight: 400;
+    color: #003974 !important;
+    font-family: 'Segoe UI Regular', Roboto, Arial, "Droid Sans", sans-serif;
+    display: block;
+}
+.active{ border: 1px solid #8599ad; border-left: 3px solid #003974;  font-weight: 600; background-color: transparent !important;}
+  

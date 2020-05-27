@@ -1,0 +1,169 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+                        
+                          
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <!-- <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Download Template
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                            <label>
+                                Upload User
+                            </label>
+                        </li> -->
+                        <li (click)="onClickRegionmaster($event)">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+           
+
+        </div>
+       
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            
+            
+          <ag-grid-angular
+    style="width: 100%; height: 130px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+           
+            
+        </div>
+        
+       
+
+        <div class="modal" id="createuser" [style.display]="showModalRegionmaster ? 'block' : 'none'">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideRegionmaster()">&times;</button>
+                
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                            <h4 class="pageTitle">
+                                Region Master
+                                 </h4>
+            
+                        </div>
+                        <div class="rightmenu">
+                            <div class="toolbar pull-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                                <form class="" >
+                                                    <div class="row no-padding mt-2">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Region Code
+                                                                </label>
+                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Region Name
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    States
+                                                                </label>
+                                                                
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" style="position:absolute">
+                                                                    <div class="chipsContainer" (click)="showDropDown($event)">
+                                                                        <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                                        <ul>
+                                                                          <li *ngFor="let city of selectedCitiesArray">{{city.name}}<span class="deleteCity"  (click)="removeCity(city.value)">X</span></li>
+                                                                        </ul>
+                                                                      </div>
+                                                                      <div class="citiList" [hidden]="!isDropDownVisible">
+                                                                        <div class="filterdropdown">
+                                                                          <input placeholder="Search city" (input)="filterCities()" [(ngModel)]="searchValue">
+                                                                        </div>
+                                                                        <ul (click)="selectCity($event)">
+                                                                          <li *ngFor="let city of filteredCitiesArray" [ngClass]="{'selected':city.selected}">
+                                                                            <label>
+                                                                              <input type="checkbox" value="{{city.value}}" [checked]="city.selected">{{city.name}}
+                                                                            </label>
+                                                                          </li>
+                                                                        </ul>
+                                                                      </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                              
+                                                               
+                                                            </div>
+                                                        </div>
+                                   
+                                </form>
+                            </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+               <button type="button" class="btn btn-success">Edit</button>
+                <button type="button" class="btn btn-success">Save</button>
+                </div>
+                
+                </div>
+                </div>
+                </div>
+
+    </div>
+
+</div>
+
