@@ -42,6 +42,7 @@ rowData1 = [
     {  srNo: '1', securityCode:'SC01', securityName:'Security 1',  sector: 'Oil'},
     {  srNo: '2', securityCode:'SC02', securityName:'Security 2',  sector: 'Oil'},
     {  srNo: '3', securityCode:'SC03', securityName:'Security 3',  sector: 'Oil'},
+    
 ];
 
 
