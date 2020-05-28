@@ -8,8 +8,7 @@ import { AgGridAngular } from 'ag-grid-angular';
   declarations: [CityMasterComponent],
   imports: [
     CommonModule,
-    CityMasterRoutingModule,
-    AgGridModule.withComponents([])
+    CityMasterRoutingModule
   ]
 })
 export class CityMasterModule { }
