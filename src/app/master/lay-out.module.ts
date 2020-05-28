@@ -7,14 +7,13 @@ import { FooterComponent } from '../footer/footer.component';
 import { LayOutRoutingModule } from './lay-out-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import{NorightclickModule}from '../Services/norightclick.module';
-import { PMSEmployeesComponent } from './pmsemployees/pmsemployees.component';
 
 
 
 
 
 @NgModule({
-  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent, PMSEmployeesComponent],
+  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent],
   imports: [
     CommonModule,
     LayOutRoutingModule,

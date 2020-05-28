@@ -33,6 +33,9 @@ const routes: Routes = [
 {path: 'CustodianMaster', loadChildren: './custodian-master/custodian-master.module#CustodianMasterModule'},
 {path: 'SecuritiesMaster', loadChildren: './securities-master/securities-master.module#SecuritiesMasterModule'},
 {path: 'PMSEmployees', loadChildren: './pmsemployees/pmsemployees.module#PMSEmployeesModule'},
+{path: 'PMSCustomersList', loadChildren: './psmcustomers-list/psmcustomers-list.module#PSMCustomersListModule'},
+{path: 'AllCustomers', loadChildren: './all-customers/all-customers.module#AllCustomersModule'},
+{path: 'NotesMaster', loadChildren: './notes-master/notes-master.module#NotesMasterModule'},
 
 
 // tslint:disable-next-line:max-line-length
