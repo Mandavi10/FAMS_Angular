@@ -32,6 +32,7 @@ const routes: Routes = [
 {path: 'CountryMaster', loadChildren: './country-master/country-master.module#CountryMasterModule'},
 {path: 'CustodianMaster', loadChildren: './custodian-master/custodian-master.module#CustodianMasterModule'},
 {path: 'SecuritiesMaster', loadChildren: './securities-master/securities-master.module#SecuritiesMasterModule'},
+{path: 'PMSEmployees', loadChildren: './pmsemployees/pmsemployees.module#PMSEmployeesModule'},
 
 
 // tslint:disable-next-line:max-line-length
