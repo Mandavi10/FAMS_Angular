@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   randomcaptchavalue:string="";  randomcaptcha:string="";
   constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
     router.events.subscribe(event => {
-      if (router.url === '/Home') {
+      if (router.url === '/Dashboard') {
         this.showSideNav = false;
       }
     });
@@ -64,7 +64,7 @@ this.LoginForm.reset();
 
   onSubmit() {
     //commenton push
-    this.router.navigate(['/Home']);
+    this.router.navigate(['/Dashboard']);
     //uncomment on push
 //     if (this.LoginForm.valid) {
       
