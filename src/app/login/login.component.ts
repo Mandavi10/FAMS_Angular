@@ -20,9 +20,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     sessionStorage.clear();
     this.LoginForm = this.formBuilder.group({
-      APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
+      //APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
       UserName: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      Password: ['', [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{7,}')]],
+      Password: ['', [Validators.required,Validators.pattern('^[0-9]*$')]],
+      //Password: ['', [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{7,}')]],
       captcha: ['', [Validators.required]]
   });
   this.BindRandomCaptcha();
@@ -56,44 +57,45 @@ this.LoginForm.reset();
 
   onSubmit() {
     //commenton push
-    this.router.navigate(['/Home']);
+    //this.router.navigate(['/Home']);
     //uncomment on push
-//     if (this.LoginForm.valid) {
+    if (this.LoginForm.valid) {
       
-//     if(this.AllFields.captcha.value == this.randomcaptcha)
-//     {
+    if(this.AllFields.captcha.value == this.randomcaptcha)
+    {
 
-//       this.btnloginDisabled = true;
-//       let _apipostdata = new FormJsondata();
-//        _apipostdata.APPID=this.AllFields.APPID.value;_apipostdata.UserName=this.AllFields.UserName.value;
-//        _apipostdata.Password=this.Dbsecurity.Encrypt(this.AllFields.Password.value);
-//         this._loginService.GetLogin(JSON.stringify(_apipostdata)).subscribe(
-//             (data) => {
-//                 this.login = data;
-//                 if (data[0].Flag == "0") {
-//                   this.btnloginDisabled = false;
-//                     this.errormsg = data[0].FlagValue;
-//                     this.LoginForm.reset();
-//                     this.BindRandomCaptcha();
-//                 }
-//                 else {
-//                   this.btnloginDisabled = false;
-//                     sessionStorage.setItem('User', JSON.stringify(data[0]));
-//                     let item = JSON.parse(sessionStorage.getItem('User'));
-//                     //console.log(item.UserId);
-//                     this.router.navigate(['/Home']);
-//                 }
-//             });
-//           }
-//           else{
-// this.errormsg="Invalid Captcha!!";
-// this.LoginForm.reset();
-// this.BindRandomCaptcha();
-//           }
-//     }
-//     else {
-//         this.validateAllFormFields(this.LoginForm);
-//     }
+      this.btnloginDisabled = true;
+      let _apipostdata = new FormJsondata();
+       //_apipostdata.APPID=this.AllFields.APPID.value;
+       _apipostdata.UserName=this.AllFields.UserName.value;
+       _apipostdata.Password=this.Dbsecurity.Encrypt(this.AllFields.Password.value);
+        this._loginService.GetLogin(JSON.stringify(_apipostdata)).subscribe(
+            (data) => {
+                this.login = data;
+                if (data[0].Flag == "0") {
+                  this.btnloginDisabled = false;
+                    this.errormsg = data[0].FlagValue;
+                    this.LoginForm.reset();
+                    this.BindRandomCaptcha();
+                }
+                else {
+                  this.btnloginDisabled = false;
+                    sessionStorage.setItem('User', JSON.stringify(data[0]));
+                    let item = JSON.parse(sessionStorage.getItem('User'));
+                    //console.log(item.UserId);
+                    this.router.navigate(['/Home']);
+                }
+            });
+          }
+          else{
+this.errormsg="Invalid Captcha!!";
+this.LoginForm.reset();
+this.BindRandomCaptcha();
+          }
+    }
+    else {
+        this.validateAllFormFields(this.LoginForm);
+    }
 }
 
 validateAllFormFields(formGroup: FormGroup) {
