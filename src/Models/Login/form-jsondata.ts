@@ -1,5 +1,5 @@
 export class FormJsondata {
-    APPID: string;
+    //APPID: string;
     UserName: string;
     Password: string;
 }

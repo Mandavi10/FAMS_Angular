@@ -1,0 +1,339 @@
+
+  .chipsContainer{
+    padding: 5px 0px 5px 5px;
+    width: 84%;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+    border: solid 1px #eee;
+    cursor: pointer;
+  }
+  .dropDownIcon{
+    position: absolute;
+    width: 35px;
+    height: 26px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  .dropDownIcon.active{
+    transform: rotate(-180deg);
+  }
+  .dropDownIcon svg{
+    width: 15px;
+  }
+  .chipsContainer ul{
+    margin: 0 30px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    width: calc(100% - 30px);
+    overflow: auto;
+  }
+  .chipsContainer ul li{
+    padding: 1px 2px 1px 8px;
+    background: #003974;
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    margin-right: 5px;
+    white-space: nowrap
+  }
+  .chipsContainer ul li .deleteCity{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #43709e;
+    border-radius: 3px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .citiesListFilter{
+    position: relative;
+    padding: 10px;
+    background: #fff;
+    border: solid 1px #eee;
+  }
+  .citiList{
+    z-index: 999;
+    width: 82%;
+    position: absolute;
+    margin-top: 7px;
+    left: 0;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  .citiList ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .citiList ul li{
+    font-size: 13px;
+  }
+  .citiList ul li label{
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+    cursor: pointer;
+  }
+  .citiList ul li:hover{
+    background: #eee;
+  }
+  .citiList ul li.selected{
+    background: #003974;
+    color: #fff;
+  }
+  .citiList ul li input{
+    width: 15px;
+    height: 15px;
+    border: 0;
+    background: #333;
+    margin-right:3px;
+  }
+  .filter{
+    margin-bottom: 2px;
+  }
+  .filter input{
+    width: 100%;
+    padding: 5px 10px;
+    border: solid 1px #eee;
+    border-radius: 3px;
+  }
+  .form-group > label{
+    margin-bottom: 4px;
+    vertical-align: top;
+}
+#createuser {
+    background: rgba(0,0,0,0.3) !important;
+}
+#createuser .modal-dialog {
+  margin: 3px 0 0 64% !important;
+
+}
+.card-header {
+    padding: 0px;
+    
+}
+.tbluserlist{
+    border:1px solid #cdcdcd;
+}
+.withbankdrp{width:100%;}
+
+input[type=text]{
+
+  border-radius: 0px !important;
+}
+select {
+
+  border-radius: 0px;
+}
+.formbox{border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  background-color: #f8fbfb;}
+
+.userlistpop, .modal-header {
+    
+  background-color: #00172e;
+}
+.close{color: #ffffff;
+  opacity: 1;}
+.modal-title{color:#ffffff !important;}
+.tbluserlist tbody {
+    /*display: inline-block;*/
+    max-height: 68vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+    .tbluserlist tbody td {
+        white-space: nowrap;
+    }
+
+    .tbluserlist tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+.tbluserlist thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+
+.tbluserlist {
+    
+    display: inline-block;
+}
+
+.boxhead {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: -12px !important;
+    background-color: #f1f2f3;
+}
+.maincontainer {
+    position: relative;
+    float:left;
+    width: 88%;
+}
+.closeDiv{ color: #1b4d80;
+  position: absolute;
+  right: 10px;
+  font-size: 37px !important;
+  top: -12px;
+  font-weight: 600;
+  border: 0px;
+  background: transparent; z-index: 999;}
+.btnDiv{position: absolute;
+  bottom: 15px;
+  right: 15px;}
+
+.card-header {
+    background-color: #888888 !important;
+}
+
+.displayinlineblock {
+    display:inline-block;
+}
+#createuser .modal-dialog{ max-width: 500px;}
+.pageTitle{ margin-top: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #002851;}
+#createuser .modal-header .close {
+    position: absolute;
+    right: 9px;
+    top: -14px;
+    margin: 0px;
+}
+#createuser .modal-header {
+    background-color: #143b63;
+}
+#createuser .modal-content{height:658px}
+.chipsContainer{
+  padding: 1px 0px 1px 5px;
+    max-width: 95%;
+    overflow: hidden;
+    position: relative;
+    height: 26px;
+    width: 100%;
+    border: solid 1px #d5d5d5;
+    cursor: pointer;
+}
+.dropDownIcon{
+  position: absolute;
+  width: 21px;
+  /* height: 35px; */
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.dropDownIcon.active{
+  transform: rotate(-180deg);
+}
+.dropDownIcon svg{
+  width: 15px;
+}
+.chipsContainer ul{
+  margin: 0 15px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  width: calc(100% - 15px);
+  overflow: auto;
+}
+.chipsContainer ul li{
+  padding: 1px 0px 1px 5px;
+  background: #1b4d80;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  margin-right: 5px;
+  white-space: nowrap
+}
+.chipsContainer ul li .deleteCity{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #899fb5;
+  border-radius: 3px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.citiesListFilter{
+  position: relative;
+  padding: 10px;
+  background: #fff;
+  border: solid 1px #eee;
+}
+.citiList{
+  width: 100%;
+    position: relative;
+    /* top: 100%; */
+    right: 0px;
+    left: 0;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    z-index: 9999;
+}
+.citiList ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.citiList ul li{
+  font-size: 13px;
+}
+.citiList ul li label{
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.citiList ul li:hover{
+  background: #eee;
+}
+.citiList ul li.selected{
+  background: #2d5d8e;
+  color: #fff;
+}
+.citiList ul li input{
+  width: 15px;
+  height: 15px;
+  border: 0;
+  background: #333;
+}
+.filterdropdown{
+  margin-bottom: 10px;
+}
+.filterdropdown input{
+  padding: 5px 10px;
+  border: solid 1px #eee;
+  border-radius: 3px;
+  width:100%
+}
