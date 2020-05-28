@@ -7,21 +7,22 @@ import { AgGridAngular } from 'ag-grid-angular';
 })
 export class StateMasterComponent implements OnInit {
   columnDefs = [
-    {headerName: 'Sr. No.', field: 'srNo', width: 80 },
-    {headerName: 'Country', field: 'Country', width: 100},
-    {headerName: 'State Code', field: 'stateCode', width: 100},
-    {headerName: 'State Name', field: 'stateName', width: 100},
-    {headerName: 'Created By', field: 'CreatedBy', width: 100},
-    {headerName: 'Created On', field: 'CreatedOn', width: 100},
-    {headerName: 'Updated By', field: 'UpdatedBy', width: 100},
-    {headerName: 'Updated On', field: 'UpdatedOn', width: 100}
-   
+    {headerName: 'Sr. No.', field: 'srNo', width:'80'},
+    {headerName: 'Country  Code', field: 'countrycode', width:'150'},
+    {headerName: 'Country Name', field: 'countryname', width:'150'},
+    {headerName: 'Created By', field: 'createdby', width:'150'},
+    {headerName: 'Created On', field: 'createdon', width:'150'},
+    {headerName: 'Updated By', field: 'updatedby', width:'150'},
+    {headerName: 'Updated On', field: 'updatedon', width:'150'},
+    
 ];
 
 rowData = [
-    { srNo: '1', Country: 'Indian', stateCode: 'Code-001', stateName: 'State 1', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'},
-    { srNo: '2', Country: 'Indian', stateCode: 'Code-002', stateName: 'State 2', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'},
-    { srNo: '3', Country: 'Indian', stateCode: 'Code-003', stateName: 'State 3', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'}
+    {  srNo: '1', countrycode:'IND',  countryname: 'India', createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
+    {  srNo: '2', countrycode:'AUS',  countryname: 'Australia' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
+    {  srNo: '3', countrycode:'PAK',  countryname: 'Pakistan' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'}
+
+   
 ];
 
 
