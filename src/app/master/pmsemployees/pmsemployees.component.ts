@@ -60,7 +60,12 @@ rowData1 = [
 
 
   showModalPMSEmploye: boolean;
-
+  showCustomer = false;
+  showGrid = true;
+  viewCustomer(){
+    this.showCustomer = true;
+    this.showGrid = false;
+  }
   onClickPMSEmploye(event) {
     this.showModalPMSEmploye = true;
     
