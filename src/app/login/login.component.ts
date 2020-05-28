@@ -66,7 +66,7 @@ this.LoginForm.reset();
   onSubmit() {
     //commenton push
 
-    this.router.navigate(['/Dashboard']);
+    //this.router.navigate(['/Dashboard']);
 
     if (this.LoginForm.valid) {
       
@@ -88,11 +88,23 @@ this.LoginForm.reset();
                     this.BindRandomCaptcha();
                 }
                 else {
-                  this.btnloginDisabled = false;
+                  if(data[0].UserId == "3")
+                  {
+                    this.btnloginDisabled = false;
+                    sessionStorage.setItem('User', JSON.stringify(data[0]));
+                    let item = JSON.parse(sessionStorage.getItem('User'));
+                    //console.log(item.UserId);
+                    this.router.navigate(['/Dashboard']);
+                  }
+                  else
+                  {
+                    this.btnloginDisabled = false;
                     sessionStorage.setItem('User', JSON.stringify(data[0]));
                     let item = JSON.parse(sessionStorage.getItem('User'));
                     //console.log(item.UserId);
                     this.router.navigate(['/Home']);
+                  }
+                  
                 }
             });
           }
