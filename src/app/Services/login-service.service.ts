@@ -23,6 +23,7 @@ export class LoginServiceService {
     });
     }
     ForgotPassword(email): Observable<EmailSent> {
+      
       return this._http.get<EmailSent>(this.baseUrl + 'api/Login/SentEmail/' + email);
     }
 
