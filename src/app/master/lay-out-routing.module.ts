@@ -26,9 +26,10 @@ const routes: Routes = [
 {path: 'BulkEmandate', loadChildren: './bulk-emandate/bulk-emandate.module#BulkEMandateModule'},
 // tslint:disable-next-line:max-line-length
 {path: 'StateMaster', loadChildren: './state-master/state-master.module#StateMasterModule'},
-{path: 'RegionMaster', loadChildren: './region-master/region-master.module#RegionMasterModule'},
-{path: 'BranchMaster', loadChildren: './branch-master/branch-master.module#BranchMasterModule'},
-{path: 'ProductMaster', loadChildren: './product-master/product-master.module#ProductMasterModule'},
+{path: 'SectorMaster', loadChildren: './sector-master/sector-master.module#SectorMasterModule'},
+{path: 'DesignationMaster', loadChildren: './designation-master/designation-master.module#DesignationMasterModule'},
+{path: 'CityMaster', loadChildren: './city-master/city-master.module#CityMasterModule'},
+{path: 'CountryMaster', loadChildren: './country-master/country-master.module#CountryMasterModule'},
 // tslint:disable-next-line:max-line-length
 {path: 'DownloadMandate', loadChildren: './download-mandate/download-mandate.module#DownloadMandateModule'},
 
