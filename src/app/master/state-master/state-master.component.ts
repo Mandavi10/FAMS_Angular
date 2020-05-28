@@ -7,16 +7,21 @@ import { AgGridAngular } from 'ag-grid-angular';
 })
 export class StateMasterComponent implements OnInit {
   columnDefs = [
-    {headerName: 'Sr. No.', field: 'srNo', sort: 'asc' },
-    {headerName: 'State Code', field: 'stateCode', sort: 'asc' },
-    {headerName: 'State Name', field: 'stateName', sort: 'asc'}
+    {headerName: 'Sr. No.', field: 'srNo', width: 80 },
+    {headerName: 'Country', field: 'Country', width: 100},
+    {headerName: 'State Code', field: 'stateCode', width: 100},
+    {headerName: 'State Name', field: 'stateName', width: 100},
+    {headerName: 'Created By', field: 'CreatedBy', width: 100},
+    {headerName: 'Created On', field: 'CreatedOn', width: 100},
+    {headerName: 'Updated By', field: 'UpdatedBy', width: 100},
+    {headerName: 'Updated On', field: 'UpdatedOn', width: 100}
    
 ];
 
 rowData = [
-    { srNo: '1', stateCode: 'Code-001', stateName: 'State 1'},
-    { srNo: '2', stateCode: 'Code-002', stateName: 'State 2'},
-    { srNo: '3', stateCode: 'Code-003', stateName: 'State 3'}
+    { srNo: '1', Country: 'Indian', stateCode: 'Code-001', stateName: 'State 1', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'},
+    { srNo: '2', Country: 'Indian', stateCode: 'Code-002', stateName: 'State 2', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'},
+    { srNo: '3', Country: 'Indian', stateCode: 'Code-003', stateName: 'State 3', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'}
 ];
 
 
