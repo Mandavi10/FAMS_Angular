@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient,HttpHeaders,HttpParams,HttpResponse} from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 import {map,catchError} from 'rxjs/operators';  
-import { error } from 'util';
+//import { error } from 'util';
 import {Logindetails} from '../../Models/Login/logindetails'
 import{EmailSent} from '../../Models/Login/email-sent';
 import{Changepasswordres} from '../../Models/Login/changepasswordres';
@@ -15,10 +15,10 @@ export class LoginServiceService {
     constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
         this.baseUrl = myAppUrl;
     }
-    GetLogin(Jsondata): Observable<Logindetails> {
-      const body = Jsondata;
+    GetLogin(em:any): Observable<Logindetails> {
+      const body = em;
       const headers = new HttpHeaders().set('content-type', 'application/json');
-      return this._http.post<Logindetails>(this.baseUrl + 'api/Login/getlogindetails/', body, {
+      return this._http.post<Logindetails>(this.baseUrl + 'api/Login/getlogindetails', body, {
         headers
     });
     }
