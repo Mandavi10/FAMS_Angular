@@ -27,7 +27,16 @@ rowData = [
     { srNo: '3', Country: 'Indian', State: 'state-001', cityCode: 'Code-001', cityName: 'State 1', CreatedBy: 'Abhishek', CreatedOn: 'Demo', UpdatedBy: 'Demo', UpdatedOn:'Demo'}
 ];
 
+showModalstatemaster: boolean;
 
+onClickstatemaster(event) {
+  this.showModalstatemaster = true;
+  
+  }
+  
+  hidestatemaster() {
+  this.showModalstatemaster = false;
+  }
 
   constructor() { }
 
