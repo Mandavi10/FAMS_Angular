@@ -8,8 +8,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 export class StateMasterComponent implements OnInit {
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width:'80'},
-    {headerName: 'Country  Code', field: 'countrycode', width:'150'},
-    {headerName: 'Country Name', field: 'countryname', width:'150'},
+    {headerName: 'Country', field: 'country', width:'150'},
+    {headerName: 'State  Code', field: 'statecode', width:'150'},
+    {headerName: 'State Name', field: 'statename', width:'150'},
     {headerName: 'Created By', field: 'createdby', width:'150'},
     {headerName: 'Created On', field: 'createdon', width:'150'},
     {headerName: 'Updated By', field: 'updatedby', width:'150'},
@@ -18,9 +19,9 @@ export class StateMasterComponent implements OnInit {
 ];
 
 rowData = [
-    {  srNo: '1', countrycode:'IND',  countryname: 'India', createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
-    {  srNo: '2', countrycode:'AUS',  countryname: 'Australia' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
-    {  srNo: '3', countrycode:'PAK',  countryname: 'Pakistan' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'}
+    {  srNo: '1', country:'IND', statecode:'0001',  statename: '001', createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
+    {  srNo: '2', country:'IND', statecode:'0001',  statename: '001' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
+    {  srNo: '3', country:'IND', statecode:'0001',  statename: '001' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'}
 
    
 ];
