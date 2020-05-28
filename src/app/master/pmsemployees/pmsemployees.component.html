@@ -30,8 +30,8 @@
                             </label>
                         </li> -->
                        
-                        <li>
-                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                        <li (click)="viewCustomer()">
+                            <i title="View Customer Details"><img src="../assets/images/viewImg.png" style="width:11%; margin-top: -6px;" ></i>
                             <label>
                                 View Customer Details
                             </label>
@@ -53,7 +53,7 @@
 
         </div>
        
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -75,7 +75,7 @@
         
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:none">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showCustomer">
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -108,7 +108,7 @@
                     <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
                         <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                             <h4 class="pageTitle">
-                                PMS Employee
+                               Create PMS Employees
                                  </h4>
             
                         </div>
@@ -126,7 +126,7 @@
                                                                 <div class="col-md-12 col-sm-4 col-xs-12">
                                                                         <div class="form-group">
                                                                             <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                                Employee Code
+                                                                                Employee Code:
                                                                             </label>
                                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                                 <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
@@ -136,7 +136,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Employee Name :
+                                                                    Employee Name:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
@@ -146,7 +146,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Gender :
+                                                                    Gender:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12">
@@ -161,7 +161,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Qualification :
+                                                                    Qualification:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
@@ -171,7 +171,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    About :
+                                                                    About:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
@@ -184,7 +184,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Customer Code :
+                                                                    Customer Code:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
@@ -197,21 +197,17 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Customer Name :
+                                                                    Customer Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
                                                         </div> 
-
-
-
-
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Custodian :
+                                                                    Custodian:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12">
@@ -229,7 +225,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Inception Date :
+                                                                    Inception Date:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
@@ -241,7 +237,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Emp Linking Date :
+                                                                    Emp Linking Date:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
@@ -251,7 +247,7 @@
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Active :
+                                                                    Active:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <input type="checkbox"/>
