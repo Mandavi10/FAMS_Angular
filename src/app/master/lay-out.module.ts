@@ -7,15 +7,14 @@ import { FooterComponent } from '../footer/footer.component';
 import { LayOutRoutingModule } from './lay-out-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import{NorightclickModule}from '../Services/norightclick.module';
-import { CountryMasterComponent } from './country-master/country-master.component';
-import { SectorMasterComponent } from './sector-master/sector-master.component';
-import { CityMasterComponent } from './city-master/city-master.component';
-import { DesignationMasterComponent } from './designation-master/designation-master.component';
+import { PMSEmployeesComponent } from './pmsemployees/pmsemployees.component';
+
+
 
 
 
 @NgModule({
-  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent, CountryMasterComponent, SectorMasterComponent, CityMasterComponent, DesignationMasterComponent],
+  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent, PMSEmployeesComponent],
   imports: [
     CommonModule,
     LayOutRoutingModule,

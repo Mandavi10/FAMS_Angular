@@ -7,7 +7,6 @@ import { AgGridAngular } from 'ag-grid-angular';
 })
 export class StateMasterComponent implements OnInit {
   columnDefs = [
- 
     {headerName: 'Sr. No.', field: 'srNo', width:'80'},
     {headerName: 'Country  Code', field: 'countrycode', width:'150'},
     {headerName: 'Country Name', field: 'countryname', width:'150'},
@@ -22,6 +21,8 @@ rowData = [
     {  srNo: '1', countrycode:'IND',  countryname: 'India', createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
     {  srNo: '2', countrycode:'AUS',  countryname: 'Australia' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'},
     {  srNo: '3', countrycode:'PAK',  countryname: 'Pakistan' , createdby: 'Tarun', createdon:'28/05/2020',  updatedby: 'Tarun', updatedon:'28/05/2020'}
+
+   
 ];
 
 
