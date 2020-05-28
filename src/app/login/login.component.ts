@@ -13,10 +13,18 @@ import{FormJsondata} from '../../Models/Login/form-jsondata';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  showSideNav= true;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
   randomcaptchavalue:string="";  randomcaptcha:string="";
-  constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
+    router.events.subscribe(event => {
+      if (router.url === '/Home') {
+        this.showSideNav = false;
+      }
+    });
+
+   }
   ngOnInit() {
     sessionStorage.clear();
     this.LoginForm = this.formBuilder.group({
