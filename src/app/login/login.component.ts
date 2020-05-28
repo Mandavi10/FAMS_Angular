@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     sessionStorage.clear();
     this.LoginForm = this.formBuilder.group({
-      //APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
+      APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
       UserName: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       Password: ['', [Validators.required,Validators.pattern('^[0-9]*$')]],
       //Password: ['', [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{7,}')]],
