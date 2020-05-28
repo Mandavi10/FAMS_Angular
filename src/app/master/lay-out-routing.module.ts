@@ -30,6 +30,11 @@ const routes: Routes = [
 {path: 'DesignationMaster', loadChildren: './designation-master/designation-master.module#DesignationMasterModule'},
 {path: 'CityMaster', loadChildren: './city-master/city-master.module#CityMasterModule'},
 {path: 'CountryMaster', loadChildren: './country-master/country-master.module#CountryMasterModule'},
+{path: 'CustodianMaster', loadChildren: './custodian-master/custodian-master.module#CustodianMasterModule'},
+{path: 'SecuritiesMaster', loadChildren: './securities-master/securities-master.module#SecuritiesMasterModule'},
+{path: 'PMSEmployees', loadChildren: './pmsemployees/pmsemployees.module#PMSEmployeesModule'},
+
+
 // tslint:disable-next-line:max-line-length
 {path: 'DownloadMandate', loadChildren: './download-mandate/download-mandate.module#DownloadMandateModule'},
 
