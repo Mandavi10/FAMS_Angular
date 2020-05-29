@@ -1,1 +1,74 @@
-<p>holding-report works!</p>
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <li (click)="onClickstatemaster($event)">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+       
+
+
+        
+
+<div id="tbldiv" style="display:block">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"  >
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>    
+            <ag-grid-angular
+            #agGrid
+            style="width: 100%; height: 100%;"
+            id="myGrid"
+            class="ag-theme-alpine"
+            [modules]="modules"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [autoGroupColumnDef]="autoGroupColumnDef"
+            [enableRangeSelection]="true"
+            [animateRows]="true"
+            [rowData]="rowData"
+            (gridReady)="onGridReady($event)"
+          ></ag-grid-angular>
+               
+                
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="display:none">
+                    <div class="paginationDiv">
+                            <span class="previousBtn">Previous</span>
+                            <span class="paginationCount">50 out of 200</span>
+                            <span class="nextBtn">Next</span>
+                        </div>
+               </div>
+            </div>
+
+
+            
+
+
+
+    
+
+    </div>
+    </div>
+
+
+

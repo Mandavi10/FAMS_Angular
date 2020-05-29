@@ -1,6 +1,7 @@
-.detailsBox h6{background-color: #bbbbbb;
+.detailsBox h6{ background-color: #cbcfd2;
     padding: 7px;
-    color: #fff;}
+    color: #003974;
+    font-weight: bold;}
     
     .scrollciv{overflow-y: scroll;
         height: 520px;}
