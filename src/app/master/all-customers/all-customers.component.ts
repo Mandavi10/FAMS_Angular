@@ -19,7 +19,7 @@ export class AllCustomersComponent implements OnInit {
 ];
 
 rowData = [
-    {  srNo: '1', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'},
+    {  srNo: '1', CustomerAccount:'Demo demo demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'},
     {  srNo: '2', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'},
     {  srNo: '3', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'}
    
