@@ -1,1 +1,469 @@
-<p>all-customers works!</p>
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>    
+              <ag-grid-angular
+        style="width: 100%; height: 130px;"
+        class="ag-theme-alpine"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [enableFilter]="false"
+          [enableSorting]="true"
+          [showToolPanel]="true">
+    </ag-grid-angular>
+               
+                
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="paginationDiv">
+                            <span class="previousBtn">Previous</span>
+                            <span class="paginationCount">50 out of 200</span>
+                            <span class="nextBtn">Next</span>
+                        </div>
+               </div>
+
+<div id="form">
+               <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">List Code:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <label class="col-md-12 col-xs-12 col-sm-12">LC01</label>
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Custodian:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <label class="col-md-12 col-xs-12 col-sm-12">CUS1</label>
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Acc:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount" />
+                
+                    </div>
+                        </div>
+                    <%--<div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Country:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <select class="dropdown">
+                            <option>Select Country</option>
+                            <option>IND</option>
+                            <option>AUS</option>
+                            <option>PAK</option>
+                            <option>USA</option>
+                            <option>AFG</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    
+                    <div class="col-md-4 col-xs-12 col-sm-4 pr-0">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>--%>
+                    </div>
+                   
+                        <div class="form-group">
+                <div class="row">
+                    
+                    
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block pr-0">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Name:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <input type="text" class="col-md-12 col-xs-12 col-sm-12"  />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Portfolia:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <select class="dropdown">
+                            <option>Select Portfolia</option>
+                            <option>Portfolia 1</option>
+                            <option>Portfolia 2</option>
+                            <option>Portfolia 3</option>
+                            <option>Portfolia 4</option>
+                            <option>Portfolia 5</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">PMS Employee:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <select class="dropdown">
+                            <option>EMP01</option>
+                            <option>EMP02</option>
+                            <option>EMP03</option>
+                            <option>EMP04</option>
+                            <option>EMP05</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+                        <div class="form-group">
+                <div class="row">
+                   <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Inception Date:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" id="txtdate1" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Address Line:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">City:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <select class="dropdown">
+                            <option>SD</option>
+                            <option>GN</option>
+                            <option>SH</option>
+                            <option>JP</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+            
+                        <div class="form-group">
+                <div class="row">
+                     <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">State:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <select class="dropdown">
+                            <option>DL</option>
+                            <option>UP</option>
+                            <option>HP</option>
+                            <option>RJ</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                 
+                    <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">PAN:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                     <div class="col-md-4 col-xs-12 col-sm-4 ">
+               
+                        </div>
+                    </div>
+                    </div>
+            
+                    <div class="detailsBox">
+            
+                        <h6>Primary Contact Details</h6>
+                       <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <select class="dropdown">
+                            <option>Select Designation</option>
+                            <option>MD</option>
+                            <option>CEO</option>
+                            <option>CFO</option>
+                            <option>SE</option>
+                            <option>AE</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Email:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+            
+                        <div class="form-group">
+                <div class="row">
+                   
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Phone:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+            
+                         <div class="detailsBox">
+            
+                        <h6>Billing Contact Details</h6>
+                        <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                        <select class="dropdown">
+                            <option>Select Designation</option>
+                            <option>MD</option>
+                            <option>CEO</option>
+                            <option>CFO</option>
+                            <option>SE</option>
+                            <option>AE</option>
+                        </select>
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Email:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+            
+                        <div class="form-group">
+                <div class="row">
+                   
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Phone:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+            
+                         <div class="detailsBox">
+            
+                        <h6>User Details</h6>
+                        
+                             <div class="form-group">
+                <div class="row">
+                   
+                    <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Logo:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="file" />
+                
+                    </div>
+                        </div>
+                  <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Name:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Email:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail" />
+                
+                    </div>
+                        </div>
+                 
+                    </div>
+                    </div>
+                        <div class="form-group">
+                <div class="row">
+                   
+                  
+                  <div class="col-md-4 col-xs-12 col-sm-4 ">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile No.:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
+                
+                    </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with Acc No.:</label>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block p-0">
+                           <input type="checkbox" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with Mobile No.:</label>
+                    </div>
+                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block p-0">
+                           <input type="checkbox" />
+                
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+                             <div class="form-group">
+                <div class="row">
+                   
+                  
+              
+                        <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with User Email:</label>
+                    </div>
+                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block p-0">
+                           <input type="checkbox" />
+                
+                    </div>
+                        </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4">
+               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
+                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Active:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                          
+                            <select class="dropdown">
+                             <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-4 ">
+               
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                     <div class="pull-right mt-1">
+               
+                        <input type="button" class="btn btn-default mr-1"  value="Create" id="btnCreateCustomerPopUp"  />
+                        <input type="button" class="btn btn-default" value="Cancel" id="btnCancelCustomerPopUp" />
+                    </div>
+                </div>
+                  </div> 
+    
+
+    </div>
+
+
+
