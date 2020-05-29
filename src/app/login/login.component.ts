@@ -88,7 +88,7 @@ this.LoginForm.reset();
                     this.BindRandomCaptcha();
                 }
                 else {
-                  if(data[0].UserId == "3")
+                  if(this.Dbsecurity.Decrypt(data[0].UserId) == "3")
                   {
                     this.btnloginDisabled = false;
                     sessionStorage.setItem('User', JSON.stringify(data[0]));
@@ -140,5 +140,3 @@ validateAllFormFields(formGroup: FormGroup) {
       return text;
   }
   
-
-
