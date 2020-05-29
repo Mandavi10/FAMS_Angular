@@ -12040,7 +12040,8 @@ input.ace + .lbl.padding-0::before {
 .form-group input[type=number],
 .form-group select,
 .form-group textarea {
-    background: #FFF
+    background: #FFF;
+    padding-left: 3px;
 }
 
 .form-group.has-success input,
