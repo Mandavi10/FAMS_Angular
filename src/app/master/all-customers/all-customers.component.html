@@ -13,13 +13,23 @@
                                 Export to Excel
                             </label>
                         </li>
+                        <li (click)="onClickstatemaster($event)">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
                      </ul>
                 </div>
             </div>
         </div>
        
 
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+
+        
+
+<div id="tbldiv" style="display:none">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"  >
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -36,16 +46,26 @@
                
                 
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="display:none">
                     <div class="paginationDiv">
                             <span class="previousBtn">Previous</span>
                             <span class="paginationCount">50 out of 200</span>
                             <span class="nextBtn">Next</span>
                         </div>
                </div>
+            </div>
+
+
+            
+
+
 
 <div id="form">
-               <div class="form-group">
+               <div class="form-group scrollciv">
+                    <div class="detailsBox">
+            
+                            <h6>Customer Details</h6>
+                            </div>
                 <div class="row">
                     <div class="col-md-4 col-xs-12 col-sm-4">
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
@@ -74,32 +94,7 @@
                 
                     </div>
                         </div>
-                    <%--<div class="col-md-4 col-xs-12 col-sm-4">
-               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
-                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Country:</label>
-                    </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <select class="dropdown">
-                            <option>Select Country</option>
-                            <option>IND</option>
-                            <option>AUS</option>
-                            <option>PAK</option>
-                            <option>USA</option>
-                            <option>AFG</option>
-                        </select>
-                
-                    </div>
-                        </div>
                     
-                    <div class="col-md-4 col-xs-12 col-sm-4 pr-0">
-               <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
-                    <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
-                    </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
-                
-                    </div>
-                        </div>--%>
                     </div>
                    
                         <div class="form-group">
@@ -120,7 +115,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Portfolia:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <select class="dropdown">
+                        <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Portfolia</option>
                             <option>Portfolia 1</option>
                             <option>Portfolia 2</option>
@@ -137,7 +132,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">PMS Employee:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <select class="dropdown">
+                        <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>EMP01</option>
                             <option>EMP02</option>
                             <option>EMP03</option>
@@ -174,7 +169,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">City:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                           <select class="dropdown">
+                           <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>SD</option>
                             <option>GN</option>
                             <option>SH</option>
@@ -193,7 +188,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">State:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                           <select class="dropdown">
+                           <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>DL</option>
                             <option>UP</option>
                             <option>HP</option>
@@ -237,7 +232,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <select class="dropdown">
+                        <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Designation</option>
                             <option>MD</option>
                             <option>CEO</option>
@@ -304,7 +299,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <select class="dropdown">
+                        <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Designation</option>
                             <option>MD</option>
                             <option>CEO</option>
@@ -442,7 +437,7 @@
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
                           
-                            <select class="dropdown">
+                            <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                              <option>Active</option>
                             <option>Inactive</option>
                         </select>
@@ -454,15 +449,17 @@
                     </div>
                     </div>
                     </div>
-                     <div class="pull-right mt-1">
+                   
+                </div>
+                <div class="pull-right mt-1">
                
-                        <input type="button" class="btn btn-default mr-1"  value="Create" id="btnCreateCustomerPopUp"  />
-                        <input type="button" class="btn btn-default" value="Cancel" id="btnCancelCustomerPopUp" />
-                    </div>
+                    <input type="button" class="btn btn-success mr-1"  value="Create" id="btnCreateCustomerPopUp"  />
+                    <input type="button" class="btn btn-success mr-1" value="Cancel" id="btnCancelCustomerPopUp" />
                 </div>
                   </div> 
     
 
+    </div>
     </div>
 
 

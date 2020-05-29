@@ -140,5 +140,3 @@ validateAllFormFields(formGroup: FormGroup) {
       return text;
   }
   
-
-
