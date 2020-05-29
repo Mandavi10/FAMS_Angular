@@ -130,6 +130,10 @@ font-family:"Segoe UI"; }
     height: 30px !important;
     min-height: 30px !important;
 }
+.summaryGrid .ag-theme-alpine .ag-header {
+    height: 0px !important;
+    min-height: 0px !important;
+}
 .ag-theme-alpine .ag-header-row {
     height: 28px !important;
 }

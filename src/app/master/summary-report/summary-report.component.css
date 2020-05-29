@@ -1,0 +1,5 @@
+.btnCon li{ padding: 0px 5px !important;}
+.ag-theme-alpine .ag-header {
+    height: 0px !important;
+    min-height: 0px !important;
+}
