@@ -1,1 +1,228 @@
-<p>notes-master works!</p>
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+                        
+                          
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li> 
+                        <!-- <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Download Template
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                            <label>
+                                Upload User
+                            </label>
+                        </li> -->
+                        <li (click)="onClickNew()">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+           
+
+        </div>
+       
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            
+            
+           <ag-grid-angular
+    style="width: 100%; height: 130px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+           
+            
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
+        <div class=" col-sm-12 col-xs-12 col-md-12 formatbox pr-0 ">
+                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead pr-0">                            
+                            <div class="row pl-3">
+                        <div class="col-sm-12 col-xs-12 col-md-2 pl-0">
+                                  <label class="boldlabel">
+                                <b class="boldspan">B</b>
+                                </label>
+                                  <label class="underlabel">
+                                <span class="underspan">U</span>
+                                </label>
+                                  <label class="italiclabel">
+                                <i class="italicspan">I</i>
+                                </label>
+                                </div>
+                            <div class="col-md-2 col-sm-3 col-xs-12" style="margin-left: -7%;">
+                                <div class="form-group">
+                                  
+                                    <label class="col-sm-5 col-md-4 col-xs-5 control-label p-0">
+                                       Font Size:</label>
+                                    <div class="col-sm-7 col-md-8 col-xs-7 no-padding">
+                                        <input type="text" id="" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important">
+                                    </div>
+                                        
+                                </div>
+                            </div>
+        
+                            <div class="col-md-4 col-sm-3 col-xs-12 no-padding-right">
+                                <div class="form-group">
+                                  
+                                    <label class="col-sm-5 col-md-3 col-xs-5 control-label no-padding">
+                                       Subject:</label>
+                                    <div class="col-sm-7 col-md-9 col-xs-7 no-padding">
+                                        <input type="text" id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" />
+                                    </div>
+                                         
+                                </div>
+                            </div>
+                             
+                         </div>
+        
+                            <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
+                            <textarea rows="500" cols="226">
+        
+        </textarea>
+                            
+                            </div>
+                            <div class="rightmenu">
+
+                                <div class="btnbox pull-left mt-2">
+                                    <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button>
+                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-"/>
+                                </div>
+                                <div class="toolbar pull-right mt-2">
+                                    <button type="button" class="btn btn-sm btn-success mr-2" id="" > Save </button> 
+                                    <button type="button" class="btn btn-sm btn-success" id=""> Cancel</button> 
+                                 
+                                </div>
+                            </div>
+                              
+                                           
+        
+                        </div>
+                    </div>
+                </div>
+                             
+        
+                            
+        
+    
+        
+       
+<!-- 
+        <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hidestatemaster()">&times;</button>
+                
+              
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                            <h4 class="pageTitle">
+                                Create State
+                                 </h4>
+            
+                        </div>
+                        <div class="rightmenu">
+                            <div class="toolbar pull-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                                <form class="" >
+                                                    <div class="row no-padding mt-2">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                               Country:
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                    <select class="dropdown col-sm-7 col-md-12 col-xs-7">
+                                                                                            <option>Select Country</option>
+                                                                                            <option>IND</option>
+                                                                                            <option>AUS</option>
+                                                                                            <option>USA</option>
+                                                                                            <option>AFG</option>
+                                                                                        </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                  State Code :
+                                                                </label>
+                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                 State Name :
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                              
+                                                               
+                                                            </div>
+                                                        </div>
+                                   
+                                </form>
+                            </div>
+                </div>
+                
+              
+                <div class="modal-footer">
+
+               <button type="button" class="btn btn-success">Create</button>
+                <button type="button" class="btn btn-success">Cancel</button>
+
+                </div>
+                
+                </div>
+                </div>
+                </div> -->
+
+    </div>
+
+</div>
+

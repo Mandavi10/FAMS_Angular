@@ -19,12 +19,8 @@ const routes: Routes = [
         children: [
 {path: 'Home', loadChildren: './home/home.module#HomeModule'},
 {path: 'Dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
-{path: 'NachMandate', loadChildren: './nach-mandate/nach-mandate.module#NachMandateModule'},
-{path: 'UserCreation', loadChildren: './user-creation/user-creation.module#UserCreationModule'},
-{path: 'CorporateRoles', loadChildren: './corporate-roles/corporate-roles.module#CorporateRolesModule'},
-{path: 'CreateRequest', loadChildren: './create-request/create-request.module#CreateRequestModule'},
-{path: 'BulkEmandate', loadChildren: './bulk-emandate/bulk-emandate.module#BulkEMandateModule'},
-// tslint:disable-next-line:max-line-length
+
+
 {path: 'StateMaster', loadChildren: './state-master/state-master.module#StateMasterModule'},
 {path: 'SectorMaster', loadChildren: './sector-master/sector-master.module#SectorMasterModule'},
 {path: 'DesignationMaster', loadChildren: './designation-master/designation-master.module#DesignationMasterModule'},
@@ -36,10 +32,12 @@ const routes: Routes = [
 {path: 'PMSCustomersList', loadChildren: './psmcustomers-list/psmcustomers-list.module#PSMCustomersListModule'},
 {path: 'AllCustomers', loadChildren: './all-customers/all-customers.module#AllCustomersModule'},
 {path: 'NotesMaster', loadChildren: './notes-master/notes-master.module#NotesMasterModule'},
+{path: 'TBStructure', loadChildren: './tbstructure/tbstructure.module#TBstructureModule'},
+{path: 'PMSProvider', loadChildren: './pmsprovider/pmsprovider.module#PMSproviderModule'},
+{path: 'HoldingReport', loadChildren: './holding-report/holding-report.module#HoldingReportModule'},
+{path: 'SummaryReport', loadChildren: './summary-report/summary-report.module#SummaryReportModule'},
+{path: 'TBReport', loadChildren: './tbreport/tbreport.module#TBReportModule'},
 
-
-// tslint:disable-next-line:max-line-length
-{path: 'DownloadMandate', loadChildren: './download-mandate/download-mandate.module#DownloadMandateModule'},
 
         ]
   }
