@@ -18,7 +18,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class PMSEmployeesComponent implements OnInit {
   PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
-  //SaveallfieldsList : Saveallfields;
+  SaveallfieldsList : Saveallfields;
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -103,10 +103,10 @@ rowData1 = [
     if (this.PMSEmployeesForm.valid) {
       alert("valid");
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let SaveallfieldsList = new Saveallfields();
-    SaveallfieldsList.UserId = "3";
-    SaveallfieldsList = this.PMSEmployeesForm.value;
-    this.PMSEService.SaveData(JSON.stringify(SaveallfieldsList)).subscribe(
+    //let SaveallfieldsList = new Saveallfields();
+    this.SaveallfieldsList.UserId = "3";
+    this.SaveallfieldsList = this.PMSEmployeesForm.value;
+    this.PMSEService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
       (data) => {
         this.CommonfieldsList = data.Table; 
           
