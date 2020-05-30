@@ -37,7 +37,9 @@ const routes: Routes = [
 {path: 'HoldingReport', loadChildren: './holding-report/holding-report.module#HoldingReportModule'},
 {path: 'SummaryReport', loadChildren: './summary-report/summary-report.module#SummaryReportModule'},
 {path: 'TBReport', loadChildren: './tbreport/tbreport.module#TBReportModule'},
-
+{path: 'UserSetup', loadChildren: './user-setup/user-setup.module#UserSetupModule'},
+{path: 'TransactionStatement', loadChildren: './transaction-statement/transaction-statement.module#TransactionStatementModule'},
+{path: 'CashEquivalent', loadChildren: './cash-equivalent/cash-equivalent.module#CashEquivalentModule'},
 
         ]
   }
