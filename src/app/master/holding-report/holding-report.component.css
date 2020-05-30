@@ -1,0 +1,15 @@
+.holdingreportGrid tbody {
+    max-height: 52vh !important;
+}
+
+.holdingreportGrid {
+    overflow: hidden;
+    overflow-x: auto;
+
+}
+
+    .holdingreportGrid table {
+        width: 100%
+    }
+table tbody tr td table tbody {
+overflow:hidden}

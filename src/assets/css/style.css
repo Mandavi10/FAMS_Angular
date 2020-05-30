@@ -1,4 +1,11 @@
-﻿
+﻿.price {
+    text-align:right !important}
+    .profit {
+        color: #249e33
+    }
+    .loss {
+        color: #f31313
+    }
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
@@ -172,16 +179,18 @@ table {
 
     table thead tr th {
         color: #003974 !important;
+        height: 30px;
+        font-size: 13px !important;
+        font-weight: 600;
     }
-
-tr:nth-child(even) {
-    background-color: #ffffff;
-}
+    tfoot{ font-weight: bold;
+        /* background: #f8f8f8; */
+        border-top: 1px solid #ccc;}
 
 
 
 table thead{
-    background-color: #ffffff !important;
+    background-color: #f8f8f8 !important;
     border-bottom: 1px solid #cdcdcd;
 }
     table thead th, table thead td {
@@ -190,6 +199,9 @@ table thead{
     text-align: left;
     padding: 4px;
 }
+.price .ag-header-cell-text {
+    flex: 1; text-align:right;
+    }
 td, th {
     padding: 4px;
 }
