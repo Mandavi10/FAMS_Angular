@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { UserSetupComponent } from './user-setup.component';
 import { UserSetupRoutingModule } from './user-setup-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [UserSetupComponent],
   imports: [
     CommonModule,
     UserSetupRoutingModule
