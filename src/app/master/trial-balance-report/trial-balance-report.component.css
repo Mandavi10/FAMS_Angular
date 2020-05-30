@@ -1,7 +1,8 @@
-#trialBalanceGrid .bankmasterTable thead{ display: inline-block;}
+#trialBalanceGrid .bankmasterTable thead{ display: inline-block; width:100%}
 #trialBalanceGrid .bankmasterTable tbody {
     max-height: 54vh !important;
     display: inline-block;
+    width:100%
 }
 #trialBalanceGrid thead th {text-align:center
 }
