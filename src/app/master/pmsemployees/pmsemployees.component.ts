@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { PmsemployeesService } from '../../Services/PMSEmployees/pmsemployees.service';
+import { Pmsemployees } from '../../../Models/PMSEmployees/pmsemployees';
+import { Saveallfields } from '../../../Models/PMSEmployees/Saveallfields';
+import { Allcustodianfields } from '../../../Models/PMSEmployees/Allcustodianfields';
+import { Commonfields } from '../../../Models/commonfields';
+// import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -8,6 +17,8 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./pmsemployees.component.css']
 })
 export class PMSEmployeesComponent implements OnInit {
+  PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
+  //SaveallfieldsList : Saveallfields;
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -52,13 +63,6 @@ rowData1 = [
   
 ];
 
-
-
-
-
-
-
-
   showModalPMSEmploye: boolean;
   showCustomer = false;
   showGrid = true;
@@ -75,9 +79,76 @@ rowData1 = [
     this.showModalPMSEmploye = false;
     }
 
-  constructor() { }
+  constructor(private router: Router, private formBuilder: FormBuilder,private PMSEService : PmsemployeesService) { }
 
   ngOnInit(): void {
+    this.PMSEmployeesForm = this.formBuilder.group({  
+      EmployeeCode : [''], EmployeeName :[''], Gender : [''], Qualification : [''], About : [''],
+      CustomerCode : [''], CustomerName : [''] , Custodian : [''], InceptionDate : [''], EmpLinkingDate : [''],
+      Active : ['']
+  });
+    this.BindGrid();
+    this.BindCustodian();
   }
 
+  BindGrid(){
+    this.PMSEService.BindGrid().subscribe(
+      (data) => {
+        this.PmsemployeesList = data.Table;
+          
+        });
+  }
+
+  SaveDataFun(){
+    if (this.PMSEmployeesForm.valid) {
+      alert("valid");
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let SaveallfieldsList = new Saveallfields();
+    SaveallfieldsList.UserId = "3";
+    SaveallfieldsList = this.PMSEmployeesForm.value;
+    this.PMSEService.SaveData(JSON.stringify(SaveallfieldsList)).subscribe(
+      (data) => {
+        this.CommonfieldsList = data.Table;
+          
+        });
+        this.showModalPMSEmploye = false;
+      }
+      else {
+        this.validateAllFormFields(this.PMSEmployeesForm);
+    }
+    this.BindGrid();
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+  
+        if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
+  }
+  get AllFields() { return this.PMSEmployeesForm.controls; }
+  displayFieldCss(field: string) {
+    return {
+        'validate': this.isFieldValid(field),
+    };
 }
+isFieldValid(field: string) {
+    return !this.PMSEmployeesForm.get(field).valid && this.PMSEmployeesForm.get(field).touched;
+}
+
+  BindCustodian(){
+    this.PMSEService.BindCustodian().subscribe(
+      (data) => {
+        this.AllcustodianfieldsList = data.Table;
+          
+        });
+  }
+  
+  }
+
+
+

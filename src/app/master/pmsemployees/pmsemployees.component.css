@@ -337,3 +337,8 @@ select {
   border-radius: 3px;
   width:100%
 }
+.validate {
+  border: 1px solid #f57373 !important;
+  box-shadow: 2px 2px 15px 1px #f0a4a4 !important;
+  -webkit-box-shadow: 2px 2px 15px 1px #f0a4a4 !important;
+}

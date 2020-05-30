@@ -63,7 +63,7 @@
            <ag-grid-angular
     style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="rowData"
+    [rowData]="PmsemployeesList"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -85,7 +85,7 @@
            <ag-grid-angular
     style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="rowData1"
+    [rowData]="PmsemployeesList"
     [columnDefs]="columnDefs1"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -120,7 +120,8 @@
                     </div>
                     
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                                <form class="" >
+                              <!-- <form [formGroup]="PMSEmployeesForm" autocomplete="off">--> 
+                                    <form [formGroup]="PMSEmployeesForm" autocomplete="off" appNorightclick>
                                                     <div class="row no-padding mt-2">
                                                         <div class="col-md-12 col-sm-4 col-xs-12 p-0">
                                                                 <div class="col-md-12 col-sm-4 col-xs-12">
@@ -129,7 +130,7 @@
                                                                                 Employee Code:
                                                                             </label>
                                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                                <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeCode"/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -139,7 +140,7 @@
                                                                     Employee Name:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeName" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -149,11 +150,11 @@
                                                                     Gender:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12">
-                                                                        <option>Select Gender</option>
-                                                                       <option>Male</option>
-                                                                       <option>Female</option>
-                                                                       <option>Other</option>
+                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Gender">
+                                                                        <option value="">Select Gender</option>
+                                                                       <option value="M">Male</option>
+                                                                       <option value="F">Female</option>
+                                                                       <option value="O">Other</option>
                                                                    </select>
                                                             </div>
                                                         </div>
@@ -164,7 +165,7 @@
                                                                     Qualification:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Qualification"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -174,7 +175,7 @@
                                                                     About:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="About"/>
                                                                 </div>
                                                             </div>
                                                         </div>  
@@ -187,7 +188,7 @@
                                                                     Customer Code:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerCode"/>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -200,7 +201,7 @@
                                                                     Customer Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName" />
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -210,12 +211,9 @@
                                                                     Custodian:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12">
-                                                                        <option>CUS1</option>
-                                                                        <option>CUS2</option>
-                                                                        <option>CUS3</option>
-                                                                        <option>CUS4</option>
-                                                                        <option>CUS5</option>
+                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Custodian">
+                                                                        <option value="" selected>select Custodian</option>
+                                                                        <option *ngFor="let Data of AllcustodianfieldsList" value={{Data.CustodianCode}} text={{Data.CustodianName}}>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -228,7 +226,7 @@
                                                                     Inception Date:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="date"  class="col-sm-12 col-md-12 col-xs-12" formControlName="InceptionDate" />
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -240,7 +238,7 @@
                                                                     Emp Linking Date:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="date"  class="col-sm-12 col-md-12 col-xs-12" formControlName="EmpLinkingDate"/>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -250,7 +248,7 @@
                                                                     Active:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="checkbox"/>
+                                                                    <input type="checkbox" formControlName="Active"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -265,7 +263,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
 
-               <button type="button" class="btn btn-success">Save</button>
+               <button type="button" class="btn btn-success" (click)="SaveDataFun()">Save</button>
               
 
                 </div>
