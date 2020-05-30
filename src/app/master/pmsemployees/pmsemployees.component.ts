@@ -108,7 +108,7 @@ rowData1 = [
     SaveallfieldsList = this.PMSEmployeesForm.value;
     this.PMSEService.SaveData(JSON.stringify(SaveallfieldsList)).subscribe(
       (data) => {
-        this.CommonfieldsList = data.Table;
+        this.CommonfieldsList = data.Table; 
           
         });
         this.showModalPMSEmploye = false;
