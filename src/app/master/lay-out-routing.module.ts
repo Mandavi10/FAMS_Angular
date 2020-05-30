@@ -40,6 +40,11 @@ const routes: Routes = [
 {path: 'UserSetup', loadChildren: './user-setup/user-setup.module#UserSetupModule'},
 {path: 'TransactionStatement', loadChildren: './transaction-statement/transaction-statement.module#TransactionStatementModule'},
 {path: 'CashEquivalent', loadChildren: './cash-equivalent/cash-equivalent.module#CashEquivalentModule'},
+{path: 'Customer', loadChildren: './customer/customer.module#CustomerModule'},
+{path: 'Entity', loadChildren: './entity/entity.module#EntityModule'},
+{path: 'TrialBalanceReport', loadChildren: './trial-balance-report/trial-balance-report.module#TrialBalanceReportModule'},
+{path: 'SecuritiesCustomer', loadChildren: './securities-customer/securities-customer.module#SecuritiesCustomerModule'},
+
 
         ]
   }
