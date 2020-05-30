@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 
 @Component({
   selector: 'app-summary-report',
@@ -7,6 +11,7 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./summary-report.component.css']
 })
 export class SummaryReportComponent implements OnInit {
+  CustNameDive : boolean = true;
   columnDefs = [
     {headerName: '', field: 'heading', width:'300'},
     {headerName: '', field: 'value', width:'150'}
@@ -29,11 +34,15 @@ rowData = [
     {heading: 'Closing Outstanding Units as of 05/29/2020', value: ''},
 ];
 
-
-
-  constructor() { }
+  constructor(private SRService : SummaryreportService) { }
 
   ngOnInit(): void {
   }
-
+  BindGrid(){
+    this.SRService.BindGrid().subscribe(
+      (data) => {
+        //this.PmsemployeesList = data.Table;
+          
+        });
+  }
 }

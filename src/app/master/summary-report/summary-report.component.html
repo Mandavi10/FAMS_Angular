@@ -28,17 +28,18 @@
        
         <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12" *ngIf="CustNameDive">
             <div class="form-group">
                 <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                    Customer Name :
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                     <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                        <option>Select Customer</option>
-                        <option>Customer 1</option>
-                        <option>Customer 2</option>
-                        <option>Customer 3</option>
+
+                        <option>Select</option>
+                        <option value="Cust_000001">Customer 1</option>
+                        <option value="Cust_000002">Customer 2</option>
+
                     </select>
                   
                 </div>
