@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SecuritiesMasterComponent } from './securities-master.component';
 import { SecuritiesMasterRoutingModule } from './securities-master-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SecuritiesMasterComponent],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,ReactiveFormsModule,
     SecuritiesMasterRoutingModule,
     AgGridModule.withComponents([])
   ]
