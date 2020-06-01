@@ -156,7 +156,7 @@ font-family:"Segoe UI"; }
         font-weight: 600 !important;
         color: #003974 !important;}
 .ag-center-cols-container{ width:100% !important}
-
+.ag-theme-alpine .ag-cell-inline-editing{height:28px !important; padding: 0px !important}
 
 
 .guidetext{color: #e81c26;
@@ -7270,6 +7270,7 @@ button.btn:active {
         border: 3px solid transparent;
         white-space: nowrap;
         padding: 1px 5px 1px 5px;
+        color:#fff !important;
     }
 
     .btn-success.no-border:active,
