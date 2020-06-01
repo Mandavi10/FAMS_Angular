@@ -66,6 +66,7 @@ export class HoldingReportComponent implements OnInit {
             currentContext.gridAllFields2 = data.Table2;
             currentContext.gridAllFields3 = data.Table3;
             currentContext.gridAllFields4 = data.Table4;
+            
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
