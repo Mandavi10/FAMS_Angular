@@ -103,10 +103,14 @@ rowData1 = [
     if (this.PMSEmployeesForm.valid) {
       alert("valid");
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-   // let SaveallfieldsList = new Saveallfields();
-   // this.SaveallfieldsList.UserId = "3";
-   this.SaveallfieldsList = this.PMSEmployeesForm.value;
-   this.PMSEService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
+
+    //let SaveallfieldsList = new Saveallfields();
+
+    //this.SaveallfieldsList.UserId = "3";
+
+    this.SaveallfieldsList = this.PMSEmployeesForm.value;
+    this.PMSEService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
+
       (data) => {
         this.CommonfieldsList = data.Table; 
           

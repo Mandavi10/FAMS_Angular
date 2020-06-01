@@ -1,74 +1,414 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
+                       
                         <li>
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
-                                Export to Excel
+                                Export to CSV
                             </label>
                         </li>
-                        <li (click)="onClickstatemaster($event)">
-                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
-                            <label>
-                                New
-                            </label>
-                        </li>
+                         
+                         <li>
+                                 <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                                 <label>
+                                    Export to PDF
+                                 </label>
+                             </li>
                      </ul>
                 </div>
             </div>
         </div>
        
-
-
-        
-
-<div id="tbldiv" style="display:block">
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"  >
-            <div class="filter">
-                <input type="text" placeholder="Search" />
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </div>    
-            <ag-grid-angular
-            #agGrid
-            style="width: 100%; height: 100%;"
-            id="myGrid"
-            class="ag-theme-alpine"
-            [modules]="modules"
-            [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [autoGroupColumnDef]="autoGroupColumnDef"
-            [enableRangeSelection]="true"
-            [animateRows]="true"
-            [rowData]="rowData"
-            (gridReady)="onGridReady($event)"
-          ></ag-grid-angular>
-               
-                
+        <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                   Customer Name :
+                </label>
+                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                        <option>Select Customer</option>
+                        <option>Customer 1</option>
+                        <option>Customer 2</option>
+                        <option>Customer 3</option>
+                    </select>
+                  
+                </div>
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12" style="display:none">
-                    <div class="paginationDiv">
-                            <span class="previousBtn">Previous</span>
-                            <span class="paginationCount">50 out of 200</span>
-                            <span class="nextBtn">Next</span>
+        </div>
+     
+            <div class="col-md-3 col-sm-4 col-xs-12 p-0">
+                    <div class="form-group">
+                        <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                         Select Date :
+                        </label>
+                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <input type="date" class="col-sm-9 col-md-12 col-xs-9">
                         </div>
-               </div>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
+                    <button type="button" class="btn btn-success">Search</button>
+                    </div>
+    </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="tbldiv" style="display:block">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 
             </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content btnCon">
+                       
+                        <li>
+                           
+                            <label>
+                               Previous Day
+                            </label>
+                        </li>
+                        <li>
+                         
+                            <label>
+                               Last One Week
+                            </label>
+                        </li>
+                         
+                         <li>
+                                
+                                 <label>
+                                   Last One Month
+                                 </label>
+                             </li>
+                     </ul>
+                </div>
+            </div>
+        </div>   
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="holdingreportGrid">
+            <table class="bankmasterTable">
+                <thead>
 
+                    <tr>
 
+                        <th style="width: 25%">Security</th>
+                        <th style="width: 5%">Quantity</th>
+                        <th style="width: 10%" class="price">Unit Cost</th>
+                        <th style="width: 10%" class="price">Cost</th>
+                        <th style="width: 10%" class="price">Price</th>
+                        <th style="width: 10%" class="price">Market Value </th>
+                        <th style="width: 10%">Gain / Loss (+/-)</th>
+                        <th style="width: 10%">% G/L</th>
+                        <th style="width: 10%">% Assets</th>
+                    </tr>
+                </thead>
+                <tbody class="scrollbar">
+                    <tr>
+                        <td colspan="9"><strong>Equity
+                        </strong>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">AUROBINDO PHARMA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">AIA ENGINEERING LIMITED
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="loss">-2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="loss">-78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="loss">-2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="loss">-78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="width: 25%">Total</td>
+                                    <td style="width: 5%"></td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">28,968,151.508</td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">47,267,111.90</td>
+                                    <td style="width: 10%" class="profit">18,298,960</td>
+                                    <td style="width: 10%" class="profit">63.17%</td>
+                                    <td style="width: 10%">94.39%</td>
+
+                                </tr>
+
+                            </tfoot>
+            </table>
+            </td>
+                       
+                    </tr>
+               
+                    <tr>
+                        <td colspan="9"><strong>Cash and Equivalent
+                        </strong>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 25%">Cash
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 25%">Birla SL Cash Plus -G
+                                        </td>
+                                        <td style="width: 5%">1,804
+                                        </td>
+                                        <td  style="width: 10%" class="price">1,484.93      
+                                        </td>
+                                        <td style="width: 10%" class="price">2,678,809.966
+                                        </td>
+                                        <td style="width: 10%" class="price">2,657.15
+                                        </td>
+                                        <td style="width: 10%" class="price">4,793,498.60
+                                        </td>
+                                        <td style="width: 10%" class="profit">2,114,689
+                                        </td>
+                                        <td style="width: 10%" class="profit">78.94%
+                                        </td>
+                                        <td style="width: 10%">9.57%
+                                        </td>
+                                    </tr>
+                               
+                                </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="width: 25%">Total</td>
+                                    <td style="width: 5%"></td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">28,968,151.508</td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">47,267,111.90</td>
+                                    <td style="width: 10%" class="profit">18,298,960</td>
+                                    <td style="width: 10%" class="profit">63.17%</td>
+                                    <td style="width: 10%">94.39%</td>
+
+                                </tr>
+
+                            </tfoot>
+            </table>
+            </td>
+                       
+                    </tr>
+                    
+                </tbody>
+                 <tfoot>
+                     <tr>
+                         <td style="width: 410px">Total</td>
+                         <td style="width: 100px"></td>
+                         <td style="width: 150px" class="price"></td>
+                         <td style="width: 150px" class="price">28,968,151.508</td>
+                         <td style="width: 180px" class="price"></td>
+                         <td style="width: 150px" class="price">47,267,111.90</td>
+                         <td style="width: 100px" class="profit">18,298,960</td>
+                         <td style="width: 100px" class="profit">63.17%</td>
+                         <td style="width: 100px">94.39%</td>
+
+                     </tr>
+
+                 </tfoot>
+            </table>
+
+        </div>
+</div>
             
-
-
-
-    
+        </div>
+      
 
     </div>
-    </div>
 
-
+</div>
 
