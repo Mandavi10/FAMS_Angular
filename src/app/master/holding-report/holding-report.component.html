@@ -1,5 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
+        <form [formGroup]="HoldingReportFormGrp" autocomplete="off" class="form" appNorightclick>
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
@@ -27,19 +28,26 @@
         </div>
        
         <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+       <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="form-group">
                 <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                    Customer Name :
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                    <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
                         <option>Select Customer</option>
                         <option>Customer 1</option>
                         <option>Customer 2</option>
                         <option>Customer 3</option>
-                    </select>
+                    </select> -->
+
+                    <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                        <option value="0" selected>Select Customer</option>
+                        <option *ngFor="let data of customer" value={{data.UserId}}  >
+                            {{data.UserName}}
+                        </option>
+                     </select>
                   
                 </div>
             </div>
@@ -51,12 +59,15 @@
                          Select Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-9 col-md-12 col-xs-9">
+                            <!-- <input type="date" class="col-sm-9 col-md-12 col-xs-9"> -->
+                            <input type="date" name="Date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Date"
+                            />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                    <button type="button" class="btn btn-success">Search</button>
+                    <!-- <button type="button" class="btn btn-success">Search</button> -->
+                    <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
                     </div>
     </div>
     </div>
@@ -116,7 +127,20 @@
                         </strong>
                             <table>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let data of gridAllFields ; index as i" >
+                                        <!--<tr *ngFor="let data of holiday.dataList ; index as i" >-->
+                                            <!-- <td style="display: none;">{{data.Security }}</td> -->
+                                            <td style="width: 25%">{{data.Security }}</td>
+                                            <td style="width: 5%">{{data.Quantity }}</td>
+                                            <td style="width: 10%" class="price">{{data.UnitCost }}</td>
+                                            <td style="width: 10%" class="price">{{data.Cost }}</td>
+                                            <td style="width: 10%" class="price">{{data.Price }}</td>
+                                            <td style="width: 10%" class="price">{{data.MarketValue }}</td>
+                                            <td style="width: 10%">{{data.GainLoss }}</td>
+                                            <td style="width: 10%">{{data.GainLossPer }}</td>
+                                            <td style="width: 10%">{{data.Assets }}</td>
+                                        </tr>
+                                    <!-- <tr>
                                         <td style="width: 25%">SOLAR INDUSTRIES INDIA LTD
                                         </td>
                                         <td style="width: 5%">1,804
@@ -295,10 +319,10 @@
                                         </td>
                                         <td style="width: 10%">9.57%
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             <tfoot>
-                                <tr>
+                               <!--  <tr>
                                     <td style="width: 25%">Total</td>
                                     <td style="width: 5%"></td>
                                     <td style="width: 10%" class="price"></td>
@@ -307,8 +331,18 @@
                                     <td style="width: 10%" class="price">47,267,111.90</td>
                                     <td style="width: 10%" class="profit">18,298,960</td>
                                     <td style="width: 10%" class="profit">63.17%</td>
-                                    <td style="width: 10%">94.39%</td>
-
+                                    <td style="width: 10%">94.39%</td> 
+                                </tr> -->
+                                <tr *ngFor="let data of gridAllFields1 ; index as i" >
+                                        <td style="width: 25%">Total</td>
+                                        <td style="width: 5%"></td>
+                                        <td style="width: 10%" class="price"></td>
+                                        <td style="width: 10%" class="price">{{data.TotalCost }}</td>
+                                        <td style="width: 10%" class="price"></td>
+                                        <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
+                                        <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
+                                        <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
+                                        <td style="width: 10%" >{{data.TotalAssets }}</td>
                                 </tr>
 
                             </tfoot>
@@ -322,7 +356,20 @@
                         </strong>
                             <table>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let data of gridAllFields2 ; index as i" >
+                                        <!--<tr *ngFor="let data of holiday.dataList ; index as i" >-->
+                                            <!-- <td style="display: none;">{{data.Security }}</td> -->
+                                            <td style="width: 25%">{{data.Security }}</td>
+                                            <td style="width: 5%">{{data.Quantity }}</td>
+                                            <td style="width: 10%" class="price">{{data.UnitCost }}</td>
+                                            <td style="width: 10%" class="price">{{data.Cost }}</td>
+                                            <td style="width: 10%" class="price">{{data.Price }}</td>
+                                            <td style="width: 10%" class="price">{{data.MarketValue }}</td>
+                                            <td style="width: 10%">{{data.GainLoss }}</td>
+                                            <td style="width: 10%">{{data.GainLossPer }}</td>
+                                            <td style="width: 10%">{{data.Assets }}</td>
+                                        </tr>
+                                    <!-- <tr>
                                         <td style="width: 25%">Cash
                                         </td>
                                         <td style="width: 5%">1,804
@@ -361,11 +408,11 @@
                                         </td>
                                         <td style="width: 10%">9.57%
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                
                                 </tbody>
                             <tfoot>
-                                <tr>
+                                <!-- <tr>
                                     <td style="width: 25%">Total</td>
                                     <td style="width: 5%"></td>
                                     <td style="width: 10%" class="price"></td>
@@ -375,8 +422,19 @@
                                     <td style="width: 10%" class="profit">18,298,960</td>
                                     <td style="width: 10%" class="profit">63.17%</td>
                                     <td style="width: 10%">94.39%</td>
-
-                                </tr>
+                                </tr> -->
+                                <tr *ngFor="let data of gridAllFields3 ; index as i" >
+                                    <td style="width: 25%">Total</td>
+                                    <td style="width: 5%"></td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">{{data.TotalCost }}</td>
+                                    <td style="width: 10%" class="price"></td>
+                                    <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
+                                    <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
+                                    <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
+                                    <td style="width: 10%" >{{data.TotalAssets }}</td>
+                            </tr>
+                                
 
                             </tfoot>
             </table>
@@ -386,7 +444,7 @@
                     
                 </tbody>
                  <tfoot>
-                     <tr>
+                     <!-- <tr>
                          <td style="width: 410px">Total</td>
                          <td style="width: 100px"></td>
                          <td style="width: 150px" class="price"></td>
@@ -396,8 +454,18 @@
                          <td style="width: 100px" class="profit">18,298,960</td>
                          <td style="width: 100px" class="profit">63.17%</td>
                          <td style="width: 100px">94.39%</td>
-
-                     </tr>
+                     </tr> -->
+                     <tr *ngFor="let data of gridAllFields4 ; index as i" >
+                        <td style="width: 25%">Total</td>
+                        <td style="width: 5%"></td>
+                        <td style="width: 10%" class="price"></td>
+                        <td style="width: 10%" class="price">{{data.TotalCost }}</td>
+                        <td style="width: 10%" class="price"></td>
+                        <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
+                        <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
+                        <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
+                        <td style="width: 10%" >{{data.TotalAssets }}</td>
+                </tr>
 
                  </tfoot>
             </table>
@@ -407,7 +475,7 @@
             
         </div>
       
-
+        </form>
     </div>
 
 </div>
