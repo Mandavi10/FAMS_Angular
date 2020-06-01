@@ -3,14 +3,10 @@
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
-             
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-
-                        
-                           
                         <li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
@@ -29,8 +25,13 @@
                                 Upload User
                             </label>
                         </li> -->
-                       
-                        <li (click)="viewCustomer()">
+                        <li (click)="BackToSecurity()">
+                            <i title="View Securities"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
+                            <label>
+                                Back To Securities
+                            </label>
+                        </li>
+                        <li (click)="viewSecurities()">
                             <i title="View Securities"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                             <label>
                                 View Securities
@@ -49,8 +50,6 @@
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-4"></div>
             <div class="col-md-5 col-sm-4 col-xs-4"></div>
-           
-
         </div>
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
@@ -63,11 +62,15 @@
            <ag-grid-angular
     style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="rowData"
+    [rowData]="securityDetails"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
-      [showToolPanel]="true">
+      [showToolPanel]="true"
+      rowSelection="single"
+          (rowSelected)="onRowSelected($event)"
+      >
+      
 </ag-grid-angular>
            
             
@@ -85,7 +88,7 @@
            <ag-grid-angular
     style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="rowData1"
+    [rowData]="security"
     [columnDefs]="columnDefs1"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -120,39 +123,57 @@
                     </div>
                     
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                                <form class="" >
+                            <form [formGroup]="SecurityFormGrp" autocomplete="off" class="form" appNorightclick>
                                                     <div class="row no-padding mt-2">
                                                         <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                                <div class="col-md-12 col-sm-4 col-xs-12">
-                                                                        <div class="form-group">
-                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                                Country:
-                                                                            </label>
-                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                <select class="dropdown col-md-12 col-xs-12 col-sm-12">
-                                                                                    <option>Select Country</option>
-                                                                                   <option>India</option>
-                                                                                   <option>UAE</option>
-                                                                                   <option>USA</option>
-                                                                               </select>
-                                                                               </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                        Country:
+                                                                    </label>
+                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
+                                                                            <option>Select Country</option>
+                                                                            <option>India</option>
+                                                                            <option>UAE</option>
+                                                                            <option>USA</option>
+                                                                                </select> -->
+                                                                        
+                                                                        <div class="form-group input-group" >
+                                                                            <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="CountryCode">
+                                                                            <option value="0" selected>Select Country</option>
+                                                                            <option *ngFor="let data of country" value={{data.CountryCode}}  >
+                                                                                {{data.CountryName}}
+                                                                            </option>
+                                                                            </select>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Custodian:
                                                                 </label>
-                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12">
+                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                                                                         <option>Select Custodian</option>
                                                                         <option>CUS1</option>
                                                                         <option>CUS2</option>
                                                                         <option>CUS3</option>
                                                                         <option>CUS4</option>
                                                                         <option>CUS5</option>
-                                                                    </select>
-                                                                </div>
+                                                                    </select> -->
+                                                               
+                                                                    <div class="form-group input-group" >
+                                                                        <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="CustodianCode">
+                                                                        <option value="0" selected>Select Custodian</option>
+                                                                        <option *ngFor="let data of custodian" value={{data.CustodianCode}}  >
+                                                                            {{data.CustodianName}}
+                                                                        </option>
+                                                                        </select>
+                                                                    </div>
+                                                                  </div> 
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -161,28 +182,44 @@
                                                                     List Code:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('ListCode')">
+                                                                    <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <input type="text" required name="listCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="ListCode"
+                                                                    />
+                                                                </div>
                                                                            
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('ListName')">
+                                                                        <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                        <input type="text" required name="listName" class="col-sm-12 col-md-12 col-xs-12" formControlName="ListName"
+                                                                        />
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Security Code:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <div class="form-group input-group">
+                                                                        <select class="col-md-12 col-xs-12 col-sm-12" (change)="FillSecurityCodeDetails(selectField.value);" #selectField  formControlName="SecurityCode">
+                                                                        <option value="0" selected>Select Security Code</option>
+                                                                        <option *ngFor="let data of securityCodeDetails" value={{data.SecurityCode}}  >
+                                                                            {{data.SecurityCode}}
+                                                                        </option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>  
@@ -195,7 +232,9 @@
                                                                     Security Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <input type="text" name="securityName" class="col-sm-12 col-md-12 col-xs-12" formControlName="SecurityName"
+                                                                    />
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -208,29 +247,38 @@
                                                                     Sector:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12">
+                                                                    <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                                                                         <option>Select Sector</option>
                                                                         <option>Sector 1</option>
                                                                         <option>Sector 2</option>
-                                                                    </select> 
+                                                                    </select>  -->
+                                                                    <div class="form-group input-group" >
+                                                                        <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="SectorCode">
+                                                                        <option value="0" selected>Select Sector</option>
+                                                                        <option *ngFor="let data of sector" value={{data.SectorCode}}  >
+                                                                            {{data.SectorName}}
+                                                                        </option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div> 
-                                                     
+                                                        
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Active:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="checkbox"/>
+                                                                    <!-- <input type="checkbox"/> -->
+                                                                    <input  name="active" formControlName="Active" value="" type="checkbox" class="col-md-1 col-sm-2 col-xs-4"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                               
-                                                            </div>
-                                                        </div>
-                                   
+                                                                
+                                                </div>
+                                         </div>
+                                                    </div>
                                 </form>
                             </div>
                 </div>
@@ -238,7 +286,8 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
 
-               <button type="button" class="btn btn-success">Save</button>
+               <!-- <button type="button" class="btn btn-success">Save</button> -->
+               <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
               
 
                 </div>
