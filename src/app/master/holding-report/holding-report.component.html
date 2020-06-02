@@ -12,15 +12,23 @@
                         <li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
-                                Export to CSV
+                                <a href="../../../assets/ExcelReports/HoldingReport.csv">Export to CSV</a>
                             </label>
+
+                            
+                            <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button></a> -->
                         </li>
                          
                          <li>
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
-                                    Export to PDF
+                                    <a href="../../../assets/ExcelReports/HoldingReport.pdf"> Export to PDF</a>
                                  </label>
+                                 <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </button></a> -->
                              </li>
                      </ul>
                 </div>
@@ -29,12 +37,12 @@
        
         <div class="row">
        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="form-group">
+        <div class="col-md-4 col-sm-4 col-xs-12" *ngIf="isShowCustomer">
+            <div class="form-group" >
                 <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                    Customer Name :
                 </label>
-                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock" >
                     <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
                         <option>Select Customer</option>
                         <option>Customer 1</option>
@@ -60,8 +68,9 @@
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                             <!-- <input type="date" class="col-sm-9 col-md-12 col-xs-9"> -->
-                            <input type="date" name="Date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Date"
-                            />
+                            <!-- <input type="date" name="Date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Date"
+                            /> -->
+                            <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
                         </div>
                     </div>
                 </div>
@@ -76,7 +85,7 @@
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  
             </div>
-            <div class="rightmenu">
+            <div class="rightmenu" style="display:none">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
                        
@@ -110,20 +119,21 @@
 
                     <tr>
 
-                        <th style="width: 25%">Security</th>
+                        <th style="width: 15%">Security</th>
                         <th style="width: 5%">Quantity</th>
                         <th style="width: 10%" class="price">Unit Cost</th>
                         <th style="width: 10%" class="price">Cost</th>
                         <th style="width: 10%" class="price">Price</th>
                         <th style="width: 10%" class="price">Market Value </th>
-                        <th style="width: 10%">Gain / Loss (+/-)</th>
+                        <th style="width: 20%">Gain / Loss (+/-)</th>
+                        <!-- <th style="width: 10%"></th> -->
                         <th style="width: 10%">% G/L</th>
                         <th style="width: 10%">% Assets</th>
                     </tr>
                 </thead>
                 <tbody class="scrollbar">
                     <tr>
-                        <td colspan="9"><strong>Equity
+                        <td colspan="9"><strong [style.display]="IsEquity ? 'block' : 'none'">Equity
                         </strong>
                             <table>
                                 <tbody>
@@ -136,8 +146,9 @@
                                             <td style="width: 10%" class="price">{{data.Cost }}</td>
                                             <td style="width: 10%" class="price">{{data.Price }}</td>
                                             <td style="width: 10%" class="price">{{data.MarketValue }}</td>
-                                            <td style="width: 10%">{{data.GainLoss }}</td>
-                                            <td style="width: 10%">{{data.GainLossPer }}</td>
+                                            <td style="width: 10%" class="profit">{{data.GainLoss }}</td>
+                                            <!-- <td style="width: 10%"></td> -->
+                                            <td style="width: 10%" class="profit">{{data.GainLossPer }}</td>
                                             <td style="width: 10%">{{data.Assets }}</td>
                                         </tr>
                                     <!-- <tr>
@@ -341,6 +352,7 @@
                                         <td style="width: 10%" class="price"></td>
                                         <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
                                         <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
+                                        <!-- <td style="width: 10%"></td> -->
                                         <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
                                         <td style="width: 10%" >{{data.TotalAssets }}</td>
                                 </tr>
@@ -352,7 +364,7 @@
                     </tr>
                
                     <tr>
-                        <td colspan="9"><strong>Cash and Equivalent
+                        <td colspan="9"><strong [style.display]="IsCashAndEquiv ? 'block' : 'none'">Cash and Equivalent
                         </strong>
                             <table>
                                 <tbody>
@@ -365,8 +377,9 @@
                                             <td style="width: 10%" class="price">{{data.Cost }}</td>
                                             <td style="width: 10%" class="price">{{data.Price }}</td>
                                             <td style="width: 10%" class="price">{{data.MarketValue }}</td>
-                                            <td style="width: 10%">{{data.GainLoss }}</td>
-                                            <td style="width: 10%">{{data.GainLossPer }}</td>
+                                            <td style="width: 10%" class="loss">{{data.GainLoss }}</td>
+                                            <!-- <td style="width: 10%"></td> -->
+                                            <td style="width: 10%" class="loss">{{data.GainLossPer }}</td>
                                             <td style="width: 10%">{{data.Assets }}</td>
                                         </tr>
                                     <!-- <tr>
@@ -430,8 +443,9 @@
                                     <td style="width: 10%" class="price">{{data.TotalCost }}</td>
                                     <td style="width: 10%" class="price"></td>
                                     <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
-                                    <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
-                                    <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
+                                    <td style="width: 10%" class="loss">{{data.TotalGainLoss }}</td>
+                                    <!-- <td style="width: 10%"></td> -->
+                                    <td style="width: 10%" class="loss">{{data.TotalGLPerc }}</td>
                                     <td style="width: 10%" >{{data.TotalAssets }}</td>
                             </tr>
                                 
@@ -463,6 +477,7 @@
                         <td style="width: 10%" class="price"></td>
                         <td style="width: 10%" class="price">{{data.TotalMarketValue }}</td>
                         <td style="width: 10%" class="profit">{{data.TotalGainLoss }}</td>
+                        <!-- <td style="width: 10%"></td> -->
                         <td style="width: 10%" class="profit">{{data.TotalGLPerc }}</td>
                         <td style="width: 10%" >{{data.TotalAssets }}</td>
                 </tr>
