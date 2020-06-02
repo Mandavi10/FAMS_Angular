@@ -25,20 +25,20 @@
                 </div>
             </div>
         </div>
-       
+        <form [formGroup]="TrialBalanceForm" autocomplete="off" appNorightclick>
         <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-3" *ngIf="isShowCustomer">
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="form-group">
                 <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                    Customer Name:
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                        <option>Select Customer</option>
-                        <option>Customer 1</option>
-                        <option>Customer 2</option>
-                        <option>Customer 3</option>
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount">
+                        <option value="">Select Customer</option>
+                        <option *ngFor="let data of customer" value={{data.UserId}}  >
+                            {{data.UserName}}
+                        </option>
                     </select>
                   
                 </div>
@@ -50,11 +50,13 @@
                    Accounts:
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                        <option>Select Account</option>
-                        <option>Account 1</option>
-                        <option>Account 2</option>
-                        <option>Account 3</option>
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" #Accounts (change)="AccontsFunction(Accounts.value)" formControlName="Account">
+                        <option value="">Select Account</option>
+                        <option value="1">Assets</option>
+                        <option value="2">Expense</option>
+                        <option value="3">Income</option>
+                        <option value="4">Laibilities</option>
+                        <option value="50">All</option>
                     </select>
                   
                 </div>
@@ -66,11 +68,10 @@
                     Accounts Sub Level:
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                        <option>Select Sub Level</option>
-                        <option>Sub Level 1</option>
-                        <option>Sub Level 2</option>
-                        <option>Sub Level 3</option>
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="AccountSubLayer">
+                        <!-- <option>Select Sub Level</option> -->
+                        <option *ngFor="let Data of BindSubAccountAssets" value={{Data.value}} text={{Data.text}}>
+    
                     </select>
                   
                 </div>
@@ -85,7 +86,7 @@
                        From Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9">
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate">
                     </div>
                 </div>
             </div>
@@ -95,16 +96,17 @@
                        To Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9">
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate">
                     </div>
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                <button type="button" class="btn btn-success">Search</button>
+                <button type="button" class="btn btn-success" (click)="GetData()">Search</button>
                 </div>
            
     </div>
     </div>
+    </form>
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="tbldiv" style="display:block">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">

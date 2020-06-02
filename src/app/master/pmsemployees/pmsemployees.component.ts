@@ -101,7 +101,6 @@ rowData1 = [
 
   SaveDataFun(){
     if (this.PMSEmployeesForm.valid) {
-      alert("valid");
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
 
     //let SaveallfieldsList = new Saveallfields();

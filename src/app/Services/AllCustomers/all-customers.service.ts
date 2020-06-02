@@ -22,7 +22,15 @@ export class AllCustomersService {
    return this._http.get<any>(this.baseUrl + 'api/AllCustomer/BindGrid/'+ this.UserId);
 }
 
-
+SaveData(em:any){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.UserId = Sessionvalue.UserId;
+   const body = em;
+   const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/InsertCustomerDetails/'+  this.UserId, body, {
+      headers 
+  });
+}
 
 
 
