@@ -10,6 +10,7 @@ import { MultiSelectService } from '../../multi-select.service';
 export class UserSetupComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv2:boolean;
+  showModalsavepopup: boolean;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width: 80},
     {headerName: 'User Name', field: 'UserName', width: 150},
@@ -30,6 +31,14 @@ rowData = [
 
 
 
+onClicksavepopup(event) {
+  this.showModalsavepopup = true;
+  
+  }
+  
+  hidesavepopup() {
+  this.showModalsavepopup = false;
+  }
 
 
 
