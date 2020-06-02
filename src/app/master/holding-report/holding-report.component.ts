@@ -6,6 +6,7 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 @Component({
   selector: 'app-holding-report',
   templateUrl: './holding-report.component.html',
@@ -26,21 +27,40 @@ export class HoldingReportComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
  
-  selectedRowId:number;
-  pmsDetails:[];
-  constructor(private formbulider: FormBuilder, private _holdingReportService: HoldingReportService) {
+  constructor(private formbulider: FormBuilder, private _holdingReportService: HoldingReportService,private Dbsecurity: DbsecurityService) {
 
     //  this.custodian = new Custodian();
      
   }
-
+  CurrentDate = new Date();
+  isShowCustomer:boolean=false;
+  CustomerAccount:string;
+  userType:number;
+ accountNumber:string;
+  selectedRowId:number;
+  pmsDetails:[];
+  IsEquity:boolean;
+  IsCashAndEquiv:boolean;
   ngOnInit(): void {
     this.HoldingReportFormGrp = this.formbulider.group({
       UserId: [0, ],
       Date: ['',],
   });
   debugger;
-    this.BindCustomer();
+    let item = JSON.parse(sessionStorage.getItem('User'));
+  // this.UserId = item.UserId;
+  // this.EntityId = item.ReferenceId;
+    this.userType=this.Dbsecurity.Decrypt( item.UserType);
+    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    if(this.userType == 2)
+    {
+      this.isShowCustomer=true;
+      this.BindCustomer();
+    }
+    else{
+      this.isShowCustomer=false;
+    }
+    
   }
 
   BindCustomer() {
@@ -65,8 +85,23 @@ export class HoldingReportComponent implements OnInit {
             currentContext.gridAllFields1 = data.Table1;
             currentContext.gridAllFields2 = data.Table2;
             currentContext.gridAllFields3 = data.Table3;
-            currentContext.gridAllFields4 = data.Table4;
-            
+            currentContext.gridAllFields4 = data.Table4;      
+            if(data.Table.length>0)      
+            {
+              this.IsEquity=true;
+            }
+            else
+            {
+              this.IsEquity=false;
+            }
+            if(data.Table2.length>0)      
+            {
+              this.IsCashAndEquiv=true;
+            }
+            else
+            {
+              this.IsCashAndEquiv=false;
+            }
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
@@ -80,10 +115,18 @@ export class HoldingReportComponent implements OnInit {
         const datat = this.HoldingReportFormGrp.value;
         // var CustomerAccount="Cust_000001";
         // var Date="2020-04-09";
+       // var CustomerAccount:
+        if(datat.UserId=="0")
+        {
+         this.CustomerAccount=this.accountNumber
+        }
+        else{
+         this.CustomerAccount=datat.UserId;
 
-        var CustomerAccount=datat.UserId;
+        }
+        
         var Date=datat.Date;
-        this.BindHoldingReport(CustomerAccount,Date);
+        this.BindHoldingReport(this.CustomerAccount,Date);
     } 
   }
 

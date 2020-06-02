@@ -16,11 +16,11 @@ export class HoldingReportService {
   this.baseUrl = "http://localhost:55073/";
   }
 
-  BindCustomer(): Observable<any> {
-    // let item = JSON.parse(sessionStorage.getItem('User'));
-    // this.UserId = item.UserId;
-    // this.EntityId = item.ReferenceId;
-    return this._http.get<any>(this.baseUrl + 'api/HoldingReports/BindCustomer');
+BindCustomer(): Observable<any> {
+  // let item = JSON.parse(sessionStorage.getItem('User'));
+  // this.UserId = item.UserId;
+  // this.EntityId = item.ReferenceId;
+  return this._http.get<any>(this.baseUrl + 'api/HoldingReports/BindCustomer');
 }
 BindGridAllFields(CustomerAccount,Date): Observable<any> {
   // let item = JSON.parse(sessionStorage.getItem('User'));
