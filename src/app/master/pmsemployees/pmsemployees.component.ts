@@ -146,8 +146,7 @@ isFieldValid(field: string) {
   BindCustodian(){
     this.PMSEService.BindCustodian().subscribe(
       (data) => {
-        this.AllcustodianfieldsList = data.Table;
-          
+        this.AllcustodianfieldsList = data.Table;         
         });
   }
   

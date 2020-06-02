@@ -16,9 +16,18 @@ export class SummaryreportService {
       this.baseUrl = AppSettings.Login_URL;
   }
 
-  BindGrid(): Observable<any> {  
+  BindGrid(em:any): Observable<any> {  
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     this.UserId = Sessionvalue.UserId;
-   return this._http.get<any>(this.baseUrl + 'api/Summaryreport/BindGrid/'+ this.UserId);
+   const body = em;
+   const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindGrid/' + this.UserId , body, {
+      headers 
+  });
+}
+BindCustomers(){
+   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.UserId = Sessionvalue.UserId;
+  return this._http.get<any>(this.baseUrl + 'api/SummaryReports/BindCustomers/'+ this.UserId);
 }
 }
