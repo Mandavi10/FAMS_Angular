@@ -44,7 +44,8 @@ const routes: Routes = [
 {path: 'Entity', loadChildren: './entity/entity.module#EntityModule'},
 {path: 'TrialBalanceReport', loadChildren: './trial-balance-report/trial-balance-report.module#TrialBalanceReportModule'},
 {path: 'SecuritiesCustomer', loadChildren: './securities-customer/securities-customer.module#SecuritiesCustomerModule'},
-
+{path: 'MyNotes', loadChildren: './my-notes/my-notes.module#MynotesModule'},
+{path: 'OrderProcessing', loadChildren: './order-processing/order-processing.module#OrderProcessingModule'},
 
         ]
   }

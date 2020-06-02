@@ -13,7 +13,7 @@
                                 Export to Excel
                             </label>
                         </li>
-                        <li (click)="onClickstatemaster($event)">
+                        <li>
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -35,9 +35,9 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>    
               <ag-grid-angular
-        style="width: 100%; height: 130px;"
+        style="width: 100%; height: 500px;"
         class="ag-theme-alpine"
-        [rowData]="rowData"
+        [rowData]="AllCustomersList"
         [columnDefs]="columnDefs"
         [enableFilter]="false"
           [enableSorting]="true"
@@ -60,8 +60,10 @@
 
 
 
-<div id="form">
+<div id="form" style="display:block">
+    
                <div class="form-group scrollciv">
+                <form [formGroup]="AllCustomersForm" autocomplete="off" appNorightclick>
                     <div class="detailsBox">
             
                             <h6>Customer Details</h6>
@@ -90,7 +92,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Acc:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount" />
+                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount"  formControlName="CustomerAccount" />
                 
                     </div>
                         </div>
@@ -368,7 +370,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Name:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName" />
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName"  formControlName="CustomerUsername" />
                 
                     </div>
                         </div>
@@ -377,7 +379,7 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Email:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail" />
+                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail"  formControlName="CustomerEmailID" />
                 
                     </div>
                         </div>
@@ -449,13 +451,14 @@
                     </div>
                     </div>
                     </div>
-                   
+                </form>
                 </div>
                 <div class="pull-right mt-1">
                
-                    <input type="button" class="btn btn-success mr-2"  value="Create" id="btnCreateCustomerPopUp"  />
+                    <input type="button" class="btn btn-success mr-2"  value="Create" (click)="SaveData()" id="btnCreateCustomerPopUp"  />
                     <input type="button" class="btn btn-success mr-1" value="Cancel" id="btnCancelCustomerPopUp" />
                 </div>
+            
                   </div> 
     
 
