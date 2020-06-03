@@ -14,6 +14,8 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./custodian-master.component.css']
 })
 export class CustodianMasterComponent implements OnInit {
+  showModalupdatepopup:boolean;
+  showModalsavepopup:boolean;
   showModalstatemaster: boolean;
   CustodianFormGrp:FormGroup; _custodian:Custodian ;custodian: []; country: [];  pms:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; CustodianId: number = 0; loading: boolean = false;
@@ -61,14 +63,26 @@ rowData1 = [
 
 
   
-
-  onClickstatemaster(event) {
-    this.showModalstatemaster = true;
+    onClicksavepopup() {
+      this.showModalsavepopup = true;
+    }
     
+    hidesavepopup() {
+     this.showModalsavepopup = false;
+    }
+    onClickupdatepopup() {
+      this.showModalupdatepopup = true;
+    }
+    hideupdatepopup() {
+      debugger;
+      this.showModalupdatepopup = false;
+    }
+    onClickstatemaster(event) {
+    this.showModalstatemaster = true;
     }
     
     hidestatemaster() {
-    this.showModalstatemaster = false;
+     this.showModalstatemaster = false;
     }
 
 
@@ -105,7 +119,13 @@ rowData1 = [
     debugger;
       if (event.column.colId != "all" ) // only first column clicked
       {
-        event.preventDefault();
+        this.Temp=2;
+        this.showModalstatemaster = true;
+        this.CustodianFormGrp.controls['CountryCode'].setValue(event.data.CountryCode);
+        this.CustodianFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
+        this.CustodianFormGrp.controls['CustodianName'].setValue(event.data.CustodianName);
+        this.CustodianId=event.data.CustodianId;
+       // event.preventDefault();
         //event.preventDefault();
         // execute the action as you want here in on click of hyperlink
       }
@@ -134,6 +154,9 @@ rowData1 = [
       this.loading = false;
     }
 onClickviewpms(){
+  debugger;
+//  this.onClickupdatepopup();
+ //this.onClicksavepopup();
   this.Isdiv1=true;
   this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
@@ -150,7 +173,7 @@ onSubmit() {
           this.SaveCustodian();
       }
       else {
-          this.UpdateEmployee();
+          this.UpdateCustodian();
       }
   } else {
       this.validateAllFormFields(this.CustodianFormGrp);
@@ -191,9 +214,10 @@ SaveCustodian() {
       (data) => {
           this._custodian = data;
           if (this._custodian.Result = 1) {
-              sessionStorage.setItem('ID', this._custodian.Result.toString());
-              this.message = 'Record saved Successfully';
-              alert(this.message);
+             // sessionStorage.setItem('ID', this._custodian.Result.toString());
+             // this.message = 'Record saved Successfully';
+             // alert(this.message);
+              this.onClicksavepopup();
           }
           else {
               this.message = 'Invalid Credential';
@@ -208,14 +232,16 @@ SaveCustodian() {
   )
 }
 
-UpdateEmployee() {
+UpdateCustodian() {
   this._custodianService.UpdateCustodian(JSON.stringify(this.CustodianFormGrp.value), this.CustodianId).subscribe(
       (data) => {
-          if (this._custodian.Result = 1) {
-              this.message = 'Record updated Successfully';
-              alert(this.message);
+          if (data.Result = 1) {
+              //this.message = 'Record updated Successfully';
+             // alert(this.message);
               //this.buttonDisabledDelete = true;
-              this.buttonDisabledReset = false;
+             // this.buttonDisabledReset = false;
+             // this.onClickupdatepopup();
+              this.onClickupdatepopup();
           }
           else {
               this.message = 'Invalid Credential';

@@ -104,7 +104,7 @@
                                            <option>China </option>
                                            </select> -->
                                         <div class="form-group input-group" [ngClass]="displayFieldCss('CountryCode')">
-                                           <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="CountryCode">
+                                           <select class="col-md-12 col-xs-12 col-sm-12" required  formControlName="CountryCode">
                                               <option value="0" selected>Select Country</option>
                                               <option *ngFor="let data of country" value={{data.CountryCode}}  >
                                                  {{data.CountryName}}
@@ -149,14 +149,14 @@
                                   <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                   PMS Code: 
                                   </label>
-                                  <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                  <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" >
                                      <!-- <select class="col-sm-12 col-md-12 col-xs-12 ">
                                         <option>PMS Code 1 </option>
                                         <option>PMS Code 2 </option>
                                         <option>PMS Code 3 </option>
                                         </select> -->
-                                     <div class="form-group input-group" >
-                                        <select class="col-md-12 col-xs-12 col-sm-12" (change)="FillPMSDetails(selectField.value);" #selectField required formControlName="PMSCode">
+                                     <div class="form-group input-group" [ngClass]="displayFieldCss('PMSCode')">
+                                        <select  class="col-md-12 col-xs-12 col-sm-12" (change)="FillPMSDetails(selectField.value);" #selectField required formControlName="PMSCode">
                                            <option value="0" selected>Select PMSCode</option>
                                            <option *ngFor="let data of pms" value={{data.PMSCode}}  >
                                               {{data.PMSName}}
@@ -173,8 +173,10 @@
                                   </label>
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
-                                     <input type="text" name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
+                                     <div class="form-group input-group" [ngClass]="displayFieldCss('PMSName')">
+                                     <input type="text" required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
                                      />
+                                     </div>
                                   </div>
                                </div>
                             </div>
@@ -183,10 +185,12 @@
                                   <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                   PMS Account No.: 
                                   </label>
-                                  <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                  <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" >
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
-                                     <input type="text" name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"
+                                     <div class="form-group input-group" [ngClass]="displayFieldCss('PMSAccountNumber')">
+                                     <input type="text" required name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"
                                       />
+                                     </div>
                                   </div>
                                </div>
                             </div>
@@ -218,4 +222,60 @@
     </div>
     <!-- </form> -->
  </div>
+
+ <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+   <div class="modal-dialog">
+   <div class="modal-content">
+   
+   <!-- Modal Header -->
+   <div class="modal-header">
+   <h4 class="modal-title">
+  
+   </h4>
+   <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+   </div>
+   
+   <!-- Modal body -->
+   <div class="modal-body">
+   <p>Saved Successfully</p>
+   </div>
+   
+   <!-- Modal footer -->
+   <div class="modal-footer">
+   <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+ 
+</div>
+   
+   </div>
+   </div>
+   </div>
+
+
+
+   <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+      <div class="modal-dialog">
+      <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <h4 class="modal-title">
+     
+      </h4>
+      <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+      <p>Updated Successfully</p>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+    
+   </div>
+      
+      </div>
+      </div>
+      </div>
  </div>

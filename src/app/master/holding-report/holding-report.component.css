@@ -10,7 +10,30 @@
 
 
     .holdingreportGrid table {
-        width: 100%
+        width: 100%;
+        display:table;
     }
+    .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
 table tbody tr td table tbody {
 overflow:hidden}
+/* 
+#bankmastertable tbody {
+    overflow: auto;
+    display: block;
+    max-height: 26vh;
+}
+
+#bankmastertable tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+        
+        
+   #bankmastertable thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}      */
+  
+
