@@ -68,7 +68,7 @@
                     Accounts Sub Level:
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="AccountSubLayer">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" #SubAccounts (change)="SubAccontsFunction(SubAccounts.value)" formControlName="AccountSubLayer">
                         <!-- <option>Select Sub Level</option> -->
                         <option *ngFor="let Data of BindSubAccountAssets" value={{Data.value}} text={{Data.text}}>
     
@@ -86,7 +86,7 @@
                        From Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate">
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate" #Fromdate>
                     </div>
                 </div>
             </div>
@@ -96,17 +96,17 @@
                        To Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate">
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate" #Todate>
                     </div>
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                <button type="button" class="btn btn-success" (click)="GetData()">Search</button>
+                <button type="button" class="btn btn-success" (click)="GetData(Todate.value,Fromdate.value)">Search</button>
                 </div>
            
     </div>
     </div>
-    </form>
+
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="tbldiv" style="display:block">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
@@ -138,14 +138,15 @@
                      </ul>
                 </div>
             </div>
-        </div>   
+        </div>  
+     
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="trialBalanceGrid">
                 <table class="bankmasterTable">
                     <thead>
                         <tr>
 
-                            <th style="width: 300px">Account</th>
+                            <th style="width: 300px" >Account</th>
                             <th style="width: 300px" colspan="2">Opening Balance</th>
                             <th style="width: 300px" colspan="2">Transaction During Period</th>
                             <th style="width: 300px" colspan="2">Closing Balance</th>
@@ -166,31 +167,31 @@
                     <tbody class="scrollbar">
                         <tr>
 
-                            <td colspan="7"><strong>Assets</strong>
+                            <td colspan="7" *ngIf="isAssets"><strong>Assets</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                             <td colspan="7"><strong>Current Assets</strong>
+                             <td colspan="7"  *ngIf="isCurrentAssets"><strong>Current Assets</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                            <td width="300px">Receivable-KOTAK-Shares-Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td width="300px" >Receivable-HDFC-Shares-Listed</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCAOBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCAOBCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCATransDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCATransCredit"></spam>></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCACBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCACBCredit"></spam>></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">Bank balance-DUMMY-100345</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1OBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1OBCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1TransDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1TransCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1CBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA1CBCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -201,27 +202,27 @@
 
                                     </tr>
                                          <tr>
-                             <td colspan="7"><strong>Investment</strong>
+                             <td colspan="7" *ngIf="isInvestment"><strong>Investment</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                            <td width="300px">Receivable-KOTAK-Shares-Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td width="300px">Receivable-HDFC-Shares-Listed</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2OBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2OBCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2TransDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2TransCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2CBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA2CBCredit"></spam></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">Bank balance-DUMMY-100345</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA3OBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px">  <spam [innerHTML]="tdCA3OBCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"><spam [innerHTML]="tdCA3TransDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA3TransCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA3CBDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="tdCA3CBCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -241,7 +242,7 @@
                         </tr>
                  <tr>
 
-                            <td colspan="7"><strong>Expense</strong>
+                            <td colspan="7" *ngIf="isExpense"><strong>Expense</strong>
                                 <table>
                                     <tbody>
                                     <tr>
@@ -250,22 +251,22 @@
                                     <tbody>
                                     <tr>
                             <td width="300px">Management Fees</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpOCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpTDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpTCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpCDebitS"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="ExpCCredit"></spam></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">STT</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1CDebitS"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Exp1CCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -286,21 +287,21 @@
 
                         <tr>
 
-                            <td colspan="7"><strong>Income</strong>
+                            <td colspan="7" *ngIf="isIncome"><strong>Income</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                             <td colspan="7"><strong>Dividend</strong>
+                             <td colspan="7" *ngIf="isDividend"><strong>Dividend</strong>
                                 <table>
                                     <tbody>
                                     <tr>
                             <td width="300px">Dividend-Shares Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InOCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InTDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InTCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InCDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="InCCredit"></spam></td>
 
                                     </tr>
                                       
@@ -312,27 +313,27 @@
 
                                     </tr>
                                          <tr>
-                             <td colspan="7"><strong>Gain/Loss</strong>
+                             <td colspan="7" *ngIf="isGain"><strong>Gain/Loss</strong>
                                 <table>
                                     <tbody>
                                     <tr>
                             <td width="300px">Shares-Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In1CCredit"></spam></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">Mutual Funds-Liquid Fund</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In2ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="In2OCredit"></spam>></td>
+                            <td class="text-center" style="width: 150px">  <spam [innerHTML]="In2TDebit"></spam>></td>
+                            <td class="text-center" style="width: 150px">  <spam [innerHTML]="In2TCredit"></spam>></td>
+                            <td class="text-center" style="width: 150px">  <spam [innerHTML]="In2CDebit"></spam>></td>
+                            <td class="text-center" style="width: 150px">  <spam [innerHTML]="In2CCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -353,21 +354,21 @@
 
                         <tr>
 
-                            <td colspan="7"><strong>Liabilities</strong>
+                            <td colspan="7" *ngIf="isLiabilities"><strong>Liabilities</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                             <td colspan="7"><strong>Capital</strong>
+                             <td colspan="7" *ngIf="isCapital"><strong>Capital</strong>
                                 <table>
                                     <tbody>
                                     <tr>
                             <td width="300px">Corpus</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaOCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaTDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaTCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaCDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="LiaCCredit"></spam></td>
 
                                     </tr>
                                       
@@ -379,37 +380,37 @@
 
                                     </tr>
                                          <tr>
-                             <td colspan="7"><strong>Current Liabilities</strong>
+                             <td colspan="7" *ngIf="isCurrentLiab"><strong>Current Liabilities</strong>
                                 <table>
                                     <tbody>
                                     <tr>
-                            <td width="300px">Payable-KOTAK-Shares-Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td width="300px">Payable-HDFC-Shares-Listed</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia1CCredit"></spam></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">Management Fees</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2OCredit"></spam>id=""></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia2CCredit"></spam></td>
 
                                     </tr>
                                          <tr>
                             <td width="300px">Sec. Tran. Tax</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia3CCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -420,27 +421,27 @@
 
                                     </tr>
                                         <tr>
-                             <td colspan="7"><strong>Unrealized Gain\Loss</strong>
+                             <td colspan="7" *ngIf="isUnrealizedGain"><strong>Unrealized Gain\Loss</strong>
                                 <table>
                                     <tbody>
                                     <tr>
                             <td width="300px">Shares-Listed</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">8,365,964.22</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia4CCredit"></spam></td>
 
                                     </tr>
                                         <tr>
                             <td width="300px">Mutual Funds-Liquid Fund</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5ODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5OCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5TDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5TCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5CDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="Lia5CCredit"></spam></td>
 
                                     </tr>
                                 
@@ -465,18 +466,18 @@
                        
                         <tr>
 
-                             <td colspan="7"><strong></strong>
+                             <td colspan="7" *ngIf="isTotal"><strong></strong>
                                 <table>
                                     <tbody>
                                    
                                         <tr style="border:0px">
                             <td width="300px">Total</td>
-                            <td class="text-center" style="width: 150px">333,372.14</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,359,850.62</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
-                            <td class="text-center" style="width: 150px">1,693,222.76</td>
-                            <td class="text-center" style="width: 150px">0.00</td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalODebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalOCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalTDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalTCredit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalCDebit"></spam></td>
+                            <td class="text-center" style="width: 150px"> <spam [innerHTML]="totalCCredit"></spam></td>
 
                                     </tr>
                                     </tbody>
@@ -495,6 +496,7 @@
       
 
     </div>
-
+</form>
+</div>
 </div>
 
