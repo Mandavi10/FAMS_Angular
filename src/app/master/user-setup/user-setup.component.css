@@ -1,3 +1,10 @@
+.modal-header {
+  padding: 15px;
+  border-bottom: 0px;
+  background-color: transparent;
+}
+
+
 .headingbox{ background-color: #cbcfd2;
     padding: 7px;
     color: #003974;
@@ -146,7 +153,7 @@
     
     .userlistpop, .modal-header {
         
-      background-color: #00172e;
+      background-color: #ffffff;
     }
     .close{color: #ffffff;
       opacity: 1;}

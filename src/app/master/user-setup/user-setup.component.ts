@@ -28,7 +28,14 @@ rowData = [
 ];
 
 
-
+onClicksavepopup(event) {
+  this.showModalsavepopup = true;
+  
+  }
+  
+  hidesavepopup() {
+  this.showModalsavepopup = false;
+  }
 
 
 onClicksavepopup(event) {
