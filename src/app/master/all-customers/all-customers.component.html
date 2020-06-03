@@ -13,7 +13,7 @@
                                 Export to Excel
                             </label>
                         </li>
-                        <li>
+                        <li (click)="ShowGridOrForm()">
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -28,7 +28,7 @@
 
         
 
-<div id="tbldiv" style="display:none">
+<div id="tbldiv" *ngIf="isShowGrid">
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"  >
             <div class="filter">
                 <input type="text" placeholder="Search" />
@@ -60,7 +60,7 @@
 
 
 
-<div id="form" style="display:block">
+<div id="form" *ngIf="isShowForm">
     
                <div class="form-group scrollciv">
                 <form [formGroup]="AllCustomersForm" autocomplete="off" appNorightclick>

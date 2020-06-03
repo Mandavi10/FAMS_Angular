@@ -26,6 +26,7 @@ export class TrialBalanceReportComponent implements OnInit {
    Lia1TDebit:any;Lia1TCredit:any;Lia1CDebit:any;Lia1CCredit:any;Lia2ODebit:any;Lia2OCredit:any;Lia2TDebit:any;Lia2TCredit:any;Lia2CDebit:any;Lia2CCredit:any;Lia3ODebit:any;Lia3OCredit:any;Lia3TDebit:any;Lia3TCredit:any;Lia3CDebit:any;Lia3CCredit:any;Lia4ODebit:any;Lia4TDebit:any;Lia4TCredit:any;Lia4CDebit:any;Lia4CCredit:any;Lia5ODebit:any;
    Lia5OCredit:any;Lia5TDebit:any;Lia5TCredit:any;Lia5CDebit:any;Lia5CCredit:any;totalODebit:any;totalOCredit:any;totalTDebit:any;totalTCredit:any;totalCDebit:any;totalCCredit:any;
    Lia4OCredit:any;
+   currentdate : any;Fromdate : any; Todate : any;
   
    constructor(private _TrialBalanceService: TrialbalancereportService, private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService) { }
   isShowCustomer:boolean=false;
@@ -55,6 +56,11 @@ export class TrialBalanceReportComponent implements OnInit {
   TotalCDebit :any;
   TotalCCredit :any;
     ngOnInit(): void {
+
+      this.currentdate = new Date();
+      this.TrialBalanceForm = this.formBuilder.group({  
+       Fromdate :[''], Todate : ['']
+    });
       let item = JSON.parse(sessionStorage.getItem('User'));
      
         this.userType=this.Dbsecurity.Decrypt( item.UserType);
@@ -127,6 +133,33 @@ SubAccontsFunction(value1)
   }
     }    
       
+
+    PreviousDayFun(){
+      var date = new Date();
+      var currentDate = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['ToDate'].setValue(currentDate);
+      date.setDate(date.getDate() - 1);
+      var yesterday = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['FromDate'].setValue(yesterday);
+    }
+    LastOneWeekFun(){
+      var date = new Date();
+      var currentDate = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['ToDate'].setValue(currentDate);
+      date.setDate(date.getDate() - 7);
+      var yesterday = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['FromDate'].setValue(yesterday);
+    }
+    LastOneMonthFun(){
+      var date = new Date();
+      var currentDate = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['ToDate'].setValue(currentDate);
+      date.setDate(date.getDate() - 30);
+      var yesterday = date.toISOString().slice(0,10);
+      this.TrialBalanceForm.controls['FromDate'].setValue(yesterday);
+    }
+
+
   GetData(Todate,Fromdate)
   {
     // let _apipostdata = new JsonFieldData();

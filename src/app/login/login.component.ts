@@ -88,7 +88,7 @@ this.LoginForm.reset();
                     this.BindRandomCaptcha();
                 }
                 else {
-                  if(this.Dbsecurity.Decrypt(data[0].UserId) == "5")
+                  if(this.Dbsecurity.Decrypt(data[0].UserId) == "3")
                   {
                     this.btnloginDisabled = false;
                     sessionStorage.setItem('User', JSON.stringify(data[0]));
@@ -96,7 +96,7 @@ this.LoginForm.reset();
                     //console.log(item.UserId);
                     this.router.navigate(['/Dashboard']);
                   }
-                  else if(this.Dbsecurity.Decrypt(data[0].UserId) == "3"
+                  else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
                   || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
                   || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
                   {

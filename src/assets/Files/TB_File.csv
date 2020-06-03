@@ -1,0 +1,41 @@
+XYZ Financials,,,,,,,,
+TRIAL BALANCE,,,,,,,,
+,,,,,,,,
+Account : 100001     Test,,,,,,,,
+Account,,,Opening Balance,,Transaction During Period,,Closing Balance,
+,,,Debit,Credit,Debit,Credit,Debit,Credit
+Assets,,,,,,,,
+,Current Assets,,,,,,,
+,,Receivable-HDFC-Shares-Listed,"83,65,964.22",0,0,"83,65,964.22",0,0
+,,Bank balance-DUMMY-100345,"3,33,372.14",0,"13,59,850.62",0,"16,93,222.76",0
+,Investment,,,,,,,
+,,Shares-Listed,"2,23,32,378.02",0,"66,35,773.48",0,"2,89,68,151.51",0
+,,Mutual Funds-Liquid Fund,"8,76,671.03",0,"2,25,023.41",0,"11,01,694.44",0
+Expense,,,,,,,,
+,,Management Fees,"7,41,592.06",0,"2,85,540.50",0,"10,27,132.56",0
+,,STT,"55,731.52",0,"32,565.21",0,"88,296.73",0
+Income,,,,,,,,
+,Dividend,,,,,,,
+,,Dividend-Shares Listed,0,"7,70,157.45",0,"3,30,478.75",0,"11,00,636.20"
+,Gain/Loss,,,,,,,
+,,Shares-Listed,0,"1,64,140.79",0,"84,71,525.08",0,"86,35,665.87"
+,,Mutual Funds-Liquid Fund,0,"73,671.03",0,"68,524.90",0,"1,42,195.93"
+Liabilities,,,,,,,,
+,Capital,,,,,,,
+,,Corpus,0,"2,30,00,000.00",0,0,0,"2,30,00,000.00"
+,Current Liabilities,,,,,,,
+,,Payable-HDFC-Shares-Listed,0,"85,68,717.73","85,68,717.73",0,0,0
+,,Management Fees,0,"1,12,087.57","1,12,087.57",0,0,0
+,,Sec. Tran. Tax,0,"16,934.41","16,934.41",0,0,0
+,,Total,"3,27,05,708.98","3,27,05,708.98","1,72,36,492.95","1,72,36,492.95","3,28,78,498.00","3,28,78,498.00"
+XYZ Financials,,,,,,,,
+TRIAL BALANCE,,,,,,,,
+From 09/04/2020 To 10/04/2020,,,,,,,,
+Account : 100001     Test,,,,,,,,
+Account,,,Opening Balance,,Transaction During Period,,Closing Balance,
+,,,Debit,Credit,Debit,Credit,Debit,Credit
+,Unrealized Gain\Loss,,,,,,,
+,,Shares-Listed,0,"93,35,514.38",0,"89,63,446.02",0,"1,82,98,960.39"
+,,Mutual Funds-Liquid Fund,0,"57,967.33","42,119.35",0,0,"15,847.98"
+,,Total,0,"93,93,481.71","42,119.35","89,63,446.02",0,"1,83,14,808.37"
+,,Net Total,,"93,93,481.71",,"89,21,326.66",,"1,83,14,808.37"
