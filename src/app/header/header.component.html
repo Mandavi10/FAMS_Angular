@@ -7,7 +7,10 @@
     
                 </div>
             </div>
-            <div class="breadcrum" ><i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()"></i>   <span>Mannapuram Finance Limited</span><i class="fa fa-angle-right" aria-hidden="true"></i>   <span>Home</span>
+            <div class="breadcrum" >
+                <i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()">                   
+                </i>   <span>FAMS</span><i class="fa fa-angle-right" aria-hidden="true"></i>  
+                 <span (click)="HomeFun()">Home</span>
                 <div class="corporateList" *ngIf="isShow1" >
                     <div class="filter">
                         <input type="text" placeholder="Search" />
@@ -49,7 +52,7 @@
                         </a>
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
                             id="rbllogpassword">
-                           <li class="userName">User 1</li>
+                           <li class="userName"> <span [innerHTML]="UserName"></span></li>
                             <li class="logouthover" >
                                 <i class="logoutdiv ace-icon fa fa-key"
                                    aria-hidden="true"></i><span class="logoutcolor">Change Password</span>
