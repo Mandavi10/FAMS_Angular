@@ -51,7 +51,7 @@
              <input type="text" placeholder="Search" />
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
-          <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="custodian"
+          <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="custodian"
           [columnDefs]="columnDefs" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
           (cellClicked)="onRowSelected($event)">
           </ag-grid-angular>
@@ -61,7 +61,7 @@
              <input type="text" placeholder="Search" />
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
-          <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="pmsDetails"
+          <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pmsDetails"
           [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
           </ag-grid-angular>
        </div>
@@ -224,7 +224,7 @@
  </div>
 
  <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
-   <div class="modal-dialog">
+   <div class="modal-dialog modal-sm">
    <div class="modal-content">
    
    <!-- Modal Header -->
@@ -253,7 +253,7 @@
 
 
    <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-sm">
       <div class="modal-content">
       
       <!-- Modal Header -->
