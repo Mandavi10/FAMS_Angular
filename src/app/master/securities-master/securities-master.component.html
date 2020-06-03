@@ -68,7 +68,7 @@
       [enableSorting]="true"
       [showToolPanel]="true"
       rowSelection="single"
-          (rowSelected)="onRowSelected($event)"
+      (cellClicked)="onRowSelected($event)"
       >
       
 </ag-grid-angular>
@@ -297,6 +297,63 @@
                 </div>
 
     </div>
+
+    
+    <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Saved Successfully</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+    </div>
+        
+        </div>
+        </div>
+        </div>
+
+        <div class="modal successPopup" id="myModal" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">
+           
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+            <p>Updated Successfully</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+          
+        </div>
+            
+            </div>
+            </div>
+            </div>
+    
+
 
 </div>
 

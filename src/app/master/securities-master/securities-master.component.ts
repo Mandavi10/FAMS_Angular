@@ -13,10 +13,11 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./securities-master.component.css']
 })
 export class SecuritiesMasterComponent implements OnInit {
-
-  showModalstatemaster: boolean;
+  showModalsavepopup: boolean;
+  showModalSecurity: boolean;
+  showModalupdatepopup:boolean;
   SecurityFormGrp:FormGroup; _securityDetails: SecurityDetails;securityCodeDetails:[];custodian:[] ;securityDetails: []; security:[]; securityCodeDet:[]; country: []; sector:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
-  Temp: number = 1; CustodianId: number = 0; loading: boolean = false;
+  Temp: number = 1; SecurityDetId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
   Isdiv1:boolean;
@@ -24,7 +25,7 @@ export class SecuritiesMasterComponent implements OnInit {
   SelectionStatusOfMutants:any;
   selectedRowId:number;
   
-  showModalSecurity: boolean;
+  //showModalSecurity: boolean;
   showSecurity = false;
   showGrid = true;
 
@@ -80,12 +81,14 @@ export class SecuritiesMasterComponent implements OnInit {
 Edit(SecurityDetailsId)
 {
 debugger;
-alert(SecurityDetailsId);
+//alert(SecurityDetailsId);
 }
     viewSecurities(){
       this.showSecurity = true;
       this.showGrid = false;
       this.BindSecurity(this.selectedRowId);
+
+      //this.onClickupdatepopup();
 
     }
     BindSecurity(SecurityDetailsId) {
@@ -107,12 +110,27 @@ alert(SecurityDetailsId);
       hidePMSEmploye() {
       this.showModalSecurity = false;
       }
+
+        onClickupdatepopup() {
+          this.showModalupdatepopup = true;
+        }
+       hideupdatepopup() {
+          debugger;
+         this.showModalupdatepopup = false;
+        }
         onClickstatemaster(event) {
           this.showModalSecurity = true;
         }
         
         hidestatemaster() {
           this.showModalSecurity = false;
+        }
+        onClicksavepopup() {
+          this.showModalsavepopup = true;
+        }
+          
+        hidesavepopup() {
+          this.showModalsavepopup = false;
         }
 
       constructor(private formbulider: FormBuilder, private _securityDetailsService: SecurityDetailsService) {
@@ -150,10 +168,23 @@ alert(SecurityDetailsId);
     }
     onRowSelected(event){
       debugger;
-        if (event.node.selected) {
+        if (event.column.colId != "0" ) // only first column clicked
+        {
+          this.Temp=2;
+          this.showModalSecurity = true;
+          this.SecurityFormGrp.controls['CountryCode'].setValue(event.data.CountryCode);
+          this.SecurityFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
+          this.SecurityFormGrp.controls['ListCode'].setValue(event.data.ListCode);
+          this.SecurityFormGrp.controls['ListName'].setValue(event.data.ListName);
+          this.SecurityDetId=event.data.SecurityDetailId;
+         // event.preventDefault();
+          //event.preventDefault();
+          // execute the action as you want here in on click of hyperlink
+        }
+        else if ((event.column.colId == "0" ) && (event.node.selected) ){
                   // this.errormsg='';
                   // this.dsubmitbutton=true;
-                 // this.SelectionStatusOfMutants.push(event.data);
+                  // this.SelectionStatusOfMutants.push(event.data);
                   this.selectedRowId=event.data.SecurityDetailId;
         }
       }
@@ -209,9 +240,10 @@ alert(SecurityDetailsId);
           (data) => {
               //this._securityDetails = data;
               if (data.Result = 1) {
-                  sessionStorage.setItem('ID', data.Result.toString());
-                  this.message = 'Record saved Successfully';
-                  alert(this.message);
+                 // sessionStorage.setItem('ID', data.Result.toString());
+                 // this.message = 'Record saved Successfully';
+                 // alert(this.message);
+                 this.onClicksavepopup();
               }
               else {
                   this.message = 'Invalid Credential';
@@ -227,13 +259,14 @@ alert(SecurityDetailsId);
     }
     
     UpdateSecurity() {
-      this._securityDetailsService.UpdateSecurity(JSON.stringify(this.SecurityFormGrp.value), this.CustodianId).subscribe(
+      this._securityDetailsService.UpdateSecurity(JSON.stringify(this.SecurityFormGrp.value), this.SecurityDetId).subscribe(
           (data) => {
-              if (this._securityDetails.Result = 1) {
-                  this.message = 'Record updated Successfully';
-                  alert(this.message);
+              if (data.Result = 1) {
+                 // this.message = 'Record updated Successfully';
+                 // alert(this.message);
                   //this.buttonDisabledDelete = true;
                   this.buttonDisabledReset = false;
+                  this.onClickupdatepopup();
               }
               else {
                   this.message = 'Invalid Credential';
@@ -260,7 +293,7 @@ alert(SecurityDetailsId);
       this.sucess = false;
       this.Show = true;
       this.Temp = 1;
-      this.CustodianId = 0;
+      this.SecurityDetId = 0;
       this.loading = false;
       this.message = null;
      // this.BindDesignations();
@@ -269,6 +302,8 @@ alert(SecurityDetailsId);
     // {
     //     console.log(this.newTaskForm.value)
     // }
+    
+
     loadAllCountry() {
       debugger;
       this.loading = true;

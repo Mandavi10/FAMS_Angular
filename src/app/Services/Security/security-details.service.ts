@@ -66,12 +66,12 @@ SaveSecurity(em: any): Observable<Custodian> {
   });
 }
 
-UpdateSecurity(em: any, CustodianId): Observable<Custodian> {
+UpdateSecurity(em: any, SecurityDetailsId): Observable<Custodian> {
   const body = em;
   let item = JSON.parse(sessionStorage.getItem('User'));
   this.UserId = item.UserId;  
   const headers = new HttpHeaders().set('content-type', 'application/json');
-  return this._http.post<Custodian>(this.baseUrl + 'api/SecurityDetails/UpdateSecurityDetails/' + this.UserId +'/' + CustodianId, body, {
+  return this._http.post<Custodian>(this.baseUrl + 'api/SecurityDetails/UpdateSecurityDetails/' + this.UserId +'/' + SecurityDetailsId, body, {
       headers
   });
 }
