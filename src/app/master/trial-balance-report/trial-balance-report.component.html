@@ -8,19 +8,19 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <a target="_blank" href="../../../assets/Files/TB_File.csv"><li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
                             </label>
-                        </li>
+                        </li></a>
                          
-                         <li>
+                        <a target="_blank" href="../../../assets/Files/TB_File.pdf"><li>
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
                                     Export to PDF
                                  </label>
-                             </li>
+                             </li></a>
                      </ul>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                        From Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate" #Fromdate>
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                        To Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate" #Todate>
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
                        
-                        <li>
+                        <li (click)="PreviousDayFun()">
                            
                             <label>
                                Previous Day
@@ -124,12 +124,12 @@
                         </li>
                         <li>
                          
-                            <label>
+                            <label (click)="LastOneWeekFun()">
                                Last One Week
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="LastOneMonthFun()">
                                 
                                  <label>
                                    Last One Month
