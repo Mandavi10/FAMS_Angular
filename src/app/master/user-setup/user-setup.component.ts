@@ -38,14 +38,7 @@ onClicksavepopup(event) {
   }
 
 
-onClicksavepopup(event) {
-  this.showModalsavepopup = true;
-  
-  }
-  
-  hidesavepopup() {
-  this.showModalsavepopup = false;
-  }
+
 
 
 
