@@ -5,8 +5,10 @@ import { Observable } from 'rxjs';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import {Allgridfields} from '../../../Models/SummaryReport/allgridfields';
+import {Jsonallfields} from '../../../Models/SummaryReport/jsonallfields';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { DatePipe } from '@angular/common';
+import { Commonfields } from '../../../Models/commonfields';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 
 @Component({
@@ -55,8 +57,11 @@ rowData = [
   this.BindCustomers();
   }
   BindGrid(Fromdate,Todate){
-    const FormData = this.SummaryReportForm.value;
-    this.SRService.BindGrid(FormData).subscribe(
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let FormData = new Jsonallfields();
+    FormData = this.SummaryReportForm.value;
+    FormData.UserId = Sessionvalue.UserId;
+    this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {
         this.AllgridfieldsList = data.Table; 
         this.Fromdate = Fromdate;
@@ -82,7 +87,10 @@ rowData = [
         });   
   }     
   BindCustomers(){
-    this.SRService.BindCustomers().subscribe(
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindcustomerallfieldsList = data.Table;
       });

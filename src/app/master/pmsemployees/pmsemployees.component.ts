@@ -7,6 +7,7 @@ import { Pmsemployees } from '../../../Models/PMSEmployees/pmsemployees';
 import { Saveallfields } from '../../../Models/PMSEmployees/Saveallfields';
 import { Allcustodianfields } from '../../../Models/PMSEmployees/Allcustodianfields';
 import { Commonfields } from '../../../Models/commonfields';
+import { Bindallcustomers } from '../../../Models/PMSEmployees/bindallcustomers';
 // import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -18,7 +19,8 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class PMSEmployeesComponent implements OnInit {
   PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
-  SaveallfieldsList : Saveallfields;
+  SaveallfieldsList : Saveallfields; BacktoPMSEmployee : boolean = false; PAMSEmpId : any; flag = 0 ; HeaderArray : any =[];
+  BindallcustomersList : Bindallcustomers; liNew : boolean = true; liVieCusDetails : boolean = true;
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -50,7 +52,7 @@ export class PMSEmployeesComponent implements OnInit {
     {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
     {headerName: 'Custodian', field: 'Custodian', width:'150'},
     {headerName: 'Inception Date', field: 'InceptionDate', width:'150'},
-    {headerName: 'Employee Linking Date', field: 'EmployeeLinkingDate', width:'200'},
+    {headerName: 'Employee Linking Date', field: 'EmpLinkingDate', width:'200'},
    
    
     
@@ -67,12 +69,26 @@ rowData1 = [
   showCustomer = false;
   showGrid = true;
   viewCustomer(){
+    this.flag = 1;
+    this.liVieCusDetails = false;
+    this.liNew = false;
+    this.BacktoPMSEmployee = true;
     this.showCustomer = true;
     this.showGrid = false;
+    this.BindCustomers();
   }
   onClickPMSEmploye(event) {
+    this.PAMSEmpId="";
+    this.PMSEmployeesForm.reset();
     this.showModalPMSEmploye = true;
-    
+    }
+    BacktoPMSEmployeeFun(){
+      this.flag = 0;
+      this.liVieCusDetails = true;
+      this.liNew = true;
+      this.BacktoPMSEmployee = false;
+      this.showCustomer = false;
+      this.showGrid = true;
     }
     
     hidePMSEmploye() {
@@ -92,9 +108,34 @@ rowData1 = [
   }
 
   BindGrid(){
-    this.PMSEService.BindGrid().subscribe(
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.PMSEService.BindGrid(JSON.stringify(Data)).subscribe(
       (data) => {
         this.PmsemployeesList = data.Table;
+          
+        });
+  }
+  onRowSelected(event){
+    if (event.column.colId != "0" ) // only first column clicked
+    {
+    this.PMSEmployeesForm.reset();
+    this.showModalPMSEmploye = true;
+    this.PMSEmployeesForm.controls['EmployeeCode'].setValue(event.data.EmployeeCode);
+    this.PMSEmployeesForm.controls['EmployeeName'].setValue(event.data.EmployeeName);
+    this.PMSEmployeesForm.controls['Gender'].setValue(event.data.Gender);
+    this.PMSEmployeesForm.controls['Qualification'].setValue(event.data.Qualification);
+    this.PMSEmployeesForm.controls['About'].setValue(event.data.About);
+    }
+    //else if ((event.column.colId == "0" ) && (event.node.selected) ){
+      this.PAMSEmpId = event.data.PMSEmpId;
+   // }
+  }
+  BindCustomers(){
+    this.PMSEService.BindCustomers(this.PAMSEmpId).subscribe(
+      (data) => {
+        this.BindallcustomersList = data.Table;
           
         });
   }
@@ -102,16 +143,21 @@ rowData1 = [
   SaveDataFun(){
     if (this.PMSEmployeesForm.valid) {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-
-    //let SaveallfieldsList = new Saveallfields();
-
-    //this.SaveallfieldsList.UserId = "3";
-
-    this.SaveallfieldsList = this.PMSEmployeesForm.value;
-    this.PMSEService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
+    let  FormData = new Saveallfields();
+    FormData = this.PMSEmployeesForm.value;
+    FormData.PMSEmpId = this.PAMSEmpId;
+    FormData.UserId = Sessionvalue.UserId; 
+    this.PMSEService.SaveData(JSON.stringify(FormData)).subscribe(
 
       (data) => {
-        this.CommonfieldsList = data.Table; 
+        this. BindGrid();
+        this.CommonfieldsList = data.Table;
+        if(this.CommonfieldsList[0].Result == "1"){
+            alert("save");
+        } 
+        else{
+          alert("not save");
+        }
           
         });
         this.showModalPMSEmploye = false;
@@ -144,11 +190,67 @@ isFieldValid(field: string) {
 }
 
   BindCustodian(){
-    this.PMSEService.BindCustodian().subscribe(
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.PMSEService.BindCustodian(JSON.stringify(Data)).subscribe(
       (data) => {
         this.AllcustodianfieldsList = data.Table;         
         });
   }
+
+  ConvertToCSV(objArray) {
+    if(this.flag==1){
+      this.HeaderArray = {
+        PMSEmpId: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
+        Qualification: "Qualification", About: "About"
+    }
+  }
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    var row = "";
+
+    for (var index in objArray[0]) {
+        //Now convert each value to string and comma-separated
+        row += index + ',';
+    }
+    row = row.slice(0, -1);
+    //append Label row with line break
+   // str += row + '\r\n';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ','
+
+            line += array[i][index];
+        }
+        str += line + '\r\n';
+    }
+    return str;
+}
+downloadCSVFile() {
+  if(this.flag == 0){
+    var csvData = this.ConvertToCSV(JSON.stringify(this.PmsemployeesList));
+  }
+  else{
+    var csvData = this.ConvertToCSV(JSON.stringify(this.BindallcustomersList));
+  }
+    var a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    var blob = new Blob([csvData], { type: 'text/csv' });
+    var url = window.URL.createObjectURL(blob);
+    a.href = url;
+    if(this.flag == 0){
+      a.download = 'EmployeeFile.csv';/* your file name*/
+    }
+   else{
+    a.download = 'CustomerFile.csv';/* your file name*/
+   }
+    a.click();
+    return 'success';
+}
   
   }
 
