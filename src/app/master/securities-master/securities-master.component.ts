@@ -23,7 +23,7 @@ export class SecuritiesMasterComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
   SelectionStatusOfMutants:any;
-  selectedRowId:number;
+  selectedRowId:number=0;
   
   //showModalSecurity: boolean;
   showSecurity = false;
@@ -84,9 +84,14 @@ debugger;
 //alert(SecurityDetailsId);
 }
     viewSecurities(){
-      this.showSecurity = true;
+      
+      if(this.selectedRowId!=0)
+      {
+        this.showSecurity = true;
       this.showGrid = false;
-      this.BindSecurity(this.selectedRowId);
+        this.BindSecurity(this.selectedRowId);
+      }
+      
 
       //this.onClickupdatepopup();
 
@@ -103,6 +108,7 @@ debugger;
       this.loading = false;
     }
     onClickPMSEmploye(event) {
+      this.ResetSecurity();
       this.showModalSecurity = true;
       
       }

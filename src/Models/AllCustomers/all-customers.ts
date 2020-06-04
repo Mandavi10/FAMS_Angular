@@ -1,5 +1,5 @@
 export class AllCustomers {
-    //UserId : string ;
+    UserId : any ;
     Sno : BigInteger;
     UserName : string;
     EmailId : string;

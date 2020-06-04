@@ -17,6 +17,18 @@ export class HeaderComponent implements OnInit {
   toggleCorporate() {
     this.isShow1 = !this.isShow1;
 }
+
+
+showModalChangePassword: boolean;
+
+  onClickChangePassword(event) {
+    this.showModalChangePassword = true;
+    
+    }
+    
+    hideChangePassword() {
+    this.showModalChangePassword = false;
+    }
   constructor(private router: Router,private Dbsecurity: DbsecurityService) { }
 
   ngOnInit() {

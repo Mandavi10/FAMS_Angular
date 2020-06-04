@@ -19,7 +19,7 @@
                                 New
                             </label>
                         </li>
-                        <li (click)="onClicksavepopup($event)" >
+                        <li (click)="onClicksavepopup($event)" style="display: none;" >
                                       
                             <label>
                                 Popup
@@ -48,7 +48,10 @@
         [columnDefs]="columnDefs"
         [enableFilter]="false"
           [enableSorting]="true"
-          [showToolPanel]="true">
+          [showToolPanel]="true"
+          rowSelection="single"
+            (cellClicked)="onRowSelected($event)"
+          >
     </ag-grid-angular>
                
                 
@@ -99,8 +102,9 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Acc:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                        <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount"  formControlName="CustomerAccount" />
-                
+                        <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerAccount')">
+                        <input type="text" name="customerAccount" required class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount"  formControlName="CustomerAccount" />
+                        </div>
                     </div>
                         </div>
                     
@@ -377,7 +381,9 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Name:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName"  formControlName="CustomerUsername" />
+                        <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerAccount')">
+                          <input type="text" required name="customerUsername" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName"  formControlName="CustomerUsername" />
+                        </div>
                 
                     </div>
                         </div>
@@ -386,7 +392,9 @@
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Email:</label>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
-                          <input type="text" class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail"  formControlName="CustomerEmailID" />
+                        <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerEmailID')">
+                          <input type="text" required class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail"  formControlName="CustomerEmailID" />
+                        </div>
                 
                     </div>
                         </div>
@@ -462,8 +470,8 @@
                 </div>
                 <div class="pull-right mt-1">
                
-                    <input type="button" class="btn btn-success mr-2"  value="Create" (click)="SaveData()" id="btnCreateCustomerPopUp"  />
-                    <input type="button" class="btn btn-success mr-1" value="Cancel" id="btnCancelCustomerPopUp" />
+                    <input type="button" class="btn btn-success mr-2"  value="Create" (click)="onSubmit()" id="btnCreateCustomerPopUp"  />
+                    <input type="button" class="btn btn-success mr-1" value="Cancel" (click)="Cancel()" id="btnCancelCustomerPopUp" />
                 </div>
             
                   </div> 
@@ -499,6 +507,34 @@
         </div>
         </div>
         </div>
+
+
+        <div class="modal successPopup" id="myModal" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">
+           
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+            <p>Updated Successfully</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+          
+        </div>
+            
+            </div>
+            </div>
+            </div>   
     </div>
 
 
