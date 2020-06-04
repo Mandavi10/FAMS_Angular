@@ -55,7 +55,7 @@
             </div>
 
 
-            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="pMSCustomerListDetails"
+            <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListDetails"
                 [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
                 rowSelection="single"
                 (cellClicked)="onRowSelected($event)">
@@ -76,7 +76,7 @@
             </div>
 
 
-            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="pMSCustomerListCodeDetails"
+            <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListCodeDetails"
                 [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
                 >
             </ag-grid-angular>
@@ -280,7 +280,7 @@
 
 
     <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalsavepopup ? 'block' : 'none'">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
         <div class="modal-content">
         
         <!-- Modal Header -->
@@ -307,7 +307,7 @@
         </div>
 
         <div class="modal successPopup" id="myModal" [style.display]="showModalupdatepopup ? 'block' : 'none'">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm">
             <div class="modal-content">
             
             <!-- Modal Header -->
