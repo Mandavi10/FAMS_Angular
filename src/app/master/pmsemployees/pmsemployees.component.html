@@ -11,7 +11,7 @@
 
                         
                            
-                        <li>
+                        <li (click)="downloadCSVFile()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
@@ -30,13 +30,20 @@
                             </label>
                         </li> -->
                        
-                        <li (click)="viewCustomer()">
+                        <li *ngIf="BacktoPMSEmployee" (click)="BacktoPMSEmployeeFun()">
+                            <i title="Back to PMSEmployee"><img src="../assets/images/viewImg.png" style="width:11%; margin-top: -6px;" ></i>
+                            <label>
+                                Back to PMSEmployee
+                            </label>
+                        </li>
+
+                        <li *ngIf="liVieCusDetails" (click)="viewCustomer()">
                             <i title="View Customer Details"><img src="../assets/images/viewImg.png" style="width:11%; margin-top: -6px;" ></i>
                             <label>
                                 View Customer Details
                             </label>
                         </li>
-                        <li (click)="onClickPMSEmploye($event)" >
+                        <li *ngIf="liNew" (click)="onClickPMSEmploye($event)" >
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -61,13 +68,15 @@
             
             
            <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
     [rowData]="PmsemployeesList"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
-      [showToolPanel]="true">
+      [showToolPanel]="true"
+      rowSelection="single"
+      (cellClicked)="onRowSelected($event)">
 </ag-grid-angular>
            
             
@@ -83,13 +92,15 @@
             
             
            <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
-    [rowData]="PmsemployeesList"
+    [rowData]="BindallcustomersList"
     [columnDefs]="columnDefs1"
     [enableFilter]="false"
       [enableSorting]="true"
-      [showToolPanel]="true">
+      [showToolPanel]="true"
+      rowSelection="single"
+      (cellClicked)="onRowSelected($event)">
 </ag-grid-angular>
            
             
@@ -130,7 +141,9 @@
                                                                                 Employee Code:
                                                                             </label>
                                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeCode"/>
+                                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('EmployeeCode')">
+                                                                                <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeCode"/>
+                                                                            </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -140,7 +153,9 @@
                                                                     Employee Name:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeName" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('EmployeeName')">
+                                                                    <input type="text" required name="UserName" class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeName" />
+                                                                </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -151,7 +166,7 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Gender">
-                                                                        <option value="">Select Gender</option>
+                                                                        <option value="" selected>Select</option>
                                                                        <option value="M">Male</option>
                                                                        <option value="F">Female</option>
                                                                        <option value="O">Other</option>
@@ -188,7 +203,9 @@
                                                                     Customer Code:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerCode"/>
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerCode')">
+                                                                    <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerCode"/>
+                                                                </div>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -201,7 +218,9 @@
                                                                     Customer Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerName')">
+                                                                    <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName" />
+                                                                </div>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -212,7 +231,7 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Custodian">
-                                                                        <option value="" selected>select Custodian</option>
+                                                                        <option value="" selected>select</option>
                                                                         <option *ngFor="let Data of AllcustodianfieldsList" value={{Data.CustodianCode}} text={{Data.CustodianName}}>
                                                                     </select>
                                                                 </div>
@@ -271,6 +290,34 @@
                 </div>
                 </div>
                 </div>
+
+                
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Saved Successfully</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+    </div>
+        
+        </div>
+        </div>
+        </div>
 
     </div>
 
