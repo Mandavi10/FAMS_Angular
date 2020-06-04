@@ -35,20 +35,36 @@ rowData = [
    
 ];
 
-
-
+showModalsavepopup: boolean;
+onClicksavepopup() {
+  this.showModalsavepopup = true;
+}
+  
+hidesavepopup() {
+  this.showModalsavepopup = false;
+}
 
 
 
   constructor(private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
+  isShowGrid:boolean=true;
+  isShowForm:boolean=false;
 
   ngOnInit(): void {
     this.AllCustomersForm = this.formBuilder.group({  
       CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
   });
  this.BindGrid();
+ this.isShowForm=false;
+this.isShowGrid=true;
   }
   
+  ShowGridOrForm()
+  {
+this.isShowForm=true;
+this.isShowGrid=false;
+  }
+
 BindGrid(){
   this.AllCustomerService.BindGrid().subscribe(
     (data) => {
@@ -73,12 +89,13 @@ SaveData(){
       if (data[0].value == "1") {
         alert("Customer create successfully.!!")
         this.BindGrid();
+        this.isShowForm=false;
+this.isShowGrid=true;
       }
       else
       {
         alert("Customer Username already exist. !!")
         //this.BindGrid();
-
       }
   //     this.CommonfieldsList = data.Table; 
         

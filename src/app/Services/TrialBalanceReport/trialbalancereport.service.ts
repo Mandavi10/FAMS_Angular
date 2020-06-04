@@ -1,6 +1,7 @@
 import { Injectable,Inject } from '@angular/core';
 import { HttpClient,HttpHeaders,HttpParams,HttpResponse} from '@angular/common/http'; 
 import {JsonFieldData} from '../../../Models/TrialBalanceReport/json-field-data';
+import {ResponseData} from '../../../Models/TrialBalanceReport/response-data';
 import { Observable } from 'rxjs';
 
 
@@ -13,10 +14,10 @@ export class TrialbalancereportService {
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
     this.baseUrl = myAppUrl;
    }
-   GetTrialData(em:any): Observable<JsonFieldData> {
+   GetTrialData(em:any): Observable<any> {
     const body = em;
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this._http.post<JsonFieldData>(this.baseUrl + 'api/TrailBalanceReports/BindGrid', body, {
+    return this._http.post<any>(this.baseUrl + 'api/TrailBalanceReports/BindGrid', body, {
       headers
   });
   }
