@@ -25,7 +25,7 @@
                                 Upload User
                             </label>
                         </li> -->
-                        <li (click)="BackToSecurity()">
+                        <li (click)="BackToSecurity()" style="display: none;">
                             <i title="View Securities"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                             <label>
                                 Back To Securities
@@ -186,9 +186,9 @@
                                                                     <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <input type="text" required name="listCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="ListCode"
                                                                     />
-                                                                </div>
+                                                                     </div>
                                                                            
-                                                            </div>
+                                                                </div>
                                                         </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -233,8 +233,9 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
-                                                                    <input type="text" name="securityName" class="col-sm-12 col-md-12 col-xs-12" formControlName="SecurityName"
-                                                                    />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('SecurityName')">
+                                                                        <input type="text" required name="securityName" class="col-sm-12 col-md-12 col-xs-12" formControlName="SecurityName"/>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div> 
