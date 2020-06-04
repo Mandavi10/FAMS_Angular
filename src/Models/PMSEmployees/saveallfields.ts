@@ -9,5 +9,7 @@ export class Saveallfields {
     CustodianId : string;
     EmpLinkingDate : string;
     InceptionDate : string;
+    PMSEmpId : string;
+    Active : string;
     UserId : string;
 }
