@@ -9,6 +9,10 @@
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
+
+.modal-header {
+    border-bottom: 0px solid #e5e5e5;
+}
     .modal .modal-dialog {
     margin:100px auto}
 /* .modal .modal-header .close {

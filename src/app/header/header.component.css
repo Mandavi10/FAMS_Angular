@@ -1,3 +1,16 @@
+ .modal-body {
+    padding: 15px !important;
+}
+
+.modal-footer{padding: 5px 16px 7px 0px !important;}
+.closeDiv{background-color: #ffffff !important;
+    border: none !important;
+    color: #00172e !important;
+    font-size: 33px !important;
+    position: absolute !important;
+    right: 14px !important;
+    top: 0px !important;}
+
 #sidenav{ position: absolute;
     top: 14px;
     left: 4px;}
