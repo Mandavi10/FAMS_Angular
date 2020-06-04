@@ -17,6 +17,10 @@ import { Allcustomerresponse } from 'src/Models/AllCustomers/allcustomerresponse
 })
 export class AllCustomersComponent implements OnInit {
   AllCustomersList:AllCustomers;AllCustomersForm: FormGroup; SaveallfieldsList : SaveAllFields;CustomerResponse:Allcustomerresponse;
+  showModalupdatepopup:boolean;
+  selectedRowId:number;
+  CustomerId:number;
+  Temp: number = 1; 
   columnDefs = [
     {headerName: 'Sr. No.', field: 'Sno', width:'80'},
     {headerName: 'Customer Account', field: 'AccountNo', width:'150'},
@@ -44,7 +48,13 @@ hidesavepopup() {
   this.showModalsavepopup = false;
 }
 
-
+onClickupdatepopup() {
+  this.showModalupdatepopup = true;
+}
+hideupdatepopup() {
+  debugger;
+ this.showModalupdatepopup = false;
+}
 
   constructor(private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
   isShowGrid:boolean=true;
@@ -58,7 +68,11 @@ hidesavepopup() {
  this.isShowForm=false;
 this.isShowGrid=true;
   }
-  
+  Cancel()
+  {
+    this.isShowForm=false;
+    this.isShowGrid=true;
+  }
   ShowGridOrForm()
   {
 this.isShowForm=true;
@@ -72,13 +86,56 @@ BindGrid(){
         
       });
 }
+onRowSelected(event){
+  debugger;
+    if (event.column.colId != "all" ) // only first column clicked
+    {
+      this.Temp=2;
+      //this.showModalsavepopup = true;    
+      this.ShowGridOrForm();
+      this.AllCustomersForm.controls['CustomerAccount'].setValue(event.data.AccountNo);
+      this.AllCustomersForm.controls['CustomerUsername'].setValue(event.data.UserName);
+      this.AllCustomersForm.controls['CustomerEmailID'].setValue(event.data.EmailId);
+     
+      this.CustomerId=event.data.UserId;
+      // event.preventDefault();
+      // event.preventDefault();
+      // execute the action as you want here in on click of hyperlink
+    }
+    else if ((event.column.colId == "all" ) && (event.node.selected) ){
+      this.Temp=2;
+      // this.showModalsavepopup = true;    
+      this.ShowGridOrForm();
+      this.AllCustomersForm.controls['CustomerAccount'].setValue(event.data.AccountNo);
+      this.AllCustomersForm.controls['CustomerUsername'].setValue(event.data.UserName);
+      this.AllCustomersForm.controls['CustomerEmailID'].setValue(event.data.EmailId);
+      this.CustomerId=event.data.UserId;
+    }
+  }
+  onSubmit() {
+    debugger;
+    //alert('OnSubmi Clicked');
+    //this.submitted = true;
+    if (this.AllCustomersForm.valid) {
+        //this.sucess=true;
+        const datat = this.AllCustomersForm.value;
+        
+        if (this.Temp == 1) {
+            this.SaveData();
+        }
+        else {
+            this.UpdateData();
+        }
+    } else {
+        this.validateAllFormFields(this.AllCustomersForm);
+    }
+  }
+
 SaveData(){
   debugger;
-  if (this.AllCustomersForm.valid) {
+ 
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-
   //let SaveallfieldsList = new Saveallfields();
-
   //this.SaveallfieldsList.UserId = "3";
 
   this.SaveallfieldsList = this.AllCustomersForm.value;
@@ -87,10 +144,11 @@ SaveData(){
     (data) => {
       this.CustomerResponse = data;
       if (data[0].value == "1") {
-        alert("Customer create successfully.!!")
+        this.onClicksavepopup();
+        //alert("Customer create successfully.!!")
         this.BindGrid();
         this.isShowForm=false;
-this.isShowGrid=true;
+        this.isShowGrid=true;
       }
       else
       {
@@ -101,14 +159,51 @@ this.isShowGrid=true;
         
        });
   //     this.showModalPMSEmploye = false;
-     }
-     else {
-       this.validateAllFormFields(this.AllCustomersForm);
-    }
+     
    //
+  }
+
+ 
+  UpdateData(){
+    debugger;
+   
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    //let SaveallfieldsList = new Saveallfields();
+    //this.SaveallfieldsList.UserId = "3";
+  
+    this.SaveallfieldsList = this.AllCustomersForm.value;
+    this.AllCustomerService.UpdateData(JSON.stringify(this.SaveallfieldsList),this.CustomerId).subscribe(
+  
+      (data) => {
+        this.CustomerResponse = data;
+        if (data[0].value == "1") {
+          this.onClickupdatepopup();
+          //alert("Customer create successfully.!!")
+          this.BindGrid();
+          this.isShowForm=false;
+          this.isShowGrid=true;
+        }
+        else
+        {
+          alert("Customer Username already exist. !!")
+          //this.BindGrid();
+        }
+    //     this.CommonfieldsList = data.Table; 
+          
+         });
+    //     this.showModalPMSEmploye = false;
+      
+     //
     }
  
-
+    isFieldValid(field: string) {
+      return !this.AllCustomersForm.get(field).valid && this.AllCustomersForm.get(field).touched;
+    }
+    displayFieldCss(field: string) {
+      return {
+          'validate': this.isFieldValid(field),
+      };
+    }
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
