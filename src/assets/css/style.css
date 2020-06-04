@@ -10,6 +10,11 @@
     background: rgba(0,0,0,0.6) !important;
 }
 
+.loaderposition{    position: absolute;
+    z-index: 9999 !important;}
+
+
+.loaderimagepage{margin-left: 45%;margin-top: 19%;width: 8%;}
 .modal-header {
     border-bottom: 0px solid #e5e5e5;
 }
