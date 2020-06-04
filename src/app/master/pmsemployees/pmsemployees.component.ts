@@ -20,7 +20,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 export class PMSEmployeesComponent implements OnInit {
   PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
   SaveallfieldsList : Saveallfields; BacktoPMSEmployee : boolean = false; PAMSEmpId : any; flag = 0 ; HeaderArray : any =[];
-  BindallcustomersList : Bindallcustomers; liNew : boolean = true; liVieCusDetails : boolean = true;
+  BindallcustomersList : Bindallcustomers; liNew : boolean = true; liVieCusDetails : boolean = true; showModalsavepopup: boolean;
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -94,6 +94,14 @@ rowData1 = [
     hidePMSEmploye() {
     this.showModalPMSEmploye = false;
     }
+    onClicksavepopup(event) {
+      this.showModalsavepopup = true;
+      
+      }
+      
+      hidesavepopup() {
+      this.showModalsavepopup = false;
+      }
 
   constructor(private router: Router, private formBuilder: FormBuilder,private PMSEService : PmsemployeesService) { }
 
@@ -149,11 +157,12 @@ rowData1 = [
     FormData.UserId = Sessionvalue.UserId; 
     this.PMSEService.SaveData(JSON.stringify(FormData)).subscribe(
 
-      (data) => {
-        this. BindGrid();
+      (data) => {     
         this.CommonfieldsList = data.Table;
         if(this.CommonfieldsList[0].Result == "1"){
-            alert("save");
+           // alert("save");
+            this.showModalsavepopup = true;
+            this. BindGrid();
         } 
         else{
           alert("not save");
