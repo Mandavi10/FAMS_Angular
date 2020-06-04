@@ -3,3 +3,5 @@
     height: 0px !important;
     min-height: 0px !important;
 }
+
+.downborder{border-bottom: 1px solid #cdcdcd;}

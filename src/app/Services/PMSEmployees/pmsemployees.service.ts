@@ -39,6 +39,13 @@ BindCustodian(em:any): Observable<any> {
       headers 
   });
 }
+Search(em:any): Observable<any> {  
+  const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+   return this._http.post<any>(this.baseUrl + 'api/PMSEmployees/Search', body, {
+       headers 
+   });
+ }
 BindCustomers(PMSEmpId): Observable<any> {  
  return this._http.get<any>(this.baseUrl + 'api/PMSEmployees/BindCustomers/'+ PMSEmpId);
 }

@@ -107,7 +107,7 @@ rowData1 = [
 
   ngOnInit(): void {
     this.PMSEmployeesForm = this.formBuilder.group({  
-      EmployeeCode : [''], EmployeeName :[''], Gender : [''], Qualification : [''], About : [''],
+      EmployeeCode : [''], EmployeeName :[''], Gender : [], Qualification : [''], About : [''],
       CustomerCode : [''], CustomerName : [''] , Custodian : [''], InceptionDate : [''], EmpLinkingDate : [''],
       Active : ['']
   });
@@ -205,6 +205,17 @@ isFieldValid(field: string) {
     this.PMSEService.BindCustodian(JSON.stringify(Data)).subscribe(
       (data) => {
         this.AllcustodianfieldsList = data.Table;         
+        });
+  }
+  Search(value){
+    alert(value);
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    Data.Result = value;
+    this.PMSEService.Search(JSON.stringify(Data)).subscribe(
+      (data) => {
+        this.PmsemployeesList = data.Table;         
         });
   }
 

@@ -8,6 +8,9 @@
     border: solid 1px #eee;
     cursor: pointer;
   }
+  .userlistpop, .modal-header {      
+    background-color: #ffffff;
+  }
   .dropDownIcon{
     position: absolute;
     width: 35px;

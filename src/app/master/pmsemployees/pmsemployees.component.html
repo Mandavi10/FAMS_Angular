@@ -62,7 +62,7 @@
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
             <div class="filter">
-                <input type="text" placeholder="Search" />
+                <input type="text" placeholder="Search" #SearchData (keyup)="Search(SearchData.value)"/>
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             
@@ -166,7 +166,7 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Gender">
-                                                                        <option value="" selected>Select</option>
+                                                                        <option value="">Select</option>
                                                                        <option value="M">Male</option>
                                                                        <option value="F">Female</option>
                                                                        <option value="O">Other</option>
@@ -231,7 +231,7 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Custodian">
-                                                                        <option value="" selected>select</option>
+                                                                        <option value="">Select Custodian</option>
                                                                         <option *ngFor="let Data of AllcustodianfieldsList" value={{Data.CustodianCode}} text={{Data.CustodianName}}>
                                                                     </select>
                                                                 </div>
