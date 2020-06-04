@@ -48,15 +48,17 @@
 
         </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv"  *ngIf="Isdiv" style="display:block">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv"  *ngIf="Isdiv">
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
 
 
-            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="rowData1"
-                [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
+            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="pMSCustomerListDetails"
+                [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
+                rowSelection="single"
+                (cellClicked)="onRowSelected($event)">
             </ag-grid-angular>
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="paginationDiv">
@@ -67,15 +69,16 @@
            </div>
 
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1" >
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
 
 
-            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="rowData2"
-                [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
+            <ag-grid-angular style="width: 100%; height: 130px;" class="ag-theme-alpine" [rowData]="pMSCustomerListCodeDetails"
+                [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
+                >
             </ag-grid-angular>
 
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -116,7 +119,7 @@
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                            <form class="">
+                            <form [formGroup]="PMSCustomerListFormGrp" autocomplete="off" class="form" appNorightclick>
                                 <div class="row no-padding mt-2">
                                     <div class="col-md-12 col-sm-4 col-xs-12 p-0">
                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -125,13 +128,21 @@
                                                     for="form-field-1">
                                                    Custodian:
                                                 </label>
-                                                <div
-                                                    class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <select class="col-sm-12 col-md-12 col-xs-12 ">
+                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                    <!-- <select class="col-sm-12 col-md-12 col-xs-12 ">
                                                         <option>Custodian 1 </option>
                                                         <option>Custodian  2</option>
                                                         <option>Custodian 3 </option>
-                                                    </select>
+                                                    </select> -->
+
+                                                    <div class="form-group input-group" >
+                                                        <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="CustodianCode">
+                                                        <option value="0" selected>Select Custodian</option>
+                                                        <option *ngFor="let data of custodian" value={{data.CustodianCode}}  >
+                                                            {{data.CustodianName}}
+                                                        </option>
+                                                        </select>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -142,9 +153,13 @@
                                                     for="form-field-1">
                                                     List Code:
                                                 </label>
-                                                <div
-                                                    class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                    <!-- <input type="text" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('ListCode')">
+                                                        <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                        <input type="text" required name="listCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="ListCode"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,7 +169,10 @@
                                                     Customer Acc:
                                                 </label>
                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerAccount')">
+                                                        <input type="text" required name="customerAccount" class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,7 +182,10 @@
                                                     Customer Name:
                                                 </label>
                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerName')">
+                                                        <input type="text" name="customerName" class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,10 +195,17 @@
                                                     Portfolio Type: 
                                                 </label>
                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <select class="col-sm-12 col-md-12 col-xs-12 ">
+                                                    <!-- <select class="col-sm-12 col-md-12 col-xs-12 ">
                                                         <option>Portfolio 1 </option>
                                                         <option>Portfolio 2 </option>
                                                         <option>Portfolio 3 </option>
+                                                    </select> -->
+
+                                                    <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="PortfolioCode">
+                                                        <option value="0" selected>Select Portfolio</option>
+                                                        <option *ngFor="let data of portFolio" value={{data.PortfolioCode}}  >
+                                                            {{data.PortfolioName}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -188,7 +216,10 @@
                                                     Inception Date: 
                                                 </label>
                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <input type="date" class="col-sm-12 col-md-12 col-xs-12" />
+                                                    <!-- <input type="date" class="col-sm-12 col-md-12 col-xs-12" InceptionDate /> -->
+                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('InceptionDate')">
+                                                        <input type="date" required name="inceptionDate" class="col-sm-12 col-md-12 col-xs-12" formControlName="InceptionDate"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,10 +230,17 @@
                                                     Linked PMS Emp: 
                                                 </label>
                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                    <select class="col-sm-12 col-md-12 col-xs-12 ">
+                                                    <!-- <select class="col-sm-12 col-md-12 col-xs-12 ">
                                                         <option>PMS Emp 1 </option>
                                                         <option>PMS Emp 2 </option>
                                                         <option>PMS Emp 3 </option>
+                                                    </select> -->
+
+                                                    <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="EmployeeCode">
+                                                        <option value="0" selected>Select Linked PMS Emp</option>
+                                                        <option *ngFor="let data of linkedPMSEmployee" value={{data.EmployeeCode}}  >
+                                                            {{data.EmployeeName}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -214,7 +252,8 @@
                                                     Enable: 
                                                 </label>
                                                 <div class="col-sm-6 col-md-1 col-xs-7 no-padding-left displayinlineblock">
-                                                    <input type="checkbox"  class="col-sm-12 col-md-12 p-0 col-xs-12" />
+                                                    <input type="checkbox" formControlName="Enable"  class="col-sm-12 col-md-12 p-0 col-xs-12" />
+                                                    <!-- <input  name="enable" formControlName="Enable" value="" type="checkbox" class="col-md-1 col-sm-2 col-xs-4"/> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -228,7 +267,8 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Save</button>
+                        <!-- <button type="button" class="btn btn-success">Save</button> -->
+                        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
                         <!-- <button type="button" class="btn btn-success">View PMS</button> -->
                     </div>
 
@@ -237,5 +277,60 @@
         </div>
 
     </div>
+
+
+    <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Saved Successfully</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+    </div>
+        
+        </div>
+        </div>
+        </div>
+
+        <div class="modal successPopup" id="myModal" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">
+           
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+            <p>Updated Successfully</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+          
+        </div>
+            
+            </div>
+            </div>
+            </div>
 
 </div>
