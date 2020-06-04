@@ -24,7 +24,7 @@ export class CustodianMasterComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
   _pms:PMS;
-  selectedRowId:number;
+  selectedRowId:number=0;
   pmsDetails:[];
 
   columnDefs = [
@@ -78,6 +78,7 @@ rowData1 = [
       this.showModalupdatepopup = false;
     }
     onClickstatemaster(event) {
+    this.ResetCustodian();
     this.showModalstatemaster = true;
     }
     
@@ -157,9 +158,13 @@ onClickviewpms(){
   debugger;
 //  this.onClickupdatepopup();
  //this.onClicksavepopup();
-  this.Isdiv1=true;
-  this.Isdiv=false;
+ 
+  if(this.selectedRowId != 0)
+  {
+    this.Isdiv1=true;
+    this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
+  }
 }
 onSubmit() {
   debugger;

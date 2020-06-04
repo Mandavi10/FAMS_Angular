@@ -21,7 +21,7 @@ export class PSMCustomersListComponent implements OnInit {
   showModalupdatepopup:boolean;
   PMSCustomerListFormGrp:FormGroup;
   custodian:Custodian;portFolio:PortFolio;linkedPMSEmployee:LinkedPMSEmployee;pMSCustomerListDetails:PMSCustomerListDetails;pMSCustomerListCodeDetails;pMSCustomerList:PMSCustomerList
-  selectedRowId:number;
+  selectedRowId:number=0;
   CustomerListId:number;
 
   Temp: number = 1;  loading: boolean = false;
@@ -63,9 +63,14 @@ rowData2= [
 
 showModalstatemaster: boolean;
     onClickviewpms(){
-      this.Isdiv1=true;
-      this.Isdiv=false;
-      this.BindPMSCustomerListCodeDetails(this.CustomerListId);
+     
+      if(this.selectedRowId!=0)
+      {
+        this.Isdiv1=true;
+        this.Isdiv=false;
+        this.BindPMSCustomerListCodeDetails(this.selectedRowId);
+      }
+     
     }
 
     constructor(private formbulider: FormBuilder, private _pmsCustomerListService: PmsCustomerListService) {
@@ -108,6 +113,7 @@ showModalstatemaster: boolean;
   }
   onClickstatemaster(event) {
    // this.showModalSecurity = true;
+   this.ResetPMSCustomerList();
    this.showModalstatemaster=true;
     //this.Isdiv=true;
   }
@@ -145,7 +151,8 @@ showModalstatemaster: boolean;
                 // this.errormsg='';
                 // this.dsubmitbutton=true;
                 // this.SelectionStatusOfMutants.push(event.data);
-                this.CustomerListId=event.data.CustomerListId;
+               // this.CustomerListId=event.data.CustomerListId;
+                this.selectedRowId=event.data.CustomerListId;
       }
     }
   onSubmit() {

@@ -41,6 +41,11 @@ rowData = [
 
 showModalsavepopup: boolean;
 onClicksavepopup() {
+  this.AllCustomersForm.reset();
+  this.AllCustomersForm.controls['CustomerAccount'].setValue('');
+  this.AllCustomersForm.controls['CustomerUsername'].setValue('');
+  this.AllCustomersForm.controls['CustomerEmailID'].setValue('');
+
   this.showModalsavepopup = true;
 }
   
