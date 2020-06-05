@@ -1,11 +1,8 @@
 <div class="main-content maincontainer">
     <div class="content">
-            <div class="col-md-12 col-sm-12 col-xs-12 mt-4">
+            <div class="col-md-12 col-sm-12 col-xs-12 mt-4" >
                
-                    <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                        <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-                    </div>
-                   
+                 
                 </div>
 
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
@@ -75,7 +72,9 @@
 
 
             
-
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
 
 
 <div id="form" *ngIf="isShowForm">
@@ -481,7 +480,8 @@
                     <input type="button" class="btn btn-success mr-2"  value="Create" (click)="onSubmit()" id="btnCreateCustomerPopUp"  />
                     <input type="button" class="btn btn-success mr-1" value="Cancel" (click)="Cancel()" id="btnCancelCustomerPopUp" />
                 </div>
-            
+               
+               
                   </div> 
     
 

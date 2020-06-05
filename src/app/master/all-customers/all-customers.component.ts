@@ -64,7 +64,7 @@ hideupdatepopup() {
   constructor(private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
   isShowGrid:boolean=true;
   isShowForm:boolean=false;
-
+  isShowLoader:boolean=false;
   ngOnInit(): void {
     this.AllCustomersForm = this.formBuilder.group({  
       CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
@@ -119,6 +119,7 @@ onRowSelected(event){
   }
   onSubmit() {
     debugger;
+    this.isShowLoader=true;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
     if (this.AllCustomersForm.valid) {
@@ -127,12 +128,16 @@ onRowSelected(event){
         
         if (this.Temp == 1) {
             this.SaveData();
+            this.isShowLoader=false;
         }
         else {
             this.UpdateData();
+            this.isShowLoader=false;
+
         }
     } else {
         this.validateAllFormFields(this.AllCustomersForm);
+        this.isShowLoader=false;
     }
   }
 
