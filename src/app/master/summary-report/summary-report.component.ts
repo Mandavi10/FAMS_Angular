@@ -19,7 +19,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 export class SummaryReportComponent implements OnInit {
   CustNameDive : boolean = false; SummaryReportForm : FormGroup; AllgridfieldsList : Allgridfields;
   ClosingMarketValue : any; BindcustomerallfieldsList : Bindcustomerallfields; currentdate : any; AccountNo: any;
-  Fromdate : any; Todate : any;
+  Fromdate : any; Todate : any; GridDive : boolean = false; boderdiv : boolean = true;
   columnDefs = [
     {headerName: '', field: 'heading', width:'300'},
     {headerName: '', field: 'value', width:'150'}
@@ -63,6 +63,8 @@ rowData = [
     FormData.UserId = Sessionvalue.UserId;
     this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {
+        this.GridDive = true;
+        this.boderdiv = false;
         this.AllgridfieldsList = data.Table; 
         this.Fromdate = Fromdate;
         this.Todate = Todate;
