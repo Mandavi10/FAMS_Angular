@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   showSideNav= true;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
-  randomcaptchavalue:string="";  randomcaptcha:string="";
+  randomcaptchavalue:string="";  randomcaptcha:string=""; ChangePassWordPopUp : boolean = false;
   constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
     router.events.subscribe(event => {
       if (router.url === '/Dashboard') {
@@ -117,6 +117,10 @@ this.LoginForm.reset();
                   }
                   
                 }
+                var value = this.Dbsecurity.Decrypt(this.login[0].IsDefaultPswdChange);
+                if( value == "False"){
+                    this.ChangePassWordPopUp = true;
+                }
             });
           }
           else{
@@ -129,6 +133,20 @@ this.BindRandomCaptcha();
         this.validateAllFormFields(this.LoginForm);
     }
 }
+
+ChangePassSave(OldPassWord,NewPassWord,ConfirmedPassword){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  var UserId = Sessionvalue.UserId;
+  var JsonField = {
+    "OldPassword":OldPassWord,
+    "NewPassword":NewPassWord,
+    "UserId":UserId
+  }
+  this._loginService.ChangePassWordNewUser(JsonField).subscribe(
+    (data) => {
+    });
+}
+
 
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
