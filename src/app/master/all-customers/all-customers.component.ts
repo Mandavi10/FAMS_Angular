@@ -119,7 +119,6 @@ onRowSelected(event){
   }
   onSubmit() {
     debugger;
-    this.isShowLoader=true;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
     if (this.AllCustomersForm.valid) {
@@ -128,7 +127,6 @@ onRowSelected(event){
         
         if (this.Temp == 1) {
             this.SaveData();
-            this.isShowLoader=false;
         }
         else {
             this.UpdateData();
@@ -152,6 +150,7 @@ SaveData(){
   this.AllCustomerService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
 
     (data) => {
+    this.isShowLoader=true;
       this.CustomerResponse = data;
       if (data[0].value == "1") {
         this.onClicksavepopup();
@@ -159,9 +158,12 @@ SaveData(){
         this.BindGrid();
         this.isShowForm=false;
         this.isShowGrid=true;
+    this.isShowLoader=false;
+
       }
       else
       {
+    this.isShowLoader=false;
         alert("Customer Username already exist. !!")
         //this.BindGrid();
       }
@@ -185,6 +187,7 @@ SaveData(){
     this.AllCustomerService.UpdateData(JSON.stringify(this.SaveallfieldsList),this.CustomerId).subscribe(
   
       (data) => {
+    this.isShowLoader=true;
         this.CustomerResponse = data;
         if (data[0].value == "1") {
           this.onClickupdatepopup();
@@ -192,9 +195,12 @@ SaveData(){
           this.BindGrid();
           this.isShowForm=false;
           this.isShowGrid=true;
+    this.isShowLoader=false;
+
         }
         else
         {
+    this.isShowLoader=false;
           alert("Customer Username already exist. !!")
           //this.BindGrid();
         }
