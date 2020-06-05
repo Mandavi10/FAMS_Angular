@@ -20,7 +20,7 @@
                           Download Template
                       </label>
                       </li>-->
-                      <li (click)="BackToCustodian()" style="display: none;">
+                      <li (click)="BackToCustodian()" [style.display]="showBackToCustodian ? 'block' : 'none'">
                         <i title="View Custodian"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                         <label>
                             Back To Custodian
@@ -32,7 +32,7 @@
                       View PMS
                       </label>
                    </li>
-                   <li (click)="onClickstatemaster($event)">
+                   <li (click)="onClickstatemaster($event)" [style.display]="showNew ? 'block' : 'none'">
                       <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                       <label>
                       New
@@ -52,8 +52,13 @@
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
           <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="custodian"
+
+          [columnDefs]="columnDefs" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
+          (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true">
+
           [columnDefs]="columnDefs" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
           (cellClicked)="onRowSelected($event)">
+
           </ag-grid-angular>
        </div>
        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
@@ -62,7 +67,11 @@
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
           <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pmsDetails"
+
+          [columnDefs]="columnDefs1" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true">
+
           [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
+
           </ag-grid-angular>
        </div>
        <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">
@@ -174,7 +183,7 @@
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSName')">
-                                     <input type="text" required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
+                                     <input type="text"  required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
                                      />
                                      </div>
                                   </div>
@@ -184,12 +193,14 @@
                                <div class="form-group">
                                   <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                   PMS Account No.: 
+                                  
                                   </label>
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" >
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSAccountNumber')">
-                                     <input type="text" required name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"
-                                      />
+                                       <input  id="name" type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber">
+                                     <!-- <input type="text" [disabled]="true" required name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"/> -->
+
                                      </div>
                                   </div>
                                </div>
