@@ -40,20 +40,6 @@ onClicksavepopup(event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public searchValue: string = null;
 public citiesArray = [];
 public filteredCitiesArray = [];
