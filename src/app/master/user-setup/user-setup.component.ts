@@ -28,9 +28,6 @@ rowData = [
 ];
 
 
-
-
-
 onClicksavepopup(event) {
   this.showModalsavepopup = true;
   
@@ -39,6 +36,9 @@ onClicksavepopup(event) {
   hidesavepopup() {
   this.showModalsavepopup = false;
   }
+
+
+
 
 
 

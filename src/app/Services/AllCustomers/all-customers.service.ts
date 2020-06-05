@@ -32,6 +32,16 @@ SaveData(em:any){
   });
 }
 
+UpdateData(em:any,CustomerId){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.UserId = Sessionvalue.UserId;
+   const body = em;
+   const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/UpdateCustomerDetails/'+  this.UserId + '/'+  CustomerId, body, {
+      headers 
+  });
+}
+
 
 
 

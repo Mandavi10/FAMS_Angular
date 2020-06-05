@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   showSideNav= true;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
-  randomcaptchavalue:string="";  randomcaptcha:string="";
+  randomcaptchavalue:string="";  randomcaptcha:string=""; ChangePassWordPopUp : boolean = false;
   constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
     router.events.subscribe(event => {
       if (router.url === '/Dashboard') {
@@ -64,6 +64,7 @@ this.LoginForm.reset();
 
 
   onSubmit() {
+    debugger;
     //commenton push
 
     //this.router.navigate(['/Dashboard']);
@@ -96,7 +97,9 @@ this.LoginForm.reset();
                     //console.log(item.UserId);
                     this.router.navigate(['/Dashboard']);
                   }
-                  else
+                  else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
+                  || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
+                  || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
                   {
                     this.btnloginDisabled = false;
                     sessionStorage.setItem('User', JSON.stringify(data[0]));
@@ -104,7 +107,19 @@ this.LoginForm.reset();
                     //console.log(item.UserId);
                     this.router.navigate(['/Home']);
                   }
+                else{
+                  this.btnloginDisabled = false;
+                    sessionStorage.setItem('User', JSON.stringify(data[0]));
+                    let item = JSON.parse(sessionStorage.getItem('User'));
+                    //console.log(item.UserId);
+                    this.router.navigate(['/Dashboard']);
+
+                  }
                   
+                }
+                var value = this.Dbsecurity.Decrypt(this.login[0].IsDefaultPswdChange);
+                if( value == "False"){
+                    this.ChangePassWordPopUp = true;
                 }
             });
           }
@@ -118,6 +133,20 @@ this.BindRandomCaptcha();
         this.validateAllFormFields(this.LoginForm);
     }
 }
+
+ChangePassSave(OldPassWord,NewPassWord,ConfirmedPassword){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  var UserId = Sessionvalue.UserId;
+  var JsonField = {
+    "OldPassword":OldPassWord,
+    "NewPassword":NewPassWord,
+    "UserId":UserId
+  }
+  this._loginService.ChangePassWordNewUser(JsonField).subscribe(
+    (data) => {
+    });
+}
+
 
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {

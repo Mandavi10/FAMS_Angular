@@ -12,7 +12,7 @@
                         <li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
-                                <a href="../../../assets/ExcelReports/HoldingReport.csv">Export to CSV</a>
+                                <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a>
                             </label>
 
                             
@@ -24,7 +24,7 @@
                          <li>
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
-                                    <a href="../../../assets/ExcelReports/HoldingReport.pdf"> Export to PDF</a>
+                                    <a href="../../../assets/Files/Holding Report.pdf"> Export to PDF</a>
                                  </label>
                                  <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
                                     <i class="fa fa-file-pdf-o"></i>
@@ -61,9 +61,9 @@
             </div>
         </div>
      
-            <div class="col-md-3 col-sm-4 col-xs-12 p-0">
+            <div class="col-md-3 col-sm-4 col-xs-12">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                          Select Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
@@ -119,16 +119,16 @@
 
                     <tr>
 
-                        <th style="width: 25%">Security</th>
-                        <th style="width: 5%">Quantity</th>
-                        <th style="width: 10%" class="price">Unit Cost</th>
-                        <th style="width: 10%" class="price">Cost</th>
-                        <th style="width: 10%" class="price">Price</th>
-                        <th style="width: 10%" class="price">Market Value </th>
-                        <th style="width: 10%">Gain / Loss (+/-)</th>
+                        <th style="width: 323px">Security</th>
+                        <th style="width: 156px">Quantity</th>
+                        <th style="width: 72px" class="price">Unit Cost</th>
+                        <th style="width: 98px" class="price">Cost</th>
+                        <th style="width: 149px" class="price">Price</th>
+                        <th style="width: 133px" class="price">Market Value </th>
+                        <th style="width: 128px">Gain / Loss (+/-)</th>
                         <!-- <th style="width: 10%"></th> -->
-                        <th style="width: 10%">% G/L</th>
-                        <th style="width: 10%">% Assets</th>
+                        <th style="width: 114px">% G/L</th>
+                        <th style="width: 100px">% Assets</th>
                     </tr>
                 </thead>
                 <tbody class="scrollbar">
@@ -470,7 +470,7 @@
                          <td style="width: 100px">94.39%</td>
                      </tr> -->
                      <tr *ngFor="let data of gridAllFields4 ; index as i" >
-                        <td style="width: 25%">Total</td>
+                        <td style="width: 331px">Total</td>
                         <td style="width: 5%"></td>
                         <td style="width: 10%" class="price"></td>
                         <td style="width: 10%" class="price">{{data.TotalCost }}</td>

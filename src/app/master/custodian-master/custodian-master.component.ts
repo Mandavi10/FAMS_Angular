@@ -24,9 +24,10 @@ export class CustodianMasterComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
   _pms:PMS;
-  selectedRowId:number;
+  selectedRowId:number=0;
   pmsDetails:[];
-
+  showBackToCustodian:boolean=false;
+  showNew:boolean=true;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -78,6 +79,7 @@ rowData1 = [
       this.showModalupdatepopup = false;
     }
     onClickstatemaster(event) {
+    this.ResetCustodian();
     this.showModalstatemaster = true;
     }
     
@@ -105,6 +107,9 @@ rowData1 = [
       Active: [false],
 
   });
+  this.CustodianFormGrp.controls['PMSName'].disable();
+  this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
+
   // this.setClickedRow = function (index) {
   //     this.selectedRow = index;
   // }
@@ -153,13 +158,26 @@ rowData1 = [
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
     }
+    BackToCustomer(){
+      this.showBackToCustodian=false;
+      this.Isdiv1=false;
+      this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showNew=true;
+    }
 onClickviewpms(){
   debugger;
 //  this.onClickupdatepopup();
  //this.onClicksavepopup();
-  this.Isdiv1=true;
-  this.Isdiv=false;
+ 
+  if(this.selectedRowId != 0)
+  {
+    this.showBackToCustodian=true;
+    this.Isdiv1=true;
+    this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
+  this.showNew=true;
+  }
 }
 onSubmit() {
   debugger;

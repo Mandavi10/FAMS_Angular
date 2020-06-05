@@ -8,38 +8,37 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <a target="_blank" href="../../../assets/Files/Summary_Report.csv"> <li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
                             </label>
-                        </li>
+                        </li></a>
                          
-                         <li>
+                         <a target="_blank" href="../../../assets/Files/Summary_Report.pdf"><li (click)="downloadMyFile()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
                                     Export to PDF
                                  </label>
-                             </li>
+                             </li></a>
                      </ul>
                 </div>
             </div>
         </div>
-       
+        
         <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                    <form [formGroup]="SummaryReportForm" autocomplete="off" appNorightclick>
         <div class="col-md-4 col-sm-4 col-xs-12" *ngIf="CustNameDive">
             <div class="form-group">
                 <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                    Customer Name :
                 </label>
                 <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount">
 
-                        <option>Select</option>
-                        <option value="Cust_000001">Customer 1</option>
-                        <option value="Cust_000002">Customer 2</option>
-
+                        <option value="">Select</option>
+                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
                     </select>
                   
                 </div>
@@ -51,7 +50,7 @@
                        From Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9">
+                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="Fromdate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                     </div>
                 </div>
             </div>
@@ -61,13 +60,14 @@
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-9 col-md-12 col-xs-9">
+                            <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="Todate"  value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                    <button type="button" class="btn btn-success">Search</button>
+                    <button type="button" class="btn btn-success" (click)="BindGrid(Fromdate.value,Todate.value)">Search</button>
                     </div>
+                    </form>
            
     </div>
     </div>
@@ -80,7 +80,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
                        
-                        <li>
+                        <li (click)="PreviousDayFun()">
                            
                             <label>
                                Previous Day
@@ -88,12 +88,12 @@
                         </li>
                         <li>
                          
-                            <label>
+                            <label (click)="LastOneWeekFun()">
                                Last One Week
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="LastOneMonthFun()">
                                 
                                  <label>
                                    Last One Month
@@ -102,8 +102,9 @@
                      </ul>
                 </div>
             </div>
-        </div>   
-        <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
+        </div>  
+        <div class="col-md-12 col-sm-12 col-xs-12 downborder" *ngIf="boderdiv"></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid" *ngIf="GridDive">
           <ag-grid-angular
     style="width: 100%; height: 550px;"
     class="ag-theme-alpine"

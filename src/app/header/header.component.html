@@ -7,7 +7,10 @@
     
                 </div>
             </div>
-            <div class="breadcrum" ><i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()"></i>   <span>Mannapuram Finance Limited</span><i class="fa fa-angle-right" aria-hidden="true"></i>   <span>Home</span>
+            <div class="breadcrum" >
+                <i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()">                   
+                </i>   <span>FAMS</span><i class="fa fa-angle-right" aria-hidden="true"></i>  
+                 <span (click)="HomeFun()">Home</span>
                 <div class="corporateList" *ngIf="isShow1" >
                     <div class="filter">
                         <input type="text" placeholder="Search" />
@@ -49,8 +52,8 @@
                         </a>
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
                             id="rbllogpassword">
-                           <li class="userName">User 1</li>
-                            <li class="logouthover" >
+                           <li class="userName"> <span [innerHTML]="UserName"></span></li>
+                            <li class="logouthover" (click)="onClickChangePassword($event)">
                                 <i class="logoutdiv ace-icon fa fa-key"
                                    aria-hidden="true"></i><span class="logoutcolor">Change Password</span>
                             </li>
@@ -79,4 +82,79 @@
         <div id="sidenav" (click)="togglenav()">
             <i class="fa fa-th" aria-hidden="true"></i></div>
     </div>
+
+    <div class="modal" id="ChangePassword" [style.display]="showModalChangePassword ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+
+
+            <div class="modal-header">
+                <h4 class="modal-title" style="margin-top: 3%;">
+                    Change Password
+                </h4>
+                <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideChangePassword()">&times;</button>
+                </div>
+            
+        
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+           
+                <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
+                        <form class="" >
+                                            <div class="row no-padding mt-2">
+                                                <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12 mt-3">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                       Old Password:
+                                                                    </label>
+                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                        <input type="text" name="OldPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                            New Password:
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <input type="text" name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                            Confirm Password:
+                                                        </label>
+                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                            <input type="text" name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                                      
+                                                       
+                                                    </div>
+                                                </div>
+                           
+                        </form>
+                    </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+      
+        <button type="button" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-success">Cancel</button>
+        </div>
+        
+        </div>
+        </div>
+        </div>
 </div>

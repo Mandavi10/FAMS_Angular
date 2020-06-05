@@ -1,4 +1,4 @@
-.holdingreportGrid tbody {
+/*.holdingreportGrid tbody {
     max-height: 52vh !important;
 }
 
@@ -8,31 +8,36 @@
 
 }
 
+
     .holdingreportGrid table {
         width: 100%;
         display:table;
     }
     .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
 table tbody tr td table tbody {
-overflow:hidden}
-/* 
-#bankmastertable tbody {
-    overflow: auto;
+overflow:hidden}*/
+
+table{display: block;}
+
+.holdingreportGrid tbody {
+   
     display: block;
-    max-height: 26vh;
+    max-height: 68vh;
 }
 
-#bankmastertable tbody tr {
+.holdingreportGrid tbody tr {
     width: 100%;
     display: table;
     table-layout: fixed;
 }
         
-        
-   #bankmastertable thead tr {
+tfoot{display: block;}
+thead{display: block;}        
+
+.holdingreportGrid thead tr {
     width: 100%;
-    display: table;
+    
     table-layout: fixed;
-}      */
+}      
   
 

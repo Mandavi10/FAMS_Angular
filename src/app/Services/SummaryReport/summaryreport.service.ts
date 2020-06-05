@@ -10,15 +10,24 @@ import { error } from 'util';
   providedIn: 'root'
 })
 export class SummaryreportService {
-  UserId : any;
   baseUrl: string = ""; 
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {   
       this.baseUrl = AppSettings.Login_URL;
   }
 
-  BindGrid(): Observable<any> {  
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    this.UserId = Sessionvalue.UserId;
-   return this._http.get<any>(this.baseUrl + 'api/Summaryreport/BindGrid/'+ this.UserId);
+  BindGrid(em:any): Observable<any> {  
+   const body = em;
+   const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindGrid' , body, {
+      headers 
+  });
+}
+BindCustomers(em:any){
+  //return this._http.get<any>(this.baseUrl + 'api/SummaryReports/BindCustomers/'+ this.UserId);
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+ return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindCustomers' , body, {
+     headers 
+ });
 }
 }

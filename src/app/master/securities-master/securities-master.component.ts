@@ -23,12 +23,13 @@ export class SecuritiesMasterComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
   SelectionStatusOfMutants:any;
-  selectedRowId:number;
+  selectedRowId:number=0;
   
   //showModalSecurity: boolean;
   showSecurity = false;
   showGrid = true;
-
+  showBackToSecurityList:boolean=false;
+  showNew:boolean=true;
       // columnDefs = [
       //   {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       //     return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -75,8 +76,11 @@ export class SecuritiesMasterComponent implements OnInit {
         
     ];
     BackToSecurity(){
+      this.showBackToSecurityList=false;
       this.showSecurity = false;
       this.showGrid = true;
+      this.selectedRowId=0;
+      this.showNew=true;
     }
 Edit(SecurityDetailsId)
 {
@@ -84,9 +88,16 @@ debugger;
 //alert(SecurityDetailsId);
 }
     viewSecurities(){
-      this.showSecurity = true;
-      this.showGrid = false;
-      this.BindSecurity(this.selectedRowId);
+      
+      if(this.selectedRowId!=0)
+      {
+        this.showNew=false;
+        this.showBackToSecurityList=true;
+        this.showSecurity = true;
+        this.showGrid = false;
+        this.BindSecurity(this.selectedRowId);
+      }
+      
 
       //this.onClickupdatepopup();
 
@@ -103,6 +114,7 @@ debugger;
       this.loading = false;
     }
     onClickPMSEmploye(event) {
+      this.ResetSecurity();
       this.showModalSecurity = true;
       
       }
@@ -147,7 +159,7 @@ debugger;
             CustodianCode: [0,],
             ListCode: ['',],
             ListName: ['',],
-            SecurityCode: [0,],
+            SecurityCode: ['',],
             SectorCode: [0,],
             SecurityName: ['',],
             Active: [false],
@@ -163,7 +175,7 @@ debugger;
         this.loadAllCountry();
         this.loadAllSector();
         this.loadAllCustodians();
-        this.loadAllSecurityCodeDetails();
+       // this.loadAllSecurityCodeDetails();
         this.loadAllSecurityDetails();
     }
     onRowSelected(event){
@@ -285,7 +297,7 @@ debugger;
        this.SecurityFormGrp.controls['CountryCode'].setValue(0);
        this.SecurityFormGrp.controls['CustodianCode'].setValue(0);
 
-       this.SecurityFormGrp.controls['SecurityCode'].setValue(0);
+      // this.SecurityFormGrp.controls['SecurityCode'].setValue(0);
        this.SecurityFormGrp.controls['SectorCode'].setValue(0);
       // this.buttonDisabledReset = false;
       //this.buttonDisabledDelete = true

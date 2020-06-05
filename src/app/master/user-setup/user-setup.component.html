@@ -19,6 +19,13 @@
                                             New
                                         </label>
                                     </li>
+
+                                    <li (click)="onClicksavepopup($event)" >
+                                      
+                                        <label>
+                                            Popup
+                                        </label>
+                                    </li>
                          
                         
                      </ul>
@@ -105,15 +112,22 @@
 <div class="col-md-8 col-xs-12 col-sm-4 pr-0 mt-4">
 <label class="col-md-2 col-xs-12 col-sm-4 p-0">Company Selection:</label>
 
-<input type="text" class="col-md-18 col-xs-12 col-sm-7" />   
-</div>
+<select class="dropdown col-sm-7 col-md-10 col-xs-7">
+    <option>Select Country</option>
+    <option>Company 1</option>
+   
+</select>
 
 </div>
 
                   <div class="row mt-2 customerdropdown" style="display:none">
 <div class="col-md-12 col-xs-12 col-sm-4 pr-0 mt-4">
 <label class="col-md-2 col-xs-12 col-sm-4 p-0">Customer Selection:</label>
-<input type="text" class="col-md-7 col-xs-12 col-sm-7" />
+<select class="dropdown col-sm-7 col-md-10 col-xs-7">
+    <option>Select Country</option>
+    <option>Customer 1</option>
+   
+</select>
 
 </div>
 
@@ -206,5 +220,37 @@
 
     </div>
 
+
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Saved Successfully</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+    </div>
+        
+        </div>
+        </div>
+        </div>
+
+
+
+
+</div>
 </div>
 

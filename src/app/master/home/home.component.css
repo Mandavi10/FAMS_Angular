@@ -39,6 +39,7 @@ border-right: 1px solid #dfe6e8;
 
     
     .portalBox {
+        position: relative;
         cursor: pointer;
         width: 19.2%;
         display: inline-block;
@@ -123,3 +124,15 @@ min-height: 386px;
             font-weight: 600;
             padding-right: 4px;
         }
+    .notificationCount{width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: #e45252;
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    color: #fff;
+    padding: 3px 0 2px 0px;
+    z-index: 9999;
+    right: 1px;}
+  
