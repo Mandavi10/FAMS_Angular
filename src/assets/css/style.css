@@ -9,6 +9,9 @@
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
+.modal-header {      
+    background-color: #ffffff;
+  }
 
 .loaderposition{    position: absolute;
     z-index: 9999 !important;}
