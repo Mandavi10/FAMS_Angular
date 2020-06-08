@@ -13,6 +13,11 @@
     background-color: #ffffff;
   }
 
+.loaderposition{    position: absolute;
+    z-index: 9999 !important;}
+
+
+.loaderimagepage{margin-left: 45%;margin-top: 19%;width: 8%;}
 .modal-header {
     border-bottom: 0px solid #e5e5e5;
 }
@@ -107,9 +112,16 @@ font-family:"Segoe UI"; }
 .exportExcelBtn:hover {
         color: #fff !important;}
 
-.paginationDiv{position: absolute;
+.paginationDiv{position: fixed;
     right: 0px;
-    bottom: -20px;}
+    bottom: 23px;}
+
+    .downbtnposition{position: absolute !important;
+        right: 26px !important;
+        bottom: 45px !important;}
+    .ag-theme-alpine .ag-ltr .ag-header-select-all {
+        margin-right: 5px !important;
+    }
     .paginationDiv span{font-family: arial;}
 .paginationDiv .previousBtn, .paginationDiv .nextBtn{padding: 3px 8px;
     background: #ddd;
