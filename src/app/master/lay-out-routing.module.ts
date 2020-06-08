@@ -46,6 +46,8 @@ const routes: Routes = [
 {path: 'SecuritiesCustomer', loadChildren: './securities-customer/securities-customer.module#SecuritiesCustomerModule'},
 {path: 'MyNotes', loadChildren: './my-notes/my-notes.module#MynotesModule'},
 {path: 'OrderProcessing', loadChildren: './order-processing/order-processing.module#OrderProcessingModule'},
+{path: 'OrderProcessingNew', loadChildren: './order-processing-new/order-processing-new.module#OrderProcessingNewModule'},
+
 
         ]
   }

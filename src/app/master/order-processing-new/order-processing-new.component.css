@@ -1,0 +1,28 @@
+.backbox{background-color:#ebecec;}
+.btnDiv{ position: fixed;
+    right: 15px;
+    bottom: 15px;}
+.btnDiv .btn{ margin-right: 5px;}
+.presentmentHeading{ font-size: 14px;
+    font-weight: 600;
+    color: #003974;}
+    .presentmentHeading span{ padding-right:10px}
+.fa-times{ font-size: 16px !important;
+    font-weight: normal !important;
+    color: #e84545 !important;
+    padding-top: 6px !important;}
+.paginationDiv {
+        position: fixed;
+        right: 0px;
+        bottom: 20px;
+}
+.customersGrid .paginationDiv {
+    bottom: 45px;
+}
+.customerList{border: 1px solid #d5d5d5;
+    height: 25px;
+    padding-top: 3px;}
+    .btnProceed{position: fixed;
+        float: none !important;
+        right: 15px;
+        bottom: 16px;}
