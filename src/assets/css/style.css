@@ -12,6 +12,8 @@
 .modal-header {      
     background-color: #ffffff;
   }
+  .modal .close {
+        opacity: 0.8;}
 
 .loaderposition{    position: absolute;
     z-index: 9999 !important;}
