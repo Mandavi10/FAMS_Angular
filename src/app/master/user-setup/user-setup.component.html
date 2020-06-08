@@ -71,15 +71,15 @@
 
    <div class="col-md-7 col-xs-12 col-sm-7 p-0"  style="display: inline-block;">
     <label class="lblradiobtnss col-md-1 col-sm-4 col-xs-6 p-0 User">
-                                     <input name="Type" value="u" type="radio"/>
+                                     <input name="Type" value="u" type="radio" (click)="onClickUser()"/>
                                      <span class="pl-2">User</span>
                                  </label>
                                  <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6 p-0 Administrator">
-                                     <input name="Type" value="a" type="radio"/>
+                                     <input name="Type" value="a" type="radio" (click)="onClickAdmin()"/>
                                      <span class="pl-2">Administrator</span>
                                  </label>
        <label class="lblradiobtnss col-md-2 col-sm-4 col-xs-6 p-0 Customer">
-                                     <input name="Type" value="u" type="radio"/>
+                                     <input name="Type" value="u" type="radio" (click)="onClickCustomer()"/>
                                      <span class="pl-2">Customer</span>
                                  </label>
                                 
@@ -143,7 +143,7 @@
        
 
  
-          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="IsShowAccessRight">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #cbcfd2;">
     <h6 style="color: #003974;
     font-weight: bold;">Access Right</h6>
@@ -156,7 +156,7 @@
                  
                
             <div class="form-group">
-                <div class="row">
+                <div class="row" *ngIf="IsShowMaster">
 <div class="col-md-12 col-xs-12 col-sm-4 pr-0">
 <label class="col-md-1 col-xs-12 col-sm-4 p-0">Master:</label>
    <div class="col-md-10 col-xs-12 col-sm-7"  style="display: inline-block;">
@@ -180,7 +180,7 @@
 </div>
 
 </div>
-                <div class="row mt-2">
+                <div class="row mt-2" *ngIf="IsShowReports">
 <div class="col-md-12 col-xs-12 col-sm-4 pr-0 reportdropdown">
 <label class="col-md-1 col-xs-12 col-sm-4 p-0">Reports:</label>
 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">

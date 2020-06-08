@@ -10,6 +10,8 @@ import { MultiSelectService } from '../../multi-select.service';
 export class UserSetupComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv2:boolean;
+  IsShowAccessRight : boolean = false; IsShowMaster : boolean = false; 
+  IsShowReports : boolean= false;
   showModalsavepopup: boolean;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width: 80},
@@ -27,6 +29,24 @@ rowData = [
     { srNo: '3', UserName: 'Abhishek', EmailAddress: 'H-210', ContactNumber: '9990750722', Type: 'Type'}
 ];
 
+onClickUser() {
+  this.IsShowMaster = true;
+  this.IsShowAccessRight = true;
+  this.IsShowReports=true;
+  
+  }
+  onClickAdmin() {
+    this.IsShowMaster = true;
+  this.IsShowAccessRight = true;
+  this.IsShowReports=false;
+    
+    }
+    onClickCustomer() {
+      this.IsShowMaster = false;
+      this.IsShowAccessRight = true;
+      this.IsShowReports=true;
+      
+      }
 
 onClicksavepopup(event) {
   this.showModalsavepopup = true;
