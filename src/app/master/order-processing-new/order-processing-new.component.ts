@@ -31,9 +31,9 @@ rowData = [
   
   ];
 columnDefs1 = [
-  {headerName: 'Sr. No.', field: 'srNo', width: 80  },
-  {headerName: 'Securities', field: 'Securities', width: 120, editable: true },
-  {headerName: 'Sector', field: 'Sector', width: 120, editable: true},
+  {headerName: 'Sr. No.', field: 'srNo', width: 60  },
+  {headerName: 'Securities', field: 'Securities', width: 100, editable: true },
+  {headerName: 'Sector', field: 'Sector', width: 100, editable: true},
   {headerName: 'Buy Units', field: 'BuyUnits', width: 90, editable: true, cellClass: 'profit'},
   {headerName: 'Sell Units', field: 'SellUnits', width: 90, editable: true, cellClass: 'loss' },
   {headerName: 'Price', field: 'Price', width: 100, editable: true , cellClass: 'price', headerClass: 'price'},
@@ -55,12 +55,19 @@ rowData1 = [
 { srNo: '2', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
 // tslint:disable-next-line:max-line-length
 { srNo: '3', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
+// tslint:disable-next-line:max-line-length
+{ srNo: '4', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
+// tslint:disable-next-line:max-line-length
+{ srNo: '5', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
+// tslint:disable-next-line:max-line-length
+{ srNo: '6', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
+// tslint:disable-next-line:max-line-length
+{ srNo: '7', Securities: '', Sector: '', BuyUnits: '50', SellUnits: '50', Price:'', Amount: '', StockExchange: '', Status: 'Approved', Reason: ''},
  
 ];
 
 columnDefs2 = [
-  {headerName: 'All', field: '', width: 60, cellRenderer: function() {
-    return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
+  {headerName: 'All', field: '', width: 60, headerCheckboxSelection: true, checkboxSelection: true },
   {headerName: 'Sr. No.', field: 'srNo', width: 80 },
   {headerName: 'Customer Name', field: 'Name', width: 200},
   {headerName: 'Phone No.', field: 'PhonNo', width: 150},
@@ -71,29 +78,86 @@ rowData2 = [
   { srNo: '1', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
   { srNo: '2', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
   { srNo: '3', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
+  { srNo: '4', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
+  { srNo: '5', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
+  { srNo: '6', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
+];
+columnDefs3 = [
+  {headerName: 'Sr. No.', field: 'srNo', width: 60 },
+  {headerName: 'Stock', field: 'stock', width: 100},
+  {headerName: 'Sector', field: 'sector', width: 100},
+  {headerName: 'Todays Price', field: 'price', width: 110, cellClass: 'price', headerClass: 'price'},
+  {headerName: 'Total', field: 'total', width: 100, cellClass: 'price', headerClass: 'price'},
+  {headerName: 'Stock Exchange Type', field: 'ste', width: 150},
 ];
 
+rowData3 = [
+  { srNo: '1', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '2', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '3', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '4', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '5', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+];
+columnDefs4 = [
+  {headerName: 'Sr. No.', field: 'srNo', width: 60 },
+  {headerName: 'Securities', field: 'securities', width: 100},
+  {headerName: 'Stock', field: 'stock', width: 100},
+  {headerName: 'Qty in unit(Current)', field: 'qtyCurrent', width: 140},
+  {headerName: 'Qty in unit(After Order)', field: 'qtyOrder', width: 160},
+  {headerName: 'Price(Current)', field: 'price', width: 120, cellClass: 'price', headerClass: 'price'},
+  {headerName: 'Price(After order)', field: 'price1', width: 160, cellClass: 'price', headerClass: 'price'},
+  {headerName: 'Stock Exchange Type(Current)', field: 'ste', width: 180},
+  {headerName: 'Stock Exchange Type(After order)', field: 'ste1', width: 180},
+  {headerName: 'Line Amount', field: 'amount', width: 100, cellClass: 'price', headerClass: 'price'},
+ 
+];
+
+rowData4 = [
+  // tslint:disable-next-line:max-line-length
+  { srNo: '1', securities: 'security 1', stock: 'stock 1', qtyCurrent: '100', qtyOrder: '80', price: '1000', price1: '1100', ste: 'BSE', ste1: 'BSE', amount: '1000'},
+  // tslint:disable-next-line:max-line-length
+  { srNo: '2', securities: 'security 1', stock: 'stock 1', qtyCurrent: '100', qtyOrder: '80', price: '1000', price1: '1100', ste: 'BSE', ste1: 'BSE', amount: '1000'},
+// tslint:disable-next-line:max-line-length
+{ srNo: '3', securities: 'security 1', stock: 'stock 1', qtyCurrent: '100', qtyOrder: '80', price: '1000', price1: '1100', ste: 'BSE', ste1: 'BSE', amount: '1000'},
+  // tslint:disable-next-line:max-line-length
+  { srNo: '4', securities: 'security 1', stock: 'stock 1', qtyCurrent: '100', qtyOrder: '80', price: '1000', price1: '1100', ste: 'BSE', ste1: 'BSE', amount: '1000'},
+  // tslint:disable-next-line:max-line-length
+  { srNo: '5', securities: 'security 1', stock: 'stock 1', qtyCurrent: '100', qtyOrder: '80', price: '1000', price1: '1100', ste: 'BSE', ste1: 'BSE', amount: '1000'},
+    
+];
 showNew = false;
 showGrid = true;
 showCustomer = false;
 btnShow = true;
 showConfirmationModal = false;
+showCustomerModal = false;
 onClickConfirm(event) {
   this.showConfirmationModal = true;
   }
   hideModal() {
   this.showConfirmationModal = false;
+  
   }
+  onClickCustomer(event) {
+    this.showCustomerModal = true;
+    this.showConfirmationModal = false;
+    }
+    hideCustomer() {
+    this.showCustomerModal = false;
+    }
 CreateNew(){
   this.showGrid = false;
   this.showNew = true;
   this.showCustomer = false;
   this.btnShow = false;
+  this.showConfirmationModal = false;
+  this.showCustomerModal = false;
 }
 viewCustomers(){
   this.showGrid = false;
   this.showNew = false;
   this.showCustomer = true;
+  this.showCustomerModal = false;
 
 }
   constructor() { }
