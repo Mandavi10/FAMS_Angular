@@ -141,11 +141,11 @@ onRowSelected(event){
             this.isShowLoader=false;
 
         }
-    } else {
-        this.validateAllFormFields(this.AllCustomersForm);
-        this.isShowLoader=false;
+    // } else {
+    //     this.validateAllFormFields(this.AllCustomersForm);
+    //     this.isShowLoader=false;
 
-    }
+    // }
   }
 
 SaveData(){
@@ -224,13 +224,13 @@ SaveData(){
     this.isShowLoader=false;
 
         }
-        else
-        {
-    this.isShowLoader=false;
-          alert("Customer Username already exist. !!")
+    //     else
+    //     {
+    // this.isShowLoader=false;
+    //       alert("Customer Username already exist. !!")
 
-          //this.BindGrid();
-        }
+    //       //this.BindGrid();
+    //     }
     //     this.CommonfieldsList = data.Table; 
           
          });

@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   boolean = true; liDesignMaster : boolean = true; liNoteMaster : boolean =true;
 
-  boolean = true; liDesignMaster : boolean = true; liPMSProviderMaster : boolean =true;
+  //boolean = true; liDesignMaster : boolean = true; liPMSProviderMaster : boolean =true;
 
   isShow = false;
  
@@ -23,8 +23,7 @@ export class SidebarComponent implements OnInit {
     this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
 
     if(this.UserId == "5")
-
-    if(this.UserId == "3")
+    //if(this.UserId == "3")
 
                     { 
                       this.liCountryMaster = false;      
@@ -32,11 +31,8 @@ export class SidebarComponent implements OnInit {
                       this.liCityMaster = false; 
                       this.liSectorMaster = false;
                       this.liDesignMaster = false;
-
                       this.liNoteMaster = false;
-
-                      this.liPMSProviderMaster = false;
-
+                      //this.liPMSProviderMaster = false;
                     }
   }
   togglenav() {
