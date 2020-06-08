@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,6 +33,7 @@ rowData = [
   constructor() { }
 
   ngOnInit(): void {
+   
   }
-
+ 
 }
