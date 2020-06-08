@@ -152,14 +152,6 @@ rowData1 = [
     if (this.PMSEmployeesForm.valid) {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
 
-    //let  FormData = new Saveallfields();
-    // FormData = this.PMSEmployeesForm.value;
-    // FormData.PMSEmpId = this.PAMSEmpId;
-    // FormData.UserId = Sessionvalue.UserId; 
-  //  this.SaveallfieldsList = this.PMSEmployeesForm.value;
-  //  this.SaveallfieldsList.PMSEmpId = this.PAMSEmpId;
-  //  this.SaveallfieldsList.UserId = Sessionvalue.UserId;
-    //this.PMSEService.SaveData(JSON.stringify(FormData)).subscribe(
 
     //let  FormData = new Saveallfields();
     //FormData = this.PMSEmployeesForm.value;

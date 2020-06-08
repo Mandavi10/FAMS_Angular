@@ -8,9 +8,7 @@
     border: solid 1px #eee;
     cursor: pointer;
   }
-  .userlistpop, .modal-header {      
-    background-color: #ffffff;
-  }
+  
   .dropDownIcon{
     position: absolute;
     width: 35px;
@@ -144,10 +142,7 @@ select {
   border-radius: 5px;
   background-color: #f8fbfb;}
 
-.userlistpop, .modal-header {
-    
-  background-color: #00172e;
-}
+
 .close{color: #ffffff;
   opacity: 1;}
 .modal-title{color:#ffffff !important;}
