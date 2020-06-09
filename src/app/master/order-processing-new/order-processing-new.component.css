@@ -67,6 +67,7 @@
     bottom: -23px;}
 .selectTemplate{position: absolute;
     top: -4px;}
+.balanceGrid .ag-theme-alpine, .salepurchaseGrid .ag-theme-alpine, .impactGrid .ag-theme-alpine{font-size: 12px !important}
 
 
 

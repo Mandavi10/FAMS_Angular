@@ -86,41 +86,52 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                     </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 ">
-            <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-xs-12 control-label no-padding" for="form-field-1">
-                  Broker:
-                </label>
-                <div class="col-sm-7 col-md-7 col-xs-12 displayinlineblock">
-                        <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                <option>Select</option>
-                                <option>Broker 1</option>
-                                <option>Broker 2</option>
-                                <option>Broker 3</option>
-                            </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 ">
-            <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-xs-12 control-label no-padding" for="form-field-1">
-                  Template:
-                </label>
-                <div class="col-sm-7 col-md-7 col-xs-12 displayinlineblock">
-                        <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                <option>Select</option>
-                                <option>Security 1</option>
-                                <option>Security 2</option>
-                                <option>Security 3</option>
-                            </select>
-                </div>
-            </div>
-        </div> 
+                    <div class="col-md-3 col-sm-3 col-xs-12 p-0"></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 p-0" style="margin-left:4%">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" for="form-field-1">
+                                      Broker:
+                                    </label>
+                                    <div class="col-sm-9 col-md-9 col-xs-12 displayinlineblock">
+                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                    <option>Select</option>
+                                                    <option>Broker 1</option>
+                                                    <option>Broker 2</option>
+                                                    <option>Broker 3</option>
+                                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" for="form-field-1">
+                                      Template:
+                                    </label>
+                                    <div class="col-sm-9 col-md-9 col-xs-12 displayinlineblock">
+                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                    <option>Select</option>
+                                                    <option>Security 1</option>
+                                                    <option>Security 2</option>
+                                                    <option>Security 3</option>
+                                                </select>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+       
         <div class="rightmenu">
             <div class="toolbar pull-right">
                 <ul class="toolbar-content">
                   
-                   
+                    <li>
+                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
+                        <label>
+                           Export to PDF
+                        </label>
+                        </li>
                             <li>
                                     <i class="fa fa-upload" aria-hidden="true" title="Upload Template"></i>
                                     <label>
@@ -160,13 +171,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top: 12px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 balanceGrid" style="margin-top: 12px;">
                     <!-- <div class="filter">
                         <input type="text" placeholder="Search" />
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </div> -->
                     <ag-grid-angular
-            style="width: 100%; height: 190px;"
+            style="width: 100%; height: 170px;"
             class="ag-theme-alpine"
             [rowData]="rowData3"
             [columnDefs]="columnDefs3"
@@ -245,13 +256,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 impactGrid">
                     <!-- <div class="filter">
                         <input type="text" placeholder="Search" />
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </div> -->
                     <ag-grid-angular
-            style="width: 100%; height: 190px;"
+            style="width: 100%; height: 170px;"
             class="ag-theme-alpine"
             [rowData]="rowData4"
             [columnDefs]="columnDefs4"
@@ -264,8 +275,47 @@
                 </div>
                 <div class="box1">
                     <div class="col-md-12 col-sm-12 col-xs-12 heading">Sale/Purchase</div>
-                  
-                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                            <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                <div class="form-group" >
+                                    <label class="col-sm-7 col-md-7 col-xs-7 control-label no-padding" for="form-field-1">
+                                       Total No. of Securities<em>(Buy)</em>:
+                                    </label>
+                                    <div class="col-sm-4 col-md-4 col-xs-4 no-padding-left displayinlineblock" >
+                                        <label>5,00,000</label>
+                    
+                                      
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                    <div class="form-group" >
+                                        <label class="ol-sm-7 col-md-7 col-xs-7 control-label no-padding" for="form-field-1">
+                                           Total No. of Securities<em>(Sell)</em>:
+                                        </label>
+                                        <div class="col-sm-4 col-md-4 col-xs-4 no-padding-left displayinlineblock" >
+                                            <label>5,00,000</label>
+                        
+                                          
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                        <div class="form-group" >
+                                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                                               Total Order Amount:
+                                            </label>
+                                            <div class="col-sm-9 col-md-6 col-xs-9 no-padding-left displayinlineblock" >
+                                                <label>5,00,000</label>
+                            
+                                              
+                                            </div>
+                                        </div>
+                                        </div>
+                       
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 salepurchaseGrid">
                     <!-- <div class="filter">
                         <input type="text" placeholder="Search" />
                         <i class="fa fa-search" aria-hidden="true"></i>

@@ -7,40 +7,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderProcessingNewComponent implements OnInit {
   columnDefs = [
-    {headerName: 'Sr. No.', field: 'srNo', width: 80 },
-    {headerName: 'Order No.', field: 'OrderNo', width: 100},
-    {headerName: 'Total Order Amount', field: 'FileAmount', width: 150, cellClass: 'price', headerClass: 'price'},
-    {headerName: 'Customer', field: 'customer', width: 120},
-    {headerName: 'Created On', field: 'CreatedOn', width: 120 },
-    {headerName: 'Created By', field: 'CreatedBy', width: 120},
-    {headerName: 'Updated On', field: 'UpdatedOn', width: 120 },
-    {headerName: 'Updated By', field: 'UpdatedBy', width: 120 },
-    {headerName: 'Approved On', field: 'ApprovedOn', width: 120 },
-    {headerName: 'Approved By', field: 'ApprovedBy', width: 120 },
-    {headerName: 'Response On', field: 'ResponseOn', width: 120 },
-    {headerName: 'Status', field: 'Status', width: 120 }
+    {headerName: 'Sr. No.', field: 'srNo', width: 80, resizable: true },
+    {headerName: 'Order No.', field: 'OrderNo', width: 100, resizable: true},
+    {headerName: 'Total Order Amount', field: 'FileAmount', width: 150, cellClass: 'price', headerClass: 'price', resizable: true},
+    {headerName: 'Customer', field: 'customer', width: 120, resizable: true, tooltip: (params) => params.value},
+    {headerName: 'Broker', field: 'broker', width: 120, resizable: true, tooltip: (params) => params.value},
+    {headerName: 'Total unit of securities (Buy)', field: 'buyUnit', width: 190, resizable: true},
+    {headerName: 'Total unit of securities (Sell)', field: 'sellUnit', width: 190, resizable: true},
+    {headerName: 'Created On', field: 'CreatedOn', width: 120, resizable: true },
+    {headerName: 'Created By', field: 'CreatedBy', width: 120, resizable: true},
+    {headerName: 'Updated On', field: 'UpdatedOn', width: 120, resizable: true },
+    {headerName: 'Updated By', field: 'UpdatedBy', width: 120, resizable: true },
+    {headerName: 'Approved On', field: 'ApprovedOn', width: 120, resizable: true },
+    {headerName: 'Approved By', field: 'ApprovedBy', width: 120, resizable: true },
+    {headerName: 'Response On', field: 'ResponseOn', width: 120, resizable: true },
+    {headerName: 'Status', field: 'Status', width: 120, resizable: true }
    
 
 ];
 
 rowData = [
     // tslint:disable-next-line:max-line-length
-    { srNo: '1', OrderNo: '001', FileAmount: '1000', customer: '', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
-    { srNo: '2', OrderNo: '002', FileAmount: '1000', customer: '', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
-    { srNo: '3', OrderNo: '003', FileAmount: '1000', customer: '', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
+    { srNo: '1', OrderNo: '001', FileAmount: '1000', customer: 'Customer 1', broker: 'Broker 1', buyUnit: '100', sellUnit: '80', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
+    { srNo: '2', OrderNo: '002', FileAmount: '1000', customer: 'Customer 2', broker: 'Broker 2', buyUnit: '100', sellUnit: '80', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
+    { srNo: '3', OrderNo: '003', FileAmount: '1000', customer: 'Customer 3', broker: 'Broker 3', buyUnit: '100', sellUnit: '80', CreatedOn: '20-05-2020', CreatedBy: 'Demo', UpdatedBy: 'Demo', UpdatedOn: '20-05-2020', ApprovedBy: 'Demo', ApprovedOn: '20-05-2020', ResponseOn: '20-05-2020', branch: 'Branch 1', region: 'Region 1', product: 'Product 1', BankName: 'HDFC', LastStatusOn: 'DEMO', Status: 'Approved'},
   
   ];
 columnDefs1 = [
-  {headerName: 'Sr. No.', field: 'srNo', width: 60  },
-  {headerName: 'Securities', field: 'Securities', width: 100, editable: true },
-  {headerName: 'Sector', field: 'Sector', width: 100, editable: true},
-  {headerName: 'Buy Units', field: 'BuyUnits', width: 90, editable: true, cellClass: 'profit'},
-  {headerName: 'Sell Units', field: 'SellUnits', width: 90, editable: true, cellClass: 'loss' },
-  {headerName: 'Price', field: 'Price', width: 100, editable: true , cellClass: 'price', headerClass: 'price'},
-  {headerName: 'Amount', field: 'Amount', width: 100, editable: true, cellClass: 'price', headerClass: 'price' },
-  {headerName: 'Stock Exchange Type', field: 'StockExchange', width: 150 , editable: true },
-  {headerName: 'Response', field: 'Response', width: 100, editable: true  },
-  {headerName: 'Reason', field: 'Reason', width: 100, editable: true },
+  {headerName: 'Sr. No.', field: 'srNo', width: 60, resizable: true  },
+  {headerName: 'Securities', field: 'Securities', width: 100, editable: true, resizable: true },
+  {headerName: 'Sector', field: 'Sector', width: 100, editable: true, resizable: true},
+  {headerName: 'Buy Units', field: 'BuyUnits', width: 90, editable: true, cellClass: 'profit', resizable: true},
+  {headerName: 'Sell Units', field: 'SellUnits', width: 90, editable: true, cellClass: 'loss', resizable: true },
+  {headerName: 'Unit Price', field: 'Price', width: 100, editable: true , cellClass: 'price', headerClass: 'price', resizable: true},
+  {headerName: 'Line Amount', field: 'Amount', width: 100, editable: true, cellClass: 'price', headerClass: 'price', resizable: true },
+  {headerName: 'Stock Exchange Type', field: 'StockExchange', width: 150 , editable: true, resizable: true },
+  {headerName: 'Response', field: 'Response', width: 100, editable: true, resizable: true },
+  {headerName: 'Reason', field: 'Reason', width: 100, editable: true, resizable: true },
     {headerName: '', field: '', width: 60, cellRenderer: function() {
       return '<input type="button" class="btn btn-success" value="Add"/>'}},
       {headerName: '', field: '', width: 40, cellRenderer: function() {
@@ -68,10 +71,10 @@ rowData1 = [
 
 columnDefs2 = [
   {headerName: 'All', field: '', width: 60, headerCheckboxSelection: true, checkboxSelection: true },
-  {headerName: 'Sr. No.', field: 'srNo', width: 80 },
-  {headerName: 'Customer Name', field: 'Name', width: 200},
-  {headerName: 'Phone No.', field: 'PhonNo', width: 150},
-  {headerName: 'Email ID', field: 'email', width: 120},
+  {headerName: 'Sr. No.', field: 'srNo', width: 80, resizable: true },
+  {headerName: 'Customer Name', field: 'Name', width: 200, resizable: true},
+  {headerName: 'Phone No.', field: 'PhonNo', width: 150, resizable: true},
+  {headerName: 'Email ID', field: 'email', width: 120, resizable: true},
 ];
 
 rowData2 = [
@@ -83,12 +86,12 @@ rowData2 = [
   { srNo: '6', Name: 'John', PhonNo: '9876543210', email: 'john@gmail.com'},
 ];
 columnDefs3 = [
-  {headerName: 'Sr. No.', field: 'srNo', width: 60 },
-  {headerName: 'Stock', field: 'stock', width: 100},
-  {headerName: 'Sector', field: 'sector', width: 100},
-  {headerName: 'Todays Price', field: 'price', width: 110, cellClass: 'price', headerClass: 'price'},
-  {headerName: 'Total', field: 'total', width: 100, cellClass: 'price', headerClass: 'price'},
-  {headerName: 'Stock Exchange Type', field: 'ste', width: 150},
+  {headerName: 'Sr. No.', field: 'srNo', width: 60, resizable: true },
+  {headerName: 'Stock', field: 'stock', width: 100, resizable: true},
+  {headerName: 'Sector', field: 'sector', width: 100, resizable: true},
+  {headerName: 'Todays Price', field: 'price', width: 110, cellClass: 'price', headerClass: 'price', resizable: true},
+  {headerName: 'Line Amount', field: 'total', width: 100, cellClass: 'price', headerClass: 'price', resizable: true},
+  {headerName: 'Stock Exchange Type', field: 'ste', width: 150, resizable: true},
 ];
 
 rowData3 = [
@@ -99,16 +102,16 @@ rowData3 = [
   { srNo: '5', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
 ];
 columnDefs4 = [
-  {headerName: 'Sr. No.', field: 'srNo', width: 60 },
-  {headerName: 'Securities', field: 'securities', width: 100},
-  {headerName: 'Stock', field: 'stock', width: 100},
-  {headerName: 'Qty in unit(Current)', field: 'qtyCurrent', width: 140},
-  {headerName: 'Qty in unit(After Order)', field: 'qtyOrder', width: 160},
-  {headerName: 'Price(Current)', field: 'price', width: 120, cellClass: 'price', headerClass: 'price'},
-  {headerName: 'Price(After order)', field: 'price1', width: 160, cellClass: 'price', headerClass: 'price'},
-  {headerName: 'Stock Exchange Type(Current)', field: 'ste', width: 180},
-  {headerName: 'Stock Exchange Type(After order)', field: 'ste1', width: 180},
-  {headerName: 'Line Amount', field: 'amount', width: 100, cellClass: 'price', headerClass: 'price'},
+  {headerName: 'Sr. No.', field: 'srNo', width: 60, resizable: true },
+  {headerName: 'Securities', field: 'securities', width: 90, resizable: true},
+  {headerName: 'Stock', field: 'stock', width: 90, resizable: true},
+  {headerName: 'Qty in unit(Current)', field: 'qtyCurrent', width: 130, resizable: true},
+  {headerName: 'Qty in unit(After Order)', field: 'qtyOrder', width: 150, resizable: true},
+  {headerName: 'Price(Current)', field: 'price', width: 120, cellClass: 'price', headerClass: 'price', resizable: true},
+  {headerName: 'Price(After order)', field: 'price1', width: 150, cellClass: 'price', headerClass: 'price', resizable: true},
+  {headerName: 'Stock Exchange Type(Current)', field: 'ste', width: 180, resizable: true},
+  {headerName: 'Stock Exchange Type(After order)', field: 'ste1', width: 180, resizable: true},
+  {headerName: 'Line Amount', field: 'amount', width: 100, cellClass: 'price', headerClass: 'price', resizable: true},
  
 ];
 

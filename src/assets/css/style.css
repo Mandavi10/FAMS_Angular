@@ -178,6 +178,7 @@ font-family:"Segoe UI"; }
         color: #003974 !important;}
 .ag-center-cols-container{ width:100% !important}
 .ag-theme-alpine .ag-cell-inline-editing{height:28px !important; padding: 0px !important}
+.ag-center-cols-container{width:2000px !important}
 
 
 .guidetext{color: #e81c26;
