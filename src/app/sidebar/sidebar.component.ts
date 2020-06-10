@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{DbsecurityService}from '../Services/dbsecurity.service';
+import{Sidebarlinks,Model_getSideBarLinks}from '../../Models/Sidebar/sidebarlinks';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +21,7 @@ export class SidebarComponent implements OnInit {
   constructor(private Dbsecurity: DbsecurityService) { }
   
   ngOnInit() {
+    //this.BindSideBarLinks();
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
 
@@ -42,4 +45,17 @@ export class SidebarComponent implements OnInit {
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
+  // BindSideBarLinks()
+  // {
+  //   let _Model_getSideBarLinks=new Model_getSideBarLinks();
+  //   let item = JSON.parse(sessionStorage.getItem('User'));
+  //   _Model_getSideBarLinks.UserType=item.UserType;
+
+
+  //   this.SideBarService.BindSidebarLinks(JSON.stringify(_Model_getSideBarLinks)).subscribe((data) => {
+  //     this.Model_SideBarLinks=data.Table;
+  //     this.Model_SideBarChildLinks=data.Table1;
+  //   });
+
+  // }
 }
