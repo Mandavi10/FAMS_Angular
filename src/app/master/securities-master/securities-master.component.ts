@@ -91,10 +91,15 @@ debugger;
       
       if(this.selectedRowId!=0)
       {
+
         this.showNew=false;
         this.showBackToSecurityList=true;
         this.showSecurity = true;
         this.showGrid = false;
+
+        this.showSecurity = true;
+      this.showGrid = false;
+
         this.BindSecurity(this.selectedRowId);
       }
       

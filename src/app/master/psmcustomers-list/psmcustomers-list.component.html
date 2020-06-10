@@ -62,7 +62,11 @@
 
 
             <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListDetails"
+
                 [columnDefs]="columnDefs1" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"
+
+                [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
+
                 rowSelection="single"
                 (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true">
             </ag-grid-angular>
@@ -83,7 +87,11 @@
 
 
             <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListCodeDetails"
+
                 [columnDefs]="columnDefs2" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true"
+
+                [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
+
                 >
             </ag-grid-angular>
 

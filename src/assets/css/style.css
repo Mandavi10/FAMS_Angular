@@ -109,9 +109,16 @@ font-family:"Segoe UI"; }
 .exportExcelBtn:hover {
         color: #fff !important;}
 
-.paginationDiv{position: absolute;
+.paginationDiv{position: fixed;
     right: 0px;
-    bottom: -20px;}
+    bottom: 23px;}
+
+    .downbtnposition{position: absolute !important;
+        right: 26px !important;
+        bottom: 15px !important;}
+    .ag-theme-alpine .ag-ltr .ag-header-select-all {
+        margin-right: 5px !important;
+    }
     .paginationDiv span{font-family: arial;}
 .paginationDiv .previousBtn, .paginationDiv .nextBtn{padding: 3px 8px;
     background: #ddd;

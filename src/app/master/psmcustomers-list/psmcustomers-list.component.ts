@@ -70,11 +70,17 @@ showModalstatemaster: boolean;
      
       if(this.selectedRowId!=0)
       {
+
         this.showBackToCustomerList=true;
         this.Isdiv1=true;
         this.Isdiv=false;
         this.BindPMSCustomerListCodeDetails(this.selectedRowId);
         this.showNew=false;
+
+        this.Isdiv1=true;
+        this.Isdiv=false;
+        this.BindPMSCustomerListCodeDetails(this.selectedRowId);
+
       }
      
     }

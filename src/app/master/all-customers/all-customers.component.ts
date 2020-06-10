@@ -21,7 +21,9 @@ export class AllCustomersComponent implements OnInit {
   selectedRowId:number;
   CustomerId:number;
   Temp: number = 1; 
+
   isShowLoader:boolean=false;
+
   columnDefs = [
     {headerName: 'Sr. No.', field: 'Sno', width:'80'},
     {headerName: 'Customer Account', field: 'AccountNo', width:'150'},
@@ -131,15 +133,26 @@ onRowSelected(event){
         }
         else {
             this.UpdateData();
+
         }
     } else {
         this.validateAllFormFields(this.AllCustomersForm);
+
+            this.isShowLoader=false;
+
+        }
+    } else {
+        this.validateAllFormFields(this.AllCustomersForm);
+        this.isShowLoader=false;
+
     }
   }
 
 SaveData(){
   debugger;
+
   this.isShowLoader=true;
+
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   //let SaveallfieldsList = new Saveallfields();
   //this.SaveallfieldsList.UserId = "3";
@@ -148,6 +161,7 @@ SaveData(){
   this.AllCustomerService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
 
     (data) => {
+    
       this.CustomerResponse = data;
       if (data[0].value == "1") {
         this.onClicksavepopup();
@@ -155,10 +169,15 @@ SaveData(){
         this.BindGrid();
         this.isShowForm=false;
         this.isShowGrid=true;
+
         this.isShowLoader=false;
+
+
+
       }
       else
       {
+    this.isShowLoader=false;
         alert("Customer Username already exist. !!")
         this.isShowLoader=false;
         //this.BindGrid();
@@ -174,7 +193,9 @@ SaveData(){
  
   UpdateData(){
     debugger;
+
     this.isShowLoader=true;
+
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     //let SaveallfieldsList = new Saveallfields();
     //this.SaveallfieldsList.UserId = "3";
@@ -183,6 +204,8 @@ SaveData(){
     this.AllCustomerService.UpdateData(JSON.stringify(this.SaveallfieldsList),this.CustomerId).subscribe(
   
       (data) => {
+
+
         this.CustomerResponse = data;
         if (data[0].value == "1") {
           this.onClickupdatepopup();
@@ -190,12 +213,22 @@ SaveData(){
           this.BindGrid();
           this.isShowForm=false;
           this.isShowGrid=true;
+
           this.isShowLoader=false;
         }
         else
         {
           alert("Customer Username already exist. !!")
           this.isShowLoader=false;
+
+    this.isShowLoader=false;
+
+        }
+        else
+        {
+    this.isShowLoader=false;
+          alert("Customer Username already exist. !!")
+
           //this.BindGrid();
         }
     //     this.CommonfieldsList = data.Table; 

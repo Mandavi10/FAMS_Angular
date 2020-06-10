@@ -52,8 +52,13 @@
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
           <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="custodian"
+
           [columnDefs]="columnDefs" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
           (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true">
+
+          [columnDefs]="columnDefs" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
+          (cellClicked)="onRowSelected($event)">
+
           </ag-grid-angular>
        </div>
        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
@@ -62,7 +67,11 @@
              <i class="fa fa-search" aria-hidden="true"></i>
           </div>
           <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pmsDetails"
+
           [columnDefs]="columnDefs1" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true">
+
+          [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true">
+
           </ag-grid-angular>
        </div>
        <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">

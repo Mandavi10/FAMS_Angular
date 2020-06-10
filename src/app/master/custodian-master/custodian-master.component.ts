@@ -172,11 +172,17 @@ onClickviewpms(){
  
   if(this.selectedRowId != 0)
   {
+
     this.showBackToCustodian=true;
     this.Isdiv1=true;
     this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
   this.showNew=true;
+
+    this.Isdiv1=true;
+    this.Isdiv=false;
+  this.BindPMSDetails(this.selectedRowId);
+
   }
 }
 onSubmit() {
