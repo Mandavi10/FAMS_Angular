@@ -28,6 +28,9 @@ export class MainLayoutComponent implements OnInit {
       else if (router.url === '/TransactionStatement') {
         this.showSideNav = false;
       }
+      else if (router.url === '/OrderProcessingNew') {
+        this.showSideNav = false;
+      }
     });
   }
 

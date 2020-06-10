@@ -10,13 +10,13 @@
                     <ul class="toolbar-content">
 
                         
-                           
-                        <li (click)="downloadCSVFile()">
+                          
+                        <li>
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
                             </label>
-                        </li> 
+                        </li>
                         <!-- <li>
                             <i class="fa fa-download" aria-hidden="true" title="Save"></i>
                             <label>
@@ -29,21 +29,7 @@
                                 Upload User
                             </label>
                         </li> -->
-                       
-                        <li *ngIf="BacktoPMSEmployee" (click)="BacktoPMSEmployeeFun()">
-                            <i title="Back to PMSEmployee"><img src="../assets/images/viewImg.png" style="width:11%; margin-top: -6px;" ></i>
-                            <label>
-                                Back to PMSEmployee
-                            </label>
-                        </li>
-
-                        <li *ngIf="liVieCusDetails" (click)="viewCustomer()">
-                            <i title="View Customer Details"><img src="../assets/images/viewImg.png" style="width:11%; margin-top: -6px;" ></i>
-                            <label>
-                                View Customer Details
-                            </label>
-                        </li>
-                        <li *ngIf="liNew" (click)="onClickPMSEmploye($event)" >
+                        <li (click)="onClickBrokermaster($event)">
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -60,58 +46,33 @@
 
         </div>
        
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
-            <div class="filter">
-                <input type="text" placeholder="Search" #SearchData (keyup)="Search(SearchData.value)"/>
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
-            
-            
-           <ag-grid-angular
-    style="width: 100%; height: 460px;"
-    class="ag-theme-alpine"
-    [rowData]="PmsemployeesList"
-    [columnDefs]="columnDefs"
-    [enableFilter]="false"
-      [enableSorting]="true"
-      [showToolPanel]="true"
-      rowSelection="single"
-      (cellClicked)="onRowSelected($event)">
-</ag-grid-angular>
-           
-            
-        </div>
-        
-
-
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showCustomer">
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             
             
-           <ag-grid-angular
-    style="width: 100%; height: 460px;"
+          <ag-grid-angular
+    style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="BindallcustomersList"
-    [columnDefs]="columnDefs1"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
-      [showToolPanel]="true"
-      rowSelection="single"
-      (cellClicked)="onRowSelected($event)">
+      [showToolPanel]="true">
 </ag-grid-angular>
            
             
         </div>
+        
        
 
-        <div class="modal" id="createuser" [style.display]="showModalPMSEmploye ? 'block' : 'none'">
+        <div class="modal" id="createuser" [style.display]="showModalBrokermaster ? 'block' : 'none'">
                 <div class="modal-dialog">
                 <div class="modal-content">
                 
-                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hidePMSEmploye()">&times;</button>
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideBrokermaster()">&times;</button>
                 
                 
                 <!-- Modal body -->
@@ -119,7 +80,7 @@
                     <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
                         <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                             <h4 class="pageTitle">
-                               Create PMS Employees
+                                Create Broker
                                  </h4>
             
                         </div>
@@ -131,143 +92,133 @@
                     </div>
                     
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                              <!-- <form [formGroup]="PMSEmployeesForm" autocomplete="off">--> 
-                                    <form [formGroup]="PMSEmployeesForm" autocomplete="off" appNorightclick>
+                                <form class="" >
                                                     <div class="row no-padding mt-2">
                                                         <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                                <div class="col-md-12 col-sm-4 col-xs-12">
-                                                                        <div class="form-group">
-                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                                Employee Code:
-                                                                            </label>
-                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('EmployeeCode')">
-                                                                                <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeCode"/>
-                                                                            </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Employee Name:
+                                                                   Broker Name:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('EmployeeName')">
-                                                                    <input type="text" required name="UserName" class="col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeName" />
-                                                                </div>
+                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Gender:
+                                                                 Trade Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Gender">
-                                                                        <option value="">Select</option>
-                                                                       <option value="M">Male</option>
-                                                                       <option value="F">Female</option>
-                                                                       <option value="O">Other</option>
-                                                                   </select>
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Qualification:
+                                                                Registration No.:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Qualification"/>
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    About:
+                                                             GST No.:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="About"/>
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
-                                                        </div>  
-                                                        
-                                                        
+                                                        </div>
 
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Customer Code:
+                                                                    Stock Exchange Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerCode')">
-                                                                    <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerCode"/>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> 
-
-
-
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
-                                                            <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Customer Name:
-                                                                </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerName')">
-                                                                    <input type="text" required class="col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName" />
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
-                                                            <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Custodian:
-                                                                </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-md-12 col-xs-12 col-sm-12" formControlName="Custodian">
-                                                                        <option value="">Select Custodian</option>
-                                                                        <option *ngFor="let Data of AllcustodianfieldsList" value={{Data.CustodianCode}} text={{Data.CustodianName}}>
+                                                                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                                        <option>Select</option>
+                                                                        <option>BSE</option>
+                                                                        <option>NSE</option>
+                                                                        <option>BOTH</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                        </div> 
-
-
+                                                        </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Inception Date:
+                                                           Email:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="date"  class="col-sm-12 col-md-12 col-xs-12" formControlName="InceptionDate" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                            Telephone:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                             Contact Person:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                             Email:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
                                                         </div> 
-
-
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Emp Linking Date:
+                                                             Phone:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="date"  class="col-sm-12 col-md-12 col-xs-12" formControlName="EmpLinkingDate"/>
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
-                                                                    Active:
+                                                            Extension(if any):
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="checkbox" formControlName="Active"/>
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                            Mobile No.:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -277,50 +228,20 @@
                                    
                                 </form>
                             </div>
-
-                            <div class="downbtnposition">
-                                    <button type="button" class="btn btn-success" (click)="SaveDataFun()">Save</button>
-              
-                                    </div>
-
-
                 </div>
                 
-               
+                <!-- Modal footer -->
+                <div class="modal-footer">
+               <!-- <button type="button" class="btn btn-success">Edit</button> -->
+                <button type="button" class="btn btn-success">Save</button>
+                </div>
                 
                 </div>
                 </div>
                 </div>
-
-                
-    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
-        <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-        
-        <!-- Modal Header -->
-        <div class="modal-header">
-        <h4 class="modal-title">
-       
-        </h4>
-        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-        <p>Saved Successfully</p>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
-      
-    </div>
-        
-        </div>
-        </div>
-        </div>
 
     </div>
 
 </div>
+
 

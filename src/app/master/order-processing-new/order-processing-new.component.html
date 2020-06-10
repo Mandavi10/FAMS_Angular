@@ -1,0 +1,440 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+            </div>
+            <div class="rightmenu" *ngIf="btnShow">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                      
+                        <li (click)=viewCustomers() style="display:none">
+                            <i title="All Customers"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
+                            <label>
+                              All Customers
+                            </label>
+                        </li>
+                                <li>
+                                        <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                                        <label>
+                                            Export to Excel
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
+                                        <label>
+                                           Export to PDF
+                                        </label>
+                                        </li>
+
+                                    <li>
+                                            <i class="fa fa-print" aria-hidden="true" title="Print"></i>
+                                            <label>
+                                                Print
+                                            </label>
+                                        </li>
+                                        
+
+
+                                                <li (click)=onClickConfirm()>
+                                                    <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                                                    <label>
+                                                        New
+                                                    </label>
+                                                </li>
+                                                <!-- <li>
+                                                <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
+                                                <label>
+                                                   Back
+                                                </label>
+                                            </li> -->
+                       
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <ag-grid-angular
+    style="width: 100%; height: 130px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div>             
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="showNew">
+          
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-1">
+                    <div class="col-md-2 col-sm-3 col-xs-12 p-0">
+                        <div class="filter">
+                            <input type="text" placeholder="Search" />
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 p-0"></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 p-0" style="margin-left:4%">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" for="form-field-1">
+                                      Broker:
+                                    </label>
+                                    <div class="col-sm-9 col-md-9 col-xs-12 displayinlineblock">
+                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                    <option>Select</option>
+                                                    <option>Broker 1</option>
+                                                    <option>Broker 2</option>
+                                                    <option>Broker 3</option>
+                                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" for="form-field-1">
+                                      Template:
+                                    </label>
+                                    <div class="col-sm-9 col-md-9 col-xs-12 displayinlineblock">
+                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                    <option>Select</option>
+                                                    <option>Security 1</option>
+                                                    <option>Security 2</option>
+                                                    <option>Security 3</option>
+                                                </select>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+       
+        <div class="rightmenu">
+            <div class="toolbar pull-right">
+                <ul class="toolbar-content">
+                  
+                    <li>
+                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
+                        <label>
+                           Export to PDF
+                        </label>
+                        </li>
+                            <li>
+                                    <i class="fa fa-upload" aria-hidden="true" title="Upload Template"></i>
+                                    <label>
+                                       Upload Template
+                                    </label>
+                                </li>
+                   
+                 </ul>
+            </div>
+        </div>   
+    </div>
+    </div>
+    
+    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+            
+                <div class="box">
+                    <div class="col-md-12 col-sm-12 col-xs-12 heading">Customer Balance <i>(Current)</i></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-md-2 col-xs-5 control-label no-padding" for="form-field-1">
+                                  Total Cash in Hand:
+                                </label>
+                                <div class="col-sm-6 col-md-6 col-xs-6 displayinlineblock" style="text-align: left;">
+                                        <label>60,00,000</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-md-2 col-xs-5 control-label no-padding" for="form-field-1">
+                                  Total Securities:
+                                </label>
+                                <div class="col-sm-6 col-md-6 col-xs-6 displayinlineblock" style="text-align: left;">
+                                        <label>15,00,000</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 balanceGrid" style="margin-top: 12px;">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div> -->
+                    <ag-grid-angular
+            style="width: 100%; height: 170px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData3"
+            [columnDefs]="columnDefs3"
+            [enableFilter]="false"
+              [enableSorting]="true"
+              [showToolPanel]="true">
+        </ag-grid-angular>
+    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="col-md-12 col-sm-12 col-xs-12 heading">Customer Balance Impact <i>(After Sale/Purchase)</i>
+                        <img src="../assets/images/maxim_icon_white.png" class="zoomIcon1" />
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-8 col-xs-6 control-label no-padding" for="form-field-1">
+                                  Customer ID:
+                                </label>
+                                <div class="col-sm-5 col-md-4 col-xs-5 displayinlineblock" style="text-align: left;">
+                                        <label>Cust 001</label>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-6 col-xs-6 control-label no-padding" for="form-field-1">
+                                  Customer Name:
+                                </label>
+                                <div class="col-sm-5 col-md-6 col-xs-5 displayinlineblock" style="text-align: left;">
+                                        <label>Customer 1</label>
+                                </div>
+                                <img src="../assets/images/maxim_icon.png" class="zoomIcon" (click)=onClickCustomer()/>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-8 col-xs-6 control-label no-padding" for="form-field-1">
+                                  Cash in Hand (Current):
+                                </label>
+                                <div class="col-sm-5 col-md-4 col-xs-5 displayinlineblock" style="text-align: left;">
+                                        <label>60,00,000</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-6 col-xs-6 control-label no-padding" for="form-field-1">
+                                  Cash in Hand (After Order):
+                                </label>
+                                <div class="col-sm-5 col-md-6 col-xs-5 displayinlineblock" style="text-align: left;">
+                                        <label>15,00,000</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-sm-6 col-md-8 col-xs-6 control-label no-padding" for="form-field-1">
+                              Total Amount of Securities:
+                            </label>
+                            <div class="col-sm-5 col-md-4 col-xs-5 displayinlineblock" style="text-align: left;">
+                                    <label>60,00,000</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-sm-6 col-md-6 col-xs-6 control-label no-padding" for="form-field-1">
+                                Total No. of Securities:
+                            </label>
+                            <div class="col-sm-5 col-md-6 col-xs-5 displayinlineblock" style="text-align: left;">
+                                    <label>15,00,000</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 impactGrid">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div> -->
+                    <ag-grid-angular
+            style="width: 100%; height: 170px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData4"
+            [columnDefs]="columnDefs4"
+            [enableFilter]="false"
+              [enableSorting]="true"
+              [showToolPanel]="true">
+        </ag-grid-angular>
+    </div>
+               
+                </div>
+                <div class="box1">
+                    <div class="col-md-12 col-sm-12 col-xs-12 heading">Sale/Purchase</div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                            <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                <div class="form-group" >
+                                    <label class="col-sm-7 col-md-7 col-xs-7 control-label no-padding" for="form-field-1">
+                                       Total No. of Securities<em>(Buy)</em>:
+                                    </label>
+                                    <div class="col-sm-4 col-md-4 col-xs-4 no-padding-left displayinlineblock" >
+                                        <label>5,00,000</label>
+                    
+                                      
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                    <div class="form-group" >
+                                        <label class="ol-sm-7 col-md-7 col-xs-7 control-label no-padding" for="form-field-1">
+                                           Total No. of Securities<em>(Sell)</em>:
+                                        </label>
+                                        <div class="col-sm-4 col-md-4 col-xs-4 no-padding-left displayinlineblock" >
+                                            <label>5,00,000</label>
+                        
+                                          
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 p-0">
+                                        <div class="form-group" >
+                                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                                               Total Order Amount:
+                                            </label>
+                                            <div class="col-sm-9 col-md-6 col-xs-9 no-padding-left displayinlineblock" >
+                                                <label>5,00,000</label>
+                            
+                                              
+                                            </div>
+                                        </div>
+                                        </div>
+                       
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 salepurchaseGrid">
+                    <!-- <div class="filter">
+                        <input type="text" placeholder="Search" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div> -->
+                    <ag-grid-angular
+            style="width: 100%; height: 180px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData1"
+            [columnDefs]="columnDefs1"
+            [enableFilter]="false"
+              [enableSorting]="true"
+              [showToolPanel]="true">
+        </ag-grid-angular>
+    </div>
+                </div>
+        </div>
+        
+           <div class="clearfix"></div>
+          
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 customersGrid" *ngIf="showCustomer">
+                <div class="filter">
+                    <input type="text" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+                <ag-grid-angular
+        style="width: 100%; height: 130px;"
+        class="ag-theme-alpine"
+        [rowData]="rowData2"
+        [columnDefs]="columnDefs2"
+        [enableFilter]="false"
+          [enableSorting]="true"
+          [showToolPanel]="true">
+    </ag-grid-angular>
+   
+       
+    <button type="button" class="btn btn-success btnProceed">Proceed</button>     
+            </div>
+    </div>
+    
+
+</div>
+
+<div class="modal customerPopup" [style.display]="showCustomerModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    
+    <!-- Modal Header -->
+    <div class="modal-header">
+    <h4 class="modal-title">
+    Customers List
+    </h4>
+    <button type="button" class="close" data-dismiss="modal" (click)="hideCustomer()">&times;</button>
+ 
+    </div>
+    
+    <!-- Modal body -->
+    <div class="modal-body pt-0">
+        <div class="col-md-12 col-sm-12 col-xs-12 customersGrid p-0">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <ag-grid-angular
+    style="width: 100%; height: 180px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData2"
+    [columnDefs]="columnDefs2"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true">
+</ag-grid-angular>
+<div class="col-md-12 col-sm-12 col-xs-12" id="custPagination">
+    <div class="paginationDiv" >
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div> 
+       
+        </div>
+    </div>
+    
+    <!-- Modal footer -->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-success" data-dismiss="modal" (click)=CreateNew()>Proceed</button>
+  </div>
+    
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <div class="modal warningPopup" [style.display]="showConfirmationModal ? 'block' : 'none'">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+        
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hideModal()">&times;</button>
+     
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Are you sure you want to proceed with all customers? </p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)=CreateNew()>Yes, proceed</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)=onClickCustomer()>No, let me choose</button>
+    </div>
+        
+        </div>
+        </div>
+        </div>

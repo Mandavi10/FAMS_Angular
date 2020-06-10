@@ -87,5 +87,106 @@
             </div>
         </div>
 
+        <div class="modal" id="ChangePassword" [style.display]="ChangePassWordPopUp ? 'block' : 'none'">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+        
+        
+                <div class="modal-header">
+                    <h4 class="modal-title" style="margin-top: 3%;">
+                        Change Password
+                    </h4>
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideChangePassword()">&times;</button>
+                    </div>
+                
+            
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+               
+                    <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
+                            <form class="" >
+                                                <div class="row no-padding mt-2">
+                                                    <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                            <div class="col-md-12 col-sm-4 col-xs-12 mt-3">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                           Old Password:
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <input type="password" name="OldPassword" class="col-sm-12 col-md-12 col-xs-12" #OldPassWord/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                New Password:
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <input type="password" name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" #NewPassWord/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+        
+                                                    <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                Confirm Password:
+                                                            </label>
+                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <input type="password" name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" #ConfirmPassWord/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+        
+                                                          
+                                                           
+                                                        </div>
+                                                    </div>
+                               
+                            </form>
+                        </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+          
+            <button type="button" class="btn btn-success" (click)="ChangePassSave(OldPassWord.value,NewPassWord.value,ConfirmPassWord.value)">Save</button>
+            <button type="button" class="btn btn-success" (click)="ChangePassCancel()">Cancel</button>
+            </div>
+            
+            </div>
+            </div>
+            </div>
+
+            <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">
+               
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                <p>Password changed Successfully</p>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+              
+            </div>
+                
+                </div>
+                </div>
+                </div>
         </div>
         </div>

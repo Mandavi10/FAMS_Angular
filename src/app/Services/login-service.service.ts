@@ -34,10 +34,10 @@ export class LoginServiceService {
         headers
     });
     }
-    ChangePassWordNewUser(em:any): Observable<Logindetails> {
+    ChangePassWordNewUser(em:any): Observable<any> {
       const body = em;
       const headers = new HttpHeaders().set('content-type', 'application/json');
-      return this._http.post<Logindetails>(this.baseUrl + 'api/Login/ChangePasswordForNewUser', body, {
+      return this._http.post<any>(this.baseUrl + 'api/Login/ChangePasswordForNewUser', body, {
         headers
     });
     }
