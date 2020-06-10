@@ -1,6 +1,16 @@
 <div class="dvLinks">
   <ul class="nav nav-list">
-
+    <!-- <ul class="nav nav-list" *ngFor="let Links of Model_SideBarLinks" >      -->
+    <!-- <li class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.IsParent==0">
+      <li class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.IsParent==0">
+        <span class="menu-text">{{Links.LinkName}}</span></a></li>
+        <li class="" *ngIf="Links.IsParent==1"><span class="menu-text" >{{Links.LinkName}}</span>
+          <ul *ngFor="let L of Model_SideBarChildLinks" > 
+            <li class=""><a routerLink={{L.url}} routerLinkActive="active" *ngIf="L.ParetmenuID==Links.LinkID">
+              <span class="menu-text">{{L.LinkName}}</span></a></li>
+            </ul>
+        </li>
+     </ul> -->
       <li class=""><a routerLink="/Home" routerLinkActive="active"><span class="menu-text">Home</span></a></li>
       <li class=""><a routerLink="/Dashboard" routerLinkActive="active"><span class="menu-text">Dashboard </span></a></li>
       
@@ -11,10 +21,10 @@
       <li class=""><a routerLink="/OrderProcessingNew" routerLinkActive="active"><span class="menu-text">Order Processing New</span></a></li>
       
       <li class=""><a routerLink=""><span class="menu-text">Reports </span></a>
-        <ul>
-          <!-- <li class=""><a routerLink="/TBReport" routerLinkActive="active"><span class="menu-text">Trial Balance Report</span></a></li>
+        <ul> 
+          <li class=""><a routerLink="/TBReport" routerLinkActive="active"><span class="menu-text">Trial Balance Report</span></a></li>
           <li class=""><a routerLink="/SecuritiesCustomer" routerLinkActive="active"><span class="menu-text">Security-Customer Report</span></a></li>
-          -->
+         
           <li class=""><a routerLink="/TrialBalanceReport" routerLinkActive="active"><span class="menu-text">Trial Balance Report</span></a></li>
           <li class=""><a routerLink="/SummaryReport" routerLinkActive="active"><span class="menu-text">Summary Report</span></a></li>
           <li class=""><a routerLink="/HoldingReport" routerLinkActive="active"><span class="menu-text">Holding Report</span></a></li>
@@ -22,13 +32,13 @@
           <li class=""><a routerLink="/TransactionStatement" routerLinkActive="active"><span class="menu-text">Transaction Statement</span></a></li>
         </ul>
       </li>
-      <!-- <li class=""><a routerLink=""><span class="menu-text">Administrator </span></a>
+      <li class=""><a routerLink=""><span class="menu-text">Administrator </span></a>
         <ul>
           <li class=""><a routerLink="/Entity" routerLinkActive="active"><span class="menu-text">Entity</span></a></li>
           <li class=""><a routerLink="/Customer" routerLinkActive="active"><span class="menu-text">Customer</span></a></li>
          
         </ul>
-      </li> -->
+      </li>
       <li class=""><a routerLink=""><span class="menu-text">Masters </span></a>
         <ul>
           <li *ngIf = "liCountryMaster" class=""><a routerLink="/CountryMaster" routerLinkActive="active"><span class="menu-text">Country</span></a></li>
