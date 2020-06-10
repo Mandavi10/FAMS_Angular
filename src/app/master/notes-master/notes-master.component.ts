@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NotemasterService } from '../../Services/NoteMsater/notemaster.service';
+import {Bindgridfields} from '../../../Models/NoteMaster/bindgridfields';
+import { Commonfields } from '../../../Models/commonfields';
 
 @Component({
   selector: 'app-notes-master',
@@ -6,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notes-master.component.css']
 })
 export class NotesMasterComponent implements OnInit {
-
+  BindgridfieldsList : Bindgridfields;CommonfieldsList : Commonfields;showModalsavepopup: boolean= false;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
       return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -25,7 +30,14 @@ rowData = [
 ];
 
 
-
+onClicksavepopup(event) {
+  this.showModalsavepopup = true;
+  
+  }
+  
+  hidesavepopup() {
+  this.showModalsavepopup = false;
+  }
 
   showModalstatemaster: boolean;
   showGrid = true;
@@ -41,9 +53,39 @@ rowData = [
     hidestatemaster() {
     this.showModalstatemaster = false;
     }
-  constructor() { }
+  constructor(private NMService : NotemasterService) { }
 
   ngOnInit(): void {
+    this.BindGrid();
   }
 
+  BindGrid(){
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var UserId = Sessionvalue.UserId;
+    var JsonData ={
+      "UserId": UserId
+    }
+    this.NMService.BindGrid(JSON.stringify(JsonData)).subscribe(
+      (data) => {  
+        this.BindgridfieldsList = data.Table;   
+  });
+}
+SaveData(Subject,Note,File){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  var UserId = Sessionvalue.UserId;
+  var JsonData ={
+    "UserId": UserId,
+    "Subject": Subject,
+    "Note" : Note,
+    "Attachment": File
+  }
+  this.NMService.SaveData(JSON.stringify(JsonData)).subscribe(
+    (data) => {  
+      this.CommonfieldsList = data.Table;   
+      if(this.CommonfieldsList[0].Result == "1"){
+        this.showModalsavepopup = true;
+        this. BindGrid();
+      }
+});
+}
 }

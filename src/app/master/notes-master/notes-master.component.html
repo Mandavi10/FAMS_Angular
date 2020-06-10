@@ -56,7 +56,7 @@
            <ag-grid-angular
     style="width: 100%; height: 130px;"
     class="ag-theme-alpine"
-    [rowData]="rowData"
+    [rowData]="BindgridfieldsList"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -65,6 +65,7 @@
            
             
         </div>
+        <!-- <form [formGroup]="NoteMasterForm" autocomplete="off" appNorightclick> -->
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
         <div class=" col-sm-12 col-xs-12 col-md-12 formatbox pr-0 ">
                         <div class=" col-sm-12 col-xs-12 col-md-12 boxhead pr-0">                            
@@ -98,7 +99,7 @@
                                     <label class="col-sm-5 col-md-3 col-xs-5 control-label no-padding">
                                        Subject:</label>
                                     <div class="col-sm-7 col-md-9 col-xs-7 no-padding">
-                                        <input type="text" id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" />
+                                        <input type="text" id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject />
                                     </div>
                                          
                                 </div>
@@ -107,7 +108,7 @@
                          </div>
         
                             <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
-                            <textarea rows="500" cols="226">
+                            <textarea rows="500" cols="226" #Note>
         
         </textarea>
                             
@@ -116,10 +117,10 @@
 
                                 <div class="btnbox pull-left mt-2">
                                     <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button>
-                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-"/>
+                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-" #File/>
                                 </div>
                                 <div class="toolbar pull-right mt-2">
-                                    <button type="button" class="btn btn-sm btn-success mr-2" id="" > Save </button> 
+                                    <button type="button" class="btn btn-sm btn-success mr-2" id=""  (click)="SaveData(Subject.value,Note.value,File.value)"> Save </button> 
                                     <button type="button" class="btn btn-sm btn-success" id=""> Cancel</button> 
                                  
                                 </div>
@@ -130,13 +131,7 @@
                         </div>
                     </div>
                 </div>
-                             
-        
-                            
-        
-    
-        
-       
+             <!-- </form>                          -->
 <!-- 
         <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">
                 <div class="modal-dialog">
@@ -221,6 +216,34 @@
                 </div>
                 </div>
                 </div> -->
+
+
+                <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                    <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">
+                   
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    <p>Saved Successfully</p>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+                  
+                </div>
+                    
+                    </div>
+                    </div>
+                    </div>
 
     </div>
 
