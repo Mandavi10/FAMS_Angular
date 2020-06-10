@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { CityMasterComponent } from './city-master.component';
 import { CityMasterRoutingModule } from './city-master-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CityMasterComponent],
   imports: [
     CommonModule,
-    CityMasterRoutingModule,
+    CityMasterRoutingModule,FormsModule,ReactiveFormsModule,
     AgGridModule.withComponents([])
   ]
 })

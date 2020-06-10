@@ -24,11 +24,11 @@ export class SecuritiesMasterComponent implements OnInit {
   Isdiv:boolean;
   SelectionStatusOfMutants:any;
   selectedRowId:number=0;
-  
+  showBackToSecurityList:boolean=false;
   //showModalSecurity: boolean;
   showSecurity = false;
   showGrid = true;
-  showBackToSecurityList:boolean=false;
+  // showBackToSecurityList:boolean=false;
   showNew:boolean=true;
       // columnDefs = [
       //   {headerName: 'All', field: '', width: 60, cellRenderer: function() {

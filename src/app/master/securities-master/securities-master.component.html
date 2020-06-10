@@ -31,7 +31,7 @@
                                 Back To Securities
                             </label>
                         </li>
-                        <li (click)="viewSecurities()">
+                        <li (click)="viewSecurities()" [style.display]="showviewSecurities ? 'block' : 'none'">
                             <i title="View Securities"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                             <label>
                                 View Securities

@@ -27,7 +27,7 @@
                                 Upload User
                             </label>
                         </li> -->
-                        <li (click)="onClickstatemaster($event)">
+                        <li (click)="onClickstatemaster($event)" [style.display]="showNew ? 'block' : 'none'">
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -52,13 +52,14 @@
             
             
            <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 450px;"
     class="ag-theme-alpine"
-    [rowData]="rowData"
+    [rowData]="country"
     [columnDefs]="columnDefs"
-    [enableFilter]="false"
+    [enableFilter]="true"
       [enableSorting]="true"
-      [showToolPanel]="true">
+      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true" (cellClicked)="onRowSelected($event)"
+      >
 </ag-grid-angular>
            
             
@@ -90,7 +91,7 @@
                     </div>
                     
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                                <form class="" >
+                            <form [formGroup]="CountryFormGrp" autocomplete="off" class="form" appNorightclick>
                                                     <div class="row no-padding mt-2">
                                                         <div class="col-md-12 col-sm-4 col-xs-12 p-0">
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -99,7 +100,10 @@
                                                                   Country Code:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CountryCode')">
+                                                                        <input type="text" required name="countryCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="CountryCode" />
+                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -109,7 +113,10 @@
                                                                  Country Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('CountryName')">
+                                                                        <input type="text" required name="countryName" class="col-sm-12 col-md-12 col-xs-12" formControlName="CountryName" />
+                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -125,8 +132,9 @@
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-               <button type="button" class="btn btn-success">Create</button>
-                <button type="button" class="btn btn-success">Cancel</button>
+               <!-- <button type="button" class="btn btn-success">Create</button> -->
+               <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+                <!-- <button type="button" class="btn btn-success">Cancel</button> -->
                 </div>
                 
                 </div>
@@ -134,6 +142,62 @@
                 </div>
 
     </div>
+
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p>Saved Successfully</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+     </div>
+        
+        </div>
+        </div>
+        </div>
+     
+     
+     
+        <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+           <div class="modal-dialog modal-sm">
+           <div class="modal-content">
+           
+           <!-- Modal Header -->
+           <div class="modal-header">
+           <h4 class="modal-title">
+          
+           </h4>
+           <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+           </div>
+           
+           <!-- Modal body -->
+           <div class="modal-body">
+           <p>Updated Successfully</p>
+           </div>
+           
+           <!-- Modal footer -->
+           <div class="modal-footer">
+           <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+         
+        </div>
+           
+           </div>
+           </div>
+           </div>
 
 </div>
 
