@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-psmcustomers-list',
@@ -85,7 +87,7 @@ showModalstatemaster: boolean;
      
     }
 
-    constructor(private formbulider: FormBuilder, private _pmsCustomerListService: PmsCustomerListService) {
+    constructor(private formbulider: FormBuilder, private _pmsCustomerListService: PmsCustomerListService,private router: Router) {
       //  this.custodian = new Custodian();
     }
 

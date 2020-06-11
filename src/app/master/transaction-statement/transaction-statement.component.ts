@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -29,9 +31,11 @@ rowData = [
    
 ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/TransactionStatement']);
   }
 
 }

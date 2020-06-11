@@ -42,7 +42,7 @@ rowData = [
     {heading: 'Closing Outstanding Units as of ', value: ''},
 ];
 
-  constructor(private Dbsecurity: DbsecurityService,private SRService : SummaryreportService, private formBuilder: FormBuilder,public datepipe: DatePipe) { }
+  constructor(private router: Router,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService, private formBuilder: FormBuilder,public datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.currentdate = new Date();

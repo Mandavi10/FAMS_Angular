@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
-    debugger;
     this.ChangePasswordForm = this.formbulider.group({
     });
     let item = JSON.parse(sessionStorage.getItem('User'));

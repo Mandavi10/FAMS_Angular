@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-pmsprovider',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PMSProviderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/PMSProvider']);
   }
 
 }
