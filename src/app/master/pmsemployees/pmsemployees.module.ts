@@ -10,11 +10,13 @@ import {AuthGuardService } from 'src/app/Services/auth-guard.service';
 import {AppSettings} from 'src/app/app-settings';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import{HeaderComponent} from 'src/app/header/header.component';
 
 @NgModule({
   declarations: [PMSEmployeesComponent],
   imports: [
     CommonModule,
+    //HeaderComponent,
     PMSEmployeesRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,
     AgGridModule.withComponents([])
   ],

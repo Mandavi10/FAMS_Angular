@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Router, ActivatedRoute } from '@angular/router';
+
+
 import { MynotesService } from '../../Services/MyNotes/mynotes.service';
 import {Bindallfields} from '../../../Models/MyNotes/bindallfields';
 import { count } from 'rxjs/operators';
@@ -9,11 +13,14 @@ import { count } from 'rxjs/operators';
   styleUrls: ['./my-notes.component.css']
 })
 export class MyNotesComponent implements OnInit {
+
  Note : any;  BindallfieldsList: Array<Bindallfields> = []; SearchList: Array<Bindallfields> = [];
  AllDiv : boolean = true; UnReadDiv : boolean = false; UnReadDataList: Array<Bindallfields> = [];
- constructor(private MyNService :MynotesService) { }
+ constructor(private MyNService :MynotesService,private router: Router) { }
 
   ngOnInit(): void {
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/MyNotes']);
     this.BindGrid();
   }
   BindGrid(){
