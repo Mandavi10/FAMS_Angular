@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -30,10 +32,11 @@ rowData = [
    
 ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-   
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/Dashboard']);
   }
  
 }

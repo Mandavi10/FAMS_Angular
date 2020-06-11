@@ -3,6 +3,8 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { AllCustomersService } from '../../Services/AllCustomers/all-customers.service';
 import { AllCustomers} from '../../../Models/AllCustomers/all-customers';
 import { SaveAllFields} from '../../../Models/AllCustomers/save-all-fields';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Allcustomerresponse } from 'src/Models/AllCustomers/allcustomerresponse';
@@ -64,11 +66,13 @@ hideupdatepopup() {
  this.showModalupdatepopup = false;
 }
 
-  constructor(private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
   isShowGrid:boolean=true;
   isShowForm:boolean=false;
 
   ngOnInit(): void {
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/AllCustomers']);
     this.AllCustomersForm = this.formBuilder.group({  
       CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
   });

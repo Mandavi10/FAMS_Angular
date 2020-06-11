@@ -17,7 +17,7 @@ export class SidebarService {
 
   BindSidebarLinks(data): Observable<any> {
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this._http.post<any>(this.baseUrl + 'api/SideBarLinks/BindSidebarLinks/', data, {
+    return this._http.post<any>(this.baseUrl + 'api/LinkSetup/GetLinks/', data, {
         headers 
     });
     }

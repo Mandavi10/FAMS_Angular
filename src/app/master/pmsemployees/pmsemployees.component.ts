@@ -106,6 +106,8 @@ rowData1 = [
   constructor(private router: Router, private formBuilder: FormBuilder,private PMSEService : PmsemployeesService) { }
 
   ngOnInit(): void {
+    this.router.navigate(['/Home']);
+    this.router.navigate(['/PMSEmployees']);
     this.PMSEmployeesForm = this.formBuilder.group({  
       EmployeeCode : [''], EmployeeName :[''], Gender : [], Qualification : [''], About : [''],
       CustomerCode : [''], CustomerName : [''] , Custodian : [''], InceptionDate : [''], EmpLinkingDate : [''],

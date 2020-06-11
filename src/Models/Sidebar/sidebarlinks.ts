@@ -1,9 +1,9 @@
 export class Sidebarlinks {
-    LinkID :any
+    LinkID :string
     LinkName :string
     IconName :string
     url :string
-    ParetmenuID :any
+    ParetmenuID :string
 }
 export class Model_getSideBarLinks{
 UserType:string

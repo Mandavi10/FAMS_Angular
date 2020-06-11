@@ -10,7 +10,7 @@
             <div class="breadcrum" >
                 <i class="fa fa-angle-right selectCorporate" aria-hidden="true" title="Select Corporate" (click)="toggleCorporate()">                   
                 </i>   <span>FAMS</span><i class="fa fa-angle-right" aria-hidden="true"></i>  
-                 <span (click)="HomeFun()">Home</span>
+                 <a><span  [innerHTML]="HeaderName" ></span></a>
                 <div class="corporateList" *ngIf="isShow1" >
                     <div class="filter">
                         <input type="text" placeholder="Search" />
