@@ -34,8 +34,8 @@ return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
     }},
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Country', field: 'CountryName', width:'150'},
-    {headerName: 'Custodian Code', field: 'CustodianCode', width:'150'},
-    {headerName: ' Custodian Name', field: 'CustodianName', width:'150'},
+    {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
+    {headerName: 'CountryName', field: 'CountryName', width:'150'},
 ];
 
 rowData = [

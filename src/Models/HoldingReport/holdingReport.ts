@@ -65,3 +65,18 @@ export class GridAllFields4{
 }
 
 
+export class GridAllFields5{
+    // PMSProvide: any;
+    // CustomerAccount: string;
+    // CustomerName: any;
+    Security: string;
+    Quantity: any;
+    UnitCost: string;
+    Cost: any;
+    Price: string;
+    MarketValue: any;
+    GainLoss: string;
+    GainLossPer: any;
+    Assets: string;
+}
+

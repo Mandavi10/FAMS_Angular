@@ -178,6 +178,7 @@ font-family:"Segoe UI"; }
         color: #003974 !important;}
 .ag-center-cols-container{ width:100% !important}
 .ag-theme-alpine .ag-cell-inline-editing{height:28px !important; padding: 0px !important}
+.ag-center-cols-container{width:2000px !important}
 
 
 .guidetext{color: #e81c26;
@@ -9735,7 +9736,7 @@ table td span i {
     width: -o-8px;
     height: -o-8px;
     width: 7px;
-    height: 5px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-track {

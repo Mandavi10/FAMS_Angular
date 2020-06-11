@@ -13,6 +13,8 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
   styleUrls: ['./holding-report.component.css']
 })
 export class HoldingReportComponent implements OnInit {
+  HeaderArray : any =[];
+  holdingReport:any=[];
   showModalstatemaster: boolean;
   HoldingReportFormGrp: FormGroup; customer:Customer ;
    gridAllFields: GridAllFields; 
@@ -20,6 +22,7 @@ export class HoldingReportComponent implements OnInit {
    gridAllFields2: GridAllFields2; 
    gridAllFields3: GridAllFields3; 
    gridAllFields4: GridAllFields4; 
+   gridAllFields5: any []; 
    buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; CustodianId: number = 0; loading: boolean = false;
   message: string;
@@ -85,7 +88,9 @@ export class HoldingReportComponent implements OnInit {
             currentContext.gridAllFields1 = data.Table1;
             currentContext.gridAllFields2 = data.Table2;
             currentContext.gridAllFields3 = data.Table3;
-            currentContext.gridAllFields4 = data.Table4;      
+            currentContext.gridAllFields4 = data.Table4;   
+            currentContext.gridAllFields5 = data.Table5;    
+              
             if(data.Table.length>0)      
             {
               this.IsEquity=true;
@@ -129,5 +134,47 @@ export class HoldingReportComponent implements OnInit {
         this.BindHoldingReport(this.CustomerAccount,Date);
     } 
   }
+
+  ConvertToCSV(objArray) {
+    
+      this.HeaderArray = {
+        PMSEmpId: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
+        Qualification: "Qualification", About: "About"}
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    var row = "";
+
+    for (var index in objArray[0]) {
+        //Now convert each value to string and comma-separated
+        row += index + ',';
+    }
+    row = row.slice(0, -1);
+    //append Label row with line break
+   // str += row + '\r\n';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ','
+
+            line += array[i][index];
+        }
+        str += line + '\r\n';
+    }
+    return str;
+}
+downloadCSVFile() {
+    var csvData = this.ConvertToCSV(JSON.stringify(this.gridAllFields5));
+    var a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    var blob = new Blob([csvData], { type: 'text/csv' });
+    var url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'HoldingReport.csv';/* your file name*/
+  
+    a.click();
+    return 'success';
+}
 
 }
