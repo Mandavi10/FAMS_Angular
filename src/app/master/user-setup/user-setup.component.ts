@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { MultiSelectService } from '../../multi-select.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-user-setup',
@@ -65,11 +67,9 @@ public citiesArray = [];
 public filteredCitiesArray = [];
 public selectedCitiesArray = [];
 public isDropDownVisible = false;
-constructor(private multiSelectService: MultiSelectService) { }
+constructor(private router: Router,private multiSelectService: MultiSelectService) { }
 
 ngOnInit(): void {
-
-  
     this.Isdiv2=false;
     this.Isdiv1=true;
   

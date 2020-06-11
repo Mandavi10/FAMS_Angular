@@ -19,8 +19,6 @@ export class MyNotesComponent implements OnInit {
  constructor(private MyNService :MynotesService,private router: Router) { }
 
   ngOnInit(): void {
-    this.router.navigate(['/Home']);
-    this.router.navigate(['/MyNotes']);
     this.BindGrid();
   }
   BindGrid(){

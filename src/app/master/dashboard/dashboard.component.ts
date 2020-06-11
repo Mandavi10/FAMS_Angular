@@ -35,8 +35,6 @@ rowData = [
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.router.navigate(['/Home']);
-    this.router.navigate(['/Dashboard']);
   }
  
 }

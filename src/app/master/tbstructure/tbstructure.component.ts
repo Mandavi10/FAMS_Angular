@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-tbstructure',
@@ -152,13 +154,15 @@ debugger;
           this.showModalsavepopup = false;
         }
 
-      constructor(private formbulider: FormBuilder, private _tbstructureService: TbstructureService) {
+      constructor(private router: Router,private formbulider: FormBuilder, private _tbstructureService: TbstructureService) {
 
         //  this.custodian = new Custodian();
         
       }
 
     ngOnInit(): void {
+      this.router.navigate(['/Home']);
+      this.router.navigate(['/TBStructure']);
         this.Isdiv1=false;
         this.Isdiv=true;
           this.TBStructureFormGrp = this.formbulider.group({
