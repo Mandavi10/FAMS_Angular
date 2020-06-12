@@ -87,19 +87,20 @@ rowData2 = [
 ];
 columnDefs3 = [
   {headerName: 'Sr. No.', field: 'srNo', width: 60, resizable: true },
-  {headerName: 'Stock', field: 'stock', width: 100, resizable: true},
+  {headerName: 'Securities', field: 'stock', width: 100, resizable: true},
   {headerName: 'Sector', field: 'sector', width: 100, resizable: true},
+  {headerName: 'Qty in unit', field: 'qty', width: 130, resizable: true},
   {headerName: 'Todays Price', field: 'price', width: 110, cellClass: 'price', headerClass: 'price', resizable: true},
   {headerName: 'Line Amount', field: 'total', width: 100, cellClass: 'price', headerClass: 'price', resizable: true},
   {headerName: 'Stock Exchange Type', field: 'ste', width: 150, resizable: true},
 ];
 
 rowData3 = [
-  { srNo: '1', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
-  { srNo: '2', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
-  { srNo: '3', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
-  { srNo: '4', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
-  { srNo: '5', stock: 'stock 1', sector: 'sector 1', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '1', stock: 'stock 1', sector: 'sector 1', qty: '100', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '2', stock: 'stock 1', sector: 'sector 1', qty: '100', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '3', stock: 'stock 1', sector: 'sector 1', qty: '100', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '4', stock: 'stock 1', sector: 'sector 1', qty: '100', price: '1000', total: '10000', ste: 'BSE'},
+  { srNo: '5', stock: 'stock 1', sector: 'sector 1', qty: '100', price: '1000', total: '10000', ste: 'BSE'},
 ];
 columnDefs4 = [
   {headerName: 'Sr. No.', field: 'srNo', width: 60, resizable: true },
