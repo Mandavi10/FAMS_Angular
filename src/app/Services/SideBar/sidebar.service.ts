@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import {AppSettings} from 'src/app/app-settings';
-import 'rxjs/add/operator/map'
+
 @Injectable({
   providedIn: 'root'
 })
