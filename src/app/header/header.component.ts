@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import{DbsecurityService}from '../Services/dbsecurity.service';
+import {SidebarComponent} from '../sidebar/sidebar.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  UserName : any; UserId : any;
+  UserName : any; UserId : any; SidebarComponent : SidebarComponent; HeaderName : any;HeaderUrl:any
   public shownav = false;
   isShow = false;
   isShow1 = false;
@@ -34,7 +35,14 @@ showModalChangePassword: boolean;
   ngOnInit() {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     this.UserName = this.Dbsecurity.Decrypt(Sessionvalue.UserName);
+   // this.UserName = this.Dbsecurity.Decrypt(Sessionvalue.UserName);
+   let HeaderName = sessionStorage.getItem('HeaderName');
+   let HeaderUrl = sessionStorage.getItem('HeaderUrl');
+
+  this.HeaderName = HeaderName;
+  this.HeaderUrl=HeaderUrl;
   }
+
   togglenav() {
     this.shownav = !this.shownav;
   }
@@ -59,4 +67,5 @@ HomeFun(){
                     this.router.navigate(['/Dashboard']);
                   }
 }
+
 }

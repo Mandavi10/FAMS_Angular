@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -92,7 +94,7 @@ rowData1 = [
     }
 
 
-  constructor(private formbulider: FormBuilder, private _custodianService: CustodianService) {
+  constructor(private router: Router,private formbulider: FormBuilder, private _custodianService: CustodianService) {
 
       //  this.custodian = new Custodian();
        
@@ -120,7 +122,6 @@ rowData1 = [
   // this.AllEmployee();
   
   this.loadAllCountry();
-  debugger;
   this.loadAllPMS();
   this.loadAllCustodians();
   }
@@ -175,7 +176,6 @@ rowData1 = [
       this.showNew=true;
     }
 onClickviewpms(){
-  debugger;
 //  this.onClickupdatepopup();
  //this.onClicksavepopup();
  

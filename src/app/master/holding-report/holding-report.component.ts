@@ -7,8 +7,12 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
+
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+
+
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -35,7 +39,7 @@ export class HoldingReportComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv:boolean;
  
-  constructor(private formbulider: FormBuilder, private _holdingReportService: HoldingReportService,private Dbsecurity: DbsecurityService) {
+  constructor(private router: Router,private formbulider: FormBuilder, private _holdingReportService: HoldingReportService,private Dbsecurity: DbsecurityService) {
 
     //  this.custodian = new Custodian();
      
@@ -54,7 +58,6 @@ export class HoldingReportComponent implements OnInit {
       UserId: [0, ],
       Date: ['',],
   });
-  debugger;
     let item = JSON.parse(sessionStorage.getItem('User'));
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
@@ -72,7 +75,6 @@ export class HoldingReportComponent implements OnInit {
   }
 
   BindCustomer() {
-    debugger;
     this.loading = true;
     var currentContext = this;
     this._holdingReportService.BindCustomer().
@@ -117,7 +119,6 @@ export class HoldingReportComponent implements OnInit {
     this.loading = false;
   }
   onSubmit() {
-    debugger;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
     if (this.HoldingReportFormGrp.valid) {

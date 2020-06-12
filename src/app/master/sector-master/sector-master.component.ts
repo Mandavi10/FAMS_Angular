@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-sector-master',
@@ -70,13 +72,14 @@ hidestatemaster() {
 }
 
 
-constructor(private formbulider: FormBuilder, private _sectorService: SectorService) {
+constructor(private formbulider: FormBuilder, private _sectorService: SectorService,private router: Router) {
 
   //  this.custodian = new Custodian();
    
 }
 
 ngOnInit(): void {
+ 
 this.Isdiv1=false;
 this.Isdiv=true;
 this.SectorFormGrp = this.formbulider.group({

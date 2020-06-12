@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-country-master',
@@ -73,7 +75,7 @@ hidestatemaster() {
 }
 
 
-constructor(private formbulider: FormBuilder, private _countryService: CountryService) {
+constructor(private router: Router,private formbulider: FormBuilder, private _countryService: CountryService) {
 
   //  this.custodian = new Custodian();
    

@@ -11,7 +11,7 @@
 
                         
                           
-                        <li>
+                        <li (click)="downloadCSVFile()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
@@ -54,9 +54,9 @@
             
             
           <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
-    [rowData]="rowData"
+    [rowData]="BindallfieldsList"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -92,7 +92,7 @@
                     </div>
                     
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                                <form class="" >
+                                <form [formGroup]="BrokerMasterForm" autocomplete="off" appNorightclick>
                                                     <div class="row no-padding mt-2">
                                                         <div class="col-md-12 col-sm-4 col-xs-12 p-0">
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -101,8 +101,10 @@
                                                                    Broker Name:
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('BrokerName')">
+                                                                    <input type="text"  requied name="BrokerName" class="col-sm-12 col-md-12 col-xs-12" formControlName="BrokerName" />
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -111,8 +113,10 @@
                                                                  Trade Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('TradeName')">
+                                                                    <input type="text" requied class="col-sm-12 col-md-12 col-xs-12" formControlName="TradeName"/>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
 
@@ -122,8 +126,10 @@
                                                                 Registration No.:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('RegistrationNo')">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="RegistrationNo"/>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-4 col-xs-12">
@@ -132,7 +138,7 @@
                                                              GST No.:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="GSTNo"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -143,11 +149,11 @@
                                                                     Stock Exchange Name:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                                                        <option>Select</option>
-                                                                        <option>BSE</option>
-                                                                        <option>NSE</option>
-                                                                        <option>BOTH</option>
+                                                                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="StockExchangeName">
+                                                                        <option value="" selected>Select</option>
+                                                                        <option value="BSE">BSE</option>
+                                                                        <option value="NSE">NSE</option>
+                                                                        <option value="BOTH">BOTH</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -158,7 +164,7 @@
                                                            Email:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Email"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -168,7 +174,7 @@
                                                             Telephone:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Telephone"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -178,7 +184,7 @@
                                                              Contact Person:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactPerson"/>
                                                                 </div>
                                                             </div>
                                                         </div>    
@@ -188,7 +194,7 @@
                                                              Email:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactEmail"/>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -198,7 +204,7 @@
                                                              Phone:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Phone"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -208,7 +214,7 @@
                                                             Extension(if any):
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Extension"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -218,7 +224,7 @@
                                                             Mobile No.:
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="MobileNo"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -233,12 +239,39 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                <!-- <button type="button" class="btn btn-success">Edit</button> -->
-                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-success" (click)="SaveData()" >Save</button>
                 </div>
                 
                 </div>
                 </div>
                 </div>
+
+                <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                    <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">
+                   
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    <p>Saved Successfully</p>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+                  
+                </div>
+                    
+                    </div>
+                    </div>
+                    </div>
 
     </div>
 

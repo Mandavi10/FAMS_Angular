@@ -5,6 +5,7 @@ import { NotemasterService } from '../../Services/NoteMsater/notemaster.service'
 import {Bindgridfields} from '../../../Models/NoteMaster/bindgridfields';
 import { Commonfields } from '../../../Models/commonfields';
 
+
 @Component({
   selector: 'app-notes-master',
   templateUrl: './notes-master.component.html',
@@ -53,7 +54,7 @@ onClicksavepopup(event) {
     hidestatemaster() {
     this.showModalstatemaster = false;
     }
-  constructor(private NMService : NotemasterService) { }
+  constructor(private NMService : NotemasterService,private router: Router) { }
 
   ngOnInit(): void {
     this.BindGrid();
