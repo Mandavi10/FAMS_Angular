@@ -30,14 +30,18 @@ export class CustodianMasterComponent implements OnInit {
   pmsDetails:[];
   showBackToCustodian:boolean=false;
   showNew:boolean=true;
+  showviewSecurities=true;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
     }},
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Country', field: 'CountryName', width:'150'},
-    {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
-    {headerName: 'CountryName', field: 'CountryName', width:'150'},
+    // {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
+    // {headerName: 'CountryName', field: 'CountryName', width:'150'},
+
+    {headerName: 'Custodian Code', field: 'CustodianCode', width:'150'},
+    {headerName: 'Custodian Name', field: 'CustodianName', width:'150'},
 ];
 
 rowData = [
@@ -109,8 +113,8 @@ rowData1 = [
       Active: [false],
 
   });
-  this.CustodianFormGrp.controls['PMSName'].disable();
-  this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
+  // this.CustodianFormGrp.controls['PMSName'].disable();
+  // this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
 
   // this.setClickedRow = function (index) {
   //     this.selectedRow = index;
@@ -126,6 +130,7 @@ rowData1 = [
       if (event.column.colId != "all" ) // only first column clicked
       {
         this.Temp=2;
+       
         this.showModalstatemaster = true;
         this.CustodianFormGrp.controls['CountryCode'].setValue(event.data.CountryCode);
         this.CustodianFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
@@ -147,6 +152,10 @@ rowData1 = [
       // this.showGrid = true;
       this.Isdiv1=false;
       this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showviewSecurities=true;
+        this.showNew=true;
+        this.showBackToCustodian=false;
     }
     BindPMSDetails(CustodianId) {
       debugger;
@@ -177,7 +186,8 @@ onClickviewpms(){
     this.Isdiv1=true;
     this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
-  this.showNew=true;
+    this.showviewSecurities=false;
+    this.showNew=false;
 
     this.Isdiv1=true;
     this.Isdiv=false;

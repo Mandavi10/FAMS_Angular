@@ -10,6 +10,9 @@ import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomera
 import { DatePipe } from '@angular/common';
 import { Commonfields } from '../../../Models/commonfields';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 
 @Component({
   selector: 'app-summary-report',
@@ -24,6 +27,19 @@ export class SummaryReportComponent implements OnInit {
     {headerName: '', field: 'heading', width:'300'},
     {headerName: '', field: 'value', width:'150'}
 ];
+
+// head = [['ID', 'Country', 'Rank', 'Capital']]
+head = []
+
+  // data = [
+  //   [1, 'Finland', 7.632, 'Helsinki'],
+  //   [2, 'Norway', 7.594, 'Oslo'],
+  //   [3, 'Denmark', 7.555, 'Copenhagen'],
+  //   [4, 'Iceland', 7.495, 'Reykjavík'],
+  //   [5, 'Switzerland', 7.487, 'Bern'],
+  //   [9, 'Sweden', 7.314, 'Stockholm'],
+  //   [73, 'Belarus', 5.483, 'Minsk'],
+  // ]
 
 rowData = [];
 rowDataExcel = [];
@@ -151,6 +167,72 @@ rowDataExcel = [];
     }
     return str;
 }
+
+downloadPDFFile(){
+  // let link = document.createElement("a");
+  // link.download = "filename.pdf";
+  // link.href = '../../../assets/Files/2 NAV Summary Report';
+  // link.click();
+  debugger;
+
+  var doc = new jsPDF();
+
+  doc.setFontSize(18);
+  // doc.text('My PDF Table', 11, 8);
+ // doc.text('My PDF Table', 11, 8);
+  doc.setFontSize(11);
+  doc.setTextColor(100);
+
+
+  (doc as any).autoTable({
+    head: this.head,
+    body: this.rowDataExcel,
+    theme: 'plain',
+    didDrawCell: data => {
+      console.log(data.column.index)
+    }
+  })
+
+  // Open PDF document in new tab
+  doc.output('dataurlnewwindow')
+
+  // Download PDF document  
+  doc.save('Summary_Report.pdf');
+  
+
+  // var base64 = btoa(
+  //   new Uint8Array(this.rowData)
+  //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
+  // );
+  // const linkSource = 'data:application/pdf;base64,' + base64;
+  // const downloadLink = document.createElement("a");
+  // downloadLink.href = linkSource;
+  // downloadLink.download = "a.pdf";
+  // downloadLink.click()
+//  var jsPDF: any;
+//   var doc = new jsPDF();
+//   var col = ["Id", "TypeID","Accnt","Amnt","Start","End","Contrapartida"];
+//   var rows = [];
+
+// var rowCountModNew = [
+// ["1721079361", "0001", "2100074911", "200", "22112017", "23112017", "51696"],
+// ["1721079362", "0002", "2100074912", "300", "22112017", "23112017", "51691"],
+// ["1721079363", "0003", "2100074913", "400", "22112017", "23112017", "51692"],
+// ["1721079364", "0004", "2100074914", "500", "22112017", "23112017", "51693"]
+// ]
+
+
+// rowCountModNew.forEach(element => {
+//     rows.push(element);
+
+//   });
+
+
+//   doc.autoTable(col, rows);
+//   doc.save('Test.pdf');
+
+  
+}
 downloadCSVFile() {
   debugger;
   // var base64 = btoa(
@@ -198,10 +280,5 @@ LastOneMonthFun(){
   var yesterday = date.toISOString().slice(0,10);
   this.SummaryReportForm.controls['Fromdate'].setValue(yesterday);
 }
-// downloadMyFile(){
-//   let link = document.createElement("a");
-//   link.download = "filename.pdf";
-//   link.href = '../../../assets/Files/2 NAV Summary Report';
-//   link.click();
-// }
+
 }

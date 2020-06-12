@@ -26,7 +26,7 @@
                         <li (click)="BackToSecurity()" [style.display]="showBackToSecurityList ? 'block' : 'none'">
                             <i title="View Securities"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                             <label>
-                                Back To Securities
+                                Back To TB Structure
                             </label>
                         </li>
                         <li (click)="viewSecurities()" [style.display]="showviewSecurities ? 'block' : 'none'">
@@ -267,7 +267,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                        <!-- <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                    Active:
+                                                </label>
+                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                    
+                                                    <input  name="active" formControlName="Active" value="" type="checkbox" class="col-md-1 col-sm-2 col-xs-4"/>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-12 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                     Active:
@@ -278,6 +290,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                               
                                         <!-- <div class="col-md-12 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
@@ -303,7 +316,7 @@
                         <!-- <button type="button" class="btn btn-success">View PMS</button> -->
 
                         <div class="downbtnposition">
-                                <button type="button" class="btn btn-success">Save</button>
+                                <!-- <button type="button" class="btn btn-success">Save</button> -->
                                 </div>
 
 
