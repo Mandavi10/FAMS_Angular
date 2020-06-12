@@ -25,22 +25,25 @@ export class SummaryReportComponent implements OnInit {
     {headerName: '', field: 'value', width:'150'}
 ];
 
-rowData = [
-    {heading: 'Market Value as of ', value: this.ClosingMarketValue },
-    {heading: 'Opening NAV as of ', value: ''},
-    {heading: 'Opening Outstanding Units as of ', value: ''},
-    {heading: 'Capital In(+)/Out(-)', value: ''},
-    {heading: 'Realized Gain', value: ''},
-    {heading: 'Unrealized Gain', value: ''},
-    {heading: 'Gain Prior to Take-over', value: ''},
-    {heading: 'Income', value: ''},
-    {heading: 'Fees', value: ''},
-    {heading: 'Expenses', value: ''},
-    {heading: 'Accrued Income', value: ''},
-    {heading: 'Market Value as of ', value: ''},
-    {heading: 'Closing NAV as of ', value: ''},
-    {heading: 'Closing Outstanding Units as of ', value: ''},
-];
+rowData = [];
+rowDataExcel = [];
+
+// rowData = [
+//     {heading: 'Market Value as of ', value: this.ClosingMarketValue },
+//     {heading: 'Opening NAV as of ', value: ''},
+//     {heading: 'Opening Outstanding Units as of ', value: ''},
+//     {heading: 'Capital In(+)/Out(-)', value: ''},
+//     {heading: 'Realized Gain', value: ''},
+//     {heading: 'Unrealized Gain', value: ''},
+//     {heading: 'Gain Prior to Take-over', value: ''},
+//     {heading: 'Income', value: ''},
+//     {heading: 'Fees', value: ''},
+//     {heading: 'Expenses', value: ''},
+//     {heading: 'Accrued Income', value: ''},
+//     {heading: 'Market Value as of ', value: ''},
+//     {heading: 'Closing NAV as of ', value: ''},
+//     {heading: 'Closing Outstanding Units as of ', value: ''},
+// ];
 
   constructor(private router: Router,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService, private formBuilder: FormBuilder,public datepipe: DatePipe) { }
 
@@ -63,6 +66,7 @@ rowData = [
     FormData.UserId = Sessionvalue.UserId;
     this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {
+        debugger;
         this.GridDive = true;
         this.boderdiv = false;
         this.AllgridfieldsList = data.Table; 
@@ -71,6 +75,7 @@ rowData = [
        this.Fromdate = this.datepipe.transform(this.Fromdate, 'dd-MM-yyyy');
        this.Todate = this.datepipe.transform(this.Todate, 'dd-MM-yyyy');
        this.rowData = [
+       
         {heading: 'Market Value as of ' + this.Fromdate, value: data.Table[0].OpeningMarketValue },
         {heading: 'Opening NAV as of '+ this.Fromdate, value: data.Table[0].OpeningNAV},
         {heading: 'Opening Outstanding Units as of ' +this.Fromdate, value: data.Table[0].OpeningOutstandingUnits},
@@ -85,7 +90,32 @@ rowData = [
         {heading: 'Market Value as of '+  this.Todate, value: data.Table[0].ClosingMarketValue},
         {heading: 'Closing NAV as of '+  this.Todate, value: data.Table[0].ClosingNAV},
         {heading: 'Closing Outstanding Units as of '+ this.Todate, value: data.Table[0].ClosingOutstanding},
+      
     ];
+
+    this.rowDataExcel = [
+      {heading: 'Portfolio Performance Summary',value:''},
+      {heading: 'Account :'+ data.Table[0].CustomerAccountNo+' ' + data.Table[0].CustomerName,value:''},
+      {heading: 'Aggressive Portfolio',value:''},
+      {heading: 'From '+this.Fromdate+' to '+this.Todate,value:''},
+
+      {heading: 'Market Value as of ' + this.Fromdate, value: data.Table[0].OpeningMarketValue },
+      {heading: 'Opening NAV as of '+ this.Fromdate, value: data.Table[0].OpeningNAV},
+      {heading: 'Opening Outstanding Units as of ' +this.Fromdate, value: data.Table[0].OpeningOutstandingUnits},
+      {heading: 'Capital In(+)/Out(-)', value: data.Table[0].CapitalInOut},
+      {heading: 'Realized Gain', value: data.Table[0].RealizedGain},
+      {heading: 'Unrealized Gain', value: data.Table[0].UnrealizedGain},
+      {heading: 'Gain Prior to Take-over', value: data.Table[0].GainPrior},
+      {heading: 'Income', value: data.Table[0].Income},
+      {heading: 'Fees', value: data.Table[0].Fees},
+      {heading: 'Expenses', value: data.Table[0].Expenses},
+      {heading: 'Accrued Income', value: data.Table[0].AccruedIncome},
+      {heading: 'Market Value as of '+  this.Todate, value: data.Table[0].ClosingMarketValue},
+      {heading: 'Closing NAV as of '+  this.Todate, value: data.Table[0].ClosingNAV},
+      {heading: 'Closing Outstanding Units as of '+ this.Todate, value: data.Table[0].ClosingOutstanding},
+      {heading: 'Cash flow - Begin of day',value:''},
+  ];
+
         });   
   }     
   BindCustomers(){
@@ -102,13 +132,13 @@ rowData = [
     var str = '';
     var row = "";
 
-    for (var index in objArray[0]) {
-        //Now convert each value to string and comma-separated
-        row += index + ',';
-    }
-    row = row.slice(0, -1);
-    //append Label row with line break
-    str += row + '\r\n';
+    // for (var index in objArray[0]) {
+    //     //Now convert each value to string and comma-separated
+    //     row += index + ',';
+    // }
+    // row = row.slice(0, -1);
+    // //append Label row with line break
+    // str += row + '\r\n';
 
     for (var i = 0; i < array.length; i++) {
         var line = '';
@@ -122,14 +152,25 @@ rowData = [
     return str;
 }
 downloadCSVFile() {
-    var csvData = this.ConvertToCSV(JSON.stringify(this.rowData));
+  debugger;
+  // var base64 = btoa(
+  //   new Uint8Array(this.rowData)
+  //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
+  // );
+  // const linkSource = 'data:application/pdf;base64,' + base64;
+  // const downloadLink = document.createElement("a");
+  // downloadLink.href = linkSource;
+  // downloadLink.download = "a.pdf";
+  // downloadLink.click()
+    var csvData = this.ConvertToCSV(JSON.stringify(this.rowDataExcel));
     var a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
     var blob = new Blob([csvData], { type: 'text/csv' });
     var url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'User_Results.csv';/* your file name*/
+    // a.download = 'User_Results.csv';/* your file name*/
+    a.download = 'Summary_Report.csv';/* your file name*/
     a.click();
     return 'success';
 }
