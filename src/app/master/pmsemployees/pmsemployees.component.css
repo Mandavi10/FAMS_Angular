@@ -220,9 +220,7 @@ select {
     top: -14px;
     margin: 0px;
 }
-#createuser .modal-header {
-    background-color: #143b63;
-}
+
 #createuser .modal-content{height:620px}
 .chipsContainer{
   padding: 1px 0px 1px 5px;

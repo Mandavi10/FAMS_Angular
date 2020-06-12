@@ -26,6 +26,9 @@ export class StateMasterComponent implements OnInit {
   showBackToCustodian:boolean=false;
   showNew:boolean=true;
 
+  HeaderArray : any =[];
+  flag:any=0;
+
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Country', field: 'CountryName', width:'150'},
@@ -249,5 +252,81 @@ this.loading = false;
 }
 
 
+ConvertToCSV(objArray) {
+  if(this.flag==0){
+    this.HeaderArray = {
+      srNo: "Sr.No.", Country: "Country", StateCode: "StateCode", StateName: "StateName"
+      , CreatedBy: "Created By",CreatedOn: "Created On", UpdatedBy: "Updated By",UpdatedOn:"Updated On"
+  }
+    
+}
+// else{
+//   this.HeaderArray = {
+//     srNo: "Sr.No.", CustomerName: "Customer Name", CustomerCode: "Customer Code", EmpLinkingDate: "Employee Linking Date",
+//     InceptionDate: "Inception Date", Custodian: "Custodian"
+// }
+// }
+var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+var str = '';
+var row = "";
+
+//   for (var index in objArray[0]) {
+        //Now convert each value to string and comma-separated
+   //     row += index + ',';
+   // }
+   // row = row.slice(0, -1);
+    //append Label row with line break
+   // str += row + '\r\n';
+
+   for (var i = 0; i < array.length; i++) {
+    var line = "";
+
+    if (i == 0) {
+        for (var index in this.HeaderArray) {
+            if (line != '') line += ','
+
+            line += this.HeaderArray[index];
+        }
+        str += line + '\r\n';
+    }
+    var line = '';
+    for (var index in array[i]) {
+      if(index != "Result"){
+        if(index != "StateId"){
+          if(index != "CountryCode"){
+          if (line != '') line += ','
+          line += (<string>array[i][index]);
+          }
+        }
+      }
+      str += line + '\r\n';
+    }
+   
+}
+return str;
+}
+downloadCSVFile() {
+  debugger;
+if(this.flag == 0){
+  var csvData = this.ConvertToCSV(JSON.stringify(this.state));
+}
+// else{
+//   var csvData = this.ConvertToCSV(JSON.stringify(this.BindallcustomersList));
+// }
+  var a = document.createElement("a");
+  a.setAttribute('style', 'display:none;');
+  document.body.appendChild(a);
+  var blob = new Blob([csvData], { type: 'text/csv' });
+  var url = window.URL.createObjectURL(blob);
+  a.href = url;
+  if(this.flag == 0){
+    a.download = 'State.csv';/* your file name*/
+  }
+//  else{
+//   a.download = 'CustomerFile.csv';/* your file name*/
+//  }
+  a.click();
+  return 'success';
+}
 
 }

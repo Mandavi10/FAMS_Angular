@@ -9,7 +9,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                     
-                        <li>
+                        <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
@@ -130,8 +130,8 @@
                             </div>
                
                             <div class="downbtnposition">
-                                    <button type="button" class="btn btn-success">Create</button>
-                                    <button type="button" class="btn btn-success">Cancel</button>
+                                    <!-- <button type="button" class="btn btn-success">Create</button>
+                                    <button type="button" class="btn btn-success">Cancel</button> -->
                                     </div>
                
                

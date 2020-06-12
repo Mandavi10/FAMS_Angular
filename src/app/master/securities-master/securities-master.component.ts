@@ -28,6 +28,7 @@ export class SecuritiesMasterComponent implements OnInit {
   //showModalSecurity: boolean;
   showSecurity = false;
   showGrid = true;
+  showviewSecurities=true;
   // showBackToSecurityList:boolean=false;
   showNew:boolean=true;
       // columnDefs = [
@@ -81,6 +82,7 @@ export class SecuritiesMasterComponent implements OnInit {
       this.showGrid = true;
       this.selectedRowId=0;
       this.showNew=true;
+      this.showviewSecurities=true;
     }
 Edit(SecurityDetailsId)
 {
@@ -93,6 +95,7 @@ debugger;
       {
 
         this.showNew=false;
+        this.showviewSecurities=false;
         this.showBackToSecurityList=true;
         this.showSecurity = true;
         this.showGrid = false;

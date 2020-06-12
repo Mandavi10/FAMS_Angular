@@ -8,7 +8,7 @@
           <div class="rightmenu">
              <div class="toolbar pull-right">
                 <ul class="toolbar-content">
-                   <li>
+                   <li (click)="downloadCSVFile($event)">
                       <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                       <label>
                       Export to Excel
@@ -26,7 +26,7 @@
                             Back To Custodian
                         </label>
                     </li>
-                   <li (click)="onClickviewpms()">
+                   <li (click)="onClickviewpms()" [style.display]="showviewSecurities ? 'block' : 'none'">
                       <i title="View PMS"><img src="../assets/images/viewImg.png" style="width:18%; margin-top: -6px;" ></i>
                       <label>
                       View PMS
