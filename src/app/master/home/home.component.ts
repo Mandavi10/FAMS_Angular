@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.ChangePasswordForm = this.formbulider.group({
+      ConfirmPassword : ['',Validators.required] , NewPassword : ['',Validators.required] , OldPassword : ['',Validators.required]
     });
     let item = JSON.parse(sessionStorage.getItem('User'));
     var value = this.Dbsecurity.Decrypt(item.IsDefaultPswdChange);
@@ -33,7 +34,9 @@ export class HomeComponent implements OnInit {
   ChangePassCancel(){
     this.ChangePassWordPopUp  = false;
   }
+  
   ChangePassSave(OldPassWord,NewPassWord,ConfirmedPassword){
+    if (this.ChangePasswordForm.valid) {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserId = Sessionvalue.UserId;
     if(this.Dbsecurity.Decrypt(Sessionvalue.Password) == OldPassWord){
@@ -55,13 +58,42 @@ export class HomeComponent implements OnInit {
       });
     }
     else{
+      this.ChangePasswordForm.controls['NewPassword'].setValue("");
+      this.ChangePasswordForm.controls['ConfirmPassword'].setValue("");
+      this.validateAllFormFields(this.ChangePasswordForm);
       alert("invalid Confirmedpassword");
+
     }
     }
     else{
+      this.ChangePasswordForm.controls['OldPassword'].setValue("");
+      this.validateAllFormFields(this.ChangePasswordForm);
       alert("invalid oldpassword");
     }
+  }
+  else{
+    this.validateAllFormFields(this.ChangePasswordForm);
+  }
    
+  }
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+  
+        if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
+  }
+  displayFieldCss(field: string) {
+    return {
+        'validate': this.isFieldValid(field),
+    };
+  }
+  isFieldValid(field: string) {
+    return !this.ChangePasswordForm.get(field).valid && this.ChangePasswordForm.get(field).touched;
   }
 
 }
