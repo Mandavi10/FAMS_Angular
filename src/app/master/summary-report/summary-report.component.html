@@ -8,12 +8,14 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <a target="_blank" href="../../../assets/Files/Summary_Report.csv"> <li>
+                        <!-- <a target="_blank" href="../../../assets/Files/Summary_Report.csv"> -->
+                         <li (click)="downloadCSVFile()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
                             </label>
-                        </li></a>
+                        </li>
+                    <!-- </a> -->
                          
                          <a target="_blank" href="../../../assets/Files/Summary_Report.pdf"><li (click)="downloadMyFile()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
