@@ -113,8 +113,8 @@ rowData1 = [
       Active: [false],
 
   });
-  // this.CustodianFormGrp.controls['PMSName'].disable();
-  // this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
+  this.CustodianFormGrp.controls['PMSName'].disable();
+  this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
 
   // this.setClickedRow = function (index) {
   //     this.selectedRow = index;
@@ -195,13 +195,16 @@ onClickviewpms(){
 
   }
 }
-onSubmit() {
+onSubmit(pMSName,pMSAccountNumber) {
   debugger;
   //alert('OnSubmi Clicked');
   //this.submitted = true;
   if (this.CustodianFormGrp.valid) {
       //this.sucess=true;
-      const datat = this.CustodianFormGrp.value;
+     // const datat = this.CustodianFormGrp.value;
+      this._custodian = this.CustodianFormGrp.value;
+      this._custodian.PMSName=pMSName;
+      this._custodian.PMSAccountNumber=pMSAccountNumber;
       
       if (this.Temp == 1) {
           this.SaveCustodian();
@@ -244,7 +247,7 @@ FillPMSDetails(pmscode) {
   }
 SaveCustodian() {
   //debugger;
-  this._custodianService.SaveCustodian(JSON.stringify(this.CustodianFormGrp.value)).subscribe(
+  this._custodianService.SaveCustodian(JSON.stringify(this._custodian)).subscribe(
       (data) => {
           this._custodian = data;
           if (this._custodian.Result = 1) {
@@ -267,7 +270,7 @@ SaveCustodian() {
 }
 
 UpdateCustodian() {
-  this._custodianService.UpdateCustodian(JSON.stringify(this.CustodianFormGrp.value), this.CustodianId).subscribe(
+  this._custodianService.UpdateCustodian(JSON.stringify(this._custodian), this.CustodianId).subscribe(
       (data) => {
           if (data.Result = 1) {
               //this.message = 'Record updated Successfully';
