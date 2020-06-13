@@ -3,7 +3,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PmsemployeesService } from '../../Services/PMSEmployees/pmsemployees.service';
-import { Pmsemployees } from '../../../Models/PMSEmployees/pmsemployees';
+import { Pmsemployees,PmsemployeesCSV } from '../../../Models/PMSEmployees/pmsemployees';
 import { Saveallfields } from '../../../Models/PMSEmployees/Saveallfields';
 import { Allcustodianfields } from '../../../Models/PMSEmployees/Allcustodianfields';
 import { Commonfields } from '../../../Models/commonfields';
@@ -19,8 +19,9 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class PMSEmployeesComponent implements OnInit {
   PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
-  SaveallfieldsList : Saveallfields; BacktoPMSEmployee : boolean = false; PAMSEmpId : any; flag = 0 ; HeaderArray : any =[];
+  SaveallfieldsList : Saveallfields; BacktoPMSEmployee : boolean = false; PAMSEmpId : any = ""; flag = 0 ; HeaderArray : any =[];
   BindallcustomersList : Bindallcustomers; liNew : boolean = true; liVieCusDetails : boolean = true; showModalsavepopup: boolean;
+  PmsemployeesCSVList : Array<PmsemployeesCSV> = [];
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -69,6 +70,7 @@ rowData1 = [
   showCustomer = false;
   showGrid = true;
   viewCustomer(){
+    if(this.PAMSEmpId != ""){
     this.flag = 1;
     this.liVieCusDetails = false;
     this.liNew = false;
@@ -76,6 +78,10 @@ rowData1 = [
     this.showCustomer = true;
     this.showGrid = false;
     this.BindCustomers();
+    }
+    else{
+      alert("Please select employee");
+    }
   }
   onClickPMSEmploye(event) {
     this.PAMSEmpId="";
@@ -106,8 +112,6 @@ rowData1 = [
   constructor(private router: Router, private formBuilder: FormBuilder,private PMSEService : PmsemployeesService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['/Home']);
-    this.router.navigate(['/PMSEmployees']);
     this.PMSEmployeesForm = this.formBuilder.group({  
       EmployeeCode : [''], EmployeeName :[''], Gender : [], Qualification : [''], About : [''],
       CustomerCode : [''], CustomerName : [''] , Custodian : [''], InceptionDate : [''], EmpLinkingDate : [''],
@@ -124,7 +128,8 @@ rowData1 = [
     this.PMSEService.BindGrid(JSON.stringify(Data)).subscribe(
       (data) => {
         this.PmsemployeesList = data.Table;
-          
+        this.PmsemployeesCSVList.push(this.PmsemployeesList);
+        console.log(this.PmsemployeesCSVList);
         });
   }
   onRowSelected(event){
@@ -134,7 +139,11 @@ rowData1 = [
     this.showModalPMSEmploye = true;
     this.PMSEmployeesForm.controls['EmployeeCode'].setValue(event.data.EmployeeCode);
     this.PMSEmployeesForm.controls['EmployeeName'].setValue(event.data.EmployeeName);
-    this.PMSEmployeesForm.controls['Gender'].setValue(event.data.Gender);
+    var Gender = "";
+    if(event.data.Gender.trim() == "Male"){Gender = "M"}
+    else if(event.data.Gender.trim() == "Female"){Gender = "F"}
+    else{Gender = "O"}
+    this.PMSEmployeesForm.controls['Gender'].setValue(Gender);
     this.PMSEmployeesForm.controls['Qualification'].setValue(event.data.Qualification);
     this.PMSEmployeesForm.controls['About'].setValue(event.data.About);
     }
@@ -228,34 +237,53 @@ isFieldValid(field: string) {
   }
 
   ConvertToCSV(objArray) {
-    if(this.flag==1){
+    if(this.flag==0){
       this.HeaderArray = {
-        PMSEmpId: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
+        srNo: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
         Qualification: "Qualification", About: "About"
     }
   }
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    var row = "";
+  else{
+    this.HeaderArray = {
+      srNo: "Sr.No.", CustomerName: "Customer Name", CustomerCode: "Customer Code", EmpLinkingDate: "Employee Linking Date",
+      InceptionDate: "Inception Date", Custodian: "Custodian"
+  }
+  }
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+  var row = "";
 
-    for (var index in objArray[0]) {
-        //Now convert each value to string and comma-separated
-        row += index + ',';
-    }
-    row = row.slice(0, -1);
-    //append Label row with line break
-   // str += row + '\r\n';
+  //   for (var index in objArray[0]) {
+          //Now convert each value to string and comma-separated
+     //     row += index + ',';
+     // }
+     // row = row.slice(0, -1);
+      //append Label row with line break
+     // str += row + '\r\n';
 
-    for (var i = 0; i < array.length; i++) {
-        var line = '';
-        for (var index in array[i]) {
-            if (line != '') line += ','
+     for (var i = 0; i < array.length; i++) {
+      var line = "";
 
-            line += array[i][index];
+      if (i == 0) {
+          for (var index in this.HeaderArray) {
+              if (line != '') line += ','
+
+              line += this.HeaderArray[index];
+          }
+          str += line + '\r\n';
+      }
+      var line = '';
+      for (var index in array[i]) {
+        if(index != "PMSEmpId"){
+          if(index != "CustId"){
+          if (line != '') line += ','
+          line += (<string>array[i][index]);
+          }
         }
-        str += line + '\r\n';
-    }
-    return str;
+      }
+      str += line + '\r\n';
+  }
+  return str;
 }
 downloadCSVFile() {
   if(this.flag == 0){

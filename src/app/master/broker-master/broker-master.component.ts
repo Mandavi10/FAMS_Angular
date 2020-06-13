@@ -123,6 +123,9 @@ SaveData(){
       this. BindGrid();
       this.BrokerMasterForm.reset();
       }
+      else{
+        alert("Error");
+      }
 });
   }
   else{

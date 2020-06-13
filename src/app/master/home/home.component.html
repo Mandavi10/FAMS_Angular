@@ -106,7 +106,7 @@
             <div class="modal-body">
                
                     <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
-                            <form class="" >
+                            <form [formGroup]="ChangePasswordForm" autocomplete="off" appNorightclick >
                                                 <div class="row no-padding mt-2">
                                                     <div class="col-md-12 col-sm-4 col-xs-12 p-0">
                                                             <div class="col-md-12 col-sm-4 col-xs-12 mt-3">
@@ -115,7 +115,9 @@
                                                                            Old Password:
                                                                         </label>
                                                                         <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                            <input type="password" name="OldPassword" class="col-sm-12 col-md-12 col-xs-12" #OldPassWord/>
+                                                                            <div class="form-group input-group" [ngClass]="displayFieldCss('OldPassword')">
+                                                                            <input type="password" required  class="col-sm-12 col-md-12 col-xs-12" #OldPassWord formControlName="OldPassword"/>
+                                                                        </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -125,7 +127,9 @@
                                                                                 New Password:
                                                                             </label>
                                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                <input type="password" name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" #NewPassWord/>
+                                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('NewPassword')">
+                                                                                <input type="password" required name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" #NewPassWord formControlName="NewPassword"/>
+                                                                            </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -136,7 +140,9 @@
                                                                 Confirm Password:
                                                             </label>
                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                <input type="password" name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" #ConfirmPassWord/>
+                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('ConfirmPassword')">
+                                                                <input type="password" required name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" #ConfirmPassWord formControlName="ConfirmPassword"/>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                     </div>

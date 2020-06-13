@@ -31,6 +31,7 @@ export class PSMCustomersListComponent implements OnInit {
   SelectionStatusOfMutants:any;
   showBackToCustomerList:boolean=false;
   showNew:boolean=true;
+  showviewSecurities=true;
   columnDefs1 = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -67,6 +68,7 @@ showModalstatemaster: boolean;
       this.Isdiv=true;
       this.selectedRowId=0;
       this.showNew=true;
+      this.showviewSecurities=true;
     }
     onClickviewpms(){
      
@@ -78,6 +80,7 @@ showModalstatemaster: boolean;
         this.Isdiv=false;
         this.BindPMSCustomerListCodeDetails(this.selectedRowId);
         this.showNew=false;
+        this.showviewSecurities=false;
 
         this.Isdiv1=true;
         this.Isdiv=false;

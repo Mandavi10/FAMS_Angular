@@ -30,14 +30,18 @@ export class CustodianMasterComponent implements OnInit {
   pmsDetails:[];
   showBackToCustodian:boolean=false;
   showNew:boolean=true;
+  showviewSecurities=true;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
     }},
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Country', field: 'CountryName', width:'150'},
-    {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
-    {headerName: 'CountryName', field: 'CountryName', width:'150'},
+    // {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
+    // {headerName: 'CountryName', field: 'CountryName', width:'150'},
+
+    {headerName: 'Custodian Code', field: 'CustodianCode', width:'150'},
+    {headerName: 'Custodian Name', field: 'CustodianName', width:'150'},
 ];
 
 rowData = [
@@ -126,6 +130,7 @@ rowData1 = [
       if (event.column.colId != "all" ) // only first column clicked
       {
         this.Temp=2;
+       
         this.showModalstatemaster = true;
         this.CustodianFormGrp.controls['CountryCode'].setValue(event.data.CountryCode);
         this.CustodianFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
@@ -147,6 +152,10 @@ rowData1 = [
       // this.showGrid = true;
       this.Isdiv1=false;
       this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showviewSecurities=true;
+        this.showNew=true;
+        this.showBackToCustodian=false;
     }
     BindPMSDetails(CustodianId) {
       debugger;
@@ -177,7 +186,8 @@ onClickviewpms(){
     this.Isdiv1=true;
     this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
-  this.showNew=true;
+    this.showviewSecurities=false;
+    this.showNew=false;
 
     this.Isdiv1=true;
     this.Isdiv=false;
@@ -185,13 +195,16 @@ onClickviewpms(){
 
   }
 }
-onSubmit() {
+onSubmit(pMSName,pMSAccountNumber) {
   debugger;
   //alert('OnSubmi Clicked');
   //this.submitted = true;
   if (this.CustodianFormGrp.valid) {
       //this.sucess=true;
-      const datat = this.CustodianFormGrp.value;
+     // const datat = this.CustodianFormGrp.value;
+      this._custodian = this.CustodianFormGrp.value;
+      this._custodian.PMSName=pMSName;
+      this._custodian.PMSAccountNumber=pMSAccountNumber;
       
       if (this.Temp == 1) {
           this.SaveCustodian();
@@ -234,7 +247,7 @@ FillPMSDetails(pmscode) {
   }
 SaveCustodian() {
   //debugger;
-  this._custodianService.SaveCustodian(JSON.stringify(this.CustodianFormGrp.value)).subscribe(
+  this._custodianService.SaveCustodian(JSON.stringify(this._custodian)).subscribe(
       (data) => {
           this._custodian = data;
           if (this._custodian.Result = 1) {
@@ -257,7 +270,7 @@ SaveCustodian() {
 }
 
 UpdateCustodian() {
-  this._custodianService.UpdateCustodian(JSON.stringify(this.CustodianFormGrp.value), this.CustodianId).subscribe(
+  this._custodianService.UpdateCustodian(JSON.stringify(this._custodian), this.CustodianId).subscribe(
       (data) => {
           if (data.Result = 1) {
               //this.message = 'Record updated Successfully';

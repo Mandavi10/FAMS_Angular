@@ -8,7 +8,7 @@
           <div class="rightmenu">
              <div class="toolbar pull-right">
                 <ul class="toolbar-content">
-                   <li>
+                   <li (click)="downloadCSVFile($event)">
                       <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                       <label>
                       Export to Excel
@@ -26,7 +26,7 @@
                             Back To Custodian
                         </label>
                     </li>
-                   <li (click)="onClickviewpms()">
+                   <li (click)="onClickviewpms()" [style.display]="showviewSecurities ? 'block' : 'none'">
                       <i title="View PMS"><img src="../assets/images/viewImg.png" style="width:18%; margin-top: -6px;" ></i>
                       <label>
                       View PMS
@@ -183,7 +183,7 @@
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSName')">
-                                     <input type="text"  required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
+                                     <input type="text" #pMSName required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
                                      />
                                      </div>
                                   </div>
@@ -198,7 +198,7 @@
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" >
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSAccountNumber')">
-                                       <input  id="name" type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber">
+                                       <input  id="name" type="text" #pMSAccountNumber required name="pMSAccountNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber">
                                      <!-- <input type="text" [disabled]="true" required name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"/> -->
 
                                      </div>
@@ -222,7 +222,7 @@
                 </div>
 
                 <div class="downbtnposition">
-                     <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+                     <button type="submit" (click)="onSubmit(pMSName.value,pMSAccountNumber.value)" class="btn btn-success"> Save</button>
                      </div>
 
 
