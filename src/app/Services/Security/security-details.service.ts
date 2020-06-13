@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Custodian } from '../../../Models/Custodian/custodian';
+import {AppSettings} from 'src/app/app-settings';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
@@ -14,7 +15,8 @@ export class SecurityDetailsService {
   baseUrl: string = ""; UserId: string = ""; EntityId: string = "";
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
-  this.baseUrl = "http://localhost:55073/";
+  //this.baseUrl = "http://localhost:55073/";
+this.baseUrl = AppSettings.Login_URL;
   }
   FillSecurityCodeDetails(securityCode): Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/SecurityDetails/FillSecurityCodeDetails/'+ securityCode);
