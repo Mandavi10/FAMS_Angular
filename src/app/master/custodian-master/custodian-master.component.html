@@ -183,7 +183,7 @@
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSName')">
-                                     <input type="text"  required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
+                                     <input type="text" #pMSName required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName"
                                      />
                                      </div>
                                   </div>
@@ -198,7 +198,7 @@
                                   <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock" >
                                      <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                      <div class="form-group input-group" [ngClass]="displayFieldCss('PMSAccountNumber')">
-                                       <input  id="name" type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber">
+                                       <input  id="name" type="text" #pMSAccountNumber required name="pMSAccountNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber">
                                      <!-- <input type="text" [disabled]="true" required name="pMSAccountNo" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber"/> -->
 
                                      </div>
@@ -222,7 +222,7 @@
                 </div>
 
                 <div class="downbtnposition">
-                     <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+                     <button type="submit" (click)="onSubmit(pMSName.value,pMSAccountNumber.value)" class="btn btn-success"> Save</button>
                      </div>
 
 
