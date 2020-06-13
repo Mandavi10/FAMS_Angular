@@ -11,7 +11,7 @@
 
                         
                           
-                        <li>
+                        <li (click)="downloadCSVFile()" *ngIf="liExporttoex">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
                             <label>
                                 Export to Excel
@@ -29,7 +29,7 @@
                                 Upload User
                             </label>
                         </li> -->
-                        <li (click)="onClickNew()">
+                        <li (click)="onClickNew()" *ngIf="liNew">
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
@@ -54,18 +54,20 @@
             
             
            <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
     [rowData]="BindgridfieldsList"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
-      [showToolPanel]="true">
+      [showToolPanel]="true"
+      [pagination]="true" 
+      [paginationAutoPageSize]="true">
 </ag-grid-angular>
            
             
         </div>
-        <!-- <form [formGroup]="NoteMasterForm" autocomplete="off" appNorightclick> -->
+         <form [formGroup]="NoteMasterForm" autocomplete="off" appNorightclick>
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
         <div class=" col-sm-12 col-xs-12 col-md-12 formatbox pr-0 ">
                         <div class=" col-sm-12 col-xs-12 col-md-12 boxhead pr-0">                            
@@ -99,7 +101,9 @@
                                     <label class="col-sm-5 col-md-3 col-xs-5 control-label no-padding">
                                        Subject:</label>
                                     <div class="col-sm-7 col-md-9 col-xs-7 no-padding">
-                                        <input type="text" id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject />
+                                        <div class="form-group input-group" [ngClass]="displayFieldCss('Subject')">
+                                        <input type="text" required id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject formControlName="Subject"/>
+                                    </div>
                                     </div>
                                          
                                 </div>
@@ -108,7 +112,7 @@
                          </div>
         
                             <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
-                            <textarea rows="500" cols="226" #Note>
+                            <textarea rows="500" cols="226" #Note formControlName="Note">
         
         </textarea>
                             
@@ -117,11 +121,11 @@
 
                                 <div class="btnbox pull-left mt-2">
                                     <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button>
-                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-" #File/>
+                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-" #File formControlName = "File"/>
                                 </div>
                                 <div class="toolbar pull-right mt-2">
                                     <button type="button" class="btn btn-sm btn-success mr-2" id=""  (click)="SaveData(Subject.value,Note.value,File.value)"> Save </button> 
-                                    <button type="button" class="btn btn-sm btn-success" id=""> Cancel</button> 
+                                    <button type="button" class="btn btn-sm btn-success" id="" (click)="CancelFun()"> Cancel</button> 
                                  
                                 </div>
                             </div>
@@ -131,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-             <!-- </form>                          -->
+              </form>                         
 <!-- 
         <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">
                 <div class="modal-dialog">
