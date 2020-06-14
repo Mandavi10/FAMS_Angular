@@ -364,12 +364,21 @@ onGridReady(params) {
 }
 downloadCSVFile() {
   debugger;
-var params = this.getParams();
+//var params = this.getParams();
     // if (params.suppressQuotes || params.columnSeparator) {
     //   alert(
     //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
     //   );
     // }
+    var params = {
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'State.csv',
+      columnSeparator: ','
+    };
     this.gridApi.exportDataAsCsv(params);
   }
 downloadCSVFile1() {

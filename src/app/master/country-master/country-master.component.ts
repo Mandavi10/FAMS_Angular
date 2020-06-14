@@ -44,7 +44,7 @@ export class CountryMasterComponent implements OnInit {
     {headerName: 'Created By', field: 'CreatedBy', width:'150'},
     {headerName: 'Created On', field: 'CreatedOn', width:'150'},
     {headerName: 'Updated By', field: 'UpdatedBy', width:'150'},
-    {headerName: 'Updated On', field: 'UpdatedOn', width:'150'},
+    {headerName: 'Updated On', field: 'UpdatedOn', width:'150' },
     
 ];
 
@@ -358,12 +358,21 @@ return str;
 }
 downloadCSVFile() {
   debugger;
-var params = this.getParams();
+//var params = this.getParams();
     // if (params.suppressQuotes || params.columnSeparator) {
     //   alert(
     //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
     //   );
     // }
+    var params = {
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'Country.csv',
+      columnSeparator: ','
+    };
     this.gridApi.exportDataAsCsv(params);
   }
 downloadCSVFile1() {
