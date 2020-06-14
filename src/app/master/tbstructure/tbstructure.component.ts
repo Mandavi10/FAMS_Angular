@@ -469,7 +469,7 @@ downloadCSVFile() {
       this.gridApi.exportDataAsCsv(params);
     }
     else{
-      this.gridApi1.exportDataAsCsv(params);
+      this.gridApi1.exportDataAsCsv(params1);
     }
     
   }
