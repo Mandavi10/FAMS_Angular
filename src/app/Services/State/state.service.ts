@@ -5,6 +5,7 @@ import { State } from '../../../Models/State/state';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
+
 import {AppSettings} from 'src/app/app-settings';
 
 
@@ -17,7 +18,9 @@ export class StateService {
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
   //this.baseUrl = "http://localhost:55073/";
+
   this.baseUrl = AppSettings.Login_URL;
+
   }
 
 

@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
   BindHeader(value, value1){
     sessionStorage.setItem('HeaderName', value);
     sessionStorage.setItem('HeaderUrl', value1);
-    window.location.href =value1  ;
+    //window.location.href =value1  ;
   }
   BindSideBarLinks()
   {

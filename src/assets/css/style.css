@@ -6,6 +6,7 @@
     .loss {
         color: #f31313
     }
+    #createuser .modal-content{height:619px}
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
@@ -24846,7 +24847,7 @@ s.companyddl .logouthover {
 
 .adminddl .dropdown-menu.dropdown-close {
     top: 92%;
-    left: -96px;
+    left: -164px;
     right: 7px;
     width: 180px;
 }

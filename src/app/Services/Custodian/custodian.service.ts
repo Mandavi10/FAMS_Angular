@@ -14,8 +14,11 @@ export class CustodianService {
   baseUrl: string = ""; UserId: string = ""; EntityId: string = "";
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
+
   //this.baseUrl = "http://localhost:55073/";
   this.baseUrl = AppSettings.Login_URL;
+=======
+
   }
   FillPMSDetails(PMSCode): Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/Custodian/FillPMSDetails/'+ PMSCode);
