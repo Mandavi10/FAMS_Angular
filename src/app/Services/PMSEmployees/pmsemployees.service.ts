@@ -46,7 +46,12 @@ Search(em:any): Observable<any> {
        headers 
    });
  }
-BindCustomers(PMSEmpId): Observable<any> {  
- return this._http.get<any>(this.baseUrl + 'api/PMSEmployees/BindCustomers/'+ PMSEmpId);
+BindCustomers(em:any): Observable<any> {  
+ //return this._http.get<any>(this.baseUrl + 'api/PMSEmployees/BindCustomers/'+ PMSEmpId);
+ const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+   return this._http.post<any>(this.baseUrl + 'api/PMSEmployees/BindCustomers', body, {
+       headers 
+   });
 }
 }

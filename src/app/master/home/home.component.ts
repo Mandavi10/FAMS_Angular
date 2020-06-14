@@ -11,6 +11,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
+  Successtext : any;
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
       (data) => {
           this.CommonfieldsList = data.Table;
           if(this.CommonfieldsList[0].Result == "1"){
-            //alert("Password changed");
+            this.Successtext = "Password changed Successfully";
             this.showModalsavepopup = true;
             this.ChangePassWordPopUp  = false;
           }
@@ -61,14 +62,16 @@ export class HomeComponent implements OnInit {
       this.ChangePasswordForm.controls['NewPassword'].setValue("");
       this.ChangePasswordForm.controls['ConfirmPassword'].setValue("");
       this.validateAllFormFields(this.ChangePasswordForm);
-      alert("invalid Confirmedpassword");
+      this.Successtext = "invalid Confirmedpassword";
+      this.showModalsavepopup = true;
 
     }
     }
     else{
       this.ChangePasswordForm.controls['OldPassword'].setValue("");
       this.validateAllFormFields(this.ChangePasswordForm);
-      alert("invalid oldpassword");
+      this.Successtext = "invalid oldpassword";
+      this.showModalsavepopup = true;
     }
   }
   else{

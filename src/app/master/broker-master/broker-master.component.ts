@@ -13,7 +13,7 @@ import { Commonfields } from '../../../Models/commonfields';
 })
 export class BrokerMasterComponent implements OnInit {
   BindallfieldsList : Bindallfields; BrokerMasterForm: FormGroup; CommonfieldsList : Commonfields; 
-  JsondataList : Jsondata ; showModalsavepopup : boolean = false; 
+  JsondataList : Jsondata ; showModalsavepopup : boolean = false; isShowLoader : boolean =false;
   HeaderArray : any;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width:70 },
@@ -108,7 +108,7 @@ isFieldValid(field: string) {
   });
 }
 SaveData(){
-  debugger;
+  this.isShowLoader = true;
   if (this.BrokerMasterForm.valid) {
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   var UserId = Sessionvalue.UserId;
@@ -131,6 +131,7 @@ SaveData(){
   else{
     this.validateAllFormFields(this.BrokerMasterForm);
   }
+  this.isShowLoader = false;
 }
   ConvertToCSV(objArray) {
     this.HeaderArray = {
@@ -181,4 +182,23 @@ downloadCSVFile() {
     a.click();
     return 'success';
 }
+// onRowSelected(event){
+//   if (event.column.colId != "0" ) // only first column clicked
+//   {
+//   this.PMSEmployeesForm.reset();
+//   this.showModalPMSEmploye = true;
+//   this.PMSEmployeesForm.controls['EmployeeCode'].setValue(event.data.EmployeeCode);
+//   this.PMSEmployeesForm.controls['EmployeeName'].setValue(event.data.EmployeeName);
+//   var Gender = "";
+//   if(event.data.Gender.trim() == "Male"){Gender = "M"}
+//   else if(event.data.Gender.trim() == "Female"){Gender = "F"}
+//   else{Gender = "O"}
+//   this.PMSEmployeesForm.controls['Gender'].setValue(Gender);
+//   this.PMSEmployeesForm.controls['Qualification'].setValue(event.data.Qualification);
+//   this.PMSEmployeesForm.controls['About'].setValue(event.data.About);
+//   }
+//   //else if ((event.column.colId == "0" ) && (event.node.selected) ){
+//     this.PAMSEmpId = event.data.PMSEmpId;
+//  // }
+// }
 }

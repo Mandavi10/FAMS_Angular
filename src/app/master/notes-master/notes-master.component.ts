@@ -14,6 +14,7 @@ import { Commonfields } from '../../../Models/commonfields';
 export class NotesMasterComponent implements OnInit {
   BindgridfieldsList : Bindgridfields;CommonfieldsList : Commonfields;showModalsavepopup: boolean= false;
   HeaderArray : any; liNew : boolean = true; liExporttoex : boolean = true; NoteMasterForm : FormGroup;
+  isShowLoader : boolean = false;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
       return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -86,6 +87,7 @@ onClicksavepopup(event) {
   });
 }
 SaveData(Subject,Note,File){
+  this.isShowLoader = true;
   if (this.NoteMasterForm.valid) {
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   var UserId = Sessionvalue.UserId;
@@ -111,6 +113,7 @@ SaveData(Subject,Note,File){
   else{
     this.validateAllFormFields(this.NoteMasterForm);
   }
+  this.isShowLoader = false;
 }
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
@@ -174,6 +177,7 @@ ConvertToCSV(objArray) {
   return str;
 }
 downloadCSVFile() {  
+  this.isShowLoader = true;
   var csvData = this.ConvertToCSV(JSON.stringify(this.BindgridfieldsList));
   var a = document.createElement("a");
   a.setAttribute('style', 'display:none;');
@@ -182,6 +186,7 @@ downloadCSVFile() {
   var url = window.URL.createObjectURL(blob);
   a.href = url;  
   a.download = 'NoteFile.csv';/* your file name*/
+  this.isShowLoader = false;
   a.click();
   return 'success';
 }
