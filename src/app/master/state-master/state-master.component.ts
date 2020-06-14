@@ -15,6 +15,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./state-master.component.css']
 })
 export class StateMasterComponent implements OnInit {
+  private gridApi;
+  private gridColumnApi;
+
+
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
@@ -307,7 +311,68 @@ var row = "";
 }
 return str;
 }
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
 downloadCSVFile() {
+  debugger;
+var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+    this.gridApi.exportDataAsCsv(params);
+  }
+downloadCSVFile1() {
   debugger;
 if(this.flag == 0){
   var csvData = this.ConvertToCSV(JSON.stringify(this.state));

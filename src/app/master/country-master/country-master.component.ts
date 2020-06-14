@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CountryMasterComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
+  isShowLoader:boolean=false;
 
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
@@ -70,6 +72,7 @@ hideupdatepopup() {
   this.showModalupdatepopup = false;
 }
 onClickstatemaster(event) {
+  //this.isShowLoader=true;
 this.ResetCountry();
 this.showModalstatemaster = true;
 }
@@ -133,6 +136,7 @@ debugger;
 
 onSubmit() {
 debugger;
+
 //alert('OnSubmi Clicked');
 //this.submitted = true;
 if (this.CountryFormGrp.valid) {
@@ -140,10 +144,22 @@ if (this.CountryFormGrp.valid) {
   const datat = this.CountryFormGrp.value;
   
   if (this.Temp == 1) {
-      this.SaveCountry();
+    this.isShowLoader=true;
+    this.SaveCountry();
+    //await timer(1000).take(1).toPromise();
+    // this.delay(3000);
+//     setTimeout(() =>
+// {
+//   this.SaveCountry();
+// },
+// 5000);
+      
+      this.isShowLoader=false;
   }
   else {
+    this.isShowLoader=true;
       this.UpdateCountry();
+      this.isShowLoader=false;
   }
 } else {
   this.validateAllFormFields(this.CountryFormGrp);

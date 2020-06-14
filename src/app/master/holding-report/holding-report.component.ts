@@ -21,6 +21,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./holding-report.component.css']
 })
 export class HoldingReportComponent implements OnInit {
+  isShowLoader:boolean=false;
+
+
   HeaderArray : any =[];
   holdingReport:any=[];
   showModalstatemaster: boolean;
