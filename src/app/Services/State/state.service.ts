@@ -5,6 +5,9 @@ import { State } from '../../../Models/State/state';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
+  
+import {AppSettings} from 'src/app/app-settings';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,9 @@ export class StateService {
   baseUrl: string = ""; UserId: string = ""; EntityId: string = "";
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
-  this.baseUrl = "http://localhost:55073/";
+  //this.baseUrl = "http://localhost:55073/";
+this.baseUrl = AppSettings.Login_URL;
+
   }
 
 
