@@ -60,7 +60,8 @@
     [columnDefs]="columnDefs"
     [enableFilter]="true"
       [enableSorting]="true"
-      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true" (cellClicked)="onRowSelected($event)">
+      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true" (cellClicked)="onRowSelected($event)"
+      (gridReady)="onGridReady($event)">
 </ag-grid-angular>
            
             

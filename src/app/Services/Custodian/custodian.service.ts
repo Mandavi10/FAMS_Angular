@@ -17,7 +17,7 @@ export class CustodianService {
 
   //this.baseUrl = "http://localhost:55073/";
   this.baseUrl = AppSettings.Login_URL;
-=======
+
 
   }
   FillPMSDetails(PMSCode): Observable<any> {
