@@ -18,7 +18,7 @@
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-                        <li>
+                        <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
                             <label>
                                 Export to Excel
@@ -61,10 +61,8 @@
           [enableSorting]="true"
           [showToolPanel]="true"
           rowSelection="single"
-
             (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
-
-            (cellClicked)="onRowSelected($event)"
+            (gridReady)="onGridReady($event)"
 
           >
     </ag-grid-angular>

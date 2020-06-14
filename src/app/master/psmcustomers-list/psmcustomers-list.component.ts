@@ -15,6 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./psmcustomers-list.component.css']
 })
 export class PSMCustomersListComponent implements OnInit {
+  isShowLoader:boolean=false;
   _custodian:Custodian;_portFolio:PortFolio;_linkedPMSEmployee:LinkedPMSEmployee;_pMSCustomerListDetails:PMSCustomerListDetails;_pMSCustomerListCodeDetails;_pMSCustomerList:PMSCustomerList
   Isdiv1:boolean;
   Isdiv:boolean;
@@ -181,10 +182,14 @@ showModalstatemaster: boolean;
         const datat = this.PMSCustomerListFormGrp.value;
         
         if (this.Temp == 1) {
+          this.isShowLoader=true;
             this.AddCustomerListDetails();
+            this.isShowLoader=false;
         }
         else {
+          this.isShowLoader=true;
             this.UpdateCustomerListDetails();
+            this.isShowLoader=false;
         }
     } else {
         this.validateAllFormFields(this.PMSCustomerListFormGrp);
@@ -331,6 +336,85 @@ showModalstatemaster: boolean;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
+  }
+
+  private gridApi;
+private gridColumnApi;
+
+private gridApi1;
+private gridColumnApi1;
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+onGridReady1(params) {
+  debugger;
+  this.gridApi1 = params.api;
+  this.gridColumnApi1 = params.columnApi;
+}
+downloadCSVFile() {
+  debugger;
+var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+    if(this.selectedRowId==0)
+    {
+      this.gridApi.exportDataAsCsv(params);
+    }
+    else{
+      this.gridApi1.exportDataAsCsv(params);
+    }
+    
   }
   
   }
