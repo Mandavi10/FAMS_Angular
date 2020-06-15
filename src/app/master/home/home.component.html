@@ -11,11 +11,12 @@
         
                             <div class=" portalBox" *ngFor="let Data of BindalltabsList">
                                 <a routerLink="{{Data.url}}" routerLinkActive="active">
-                                <img src="../assets/images/trial_icon.png" />
+                                <img src="{{Data.ImagePath}}" />
                                     <h5>{{Data.LinkName}}</h5>
                             </a>
                             </div>
-        
+                            <!-- ../assets/images/trial_icon.png -->
+                            
         
                             <!-- <div class="portalBox">
                                 <a routerLink="/SummaryReport" routerLinkActive="active">
