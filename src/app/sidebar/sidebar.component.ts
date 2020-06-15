@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit {
   constructor(private Dbsecurity: DbsecurityService,private SideBarService:SidebarService) { }
   
   ngOnInit() {
+debugger;
     this.BindSideBarLinks();
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
