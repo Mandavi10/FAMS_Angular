@@ -15,6 +15,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./sector-master.component.css']
 })
 export class SectorMasterComponent implements OnInit {
+  isShowLoader:boolean=false;
+
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
@@ -133,10 +135,14 @@ if (this.SectorFormGrp.valid) {
   const datat = this.SectorFormGrp.value;
   
   if (this.Temp == 1) {
+      this.isShowLoader=true;
       this.SaveSector();
+      this.isShowLoader=false;
   }
   else {
+    this.isShowLoader=true;
       this.UpdateSector();
+      this.isShowLoader=false;
   }
 } else {
   this.validateAllFormFields(this.SectorFormGrp);
@@ -248,6 +254,77 @@ this._sectorService.loadAllSector().
 this.loading = false;
 }
 
-
+private gridApi;
+private gridColumnApi;
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+downloadCSVFile() {
+  debugger;
+//var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+    var params = {
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'Sector.csv',
+      columnSeparator: ','
+    };
+    this.gridApi.exportDataAsCsv(params);
+  }
 
 }

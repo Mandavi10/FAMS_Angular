@@ -1,5 +1,11 @@
 <div class="main-content maincontainer">
     <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+        </div>
+        
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                 <span class="legal"></span>
@@ -11,7 +17,7 @@
 
 
 
-                        <li>
+                        <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
@@ -62,21 +68,18 @@
 
 
             <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListDetails"
-
                 [columnDefs]="columnDefs1" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"
-
                 [columnDefs]="columnDefs1" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
-
-                rowSelection="single"
-                (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true">
+                rowSelection="single" (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
+                (gridReady)="onGridReady($event)">
             </ag-grid-angular>
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="paginationDiv">
                         <span class="previousBtn">Previous</span>
                         <span class="paginationCount">50 out of 200</span>
                         <span class="nextBtn">Next</span>
                     </div>
-           </div>
+           </div> -->
 
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1" >
@@ -87,14 +90,10 @@
 
 
             <ag-grid-angular style="width: 100%; height: 450px;" class="ag-theme-alpine" [rowData]="pMSCustomerListCodeDetails"
-
-                [columnDefs]="columnDefs2" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true"
-
-                [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true"
-
-                >
-            </ag-grid-angular>
-
+            [columnDefs]="columnDefs2" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true"
+            [columnDefs]="columnDefs2" [enableFilter]="false" [enableSorting]="true" [showToolPanel]="true" (gridReady)="onGridReady1($event)"
+            ></ag-grid-angular>
+<!-- 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="paginationDiv">
           
@@ -103,7 +102,7 @@
                         <span class="paginationCount">50 out of 200</span>
                         <span class="nextBtn">Next</span>
                     </div>
-           </div>
+           </div> -->
         </div>
 
 

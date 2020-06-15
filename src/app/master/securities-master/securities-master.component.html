@@ -1,5 +1,13 @@
 <div class="main-content maincontainer">
     <div class="content">
+
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+        </div>
+        
+
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
@@ -7,7 +15,7 @@
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-                        <li>
+                        <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Export to Excel
@@ -69,6 +77,7 @@
       [showToolPanel]="true"
       rowSelection="single"
       (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
+      (gridReady)="onGridReady($event)"
       >
       
 </ag-grid-angular>
@@ -92,7 +101,9 @@
     [columnDefs]="columnDefs1"
     [enableFilter]="true"
       [enableSorting]="true"
-      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true">
+      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true"
+      (gridReady)="onGridReady1($event)"
+      >
 </ag-grid-angular>
            
             
