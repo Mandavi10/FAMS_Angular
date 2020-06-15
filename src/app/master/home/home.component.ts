@@ -12,7 +12,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
-  Successtext : any; BindalltabsList : Bindalltabs;
+  Successtext : any; BindalltabsList : Bindalltabs; isShowLoader : boolean = false;
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
@@ -101,15 +101,18 @@ export class HomeComponent implements OnInit {
     return !this.ChangePasswordForm.get(field).valid && this.ChangePasswordForm.get(field).touched;
   }
   BindAllTab(){
+    this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var UserId = Sessionvalue.UserId;
+    var UserType = this.Dbsecurity.Decrypt(Sessionvalue.UserType);
     var JsonData ={
-      "UserId":UserId
+      "UserId":UserType
     }
     this._loginService.BindAllTab(JsonData).subscribe(
       (data) => {
         this.BindalltabsList = data.Table;
       });
+      this.isShowLoader = false;
   }
+ 
 
 }

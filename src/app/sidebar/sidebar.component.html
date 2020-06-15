@@ -1,4 +1,4 @@
-<div class="dvLinks">
+<div class="dvLinks" *ngIf="divLinks">
   <!-- <ul class="nav nav-list"> -->
     <ul class="nav nav-list" *ngFor="let Links of Sidebarlinks" >  
     <li (click)="BindHeader(Links.LinkName,Links.url)" class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.ParetmenuID==0">

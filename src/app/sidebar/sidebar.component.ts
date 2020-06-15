@@ -17,7 +17,8 @@ export class SidebarComponent implements OnInit {
   public shownav = false; liCountryMaster : boolean = true; UserId : any;
   liStateMaster : boolean = true; liCityMaster : boolean = true; liSectorMaster : 
 
-  boolean = true; liDesignMaster : boolean = true; liNoteMaster : boolean =true;
+  boolean = true; liDesignMaster : boolean = true; liNoteMaster : boolean =true; 
+  divLinks: boolean = true;
 
   //boolean = true; liDesignMaster : boolean = true; liPMSProviderMaster : boolean =true;
 
@@ -71,6 +72,9 @@ if(UsertType !="1"){
       this.Sidebarlinks=data.Table;
       //this.Model_SideBarChildLinks=data.Table1;
     });
+  }
+  else{
+    this.divLinks = false;
   }
 
   }
