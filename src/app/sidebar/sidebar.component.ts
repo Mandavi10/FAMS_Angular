@@ -61,7 +61,7 @@ debugger;
     //let _Model_getSideBarLinks=new Model_getSideBarLinks();
     let item = JSON.parse(sessionStorage.getItem('User'));
     var UsertType  = this.Dbsecurity.Decrypt(item.UserType);
-
+if(UsertType !="1"){
     var Json ={
       "UserType": UsertType
     }
@@ -71,6 +71,7 @@ debugger;
       this.Sidebarlinks=data.Table;
       //this.Model_SideBarChildLinks=data.Table1;
     });
+  }
 
   }
 }
