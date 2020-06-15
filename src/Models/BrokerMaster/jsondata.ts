@@ -12,4 +12,5 @@ export class Jsondata {
     Extension : string; 
     MobileNo :string;
     ContactPerson : string;
+    BMId : string;
 }

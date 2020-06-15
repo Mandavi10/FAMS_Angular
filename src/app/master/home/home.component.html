@@ -9,23 +9,23 @@
                     <div class="col-sm-12 col-md-12 mt-3">
                         <div class=" col-md-12 col-sm-12 col-xs-12">
         
-                            <div class=" portalBox">
-                                <a routerLink="/TrialBalanceReport" routerLinkActive="active">
+                            <div class=" portalBox" *ngFor="let Data of BindalltabsList">
+                                <a routerLink="{{Data.url}}" routerLinkActive="active">
                                 <img src="../assets/images/trial_icon.png" />
-                                    <h5>Trial Balance Report</h5>
+                                    <h5>{{Data.LinkName}}</h5>
                             </a>
                             </div>
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/SummaryReport" routerLinkActive="active">
                                 <img src="../assets/images/summary_icon.png" />
                                     <h5>Portfolio Performance Summary</h5>
                                 </a>
-                            </div>
+                            </div> -->
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/HoldingReport" routerLinkActive="active">
                                 <img src="../assets/images/holding_icon.png" />
 
@@ -33,42 +33,42 @@
                                     <li class="" style="list-style: none;"><a routerLink="/HoldingReport" routerLinkActive="active"><span class="menu-text"> <h5>Holding Report</h5></span></a></li>
                                
 
-                                    <!-- <a href="./home/home.module#HomeModule"><img src="../assets/images/holding_icon.png" /></a>
+                                     <a href="./home/home.module#HomeModule"><img src="../assets/images/holding_icon.png" /></a>
                                     <h5>Holding Report</h5> -->
 
                                     <!-- <h5>Holding Report</h5> -->
-                               </a>
+                               <!-- </a>
 
-                            </div>
+                            </div> --> 
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/TransactionStatement" routerLinkActive="active">
                                     <img src="../assets/images/transaction_icon.png" />
                                     <h5>Transaction Statement</h5>
                              </a>
-                            </div>
+                            </div> -->
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
                                     <img src="../assets/images/cash_icon.png" />
                                     <h5>Cash Equivalent</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/MyNotes" routerLinkActive="active">
                                 <img src="../assets/images/notes_icon.png" />
                                 <h5>My Notes</h5>
                            </a>
                            <span class="notificationCount">4</span>
-                        </div>
-                        <div class="portalBox">
+                        </div> -->
+                        <!-- <div class="portalBox">
                             <a routerLink="/OrderProcessingNew" routerLinkActive="active">
                                 <img src="../assets/images/orderProcessing_icon.png" />
                                 <h5>Order Processing</h5>
                             </a>
-                        </div>
+                        </div> -->
                         </div>
         
         
