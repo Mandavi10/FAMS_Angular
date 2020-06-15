@@ -74,7 +74,7 @@
                                      <input name="Type" value="u" type="radio" (click)="onClickUser()"/>
                                      <span class="pl-2">User</span>
                                  </label>
-                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6 p-0 Administrator">
+                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6 p-0 Administrator" *ngIf="IsAdmin">
                                      <input name="Type" value="a" type="radio" (click)="onClickAdmin()"/>
                                      <span class="pl-2">Administrator</span>
                                  </label>

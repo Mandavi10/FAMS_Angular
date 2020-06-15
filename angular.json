@@ -26,8 +26,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/jspdf/dist/jspdf.min.js",
-              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+              // "node_modules/jspdf/dist/jspdf.min.js",
+              // "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
             ]
           },
           "configurations": {
@@ -85,8 +85,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/jspdf/dist/jspdf.min.js",
-              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+              // "node_modules/jspdf/dist/jspdf.min.js",
+              // "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
             ],
             "assets": [
               "src/favicon.ico",
