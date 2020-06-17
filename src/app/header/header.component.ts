@@ -84,6 +84,11 @@ showModalChangePassword: boolean;
     sessionStorage.clear();
     this.router.navigate(['/Login']);
 }
+Redirect()
+{
+
+  this.router.navigate(['/Home']);
+}
 HomeFun(){
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);

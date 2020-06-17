@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   showSideNav= true; isShowLoader : boolean = false;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
-  randomcaptchavalue:string="";  randomcaptcha:string=""; 
+  randomcaptchavalue:string="";  randomcaptcha:string=""; isShowLoader : boolean = false;
   constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
     router.events.subscribe(event => {
       if (router.url === '/Dashboard') {
@@ -66,6 +66,7 @@ this.LoginForm.reset();
 
   onSubmit() {
     debugger;
+    this.isShowLoader= true;
     //commenton push
 
     //this.router.navigate(['/Dashboard']);
@@ -133,6 +134,7 @@ this.BindRandomCaptcha();
     else {
         this.validateAllFormFields(this.LoginForm);
     }
+
     this.isShowLoader = false;
 }
  
