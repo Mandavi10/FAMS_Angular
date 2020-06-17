@@ -13,7 +13,7 @@ import{FormJsondata} from '../../Models/Login/form-jsondata';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  showSideNav= true; 
+  showSideNav= true; isShowLoader : boolean = false;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
   randomcaptchavalue:string="";  randomcaptcha:string=""; isShowLoader : boolean = false;
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
    }
   ngOnInit() {
+    //this.isShowLoader = true;
     sessionStorage.clear();
     this.LoginForm = this.formBuilder.group({
       //APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
@@ -69,7 +70,7 @@ this.LoginForm.reset();
     //commenton push
 
     //this.router.navigate(['/Dashboard']);
-
+     this.isShowLoader = true;
     if (this.LoginForm.valid) {
       
     if(this.AllFields.captcha.value == this.randomcaptcha)
@@ -80,6 +81,7 @@ this.LoginForm.reset();
        //_apipostdata.APPID=this.AllFields.APPID.value;
        _apipostdata.UserName=this.AllFields.UserName.value;
        _apipostdata.Password=this.Dbsecurity.Encrypt(this.AllFields.Password.value);
+       this.isShowLoader = true;
         this._loginService.GetLogin(JSON.stringify(_apipostdata)).subscribe(
             (data) => {
                 this.login = data;
@@ -90,32 +92,34 @@ this.LoginForm.reset();
                     this.BindRandomCaptcha();
                 }
                 else {
-                  if(this.Dbsecurity.Decrypt(data[0].UserId) == "3"|| this.Dbsecurity.Decrypt(data[0].UserId) == "4")
-                  {
-                    this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Dashboard']);
-                  }
-                  else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
-                  || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
-                  || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
-                  {
-                    this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Home']);
-                  }
-                else{
-                  this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Home']);
+                  sessionStorage.setItem('User', JSON.stringify(data[0]));
+                  this.router.navigate(['/Home']);
+                //   if(this.Dbsecurity.Decrypt(data[0].UserId) == "3"|| this.Dbsecurity.Decrypt(data[0].UserId) == "4")
+                //   {
+                //     this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Dashboard']);
+                //   }
+                //   else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
+                //   || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
+                //   || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
+                //   {
+                //     this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Home']);
+                //   }
+                // else{
+                //   this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Home']);
 
-                  }
+                //   }
                   
                 }
               
@@ -130,7 +134,8 @@ this.BindRandomCaptcha();
     else {
         this.validateAllFormFields(this.LoginForm);
     }
-    this.isShowLoader= false;
+
+    this.isShowLoader = false;
 }
  
 

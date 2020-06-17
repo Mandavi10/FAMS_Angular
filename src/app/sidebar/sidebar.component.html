@@ -1,4 +1,4 @@
-<div class="dvLinks">
+<div class="dvLinks" *ngIf="divLinks">
   <!-- <ul class="nav nav-list"> -->
     <ul class="nav nav-list" *ngFor="let Links of Sidebarlinks" >  
     <li (click)="BindHeader(Links.LinkName,Links.url)" class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.ParetmenuID==0">
@@ -13,6 +13,7 @@
             </ul>
         </li>
      </ul>
+     
       <!-- <li class=""><a routerLink="/Home" routerLinkActive="active"><span class="menu-text">Home</span></a></li>
       <li class=""><a routerLink="/Dashboard" routerLinkActive="active"><span class="menu-text">Dashboard </span></a></li>
       
@@ -57,6 +58,7 @@
          <li class=""><a routerLink="/AllCustomers" routerLinkActive="active"><span class="menu-text">All Customers</span></a></li>
          <li *ngIf = "liNoteMaster" class=""><a routerLink="/NotesMaster" routerLinkActive="active"><span class="menu-text">Notes Master</span></a></li>
          <li class=""><a routerLink="/BrokerMaster" routerLinkActive="active"><span class="menu-text">Broker Master</span></a></li>
+         <li class=""><a routerLink="/DistributorMaster" routerLinkActive="active"><span class="menu-text">Distributor Master</span></a></li>
          
         </ul>
       </li>

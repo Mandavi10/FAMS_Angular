@@ -62,6 +62,11 @@
                                 <i class="logoutdiv ace-icon fa fa-power-off">
                                 </i><span class="logoutcolor" (click)="logout()">Log Out</span>
                             </li>
+
+                            <li class="logouthover" (click)="onClicksetting($event)">
+                                <i class="logoutdiv ace-icon fa fa-power-off">
+                                </i><span class="logoutcolor" >Setting</span>
+                            </li>
                             
                         </ul>
                     </li>
@@ -83,7 +88,12 @@
         <div id="sidenav" (click)="togglenav()">
             <i class="fa fa-th" aria-hidden="true"></i></div>
     </div>
-
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+               
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
+    </div>
     <div class="modal" id="ChangePassword" [style.display]="showModalChangePassword ? 'block' : 'none'">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -158,4 +168,131 @@
         </div>
         </div>
         </div>
+
+        <div class="modal" [style.display]="showModalsetting ? 'block' : 'none'">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            
+    
+    
+                <div class="modal-header">
+                    <h4 class="modal-title" style="margin-top: 3%;">
+                        Settings
+                    </h4>
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hidesetting()">&times;</button>
+                    </div>
+                
+            
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+               
+                    <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
+                            <form class="" >
+                                                <div class="row no-padding mt-2">
+                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                                <div class="col-md-6 col-sm-4 col-xs-12 mt-3">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                               Name:
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <label  class="col-sm-12 col-md-12 col-xs-12">Abhishek Vats </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-4 col-xs-12 mt-4">
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                    Pan Number:
+                                                                                </label>
+                                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                        <label  class="col-sm-12 col-md-12 col-xs-12">AQUIS5465 </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+        
+                                                               
+                                                            </div>
+                                                    <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                            <div class="col-md-6 col-sm-4 col-xs-12 mt-3">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                Address:
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <input type="text" name="OldPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-4 col-xs-12 mt-4">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                    Mobile Number:
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <input type="text" name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+    
+                                                    <div class="col-md-6 col-sm-4 col-xs-12 mt-4">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Email ID:
+                                                            </label>
+                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <input type="text" name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+    
+                                                          
+                                                           
+                                                        </div>
+                                                    </div>
+                               
+                            </form>
+                        </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+          
+            <button type="button" class="btn btn-success" style="padding: 0px 3px 0px 3px;" (click)="onClickupdate($event)">Update</button>
+           
+            </div>
+            
+            </div>
+            </div>
+            </div>
+
+
+            <div class="modal" [style.display]="showModalupdate ? 'block' : 'none'">
+                    <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">
+                   
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hideupdate()">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body mt-5">
+                    <p>Are you sure you want to update the details?</p>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" style="padding: 0px 5px 0px 5px;" data-dismiss="modal" (click)="hideupdate()">Ok</button>
+                  
+                 </div>
+                    
+                    </div>
+                    </div>
+                    </div>
 </div>

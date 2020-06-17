@@ -17,7 +17,8 @@ export class SidebarComponent implements OnInit {
   public shownav = false; liCountryMaster : boolean = true; UserId : any;
   liStateMaster : boolean = true; liCityMaster : boolean = true; liSectorMaster : 
 
-  boolean = true; liDesignMaster : boolean = true; liNoteMaster : boolean =true;
+  boolean = true; liDesignMaster : boolean = true; liNoteMaster : boolean =true; 
+  divLinks: boolean = true;
 
   //boolean = true; liDesignMaster : boolean = true; liPMSProviderMaster : boolean =true;
 
@@ -26,6 +27,7 @@ export class SidebarComponent implements OnInit {
   constructor(private Dbsecurity: DbsecurityService,private SideBarService:SidebarService) { }
   
   ngOnInit() {
+debugger;
     this.BindSideBarLinks();
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
@@ -60,7 +62,7 @@ export class SidebarComponent implements OnInit {
     //let _Model_getSideBarLinks=new Model_getSideBarLinks();
     let item = JSON.parse(sessionStorage.getItem('User'));
     var UsertType  = this.Dbsecurity.Decrypt(item.UserType);
-
+if(UsertType !="1"){
     var Json ={
       "UserType": UsertType
     }
@@ -70,6 +72,10 @@ export class SidebarComponent implements OnInit {
       this.Sidebarlinks=data.Table;
       //this.Model_SideBarChildLinks=data.Table1;
     });
+  }
+  else{
+    this.divLinks = false;
+  }
 
   }
 }
