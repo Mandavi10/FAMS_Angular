@@ -436,18 +436,40 @@ onGridReady1(params) {
 }
 downloadCSVFile() {
   debugger;
-var params = this.getParams();
+//var params = this.getParams();
     // if (params.suppressQuotes || params.columnSeparator) {
     //   alert(
     //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
     //   );
     // }
+
+    var params = {
+      columnKeys: ['SrNo','CountryName','CustodianName', 'ListCode','ListName', 'Active'],
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'TBStructure.csv',
+      columnSeparator: ','
+    };
+   
+    var params1 = {
+      columnKeys: ['SrNo','TBHeadCode','TBHeadName', 'ParentName'],
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'TBHead.csv',
+      columnSeparator: ','
+    };
     if(this.selectedRowId==0)
     {
       this.gridApi.exportDataAsCsv(params);
     }
     else{
-      this.gridApi1.exportDataAsCsv(params);
+      this.gridApi1.exportDataAsCsv(params1);
     }
     
   }

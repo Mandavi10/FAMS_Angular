@@ -65,7 +65,7 @@
           <ag-grid-angular
     style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
-    [rowData]="BindallfieldsList"
+    [rowData]="Bindallfields2List"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
@@ -273,7 +273,7 @@
                     
                     <!-- Modal body -->
                     <div class="modal-body">
-                    <p>Saved Successfully</p>
+                    <p><span [innerHTML]="SuccessText"></span></p>
                     </div>
                     
                     <!-- Modal footer -->

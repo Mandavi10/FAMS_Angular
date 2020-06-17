@@ -1,6 +1,9 @@
 .dvLinks ul li {
     width: 99%;
 }
+.maincontainer{position: relative;
+    float: left;
+    width: 100%}
 
 .dvLinks {
     width: 12%;

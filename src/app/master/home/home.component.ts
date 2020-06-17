@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { LoginServiceService } from '../../Services/login-service.service';
 import { Commonfields } from '../../../Models/commonfields';
+import { Bindalltabs } from '../../../Models/Login/bindalltabs';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,7 +12,12 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
-  Successtext : any;OrderProcessing:boolean=false;
+
+  //Successtext : any;
+  OrderProcessing:boolean=false;
+
+  Successtext : any; BindalltabsList : Bindalltabs; isShowLoader : boolean = false;
+
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
@@ -33,6 +39,7 @@ this.OrderProcessing=false;
                 if( value == "False"){
                     this.ChangePassWordPopUp = true;
                 }
+                this.BindAllTab();
   }
   onClicksavepopup(event) {
     this.showModalsavepopup = true;
@@ -108,5 +115,19 @@ this.OrderProcessing=false;
   isFieldValid(field: string) {
     return !this.ChangePasswordForm.get(field).valid && this.ChangePasswordForm.get(field).touched;
   }
+  BindAllTab(){
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var UserType = this.Dbsecurity.Decrypt(Sessionvalue.UserType);
+    var JsonData ={
+      "UserId":UserType
+    }
+    this._loginService.BindAllTab(JsonData).subscribe(
+      (data) => {
+        this.BindalltabsList = data.Table;
+      });
+      this.isShowLoader = false;
+  }
+ 
 
 }

@@ -77,9 +77,18 @@ rowDataExcel = [];
   }
   BindGrid(Fromdate,Todate){
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.AccountNo =  this.Dbsecurity.Decrypt(Sessionvalue.AccountNo);
     let FormData = new Jsonallfields();
-    FormData = this.SummaryReportForm.value;
-    FormData.UserId = Sessionvalue.UserId;
+    if(this.AccountNo == "Cust_000001"){
+      FormData = this.SummaryReportForm.value;
+      FormData.CustomerAccount="Cust_000001"
+      FormData.UserId = Sessionvalue.UserId;
+    }
+    else{
+      FormData = this.SummaryReportForm.value;
+      FormData.UserId = Sessionvalue.UserId;
+     
+    }
     this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {
         debugger;

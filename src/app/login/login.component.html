@@ -10,6 +10,12 @@
  
 </div>
 
+<div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+               
+    <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+        <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+    </div>
+</div>
 <form [formGroup]="LoginForm" autocomplete="off" class="form" appNorightclick>
   <div class="quickCheckLogin" >
       
@@ -94,6 +100,7 @@ placeholder="" />
     </ul>
     <span class="veriSign"><img src="../../assets/images/veriSign.png" ></span>
 </div>
+
 <div class="linkContainer" appNorightclick> 
 <ul>
     <li>About</li>
