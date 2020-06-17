@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrokermasterService } from '../../Services/BrokerMaster/brokermaster.service';
 import {Bindallfields} from '../../../Models/BrokerMaster/bindallfields';
+import {Bindallfields2} from '../../../Models/BrokerMaster/bindallfields2';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Jsondata} from '../../../Models/BrokerMaster/jsondata';
@@ -13,8 +14,8 @@ import { Commonfields } from '../../../Models/commonfields';
 })
 export class BrokerMasterComponent implements OnInit {
   BindallfieldsList : Bindallfields; BrokerMasterForm: FormGroup; CommonfieldsList : Commonfields; 
-  JsondataList : Jsondata ; showModalsavepopup : boolean = false; 
-  HeaderArray : any;
+  JsondataList : Jsondata ; showModalsavepopup : boolean = false; isShowLoader : boolean =false;
+  HeaderArray : any; BMId : any; Bindallfields2List : Bindallfields2; SuccessText : any;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width:70 },
     {headerName: 'Broker Name', field: 'BrokerName', width:150 },
@@ -40,6 +41,7 @@ rowData = [
 showModalBrokermaster: boolean;
 
   onClickBrokermaster(event) {
+    this.BMId = "";
     this.showModalBrokermaster = true;
     this.BrokerMasterForm.reset();
     }
@@ -104,33 +106,45 @@ isFieldValid(field: string) {
     this.BMsrvice.BindGrid(JSON.stringify(JsonData)).subscribe(
       (data) => {  
         this.BindallfieldsList = data.Table;  
+        this.Bindallfields2List = data.Table1;
        // console.log(this.BindallfieldsList);  
   });
 }
 SaveData(){
-  debugger;
+  this.isShowLoader = true;
   if (this.BrokerMasterForm.valid) {
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   var UserId = Sessionvalue.UserId;
   this.JsondataList = this.BrokerMasterForm.value;
   this.JsondataList.UserId = UserId;
+  this.JsondataList.BMId = this.BMId;
   this.BMsrvice.SaveData(JSON.stringify(this.JsondataList)).subscribe(
     (data) => {  
       this.CommonfieldsList = data.Table;
       if(this.CommonfieldsList[0].Result == "1"){   
       this.showModalBrokermaster = false;
+      this.SuccessText = "Saved Successfully";
       this.showModalsavepopup = true;
       this. BindGrid();
       this.BrokerMasterForm.reset();
       }
+      else if(this.CommonfieldsList[0].Result == "2"){
+        this.showModalBrokermaster = false;
+        this.SuccessText = "Update Successfully";
+        this.showModalsavepopup = true;
+        this. BindGrid();
+        this.BrokerMasterForm.reset();
+      }
       else{
-        alert("Error");
+        this.SuccessText = "Error";
+        this.showModalsavepopup = true;
       }
 });
   }
   else{
     this.validateAllFormFields(this.BrokerMasterForm);
   }
+  this.isShowLoader = false;
 }
   ConvertToCSV(objArray) {
     this.HeaderArray = {
@@ -169,7 +183,8 @@ SaveData(){
     }
     return str;
 }
-downloadCSVFile() {  
+downloadCSVFile() { 
+  this.isShowLoader = true;
     var csvData = this.ConvertToCSV(JSON.stringify(this.BindallfieldsList));
     var a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
@@ -178,7 +193,32 @@ downloadCSVFile() {
     var url = window.URL.createObjectURL(blob);
     a.href = url;  
     a.download = 'BrokerFile.csv';/* your file name*/
+    this.isShowLoader = false;
     a.click();
     return 'success';
+}
+onRowSelected(event){
+  debugger;
+  this.showModalBrokermaster = true;
+  if (event.column.colId != "0" ) // only first column clicked
+  {
+  this.BMId = "";
+  this.BrokerMasterForm.reset();
+  this.BrokerMasterForm.controls['BrokerName'].setValue(event.data.BrokerName);
+  this.BrokerMasterForm.controls['TradeName'].setValue(event.data.TradeName);
+  this.BrokerMasterForm.controls['RegistrationNo'].setValue(event.data.RegistrationNo);
+  this.BrokerMasterForm.controls['GSTNo'].setValue(event.data.GSTNo);
+  this.BrokerMasterForm.controls['StockExchangeName'].setValue(event.data.StockExchangeName);
+  this.BrokerMasterForm.controls['Email'].setValue(event.data.Email);
+  this.BrokerMasterForm.controls['Telephone'].setValue(event.data.Telephone);
+  this.BrokerMasterForm.controls['ContactEmail'].setValue(event.data.ContactEmail);
+  this.BrokerMasterForm.controls['Phone'].setValue(event.data.Phone);
+  this.BrokerMasterForm.controls['Extension'].setValue(event.data.Extension);
+  this.BrokerMasterForm.controls['MobileNo'].setValue(event.data.MobileNo);
+  this.BrokerMasterForm.controls['ContactPerson'].setValue(event.data.ContactPerson);
+  }
+  //else if ((event.column.colId == "0" ) && (event.node.selected) ){
+    this.BMId = event.data.BMId;
+ // }
 }
 }

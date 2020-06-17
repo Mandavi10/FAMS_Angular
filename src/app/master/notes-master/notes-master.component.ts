@@ -14,6 +14,7 @@ import { Commonfields } from '../../../Models/commonfields';
 export class NotesMasterComponent implements OnInit {
   BindgridfieldsList : Bindgridfields;CommonfieldsList : Commonfields;showModalsavepopup: boolean= false;
   HeaderArray : any; liNew : boolean = true; liExporttoex : boolean = true; NoteMasterForm : FormGroup;
+  isShowLoader : boolean = false; NMId : any; SucesspopText : any;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
       return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -50,6 +51,7 @@ onClicksavepopup(event) {
     this.showGrid = false;
     this.showForm = true;
     this.liExporttoex = false;
+    this.NMId = "";
     }
   onClickstatemaster(event) {
     this.showModalstatemaster = true;    
@@ -62,7 +64,7 @@ onClicksavepopup(event) {
 
   ngOnInit(): void {
     this.NoteMasterForm = this.formBuilder.group({ 
-      Subject : ['',Validators.required] , Note : [''] ,File : ['']
+      Subject : ['',Validators.required] , Note : [''] ,File : [''] , FontSize : ['']
     });
     this.BindGrid();
   }
@@ -86,6 +88,7 @@ onClicksavepopup(event) {
   });
 }
 SaveData(Subject,Note,File){
+  this.isShowLoader = true;
   if (this.NoteMasterForm.valid) {
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   var UserId = Sessionvalue.UserId;
@@ -93,24 +96,35 @@ SaveData(Subject,Note,File){
     "UserId": UserId,
     "Subject": Subject,
     "Note" : Note,
-    "Attachment": File
+    "Attachment": File,
+    "NMId" : this.NMId
   }
   this.NMService.SaveData(JSON.stringify(JsonData)).subscribe(
     (data) => {  
       this.CommonfieldsList = data.Table;   
       if(this.CommonfieldsList[0].Result == "1"){
-        this.showGrid = true;
-        this.showForm = false;
-        this.liNew = true;
-        this.liExporttoex = true;
+        this.SucesspopText = "Saved Successfully";
         this.showModalsavepopup = true;
-        this. BindGrid();
       }
+      else if(this.CommonfieldsList[0].Result == "2"){     
+        this.SucesspopText = "Updated Successfully";
+        this.showModalsavepopup = true;       
+      }
+      else{
+        this.SucesspopText = "Error";
+        this.showModalsavepopup = true;
+      }
+      this.showGrid = true;
+      this.showForm = false;
+      this.liNew = true;
+      this.liExporttoex = true;
+      this. BindGrid();
 });
   }
   else{
     this.validateAllFormFields(this.NoteMasterForm);
   }
+  this.isShowLoader = false;
 }
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
@@ -165,8 +179,12 @@ ConvertToCSV(objArray) {
       var line = '';
       for (var index in array[i]) {
         if(index != "NMId"){
+          if(index != "Note"){
+            if(index != "FontSize"){
           if (line != '') line += ','
           line += (<string>array[i][index]);
+          }
+        }
       }
     }
       str += line + '\r\n';
@@ -174,6 +192,7 @@ ConvertToCSV(objArray) {
   return str;
 }
 downloadCSVFile() {  
+  this.isShowLoader = true;
   var csvData = this.ConvertToCSV(JSON.stringify(this.BindgridfieldsList));
   var a = document.createElement("a");
   a.setAttribute('style', 'display:none;');
@@ -182,7 +201,25 @@ downloadCSVFile() {
   var url = window.URL.createObjectURL(blob);
   a.href = url;  
   a.download = 'NoteFile.csv';/* your file name*/
+  this.isShowLoader = false;
   a.click();
   return 'success';
+}
+onRowSelected(event){
+  if (event.column.colId != "0" ) // only first column clicked
+  {
+  this.NMId = "";
+  this.NoteMasterForm.reset();
+  this.NoteMasterForm.controls['Subject'].setValue(event.data.subject);
+  this.NoteMasterForm.controls['Note'].setValue(event.data.Note);
+  this.NoteMasterForm.controls['Note'].setValue(event.data.FontSize);
+  this.liNew = false;
+  this.showGrid = false;
+  this.showForm = true;
+  this.liExporttoex = false;
+  }
+  //else if ((event.column.colId == "0" ) && (event.node.selected) ){
+    this.NMId = event.data.NMId;
+ // }
 }
 }

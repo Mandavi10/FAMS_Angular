@@ -1,5 +1,14 @@
 <div class="main-content maincontainer">
     <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+               
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+           
+
+
+        </div>
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
@@ -56,13 +65,15 @@
           <ag-grid-angular
     style="width: 100%; height: 460px;"
     class="ag-theme-alpine"
-    [rowData]="BindallfieldsList"
+    [rowData]="Bindallfields2List"
     [columnDefs]="columnDefs"
     [enableFilter]="false"
       [enableSorting]="true"
       [showToolPanel]="true"
       [pagination]="true" 
-      [paginationAutoPageSize]="true">
+      [paginationAutoPageSize]="true"
+      rowSelection="single"
+      (cellClicked)="onRowSelected($event)">
 </ag-grid-angular>
            
             
@@ -262,7 +273,7 @@
                     
                     <!-- Modal body -->
                     <div class="modal-body">
-                    <p>Saved Successfully</p>
+                    <p><span [innerHTML]="SuccessText"></span></p>
                     </div>
                     
                     <!-- Modal footer -->

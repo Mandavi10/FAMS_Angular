@@ -9,7 +9,7 @@ import {SidebarComponent} from '../sidebar/sidebar.component';
 })
 export class HeaderComponent implements OnInit {
   UserName : any; UserId : any; SidebarComponent : SidebarComponent; HeaderName : any;HeaderUrl:any
-  public shownav = false;
+  public shownav = false; isShowLoader : boolean =false;
   isShow = false;
   isShow1 = false;
   toggleDisplay() {
@@ -30,9 +30,41 @@ showModalChangePassword: boolean;
     hideChangePassword() {
     this.showModalChangePassword = false;
     }
+
+
+
+    showModalsetting: boolean;
+
+    onClicksetting(event) {
+      this.showModalsetting = true;
+      
+      }
+      
+      hidesetting() {
+      this.showModalsetting = false;
+      }
+
+
+
+
+      showModalupdate: boolean;
+
+      onClickupdate(event) {
+        this.showModalupdate = true;
+        
+        }
+        
+        hideupdate() {
+        this.showModalupdate = false;
+        }
+
+
+
+
   constructor(private router: Router,private Dbsecurity: DbsecurityService) { }
 
   ngOnInit() {
+    debugger;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     this.UserName = this.Dbsecurity.Decrypt(Sessionvalue.UserName);
    // this.UserName = this.Dbsecurity.Decrypt(Sessionvalue.UserName);
@@ -41,12 +73,14 @@ showModalChangePassword: boolean;
 
   this.HeaderName = HeaderName;
   this.HeaderUrl=HeaderUrl;
+  this.isShowLoader = false;
   }
 
   togglenav() {
     this.shownav = !this.shownav;
   }
   logout() {
+    this.isShowLoader = true;
     sessionStorage.clear();
     this.router.navigate(['/Login']);
 }

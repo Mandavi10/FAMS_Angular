@@ -48,6 +48,7 @@ const routes: Routes = [
 {path: 'OrderProcessing', loadChildren: './order-processing/order-processing.module#OrderProcessingModule'},
 {path: 'OrderProcessingNew', loadChildren: './order-processing-new/order-processing-new.module#OrderProcessingNewModule'},
 {path: 'BrokerMaster', loadChildren: './broker-master/broker-master.module#BrokerMasterModule'},
+{path: 'DistributorMaster', loadChildren: './distributor-master/distributor-master.module#DistributorMasterModule'},
 
         ]
   }
