@@ -57,15 +57,17 @@
                                 <i class="logoutdiv ace-icon fa fa-key"
                                    aria-hidden="true"></i><span class="logoutcolor">Change Password</span>
                             </li>
+
+                             <!-- Added by Bibhu on 17June2020  [style.display]="showSetting ? 'block' : 'none'" -->
+                             <li class="logouthover" (click)="onClicksetting($event)" [style.display]="showSettings ? 'block' : 'none'"> 
+                                <i class="logoutdiv ace-icon fa fa-power-off">
+                                </i><span class="logoutcolor" >Settings</span>
+                            </li>
                             <li class="logouthover" >
                                 <i class="logoutdiv ace-icon fa fa-power-off">
                                 </i><span class="logoutcolor" (click)="logout()">Log Out</span>
                             </li>
-
-                            <li class="logouthover" (click)="onClicksetting($event)">
-                                <i class="logoutdiv ace-icon fa fa-power-off">
-                                </i><span class="logoutcolor" >Setting</span>
-                            </li>
+                           
                             
                         </ul>
                     </li>
