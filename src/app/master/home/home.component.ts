@@ -13,6 +13,8 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
 
+  OrderProcessing:boolean=false;
+
   Successtext : any; BindalltabsList : Bindalltabs; isShowLoader : boolean = false;
 
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
