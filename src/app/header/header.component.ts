@@ -30,6 +30,37 @@ showModalChangePassword: boolean;
     hideChangePassword() {
     this.showModalChangePassword = false;
     }
+
+
+
+    showModalsetting: boolean;
+
+    onClicksetting(event) {
+      this.showModalsetting = true;
+      
+      }
+      
+      hidesetting() {
+      this.showModalsetting = false;
+      }
+
+
+
+
+      showModalupdate: boolean;
+
+      onClickupdate(event) {
+        this.showModalupdate = true;
+        
+        }
+        
+        hideupdate() {
+        this.showModalupdate = false;
+        }
+
+
+
+
   constructor(private router: Router,private Dbsecurity: DbsecurityService) { }
 
   ngOnInit() {

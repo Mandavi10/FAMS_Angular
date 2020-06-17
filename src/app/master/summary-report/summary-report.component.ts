@@ -89,6 +89,10 @@ rowDataExcel = [];
       FormData.UserId = Sessionvalue.UserId;
      
     }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 04f75a13b1a7ec3da8cd7f64584a8157524f97fb
     this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {
         debugger;
@@ -261,7 +265,7 @@ downloadCSVFile() {
     var url = window.URL.createObjectURL(blob);
     a.href = url;
     // a.download = 'User_Results.csv';/* your file name*/
-    a.download = 'Summary_Report.csv';/* your file name*/
+    a.download = 'NAV_Report.csv';/* your file name*/
     a.click();
     return 'success';
 }

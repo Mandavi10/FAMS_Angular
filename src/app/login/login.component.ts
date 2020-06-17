@@ -136,8 +136,7 @@ this.BindRandomCaptcha();
         this.validateAllFormFields(this.LoginForm);
     }
 
-    this.isShowLoader= false;
-
+    this.isShowLoader = false;
 }
  
 
