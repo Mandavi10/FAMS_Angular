@@ -7,6 +7,8 @@
         color: #f31313
     }
     #createuser .modal-content{height:619px}
+    .menuBar .fa-bars{ display:none}
+
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
@@ -2136,6 +2138,20 @@ pre.prettyprint {
     [class*=vspace-][class*="-sm"] {
         display: block
     }
+  
+        .maincontainer{width:100% !important}
+        .menuBar .fa-bars{ display:block}
+        #sidenav .fa-th{display:none}
+        .dvLinks{ position: absolute !important;
+            width: 165px !important;
+            z-index: 999 !important;
+            background: #fff !important;
+            box-shadow: none !important;
+            max-height: 575px !important;}
+        .breadcrum {
+                margin-left: 17px;}
+            .navbar .navbar-collapse, .navbar .navbar-header {
+                margin-left: 30px !important;}
 }
 
 @media only screen and (max-width: 991px) {
@@ -3088,6 +3104,11 @@ pre.prettyprint {
     }
 }
 
+@media only screen and (max-width: 767px) {
+.navbar .navbar-collapse, .navbar .navbar-header {
+    margin-left: 30px !important;}
+}
+
 @media only screen and (max-width: 480px) {
     .navbar-form .form-group {
         width: 80%
@@ -3105,7 +3126,9 @@ pre.prettyprint {
     .navbar.navbar-collapse {
         background-color: transparent
     }
-
+    .navbar .navbar-collapse, .navbar .navbar-header {
+        margin-left: 0px !important;
+    }
         .navbar.navbar-collapse:before {
             background: #438EB9;
             content: "";
