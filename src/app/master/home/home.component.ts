@@ -21,6 +21,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     let item1 = JSON.parse(sessionStorage.getItem('User'));
+    var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
+if(UsertType !="1"){
+}
+else{
+document.getElementById("divWidth").classList.add("fullmaincontainer");
+}
     var value1 = this.Dbsecurity.Decrypt(item1.UserType);
     if(value1=="2"){
 this.OrderProcessing=true;

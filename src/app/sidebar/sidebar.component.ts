@@ -75,6 +75,7 @@ if(UsertType !="1"){
   }
   else{
     this.divLinks = false;
+    //document.getElementById("divLinks").classList.add("maincontainer");
   }
 
   }
