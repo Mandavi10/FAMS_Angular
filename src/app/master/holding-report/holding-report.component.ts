@@ -254,7 +254,7 @@ downloadCSVFile() {
     var blob = new Blob([csvData], { type: 'text/csv' });
     var url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'HoldingReport.csv';/* your file name*/
+    a.download = 'Portfolio_Report.csv';/* your file name*/
   
     a.click();
     return 'success';
