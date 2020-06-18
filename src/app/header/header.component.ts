@@ -96,6 +96,7 @@ ShowSettings(){
   else{
     this.showSettings=false;//Added by Bibhu on 17June2020
   }
+}
 
 Redirect()
 {
