@@ -12,7 +12,11 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
+
+  OrderProcessing:boolean=false;
+
   Successtext : any; BindalltabsList : Bindalltabs; isShowLoader : boolean = false;
+
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
@@ -23,6 +27,15 @@ if(UsertType !="1"){
 else{
 document.getElementById("divWidth").classList.add("fullmaincontainer");
 }
+    var value1 = this.Dbsecurity.Decrypt(item1.UserType);
+    if(value1=="2"){
+this.OrderProcessing=true;
+    }
+    else
+    {
+this.OrderProcessing=false;
+    }
+
     this.ChangePasswordForm = this.formbulider.group({
       ConfirmPassword : ['',Validators.required] , NewPassword : ['',Validators.required] , OldPassword : ['',Validators.required]
     });
