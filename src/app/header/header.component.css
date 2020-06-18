@@ -647,7 +647,7 @@ label {
 .quickLeftDiv {
     background: #003974;
     height: 38px;
-    width: 100%;
+    width: 100%!important;
     float: left;
 }
 .quickrightDiv { background: #ed1c24;
@@ -815,3 +815,487 @@ a.headerRightIcon i {
     margin-right: 50px;}
 .userDetails{ position: absolute;
     right: 3px;}
+
+    
+    @media only screen and (max-width:1400px) {
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        .userDetails{
+            position: absolute;
+            right: 71px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            left: -117px !important;
+            top: 43px ;
+            letter-spacing: 0px ;
+        }
+        
+        }
+
+
+    @media only screen and (max-width:1300px) {
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        .userDetails{
+            position: absolute;
+            right: 71px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            left: -117px !important;
+            top: 43px ;
+            letter-spacing: 0px ;
+        }
+        
+        }
+
+
+    @media only screen and (max-width:1100px) {
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        .userDetails{
+            position: absolute;
+            right: 65px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            left: -117px ;
+            top: 43px ;
+            letter-spacing: 0px ;
+        }
+        
+        }
+
+
+    @media only screen and (max-width:900px) {
+        .quickLeftDiv{
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        .userDetails{
+            position: absolute;
+            right: 48px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            left: -117px !important;
+            top: 43px ;
+            letter-spacing: 0px ;
+        }
+        
+        }
+
+
+    @media only screen and (max-width:750px) {
+
+
+        .quickLeftDiv{
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        .navbar .navbar-brand {
+            color: #FFF;
+            font-size: 21px;
+            padding-top: 7px !important;
+            padding-bottom: 4px;
+        }
+        
+        .userDetails{
+            position: absolute;
+            right: 37px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            left: -117px !important;
+            top: 43px ;
+            letter-spacing: 0px ;
+        }
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -33%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px!important;
+        
+        }
+        
+        }
+
+/* 
+    @media only screen and (max-width:570px) {
+        .mainLogo{
+            width: 80%;
+            margin-left: -4px;
+            padding-top: 0px;
+        }
+        .navbar .navbar-brand {
+            font-size: 19px;
+            padding-top: 10px !important;
+            padding-bottom: 7px;
+        }
+        .userDetails{
+            position: absolute;
+            right: 32px;
+        }
+        
+        
+        }
+
+
+
+    @media only screen and (max-width:450px) {
+        .mainLogo{
+            width: 65%;
+            margin-left: 30px;
+            padding-top: 0px;
+        }
+        
+
+        .userDetails{
+            position: absolute;
+            right: -10px;
+            bottom: 6px;
+        }
+        
+        }
+
+
+
+
+    @media only screen and (max-width:380px) {
+        .mainLogo {
+            width: 56%;
+            margin-left: 27px;
+            padding-top: 1px;
+        }
+        .breadcrum{
+            display: inline-block;
+            position: relative;
+            margin-top: 8px;
+            margin-left: -51px;
+            font-size: 14px;
+            color: #fff !important;
+        }
+        .userDetails{
+            position: absolute;
+            right: 0px;
+            bottom: 5px;
+        }
+        
+        } */
+        @media only screen and (max-width:640px) {
+            .quickLeftDiv{
+                background: #003974;
+                height: 38px;
+                width: 100%!important;
+                float: left;
+            }
+             /* .usericon{position: fixed;
+                top: 7px;
+            }
+            .userDetails {
+                position: absolute;
+                right: 31px;
+            
+            } */
+            #guidelines {
+                color: #003974;
+                position: absolute;
+                top: 96%;
+                right: -33%;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #e6e3e3;
+                box-shadow: 1px 1px 1px 1px #f1ecec;
+                padding: 8px;
+                width: 324px!important;
+            
+            }
+            .fa-lightbulb-o{margin-right:0px}
+            .adminddl .dropdown-menu.dropdown-close {
+                left: -117px !important;
+                top: 43px   ;
+                letter-spacing: 0px ;
+            }
+            /* .fa-user-circle-o{margin-left:32px} */
+        }
+        
+        @media only screen and (max-width:622px) {
+            .quickLeftDiv{
+                background: #003974;
+                height: 38px;
+                width: 100%!important;
+                float: left;
+            }
+            #guidelines {
+                color: #003974;
+                position: absolute;
+                top: 96%;
+                right: -33%;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #e6e3e3;
+                box-shadow: 1px 1px 1px 1px #f1ecec;
+                padding: 8px;
+                width: 324px;
+            
+            }
+            /* .usericon{position: fixed;
+               top: 7px;
+           }
+           .userDetails {
+               position: absolute;
+               right: 31px;
+           
+           } */
+           .fa-lightbulb-o{margin-right:0px}
+           .adminddl .dropdown-menu.dropdown-close {
+            left: -148px !important;
+               top: 41px;
+               letter-spacing: 0px;
+           }
+           /* .fa-user-circle-o{margin-left:32px} */
+       }
+
+       @media only screen and (max-width:570px) { 
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 96%;
+            right: -120%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 324px;
+        }   
+        .quickLeftDiv{
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        
+    }
+        @media only screen and (max-width:450px) 
+
+        
+        {
+            .quickLeftDiv{
+                background: #003974;
+                height: 38px;
+                width: 100%!important;
+                float: left;
+            }
+            #guidelines {
+                color: #003974;
+                position: absolute;
+                top: 111%;
+                right: 1%;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #e6e3e3;
+                box-shadow: 1px 1px 1px 1px #f1ecec;
+                padding: 8px;
+                width: 260px;
+            }
+            .adminddl .dropdown-menu.dropdown-close {
+                top: 92%;
+                left: -148px !important;
+                right: 7px;
+                width: 197px;}
+        
+            .usericon{position: fixed;
+            top: 7px;
+        }
+        .mainLogo{
+            width: 55%;
+            margin-left: 26px;
+            padding-top: 0px;
+        }
+        .fa-lightbulb-o{margin-right:-21px}
+        /* .fa-user-circle-o{margin-left:32px} */
+        .userDetails{
+            position: absolute;
+            right: 9px;
+            bottom: 5px;
+        }
+        .breadcrum{
+            display: inline-block;
+            position: relative;
+            margin-top: 8px;
+            margin-left: 10px;
+            font-size: 14px;
+            color: #fff !important;
+        }
+    }
+    @media only screen and (max-width:360px) {
+        #guidelines {
+            color: #003974;
+            position: absolute;
+            top: 111%;
+            right: 1%;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #e6e3e3;
+            box-shadow: 1px 1px 1px 1px #f1ecec;
+            padding: 8px;
+            width: 260px;
+        }
+        .mainLogo{
+            width: 55%;
+            margin-left: 26px;
+            padding-top: 0px;
+        }
+        .fa-lightbulb-o{margin-right:-21px}
+        /* .fa-user-circle-o{margin-left:32px} */
+        .userDetails{
+            position: absolute;
+            right: 0px;
+            bottom: 5px;
+        }
+        .breadcrum{
+            display: inline-block;
+    position: relative;
+    margin-top: 8px;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #fff !important;
+        }
+        .usericon{position: fixed;
+            top: 7px;
+        }
+        .adminddl .dropdown-menu.dropdown-close {
+            top: 92%;
+            left: -148px !important;
+            right: 7px;
+            width: 197px;}
+
+            .quickLeftDiv{
+                background: #003974;
+                height: 38px;
+                width: 100%!important;
+                float: left;
+            }
+    }
+        
+
+
+    @media only screen and (max-width:330px) {
+        .quickLeftDiv{
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        .mainLogo{
+            width: 48%;
+            margin-left: 26px;
+            padding-top: 2px;
+        }
+        .breadcrum {
+            display: inline-block;
+            position: relative;
+            margin-top: 8px;
+            margin-left: 10px;
+            font-size: 14px;
+            color: #fff !important;
+        }
+
+        .userDetails{
+            position: absolute;
+            right: 0px;
+            bottom: 3px;
+        }
+        .usericon{position: fixed;
+            top: 7px;
+        }
+
+        .adminddl .dropdown-menu.dropdown-close {
+            top: 92%;
+            left: -148px !important;
+            right: 7px;
+            width: 197px;}
+
+
+            #guidelines {
+                color: #003974;
+                position: absolute;
+                top: 111%;
+                right: 1%;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #e6e3e3;
+                box-shadow: 1px 1px 1px 1px #f1ecec;
+                padding: 8px;
+                width: 260px;
+            }
+    }
+
+
+    
