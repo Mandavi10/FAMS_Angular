@@ -13,7 +13,7 @@ export class UserSetupComponent implements OnInit {
   Isdiv1:boolean;
   Isdiv2:boolean;
   IsShowAccessRight : boolean = false; IsShowMaster : boolean = false; 
-  IsShowReports : boolean= false;
+  IsShowReports : boolean= false;IsAdmin:boolean= false;
   showModalsavepopup: boolean;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width: 80},

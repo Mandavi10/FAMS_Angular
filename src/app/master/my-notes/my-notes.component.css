@@ -6,6 +6,13 @@
 .boxright{
   padding: 19px 0px 19px 0px;
 }
+
+.fullmaincontainer {
+  position: relative;
+  float: left;
+  width: 100% !important;
+}
+
 .paperclipicon{
   font-size:14px;
   padding:3px 4px;
