@@ -628,3 +628,231 @@ a.headerRightIcon i {
     float: right;
     height: 38px;
     overflow: hidden;}
+    @media only screen and (max-device-width : 1366px) and (min-device-width : 1025px) {
+
+
+
+    }
+    @media only screen and (max-device-width : 1024px) and (min-device-width : 768px) {
+        .veriSign {
+            position: absolute;
+            left: 83%;
+            top: 0px;
+        
+        }
+        
+        
+        .veriSign img {
+            width: 45%!important;
+        }
+        .form {
+            width: 44%!important;
+            overflow: hidden;
+            display: inline-block;
+            height: 478px;}
+    
+            .heroImg {
+        vertical-align: top;
+        float: right;
+        width: 52%!important;
+        padding-right: 20px;
+        box-sizing: border-box;
+        height: 320px;
+        overflow: hidden;
+    }
+    .mainLogo {
+        width: 78%!important;
+        margin-left: -4px;
+        padding-top: 6px !important;
+    
+    }
+        .quickLeftDiv {
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        .forgotPass {
+            right: 0px;
+            top: 0;
+            position: absolute;
+            cursor: pointer;
+            font-size: 9px !important;
+            display: block;
+            color: #073e78;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    
+    
+    .captchaImg {
+        width: 126px;
+        height: 35px;
+        display: inline-block;
+        text-align: center;
+        border: 1px solid #eae6e6;
+        vertical-align: middle;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        overflow: hidden;
+    }
+    
+    .linkContainer ul {
+        width: 55%;}
+    
+    }
+    
+    
+    @media only screen and (max-device-width : 767px) and (min-device-width : 451px) {
+        .veriSign {
+            position: absolute;
+            left: 83%;
+            top: 0px;
+        
+        }
+        
+        
+        .veriSign img {
+            width: 45%!important;
+        }
+       .inset p label{font-size: 12px !important;}
+        .mainLogo {
+            width: 78%!important;
+            margin-left: -4px;
+            padding-top: 6px !important;
+        
+        }
+        .quickLeftDiv {
+            background: #003974;
+            height: 38px;
+            width: 100%!important;
+            float: left;
+        }
+        .forgotPass {
+            right: 0px;
+            top: 0;
+            position: absolute;
+            cursor: pointer;
+            font-size: 9px !important;
+            display: block;
+            color: #073e78;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    .form {
+        width: 100% !important;
+        overflow: hidden;
+        display: inline-block;
+        height: 478px;
+    }
+    .heroImg{
+        display:none;
+        vertical-align: top;
+        float: right;
+        width: 58%;
+        padding-right: 20px;
+        box-sizing: border-box;
+        height: 320px;
+        overflow: hidden;
+    }
+    
+    .captchaImg {
+        width: 126px;
+        height: 35px;
+        display: inline-block;
+        text-align: center;
+        border: 1px solid #eae6e6;
+        vertical-align: middle;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        overflow: hidden;
+    }
+    
+    .linkContainer ul{
+        width: 63%;
+        float: none;
+        padding: 9px 0px;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    }
+    
+    
+    @media only screen and (max-device-width : 450px) and (min-device-width : 320px) {
+        .loaderposition{margin:21% 42%;}
+        .inset p label{font-size: 12px !important;}
+        .veriSign {
+            position: absolute;
+            left: 86%;
+            top: 3px;
+        }
+        
+        
+        .veriSign img {
+            width: 45%!important;
+        }
+        
+           
+        ul {
+            width: 100% !important;
+            padding: 10px 5px 10px 10px;
+            margin-left: 0px;
+            font-size: 11px !important;
+        }
+    
+        body{    width: 100%!important;
+            overflow: hidden;
+            display: inline-block;}
+    
+           
+            .quickLeftDiv {
+                background: #003974;
+                height: 38px;
+                width: 100%!important;
+                float: left;
+            }
+            .forgotPass {
+                right: 0px;
+                top: 0;
+                position: absolute;
+                cursor: pointer;
+                font-size: 9px !important;
+                display: block;
+                color: #073e78;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        .form {
+            width: 100% !important;
+            overflow: hidden;
+            display: inline-block;
+            height: 432px;
+        }
+        .heroImg{
+            display:none;
+        }
+        .linkContainer ul li{
+            padding: 0px 2px;}
+        .captchaImg {
+            width: 126px;
+            height: 35px;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid #eae6e6;
+            vertical-align: middle;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            overflow: hidden;
+            
+        }
+        .form{
+            height: 404px;
+        }
+        
+    }
+    
+    
+    
+    
+    
