@@ -6,6 +6,10 @@
     .loss {
         color: #f31313
     }
+    .fullmaincontainer{position: relative;
+        float: left;
+        width: 100%}
+
     #createuser .modal-content{height:619px}
 .modal {
     background: rgba(0,0,0,0.6) !important;
@@ -16,8 +20,10 @@
   .modal .close {
         opacity: 0.8;}
 
-.loaderposition{    position: absolute;
-    z-index: 9999 !important;}
+.loaderposition{        position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    top: 37%;}
 
 
 .loaderimagepage{margin-left: 45%;margin-top: 19%;width: 8%;}

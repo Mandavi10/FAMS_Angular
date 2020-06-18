@@ -13,7 +13,7 @@ import{FormJsondata} from '../../Models/Login/form-jsondata';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  showSideNav= true; isShowLoader : boolean = false;
+  showSideNav= true;  loader1 : boolean = false; loader2 : boolean=false;
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
   randomcaptchavalue:string="";  randomcaptcha:string=""; 
@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
 
    }
   ngOnInit() {
-    //this.isShowLoader = true;
     sessionStorage.clear();
     this.LoginForm = this.formBuilder.group({
       //APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
@@ -65,25 +64,24 @@ this.LoginForm.reset();
 
 
   onSubmit() {
-    debugger;
     //commenton push
 
     //this.router.navigate(['/Dashboard']);
-     this.isShowLoader = true;
     if (this.LoginForm.valid) {
       
     if(this.AllFields.captcha.value == this.randomcaptcha)
     {
-
+      this.loader1=true; this.loader2=true;
       this.btnloginDisabled = true;
       let _apipostdata = new FormJsondata();
        //_apipostdata.APPID=this.AllFields.APPID.value;
        _apipostdata.UserName=this.AllFields.UserName.value;
        _apipostdata.Password=this.Dbsecurity.Encrypt(this.AllFields.Password.value);
-       this.isShowLoader = true;
+      // this.isShowLoader = true;
         this._loginService.GetLogin(JSON.stringify(_apipostdata)).subscribe(
             (data) => {
                 this.login = data;
+                this.loader1=false; this.loader2=false;
                 if (data[0].Flag == "0") {
                   this.btnloginDisabled = false;
                     this.errormsg = data[0].FlagValue;
@@ -133,7 +131,7 @@ this.BindRandomCaptcha();
     else {
         this.validateAllFormFields(this.LoginForm);
     }
-    this.isShowLoader = false;
+   // this.isShowLoader = false;
 }
  
 

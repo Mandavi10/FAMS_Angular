@@ -16,6 +16,13 @@ export class HomeComponent implements OnInit {
   constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
 
   ngOnInit(): void {
+    let item1 = JSON.parse(sessionStorage.getItem('User'));
+    var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
+if(UsertType !="1"){
+}
+else{
+document.getElementById("divWidth").classList.add("fullmaincontainer");
+}
     this.ChangePasswordForm = this.formbulider.group({
       ConfirmPassword : ['',Validators.required] , NewPassword : ['',Validators.required] , OldPassword : ['',Validators.required]
     });
