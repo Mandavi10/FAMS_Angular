@@ -7,13 +7,15 @@ import {map,catchError} from 'rxjs/operators';
 import {Logindetails} from '../../Models/Login/logindetails'
 import{EmailSent} from '../../Models/Login/email-sent';
 import{Changepasswordres} from '../../Models/Login/changepasswordres';
+import {AppSettings} from 'src/app/app-settings';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
     baseUrl: string = ""; 
     constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
-        this.baseUrl = myAppUrl;
+        //this.baseUrl = myAppUrl;
+        this.baseUrl = AppSettings.Login_URL;
     }
     GetLogin(em:any): Observable<Logindetails> {
       const body = em;
