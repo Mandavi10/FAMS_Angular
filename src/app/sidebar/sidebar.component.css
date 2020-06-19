@@ -24,4 +24,8 @@
     display: block;
 }
 .active{ border: 1px solid #8599ad; border-left: 3px solid #003974;  font-weight: 600; background-color: transparent !important;}
-  
+.nav > li > a {
+   
+    font-weight: 600 !important;
+   
+}

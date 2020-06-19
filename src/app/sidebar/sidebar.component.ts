@@ -11,8 +11,8 @@ import{Sidebarlinks,Model_getSideBarLinks}from '../../Models/Sidebar/sidebarlink
 })
 export class SidebarComponent implements OnInit {
   public Sidebarlinks:Sidebarlinks;
-  public Model_getSideBarLinks : Model_getSideBarLinks;
-  Model_getSideBarLinksData :Array<Model_getSideBarLinks> = [];
+  Model_getSideBarLinks : Array<Sidebarlinks> = [];
+  Model_getSideBarLinksData :Array<Sidebarlinks> = [];
 
   public shownav = false; liCountryMaster : boolean = true; UserId : any;
   liStateMaster : boolean = true; liCityMaster : boolean = true; liSectorMaster : 
@@ -59,6 +59,14 @@ debugger;
   }
   BindSideBarLinks()
   {
+    debugger;
+var staticData = {IconName: "fa fa-hourglass-start",
+LinkID: "10005",
+LinkName: "All orders",
+ParetmenuID: "11",
+url: "/OrderProcessingNew"};
+
+
     //let _Model_getSideBarLinks=new Model_getSideBarLinks();
     let item = JSON.parse(sessionStorage.getItem('User'));
     var UsertType  = this.Dbsecurity.Decrypt(item.UserType);
@@ -69,8 +77,22 @@ if(UsertType !="1"){
 
 
     this.SideBarService.BindSidebarLinks(Json).subscribe((data) => {
-      this.Sidebarlinks=data.Table;
+      //this.Sidebarlinks=data.Table;
       //this.Model_SideBarChildLinks=data.Table1;
+      this.Model_getSideBarLinks = data.Table;
+      var k = 0;
+      for (let i=0 ;i< this.Model_getSideBarLinks.length; i++){
+        this.Model_getSideBarLinksData[k] = this.Model_getSideBarLinks[i];
+        k++;
+        if(this.Model_getSideBarLinks[i].LinkName=="Order Processing"){
+          this.Model_getSideBarLinksData[k] = staticData;
+          // this.Model_getSideBarLinksData[k].LinkName = "All orders";
+          // this.Model_getSideBarLinksData[k].url ="/OrderProcessingNew";
+          // this.Model_getSideBarLinksData[k].ParetmenuID="11";
+          // this.Model_getSideBarLinksData[k].IconName="fa fa-dashboard";
+          k++;
+        }
+      }
     });
   }
   else{
