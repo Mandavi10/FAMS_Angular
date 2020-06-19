@@ -1,7 +1,7 @@
 <div class="dvLinks" *ngIf="divLinks">
   <!-- <ul class="nav nav-list"> -->
-    <ul class="nav nav-list" *ngFor="let Links of Sidebarlinks" >  
-    <li (click)="BindHeader(Links.LinkName,Links.url)" class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.ParetmenuID==0">
+    <ul [ngClass]="{'active' : Links.ParetmenuID==0}" class="nav nav-list" *ngFor="let Links of Model_getSideBarLinksData" >  
+    <li  (click)="BindHeader(Links.LinkName,Links.url)" class=""><a routerLink={{Links.url}}  *ngIf="Links.ParetmenuID==0">
       <!-- <li class=""><a routerLink={{Links.url}} routerLinkActive="active" *ngIf="Links.IsParent==0"> -->
         <span class="menu-text">{{Links.LinkName}}</span></a></li>
         <li class="" *ngIf="Links.ParetmenuID!=0"><span class="menu-text" ></span>
