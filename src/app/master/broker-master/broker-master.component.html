@@ -90,8 +90,8 @@
                 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
-                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                        <div class="col-sm-12 col-md-6 col-xs-12 no-padding">
                             <h4 class="pageTitle">
                                 Create Broker
                                  </h4>
@@ -107,25 +107,25 @@
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
                                 <form [formGroup]="BrokerMasterForm" autocomplete="off" appNorightclick>
                                                     <div class="row no-padding mt-2">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                                    Broker Name:
                                                                 </label>
-                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('BrokerName')">
                                                                     <input type="text"  requied name="BrokerName" class="col-sm-12 col-md-12 col-xs-12" formControlName="BrokerName" />
                                                                 </div>
                                                             </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                                  Trade Name:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('TradeName')">
                                                                     <input type="text" requied class="col-sm-12 col-md-12 col-xs-12" formControlName="TradeName"/>
                                                                 </div>
@@ -133,35 +133,35 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                                 Registration No.:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('RegistrationNo')">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="RegistrationNo"/>
                                                                 </div>
                                                             </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                              GST No.:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="GSTNo"/>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                                     Stock Exchange Name:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="StockExchangeName">
                                                                         <option value="" selected>Select</option>
                                                                         <option value="BSE">BSE</option>
@@ -171,72 +171,72 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                            Email:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Email"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                             Telephone:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Telephone"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                              Contact Person:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactPerson"/>
                                                                 </div>
                                                             </div>
                                                         </div>    
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                              Email:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactEmail"/>
                                                                 </div>
                                                             </div>
                                                         </div> 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                              Phone:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Phone"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                             Extension(if any):
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Extension"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
                                                             Mobile No.:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                                     <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="MobileNo"/>
                                                                 </div>
                                                             </div>
