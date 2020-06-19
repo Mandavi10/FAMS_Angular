@@ -11,6 +11,19 @@ body {
     border: none;
     border: 1px solid #c6c6c7;
 }
+.loaderOverlay{ background: #fff;
+    clear: both;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    z-index: 999;}
+.loaderposition{ position: relative;
+    margin: 21% auto;
+    display: block;
+    z-index: 9999 !important; }
+    .loaderposition img{width:6%}
 .captchaImg{width: 163px;
     height: 35px;
     display: inline-block;
