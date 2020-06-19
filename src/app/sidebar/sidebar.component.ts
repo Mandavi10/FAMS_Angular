@@ -88,6 +88,7 @@ if(UsertType !="1"){
         //   this.Model_getSideBarLinksData[k] = staticData;
         //   k++;
         // }
+        
       }
     });
   }
