@@ -60,11 +60,11 @@ debugger;
   BindSideBarLinks()
   {
     debugger;
-var staticData = {IconName: "fa fa-hourglass-start",
-LinkID: "10005",
-LinkName: "All orders",
-ParetmenuID: "11",
-url: "/OrderProcessingNew"};
+// var staticData = {IconName: "fa fa-hourglass-start",
+// LinkID: "10005",
+// LinkName: "All orders",
+// ParetmenuID: "11",
+// url: "/OrderProcessingNew"};
 
 
     //let _Model_getSideBarLinks=new Model_getSideBarLinks();
@@ -84,14 +84,10 @@ if(UsertType !="1"){
       for (let i=0 ;i< this.Model_getSideBarLinks.length; i++){
         this.Model_getSideBarLinksData[k] = this.Model_getSideBarLinks[i];
         k++;
-        if(this.Model_getSideBarLinks[i].LinkName=="Order Processing"){
-          this.Model_getSideBarLinksData[k] = staticData;
-          // this.Model_getSideBarLinksData[k].LinkName = "All orders";
-          // this.Model_getSideBarLinksData[k].url ="/OrderProcessingNew";
-          // this.Model_getSideBarLinksData[k].ParetmenuID="11";
-          // this.Model_getSideBarLinksData[k].IconName="fa fa-dashboard";
-          k++;
-        }
+        // if(this.Model_getSideBarLinks[i].LinkName=="Order Processing"){
+        //   this.Model_getSideBarLinksData[k] = staticData;
+        //   k++;
+        // }
       }
     });
   }
