@@ -1,6 +1,13 @@
 .maincontainer{ position: relative;
     float:left;
     width: 88%;}
+
+    .fullmaincontainer {
+        position: relative;
+        float: left;
+        width: 100% !important;
+    }
+
 .menuBox{width: 19%;
     background: transparent;
     border-radius: 0px;
@@ -135,4 +142,117 @@ min-height: 386px;
     padding: 3px 0 2px 0px;
     z-index: 9999;
     right: 1px;}
+     @media only screen and (max-width:900px) {
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 23.2%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #eae6e6;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 15px;
+            padding: 15px 10px 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+            vertical-align: top;
+            height: 68px;
+            overflow: hidden;
+        }
+}
+
+    @media only screen and (max-width:767px) {
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 23.2%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #eae6e6;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 15px;
+            padding: 15px 10px 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+            vertical-align: top;
+            height: 68px;
+            overflow: hidden;
+        }
+    }
+
+    @media only screen and (max-width:650px) {
+        .portalBox {
+        position: relative;
+        cursor: pointer;
+        width: 30%;
+        display: inline-block;
+        text-align: center;
+        border-right: 1px solid #eae6e6;
+        border-bottom: 1px solid #eae6e6;
+        margin-bottom: 15px;
+        padding: 15px 10px 10px;
+        margin-right: 5px;
+        margin-left: 5px;
+        vertical-align: top;
+        height: 68px;
+        overflow: hidden;
+    }
+}
   
+    @media only screen and (max-width:450px) {
+
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 47%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #eae6e6;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 15px;
+            padding: 15px 10px 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+            vertical-align: top;
+            height: 68px;
+            overflow: hidden;
+        }
+    }
+    @media only screen and (max-width:360px) {
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 46%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #eae6e6;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 15px;
+            padding: 15px 10px 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+            vertical-align: top;
+            height: 68px;
+            overflow: hidden;
+        }
+    }
+
+
+    @media only screen and (max-width:330px) {
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 46%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #eae6e6;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 15px;
+            padding: 15px 10px 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+            vertical-align: top;
+            height: 68px;
+            overflow: hidden;
+        }
+    }

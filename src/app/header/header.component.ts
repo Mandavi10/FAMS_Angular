@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   public shownav = false; isShowLoader : boolean =false;
   isShow = false;
   isShow1 = false;
+  showSettings:boolean=false;
   toggleDisplay() {
       this.isShow = !this.isShow;
   }
@@ -74,6 +75,7 @@ showModalChangePassword: boolean;
   this.HeaderName = HeaderName;
   this.HeaderUrl=HeaderUrl;
   this.isShowLoader = false;
+  this.ShowSettings();
   }
 
   togglenav() {
@@ -84,27 +86,44 @@ showModalChangePassword: boolean;
     sessionStorage.clear();
     this.router.navigate(['/Login']);
 }
+
+ShowSettings(){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
+  if(this.UserId  == "2"){
+    this.showSettings=true;//Added by Bibhu on 17June2020
+  }
+  else{
+    this.showSettings=false;//Added by Bibhu on 17June2020
+  }
+}
+
 Redirect()
 {
 
   this.router.navigate(['/Home']);
+
 }
 HomeFun(){
+  debugger;
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   this.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
   if(this.UserId == "5")
-                  {                 
-                    this.router.navigate(['/Dashboard']);
-                  }
-                  else if(this.UserId  == "3"
-                  || this.UserId  == "1"
-                  || this.UserId  == "2")
-                  {
-                    this.router.navigate(['/Home']);
-                  }
-                else{
-                    this.router.navigate(['/Dashboard']);
-                  }
+    {                 
+      this.router.navigate(['/Dashboard']);
+    }
+    else if(this.UserId  == "3"
+    || this.UserId  == "1"
+    || this.UserId  == "2")
+    {
+      this.router.navigate(['/Home']);
+      this.showSettings=false;//Added by Bibhu on 17June2020
+    }
+   else{
+      this.router.navigate(['/Dashboard']);
+    }
+   
+
 }
 
 }

@@ -8,6 +8,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class MainLayoutComponent implements OnInit {
   showSideNav = true;
+  toggleNav(){
+    this.showSideNav = !this.showSideNav;
+  }
+  
   constructor(router: Router) {
     router.events.subscribe(event => {
       if (router.url === '/Home') {

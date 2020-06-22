@@ -58,15 +58,17 @@
                                 <i class="logoutdiv ace-icon fa fa-key"
                                    aria-hidden="true"></i><span class="logoutcolor">Change Password</span>
                             </li>
+
+                             <!-- Added by Bibhu on 17June2020  [style.display]="showSetting ? 'block' : 'none'" -->
+                             <li class="logouthover" (click)="onClicksetting($event)" [style.display]="showSettings ? 'block' : 'none'"> 
+                                <i class="logoutdiv ace-icon fa fa-power-off">
+                                </i><span class="logoutcolor" >Settings</span>
+                            </li>
                             <li class="logouthover" >
                                 <i class="logoutdiv ace-icon fa fa-power-off">
                                 </i><span class="logoutcolor" (click)="logout()">Log Out</span>
                             </li>
-
-                            <li class="logouthover" (click)="onClicksetting($event)">
-                                <i class="logoutdiv ace-icon fa fa-power-off">
-                                </i><span class="logoutcolor" >Setting</span>
-                            </li>
+                           
                             
                         </ul>
                     </li>
@@ -115,8 +117,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
                         <form class="" >
                                             <div class="row no-padding mt-2">
-                                                <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 mt-3">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                                                                 <div class="form-group">
                                                                     <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                        Old Password:
@@ -126,7 +128,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 mt-4">
                                                                     <div class="form-group">
                                                                         <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                                             New Password:
@@ -137,7 +139,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 mt-4">
                                                     <div class="form-group">
                                                         <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
                                                             Confirm Password:
