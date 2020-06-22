@@ -840,11 +840,19 @@ a.headerRightIcon i {
             top: 43px ;
             letter-spacing: 0px ;
         }
+        .usericon{position: fixed;
+            top: 7px;
+            right: 26px;
+        }
         
         }
 
 
     @media only screen and (max-width:1300px) {
+        .usericon{position: fixed;
+            top: 7px;
+            right: 26px;
+        }
         #guidelines {
             color: #003974;
             position: absolute;
@@ -895,10 +903,19 @@ a.headerRightIcon i {
             letter-spacing: 0px ;
         }
         
+        .usericon{position: fixed;
+            top: 7px;
+            right: 26px;
+        }
+
         }
 
 
     @media only screen and (max-width:900px) {
+        .usericon{position: fixed;
+            top: 7px;
+            right: 7px;
+        }
         .quickLeftDiv{
             background: #003974;
             height: 38px;
@@ -933,7 +950,10 @@ a.headerRightIcon i {
 
     @media only screen and (max-width:750px) {
 
-
+        .usericon{position: fixed;
+            top: 7px;
+            right: 7px;
+        }
         .quickLeftDiv{
             background: #003974;
             height: 38px;
@@ -1048,6 +1068,10 @@ a.headerRightIcon i {
         
         } */
         @media only screen and (max-width:640px) {
+            .usericon{position: fixed;
+                top: 7px;
+                right: 7px;
+            }
             .quickLeftDiv{
                 background: #003974;
                 height: 38px;
@@ -1085,6 +1109,10 @@ a.headerRightIcon i {
         }
         
         @media only screen and (max-width:622px) {
+            .usericon{position: fixed;
+                top: 7px;
+                right:30px;
+            }
             .quickLeftDiv{
                 background: #003974;
                 height: 38px;
@@ -1139,6 +1167,10 @@ a.headerRightIcon i {
             height: 38px;
             width: 100%!important;
             float: left;
+        }
+        .usericon{position: fixed;
+            top: 7px;
+            right:30px;
         }
         
     }
