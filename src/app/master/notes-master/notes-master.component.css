@@ -25,6 +25,10 @@ height: 24px;
  background-color: #1f497d;
 color: #ffff;
      }
+     .formatbox{    width: 100%;
+      padding: 0px 0px 0px 22px;
+     
+  }
 .underspan
  {
     border-bottom: 1px solid #fff;
@@ -419,5 +423,168 @@ select {
   border-radius: 3px;
   width:100%
 }
-.mailBox{ overflow: hidden; padding-left:5px}
+.mailBox{ overflow: hidden; }
 .mailBox textarea{ width:100%}
+@media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} }
+@media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
+  height: 421px !important; } 
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 430px; */
+}
+ textarea {
+    height:350px !important;
+    background-color: #fff !important;
+  }
+.btnbox {display: flex;}
+ }
+ @media only screen and (max-device-width : 812px) { 
+   .formatbox{    width: 100%;
+  padding: 0px 0px 0px 13px;
+  /* overflow-y: scroll;
+  max-height: 454px; */
+}
+textarea {
+  height: 355px !important;
+  background-color: #fff !important;
+}
+.btnbox {display: flex;}
+} 
+@media only screen and (max-device-width : 767px) {   
+  .maincontainer{width:100% !important}  
+  #createuser .modal-dialog {
+    margin: 3px 0 0 27% !important;
+}
+textarea {
+  height: 348px !important;
+  background-color: #fff !important;
+}
+.successPopup .modal-dialog {
+  width: 90%;
+}
+.toolbar-content li {
+ margin-right: 4px !important; 
+ padding:1px 6px 0px 1px !important; 
+}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 459px; */
+}
+.btnbox {display: flex;}
+}
+@media only screen and (max-device-width: 736px)
+{
+#createuser .modal-dialog{
+  margin: 3px 0 0 34% !important;
+}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 459px; */
+}
+textarea {
+  height: 356px !important;
+  background-color: #fff !important;
+}
+.btnbox {display: flex;}
+}
+@media only screen and (max-device-width: 648px){
+
+  #createuser .modal-dialog{
+    margin: 3px 0 0 34% !important;
+  }
+  #divform{      overflow-y: scroll!important;
+    height: 286px !important; }
+    .formatbox{    width: 100%;
+      padding: 0px 0px 0px 13px;
+      /* overflow-y: scroll;
+      max-height: 459px; */
+  }
+  textarea {
+    height: 329px !important;
+    background-color: #fff !important;
+  }
+  .btnbox {display: flex;}
+   
+}
+@media only screen and (max-device-width : 575px) { 
+  textarea {
+    height: 264px !important;
+    background-color: #fff !important;
+  } 
+.content {
+height: 97%;
+}
+.lblpadding{padding: 0px;}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .divblock{
+    position: absolute;
+    top: 97%;
+    padding: 0px;
+    left: -4%;
+  }
+  .btnasearch{float: right!important;
+
+    margin-right: 12px;
+}
+  .clientbox{
+    margin: 1% 0% 8% 0%;
+  }
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 493px; */
+  
+}
+.btnbox {display: flex;}
+}
+
+
+@media only screen and (max-device-width : 450px) {  
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 491px; */
+}
+textarea {
+  height: 264px !important;
+  background-color: #fff !important;
+}
+.btnbox {display: flex;}
+
+
+}
+@media only screen and (max-device-width : 360px) { 
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 498px; */
+}
+textarea {
+  height: 264px !important;
+  background-color: #fff !important;
+}
+.btnbox {display: flex;} 
+}
+
+@media only screen and (max-device-width : 320px) { 
+  
+  .formatbox{    width: 100%;
+    padding: 0px 0px 0px 13px;
+    /* overflow-y: scroll;
+    max-height: 495px; */
+}
+.btnbox {display: flex;}
+
+textarea {
+  height: 264px !important;
+  background-color: #fff !important;
+}
+}

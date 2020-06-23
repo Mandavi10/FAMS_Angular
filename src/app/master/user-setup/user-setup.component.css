@@ -349,9 +349,11 @@
     }
     
     
-@media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} }
+@media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} 
+.boxnexxxt{padding-left: 0px;}}
 @media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
-  height: 421px !important; }  }
+  height: 421px !important; } 
+  .boxnexxxt{padding-left: 0px;} }
 @media only screen and (max-device-width : 767px) {   
   .maincontainer{width:100% !important}  
   #createuser .modal-dialog {
@@ -366,13 +368,17 @@
 }
 #divform{   overflow-y: scroll!important;
   height: 421px !important; }
+  .boxnexxxt{padding-left: 0px;}
 }
 @media only screen and (max-device-width: 736px)
 {
+  .boxnexxxt{padding-left: 0px;}
   .detailBox{margin-top:8px;}
 #createuser .modal-dialog{
   margin: 3px 0 0 34% !important;
+  
 }
+.check{vertical-align: bottom;}
 #divform{   overflow-y: scroll!important;
   height: 421px !important; }
 }
@@ -383,13 +389,16 @@
   }
   #divform{      overflow-y: scroll!important;
     height: 286px !important; }
-   
+    .boxnexxxt{padding-left: 0px;}
+    .check{vertical-align: middle;}
 }
+
 @media only screen and (max-device-width : 575px) {  
 .content {
 height: 97%;
 }
-
+.lblpadding{padding-left:0px;}
+.boxpadding{padding-left:0px;}
 #divform{   overflow-y: scroll!important;
   height: 421px !important; }
   .divblock{
@@ -406,5 +415,8 @@ height: 97%;
     margin: 1% 0% 8% 0%;
   }
   .detailBox{margin-top:8px;}
+  .check{vertical-align: middle;}
 }
-
+@media only screen and (max-device-width : 450px) {  
+  .check{vertical-align: bottom;}
+}
