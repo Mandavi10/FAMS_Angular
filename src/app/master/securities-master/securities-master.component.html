@@ -8,7 +8,7 @@
         </div>
         
 
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
@@ -81,7 +81,13 @@
       >
       
 </ag-grid-angular>
-           
+         <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="paginationDiv">
+                    <span class="previousBtn">Previous</span>
+                    <span class="paginationCount">50 out of 200</span>
+                    <span class="nextBtn">Next</span>
+                </div>
+        </div>      
             
         </div>
         
@@ -105,7 +111,13 @@
       (gridReady)="onGridReady1($event)"
       >
 </ag-grid-angular>
-           
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div> 
             
         </div>
        
@@ -119,8 +131,8 @@
                 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
-                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                        <div class="col-sm-12 col-md-12 col-xs-12 no-padding">
                             <h4 class="pageTitle">
                                Create Securities
                                  </h4>
@@ -136,13 +148,13 @@
                         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
                             <form [formGroup]="SecurityFormGrp" autocomplete="off" class="form" appNorightclick>
                                                     <div class="row no-padding mt-2">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                         Country:
                                                                     </label>
-                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                             <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                                                                             <option>Select Country</option>
                                                                             <option>India</option>
@@ -161,12 +173,12 @@
                                                                     </div> 
                                                                 </div>
                                                             </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Custodian:
                                                                 </label>
-                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                 <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                                                                         <option>Select Custodian</option>
                                                                         <option>CUS1</option>
@@ -187,12 +199,12 @@
                                                                   </div> 
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     List Code:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('ListCode')">
                                                                     <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <input type="text" required name="listCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="ListCode"
@@ -202,12 +214,12 @@
                                                                 </div>
                                                         </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                   List Name:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('ListName')">
                                                                         <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
@@ -216,12 +228,12 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Security Code:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('SecurityCode')">
                                                                         <!-- <select class="col-md-12 col-xs-12 col-sm-12" (change)="FillSecurityCodeDetails(selectField.value);" #selectField  formControlName="SecurityCode">
@@ -240,12 +252,12 @@
                                                         
                                                         
 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Security Name:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('SecurityName')">
                                                                         <input type="text" required name="securityName" class="col-sm-12 col-md-12 col-xs-12" formControlName="SecurityName"/>
@@ -256,12 +268,12 @@
 
 
 
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Sector:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                                                                         <option>Select Sector</option>
                                                                         <option>Sector 1</option>
@@ -279,12 +291,12 @@
                                                             </div>
                                                         </div> 
                                                         
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Active:
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-3 col-md-5 col-xs-3 no-padding-left displayinlineblock">
                                                                     <!-- <input type="checkbox"/> -->
                                                                     <input  name="active" formControlName="Active" value="" type="checkbox" class="col-md-1 col-sm-2 col-xs-4"/>
                                                                 </div>
