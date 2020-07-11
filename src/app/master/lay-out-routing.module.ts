@@ -50,6 +50,8 @@ const routes: Routes = [
 {path: 'BrokerMaster', loadChildren: './broker-master/broker-master.module#BrokerMasterModule'},
 {path: 'DistributorMaster', loadChildren: './distributor-master/distributor-master.module#DistributorMasterModule'},
 
+
+{path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
         ]
   }
 ];
