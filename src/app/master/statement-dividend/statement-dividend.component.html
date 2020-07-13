@@ -1,0 +1,313 @@
+<div class="main-content maincontainer">
+  <div class="content">
+
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
+          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+          </div>
+      </div>
+
+      <form class="form">
+      <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+               <span class="legal"></span>
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content">
+                     
+                      <li (click)="downloadCSVFile()">
+                          <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                          <label>
+                              <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
+                              Export to CSV
+                              
+                          </label>
+
+                          
+                          <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                              <i class="fa fa-file-excel-o"></i>
+                          </button></a> --> 
+                      </li>
+                       
+                       <li >
+                               <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                               <label>
+                                  <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
+                                 
+                               </label>
+                               <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                                  <i class="fa fa-file-pdf-o"></i>
+                              </button></a> -->
+                           </li>
+                   </ul>
+              </div>
+          </div>
+      </div>
+     
+      <div class="row">
+     <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+      
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+             From Date :
+            </label>
+            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                
+                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+            </div>
+        </div>
+    </div>
+          <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="form-group">
+                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                       To Date :
+                      </label>
+                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                         
+                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
+                  <!-- <button type="button" class="btn btn-success">Search</button> -->
+                  <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
+                  </div>
+  </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
+      <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3">
+              <span class="legal"> Statement Of Dividend</span>
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content btnCon">
+                     
+                      <li>
+                         
+                          <label>
+                             Previous Day
+                          </label>
+                      </li>
+                      <li>
+                       
+                          <label>
+                             Last One Week
+                          </label>
+                      </li>
+                       
+                       <li>
+                              
+                               <label>
+                                 Last One Month
+                               </label>
+                           </li>
+                   </ul>
+              </div>
+          </div>
+      </div>   
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="holdingreportGrid">
+          <table class="bankmasterTable" id="bankmastertable">
+              <thead>
+
+                  <tr>
+
+                      <th style="width: 168px">Ex Date</th>
+                      <th style="width: 145px">Received Date</th>
+                      <th style="width: 79px">Security</th>
+                      <th style="width: 123px">Quantity Rate</th>
+                      <th style="width: 140px" class="text-right">Amount</th>
+                      <th style="width: 187px" class="text-right">Receivable Amount</th>
+                      <th style="width: 151px" class="text-right">Received Amount</th>
+                     <th style="width: 123px" class="text-right">TDS Amount</th> 
+                      <th style="width: 132px" class="text-right">Net Amount</th>
+                      <th style="width: 145px" class="text-right">Balance Amount</th>
+                     
+                  </tr>
+              </thead>
+              <tbody class="scrollbar">
+                  <tr>
+                      <td colspan="9">
+                          <table>
+                              <tbody>
+                                  <tr >
+                                     
+                                          <td style="width: 98px">13/07/2020</td>
+                                          <td style="width: 91px">10/07/2020</td>
+                                          <td style="width: 71px" >Bank Of India</td>
+                                          <td style="width: 81px">69598</td>
+                                          <td style="width: 85px" class="text-right">69598</td>
+                                          <td style="width: 117px" class="text-right">69598</td>
+                                          <td style="width: 107px" class="text-right">69598</td>
+                                           <td style="width: 84px" class="text-right">69598</td>
+                                          <td style="width: 88px" class="text-right">69598</td>
+                                          <td style="width: 93px" class="text-right">69598</td>
+                                        
+                                      </tr>
+                                
+                              </tbody>
+                          <tfoot>
+                           
+                              <tr>
+                                      <td style="width: 98px"></td>
+                                      <td style="width: 91px"></td>
+                                      <td style="width: 71px"></td>
+                                      <td style="width: 81px" ></td>
+                                      <td style="width: 85px" ></td>
+                                      <td style="width: 117px" class="text-right">25565</td>
+                                      <td style="width: 107px" class="text-right">646564</td>
+                                      <td style="width: 84px" class="text-right">566</td>
+                                      <td style="width: 88px" class="text-right">665</td>
+                                      <td style="width: 93px" class="text-right">266</td>
+                                     
+                              </tr>
+
+                          </tfoot>
+          </table>
+          </td>
+                     
+                  </tr>
+             
+                  <tr>
+                      <td colspan="9">
+                          <table>
+                              <tbody>
+                                  <tr >
+                                    
+                                      <td style="width: 98px"></td>
+                                      <td style="width: 91px"></td>
+                                      <td style="width: 71px"></td>
+                                      <td style="width: 81px" ></td>
+                                      <td style="width: 85px" ></td>
+                                      <td style="width: 117px" class="text-right"><strong>25565</strong></td>
+                                      <td style="width: 107px" class="text-right"><strong>646564</strong></td>
+                                      <td style="width: 84px" class="text-right"><strong>566</strong></td>
+                                      <td style="width: 88px" class="text-right"><strong>665</strong></td>
+                                      <td style="width: 93px" class="text-right"><strong>266</strong></td>
+                                    
+                                      </tr>
+                                  
+                              </tbody>
+                       
+          </table>
+          </td>
+                     
+                  </tr>
+                  
+              </tbody>
+              
+          </table>
+
+      </div>
+</div>
+          
+      </div>
+
+
+
+
+      <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+            <div class="col-sm-6 col-md-6 col-xs-3">
+                <span class="legal">Dividend Summary</span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content btnCon">
+                       
+                        <li>
+                           
+                            <label>
+                               Previous Day
+                            </label>
+                        </li>
+                        <li>
+                         
+                            <label>
+                               Last One Week
+                            </label>
+                        </li>
+                         
+                         <li>
+                                
+                                 <label>
+                                   Last One Month
+                                 </label>
+                             </li>
+                     </ul>
+                </div>
+            </div>
+        </div>   
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="holdingreportGrid">
+            <table class="bankmasterTable" id="bankmastertable">
+                <thead>
+  
+                    <tr>
+  
+                        <th style="width: 492px">Transaction Description</th>
+                        <th style="width: 170px" class="text-right">Total Dividend Received</th>
+                        <th style="width: 170px" class="text-right">Outstanding Dividend</th>
+                        <th style="width: 170px" class="text-right">Total Amount</th>
+                        <th style="width: 170px" class="text-right">TDS Amount</th>
+                        
+                       
+                    </tr>
+                </thead>
+                <tbody class="scrollbar">
+                    <tr>
+                        <td colspan="9">
+                            <table>
+                                <tbody>
+                                    <tr >
+                                       
+                                            <td style="width: 624px" >Dividend</td>
+                                            <td style="width: 164px" >9565</td>
+                                            <td style="width: 225px" >65565</td>
+                                            <td style="width: 54px" class="secgrid">4566</td>
+                                            <td style="width: 99px" class="text-right">69598</td>
+                                          
+                                          
+                                        </tr>
+                                  
+                                </tbody>
+                            <tfoot>
+                             
+                                <tr>
+                                    <td style="width: 624px"> Total</td>
+                                        <td style="width: 164px" >9565</td>
+                                        <td style="width: 225px" >65565</td>
+                                        <td style="width: 54px" class="secgrid1">5455</td>
+                                        <td style="width: 99px" class="text-right">4566</td>
+                                        
+                                      
+                                       
+                                </tr>
+  
+                            </tfoot>
+            </table>
+            </td>
+                       
+                    </tr>
+               
+                   
+                    
+                </tbody>
+                
+            </table>
+  
+        </div>
+  </div>
+            
+        </div>
+
+
+    
+      </form>
+  </div>
+
+</div>
+

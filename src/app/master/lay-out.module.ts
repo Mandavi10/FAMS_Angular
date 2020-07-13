@@ -11,6 +11,7 @@ import{NorightclickModule}from '../Services/norightclick.module';
 
 
 
+
 @NgModule({
   declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent],
   imports: [
