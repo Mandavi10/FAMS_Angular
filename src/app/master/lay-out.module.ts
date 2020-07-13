@@ -11,6 +11,7 @@ import{NorightclickModule}from '../Services/norightclick.module';
 import { StatementOfExpensesComponent } from './statement-of-expenses/statement-of-expenses.component';
 
 
+
 @NgModule({
   declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent, StatementOfExpensesComponent],
   imports: [
