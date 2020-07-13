@@ -8,13 +8,13 @@ import { MenuComponent } from '../menu/menu.component';
 import { LayOutRoutingModule } from './lay-out-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import{NorightclickModule}from '../Services/norightclick.module';
-import { StatementOfExpensesComponent } from './statement-of-expenses/statement-of-expenses.component';
+
 
 
 
 
 @NgModule({
-  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent, StatementOfExpensesComponent],
+  declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent],
   imports: [
     CommonModule,
     LayOutRoutingModule,
