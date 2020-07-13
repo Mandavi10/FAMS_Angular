@@ -12,6 +12,7 @@ import { StatementOfExpensesComponent } from './statement-of-expenses/statement-
 
 
 
+
 @NgModule({
   declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent, StatementOfExpensesComponent],
   imports: [
