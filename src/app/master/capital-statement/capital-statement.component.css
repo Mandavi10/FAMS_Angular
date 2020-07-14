@@ -1,0 +1,136 @@
+table thead tr th {
+    color: #003974 !important;
+    height: 30px;
+    font-size: 12px !important;
+    font-weight: 600;
+}
+#capitalStatementGrid .bankmasterTable{display:inline-block}
+#capitalStatementGrid .bankmasterTable thead{ display: inline-block; width:100%}
+#capitalStatementGrid .bankmasterTable tbody {
+    max-height: 54vh !important;
+    display: inline-block;
+    width:100%
+}
+
+ #capitalStatementGrid { overflow:auto;}
+strong {
+    color: #0a2e40;
+    font-size: 12px;
+}
+.bankmasterTable tr td table tr:nth-child(even) {
+    background-color:transparent;
+}
+.bankmasterTable thead tr:first-child th:first-child {
+padding-left:0px}
+
+.bankmasterTable tr td table tr td:first-child {
+text-align:left !important}
+.bankmasterTable tr td table tr td {
+text-align:right !important}
+    .bankmasterTable tbody tr td table tbody {
+    overflow:hidden !important}
+    @media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} 
+ 
+    #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 54vh !important;
+        display: inline-block;
+        width: 100%;
+    }
+}
+    @media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
+      height: 421px !important; } 
+     
+      #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 45vh !important;
+        display: inline-block;
+        width: 100%;
+    } }
+    @media only screen and (max-device-width : 767px) {   
+        #capitalStatementGrid {
+            overflow-x: auto;
+        }
+      .maincontainer{width:100% !important}  
+      #createuser .modal-dialog {
+        margin: 3px 0 0 27% !important;
+    }
+    .successPopup .modal-dialog {
+      width: 90%;
+    }
+    .toolbar-content li {
+     margin-right: 4px !important; 
+     padding:1px 6px 0px 1px !important; 
+    }
+    #divform{   overflow-y: scroll!important;
+      height: 421px !important; }
+       
+      #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 35vh !important;
+        display: inline-block;
+        width: 100%;
+    }
+    }
+    @media only screen and (max-device-width: 736px)
+    {
+    #createuser .modal-dialog{
+      margin: 3px 0 0 34% !important;
+    }
+    #divform{   overflow-y: scroll!important;
+      height: 421px !important; }
+       
+      #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 35vh !important;
+        display: inline-block;
+        width: 100%;
+    }
+    #capitalStatementGrid {
+        overflow-x: auto;
+    }
+    }
+    @media only screen and (max-device-width: 648px){
+    
+      #createuser .modal-dialog{
+        margin: 3px 0 0 34% !important;
+      }
+      #divform{      overflow-y: scroll!important;
+        height: 286px !important; }
+
+          #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 35vh !important;
+        display: inline-block;
+        width: 100%;
+    }
+    #capitalStatementGrid {
+        overflow-x: auto;
+    }
+       
+    }
+    @media only screen and (max-device-width : 575px) {  
+    .content {
+    height: 97%;
+    }
+    
+    #divform{   overflow-y: scroll!important;
+      height: 421px !important; }
+      .divblock{
+        position: absolute;
+        top: 97%;
+        padding: 0px;
+        left: -4%;
+      }
+      .btnasearch{float: right!important;
+    
+        margin-right: 12px;
+    }
+      .clientbox{
+        margin: 1% 0% 8% 0%;
+      }
+
+      #capitalStatementGrid .bankmasterTable tbody {
+        max-height: 27 vh !important;
+        display: inline-block;
+        width: 100%;
+    }
+    #capitalStatementGrid {
+        overflow-x: auto;
+    }
+    }

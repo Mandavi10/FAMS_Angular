@@ -418,3 +418,75 @@ select {
   border-radius: 3px;
   width:100%
 }
+@media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;}
+.notificationscroll{ overflow-y: scroll;
+  height: 417px;} }
+@media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
+  height: 421px !important; } 
+  .notificationscroll{ overflow-y: scroll;
+    height: 417px;}
+   }
+@media only screen and (max-device-width : 767px) {   
+  .maincontainer{width:100% !important}  
+  #createuser .modal-dialog {
+    margin: 3px 0 0 27% !important;
+}
+.successPopup .modal-dialog {
+  width: 90%;
+}
+.toolbar-content li {
+ margin-right: 4px !important; 
+ padding:1px 6px 0px 1px !important; 
+}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .notificationscroll{ overflow-y: scroll;
+    height: 417px;}
+}
+@media only screen and (max-device-width: 736px)
+{
+#createuser .modal-dialog{
+  margin: 3px 0 0 34% !important;
+}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .notificationscroll{ overflow-y: scroll;
+    height: 417px;}
+}
+@media only screen and (max-device-width: 648px){
+
+  #createuser .modal-dialog{
+    margin: 3px 0 0 34% !important;
+  }
+  #divform{      overflow-y: scroll!important;
+    height: 286px !important; }
+
+    .notificationscroll{ overflow-y: scroll;
+      height: 417px;}
+   
+}
+@media only screen and (max-device-width : 575px) {  
+.content {
+height: 97%;
+}
+
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .divblock{
+    position: absolute;
+    top: 97%;
+    padding: 0px;
+    left: -4%;
+  }
+  .btnasearch{float: right!important;
+
+    margin-right: 12px;
+}
+  .clientbox{
+    margin: 1% 0% 8% 0%;
+  }
+  .notificationscroll{    overflow-y: scroll;
+    height: 224px;}
+    .boxright{    overflow-y: scroll;
+      height: 189px;}
+}

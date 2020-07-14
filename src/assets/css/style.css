@@ -3520,6 +3520,14 @@ body.mob-safari .sidebar.sidebar-fixed {
     body.mob-safari .navbar-fixed-top:not(.navbar-collapse) + .main-container .sidebar-fixed {
         top: 90px
     }
+
+    #createuser .modal-dialog{
+       width: 100%!important;
+    }
+    #createuser .modal-content{
+        height: 565px;
+    }
+
 }
 
 @media (max-width: 991px) {
@@ -26738,6 +26746,7 @@ th.dow {
     .banner1 {
         width: 70% !important;
     }
+   
 }
 
 @media only screen and (min-width: 601px) and (max-width: 760px) {
