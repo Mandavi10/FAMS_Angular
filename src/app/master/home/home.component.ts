@@ -121,6 +121,7 @@ this.OrderProcessing=false;
     return !this.ChangePasswordForm.get(field).valid && this.ChangePasswordForm.get(field).touched;
   }
   BindAllTab(){
+    debugger;
     this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserType = this.Dbsecurity.Decrypt(Sessionvalue.UserType);
