@@ -59,12 +59,16 @@ debugger;
   }
   BindSideBarLinks()
   {
-    debugger;
 var staticData = {IconName: "fa fa-hourglass-start",
 LinkID: "10005",
 LinkName: "All orders",
 ParetmenuID: "11",
 url: "/OrderProcessingNew"};
+var staticData1 = {IconName: "fa fa-hourglass-start",
+LinkID: "10006",
+LinkName: "Data Analysis",
+ParetmenuID: "11",
+url: "/DataAnalysis"};
 
 
     //let _Model_getSideBarLinks=new Model_getSideBarLinks();
@@ -86,6 +90,10 @@ if(UsertType !="1"){
         k++;
         if(this.Model_getSideBarLinks[i].LinkName=="Order Processing"){
           this.Model_getSideBarLinksData[k] = staticData;
+          k++;
+        }
+        if(this.Model_getSideBarLinks[i].LinkName=="Home"){
+          this.Model_getSideBarLinksData[k] = staticData1;
           k++;
         }
       }
