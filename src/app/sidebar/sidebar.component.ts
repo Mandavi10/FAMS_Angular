@@ -86,10 +86,6 @@ if(UsertType !="1"){
         k++;
         if(this.Model_getSideBarLinks[i].LinkName=="Order Processing"){
           this.Model_getSideBarLinksData[k] = staticData;
-          // this.Model_getSideBarLinksData[k].LinkName = "All orders";
-          // this.Model_getSideBarLinksData[k].url ="/OrderProcessingNew";
-          // this.Model_getSideBarLinksData[k].ParetmenuID="11";
-          // this.Model_getSideBarLinksData[k].IconName="fa fa-dashboard";
           k++;
         }
       }

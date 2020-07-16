@@ -1,0 +1,430 @@
+<div class="main-content maincontainer">
+  <div class="content">
+
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
+          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+          </div>
+      </div>
+
+      <form class="form">
+      <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+               <span class="legal"></span>
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content">
+                     
+                      <li (click)="downloadCSVFile()">
+                          <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                          <label>
+                              <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
+                              Export to CSV
+                              
+                          </label>
+
+                          
+                          <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                              <i class="fa fa-file-excel-o"></i>
+                          </button></a> --> 
+                      </li>
+                       
+                       <li >
+                               <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                               <label>
+                                  <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
+                                 
+                               </label>
+                               <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                                  <i class="fa fa-file-pdf-o"></i>
+                              </button></a> -->
+                           </li>
+                   </ul>
+              </div>
+          </div>
+      </div>
+     
+      <div class="row">
+     <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+      
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+             From Date :
+            </label>
+            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                
+                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+            </div>
+        </div>
+    </div>
+          <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="form-group">
+                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                       To Date :
+                      </label>
+                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                         
+                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
+                  <!-- <button type="button" class="btn btn-success">Search</button> -->
+                  <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
+                  </div>
+  </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
+      <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+               
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content btnCon">
+                     
+                      <li>
+                         
+                          <label>
+                             Previous Day
+                          </label>
+                      </li>
+                      <li>
+                       
+                          <label>
+                             Last One Week
+                          </label>
+                      </li>
+                       
+                       <li>
+                              
+                               <label>
+                                 Last One Month
+                               </label>
+                           </li>
+                   </ul>
+              </div>
+          </div>
+      </div>   
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="holdingreportGrid">
+          <table class="bankmasterTable" id="bankmastertable">
+              <thead>
+
+                  <tr>
+
+                      <th style="width: 326px">Security</th>
+                      <th style="width: 145px">Price As On</th>
+                      <th style="width: 79px">Quantity</th>
+                      <th style="width: 103px">Unit Cost</th>
+                      <th style="width: 140px">Total Cost</th>
+                      <th style="width: 139px">Marked Price</th>
+                      <th style="width: 123px">Market Value</th>
+                     <th style="width: 123px">Income</th> 
+                      <th style="width: 132px">Total G/L</th>
+                      <th style="width: 95px">% G/L</th>
+                      <th style="width: 95px">IRR %</th>
+                      <th style="width: 95px">% Assets</th>
+                  </tr>
+              </thead>
+              <tbody class="scrollbar">
+                  <tr>
+                      <td colspan="9"><strong style="display: block;">Equity
+                      </strong>
+                      <strong style="display: block;">Shares
+                    </strong>
+                          <table>
+                              <tbody>
+                                  <tr >
+                                     
+                                          <td style="width: 215px">Bank OF India</td>
+                                          <td style="width: 105px">69598</td>
+                                          <td style="width: 71px" >69598</td>
+                                          <td style="width: 77px">69598</td>
+                                          <td style="width: 99px">69598</td>
+                                          <td style="width: 103px">69598</td>
+                                          <td style="width: 97px">69598</td>
+                                           <td style="width: 93px">69598</td>
+                                          <td style="width: 95px">-69598</td>
+                                          <td style="width: 68px">-69598</td>
+                                          <td style="width: 74px">-69598</td>
+                                          <td style="width: 69px">69598</td>
+                                      </tr>
+                                      <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                                    <tr >
+                                     
+                                        <td style="width: 215px">Bank OF India</td>
+                                        <td style="width: 105px">69598</td>
+                                        <td style="width: 71px" >69598</td>
+                                        <td style="width: 77px">69598</td>
+                                        <td style="width: 99px">69598</td>
+                                        <td style="width: 103px">69598</td>
+                                        <td style="width: 97px">69598</td>
+                                         <td style="width: 93px">69598</td>
+                                        <td style="width: 95px">-69598</td>
+                                        <td style="width: 68px">-69598</td>
+                                        <td style="width: 74px">-69598</td>
+                                        <td style="width: 69px">69598</td>
+                                    </tr>
+                              </tbody>
+                          <tfoot>
+                           
+                              <tr>
+                                      <td style="width: 215px">Shares Total</td>
+                                      <td style="width: 105px"></td>
+                                      <td style="width: 71px"></td>
+                                      <td style="width: 77px" ></td>
+                                      <td style="width: 99px" >64665</td>
+                                      <td style="width: 103px" ></td>
+                                      <td style="width: 97px" >646564</td>
+                                      <td style="width: 93px" >566</td>
+                                      <td style="width: 95px" >-665</td>
+                                      <td style="width: 68px" >-266</td>
+                                      <td style="width: 74px" ></td>
+                                      <td style="width: 69px" >6466</td>
+                              </tr>
+
+                          </tfoot>
+          </table>
+          </td>
+                     
+                  </tr>
+             
+                  <tr>
+                      <td colspan="9">
+                          <table>
+                              <tbody>
+                                  <tr >
+                                    
+                                    <td style="width: 215px"><strong >Equality Total
+                                    </strong></td>
+                                    <td style="width: 105px"></td>
+                                    <td style="width: 71px"></td>
+                                    <td style="width: 77px" ></td>
+                                    <td style="width: 99px" ><strong >64665</strong></td>
+                                    <td style="width: 103px" ></td>
+                                    <td style="width: 97px" ><strong >646564</strong></td>
+                                    <td style="width: 93px" ><strong >566</strong></td>
+                                    <td style="width: 95px" ><strong >-665</strong></td>
+                                    <td style="width: 68px" ><strong >-266</strong></td>
+                                    <td style="width: 74px" ></td>
+                                    <td style="width: 69px" ><strong >6466</strong></td>
+                                      </tr>
+                                  
+                              </tbody>
+                       
+          </table>
+          </td>
+                     
+                  </tr>
+                  
+              </tbody>
+              
+          </table>
+
+      </div>
+</div>
+          
+      </div>
+    
+      </form>
+  </div>
+
+</div>
+

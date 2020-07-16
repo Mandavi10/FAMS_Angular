@@ -6,7 +6,7 @@
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div>
         </div>
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
              
@@ -72,15 +72,21 @@
       rowSelection="single"
       (cellClicked)="onRowSelected($event)">
 </ag-grid-angular>
-           
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div> -->
             
         </div>
          <form [formGroup]="NoteMasterForm" autocomplete="off" appNorightclick>
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
-        <div class=" col-sm-12 col-xs-12 col-md-12 formatbox pr-0 ">
-                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead pr-0">                            
-                            <div class="row pl-3">
-                        <div class="col-sm-12 col-xs-12 col-md-2 pl-0">
+        <div class=" col-sm-12 col-xs-12 col-md-12 formatbox  ">
+                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead ">                            
+                            <div class="col-md-12 col-sm-12 col-xs-12  ">
+                        <div class="col-sm-2 col-xs-12 col-md-2  col-lg-2 pl-0">
                                   <label class="boldlabel">
                                 <b class="boldspan">B</b>
                                 </label>
@@ -91,24 +97,24 @@
                                 <i class="italicspan">I</i>
                                 </label>
                                 </div>
-                            <div class="col-md-2 col-sm-3 col-xs-12" style="margin-left: -7%;">
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 lblpadding" >
                                 <div class="form-group">
                                   
-                                    <label class="col-sm-5 col-md-4 col-xs-5 control-label p-0">
+                                    <label class="col-sm-5 col-md-4 col-xs-12 control-label p-0">
                                        Font Size:</label>
-                                    <div class="col-sm-7 col-md-8 col-xs-7 no-padding">
+                                    <div class="col-sm-7 col-md-8 col-xs-12 no-padding">
                                         <input type="text" id="" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" formControlName="FontSize">
                                     </div>
                                         
                                 </div>
                             </div>
         
-                            <div class="col-md-4 col-sm-3 col-xs-12 no-padding-right">
+                            <div class="col-md-6 col-sm-5 col-lg-4 col-xs-12 p-0">
                                 <div class="form-group">
                                   
-                                    <label class="col-sm-5 col-md-3 col-xs-5 control-label no-padding">
+                                    <label class="col-sm-5 col-md-3 col-xs-12 control-label no-padding">
                                        Subject:</label>
-                                    <div class="col-sm-7 col-md-9 col-xs-7 no-padding">
+                                    <div class="col-sm-7 col-md-9 col-xs-12 no-padding">
                                         <div class="form-group input-group" [ngClass]="displayFieldCss('Subject')">
                                         <input type="text" required id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject formControlName="Subject"/>
                                     </div>
