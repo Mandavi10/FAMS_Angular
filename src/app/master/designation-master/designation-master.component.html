@@ -8,7 +8,7 @@
         </div>
         
 
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
              
@@ -73,7 +73,13 @@
       >
 </ag-grid-angular>
            
-            
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div>    
         </div>
         
        
@@ -87,8 +93,8 @@
                 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
-                        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pl-0 contnt-wrapper">
+                        <div class="col-sm-12 col-md-12 col-xs-12 no-padding">
                             <h4 class="pageTitle">
                                 Create Designation 
                                  </h4>
@@ -101,16 +107,16 @@
                         </div>
                     </div>
                     
-                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0" id="divForm" style="display:block">
                             <form [formGroup]="DesignationFormGrp" autocomplete="off" class="form" appNorightclick>
                                                     <div class="row no-padding mt-2">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Designation Code :
                                                                 </label>
-                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('DesignationCode')">
                                                                         <input type="text" required name="designationCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="DesignationCode" />
@@ -118,12 +124,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="form-group">
-                                                                <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                     Designation Name :
                                                                 </label>
-                                                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                                                     <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
                                                                     <div class="form-group input-group" [ngClass]="displayFieldCss('DesignationName')">
                                                                         <input type="text" required name="DesignationName" class="col-sm-12 col-md-12 col-xs-12" formControlName="DesignationName" />

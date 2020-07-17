@@ -1,6 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
@@ -53,13 +53,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
+
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-4" *ngIf="showGrid">
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             <ag-grid-angular
-    style="width: 100%; height: 130px;"
+    style="width: 100%; height: 350px;"
     class="ag-theme-alpine"
     [rowData]="rowData"
     [columnDefs]="columnDefs"

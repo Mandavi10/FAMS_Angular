@@ -1,6 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
@@ -25,6 +25,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
+        
         <form [formGroup]="TrialBalanceForm" autocomplete="off" appNorightclick>
         <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 mt-3" *ngIf="isShowCustomer">
@@ -80,35 +85,35 @@
            
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="form-group">
                     <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                        From Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
+                        <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="form-group">
                     <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                        To Date :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-9 col-md-12 col-xs-9" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>
+                        <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>
                     </div>
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                <button type="button" class="btn btn-success" (click)="GetData(Todate.value,Fromdate.value)">Search</button>
+                <button type="button" class="btn btn-success btnasearch" (click)="GetData(Todate.value,Fromdate.value)">Search</button>
                 </div>
            
     </div>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0" id="tbldiv" style="display:block">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  
             </div>
@@ -493,6 +498,14 @@
 </div>
             
         </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="paginationDiv">
+                    <span class="previousBtn">Previous</span>
+                    <span class="paginationCount">50 out of 200</span>
+                    <span class="nextBtn">Next</span>
+                </div>
+       </div>
+
       
 
     </div>

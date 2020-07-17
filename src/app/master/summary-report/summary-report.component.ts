@@ -89,6 +89,7 @@ rowDataExcel = [];
       FormData.UserId = Sessionvalue.UserId;
      
     }
+
    
     this.SRService.BindGrid(JSON.stringify(FormData)).subscribe(
       (data) => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
-
+import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { MynotesService } from '../../Services/MyNotes/mynotes.service';
 import {Bindallfields} from '../../../Models/MyNotes/bindallfields';
 import { count } from 'rxjs/operators';
@@ -16,9 +16,16 @@ export class MyNotesComponent implements OnInit {
 
  Note : any;  BindallfieldsList: Array<Bindallfields> = []; SearchList: Array<Bindallfields> = [];
  AllDiv : boolean = true; UnReadDiv : boolean = false; UnReadDataList: Array<Bindallfields> = [];
- constructor(private MyNService :MynotesService,private router: Router) { }
+ constructor(private Dbsecurity: DbsecurityService,private MyNService :MynotesService,private router: Router) { }
 
   ngOnInit(): void {
+    let item1 = JSON.parse(sessionStorage.getItem('User'));
+    var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
+if(UsertType !="1"){
+}
+else{
+document.getElementById("divWidth").classList.add("fullmaincontainer");
+}
     this.BindGrid();
   }
   BindGrid(){
