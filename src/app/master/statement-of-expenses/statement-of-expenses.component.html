@@ -1,360 +1,303 @@
 <div class="main-content maincontainer">
     <div class="content">
-  
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-            </div>
-        </div>
-  
-        <form class="form">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                 <span class="legal"></span>
-            </div>
-            <div class="rightmenu">
-                <div class="toolbar pull-right">
-                    <ul class="toolbar-content">
-                       
-                        <li (click)="downloadCSVFile()">
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
-                            <label>
-                                <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
-                                Export to CSV
-                                
-                            </label>
-  
-                            
-                            <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
-                                <i class="fa fa-file-excel-o"></i>
-                            </button></a> --> 
-                        </li>
-                         
-                         <li >
-                                 <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
-                                 <label>
-                                    <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
-                                   
-                                 </label>
-                                 <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
-                                    <i class="fa fa-file-pdf-o"></i>
-                                </button></a> -->
-                             </li>
-                     </ul>
-                </div>
-            </div>
-        </div>
-       
-        <div class="row">
-       <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-        
-        <div class="col-md-4 col-sm-4 col-xs-12">
-          <div class="form-group">
-              <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-               From Date :
-              </label>
-              <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                  
-                  <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
-              </div>
+       <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
+          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+             <img src="../../assets/images/loader.gif" class="loaderimagepage" />
           </div>
-      </div>
-            <div class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                         To Date :
-                        </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                           
-                            <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
-                        </div>
-                    </div>
+       </div>
+       <form [formGroup]="StatementOfExpenseForm" autocomplete="off" appNorightclick>
+          <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal"></span>
+             </div>
+             <div class="rightmenu">
+                <div class="toolbar pull-right">
+                   <ul class="toolbar-content">
+                      <li (click)="downloadCSVFile()">
+                         <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                         <label>
+                            <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
+                            Export to CSV
+                         </label>
+                         <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                            <i class="fa fa-file-excel-o"></i>
+                            </button></a> --> 
+                      </li>
+                      <li (click)="downloadPDFFile()">
+                         <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                         <label>
+                         <!-- <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                         Export to PDF
+                         </label>
+                         <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                            <i class="fa fa-file-pdf-o"></i>
+                            </button></a> -->
+                      </li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+          <div class="row">
+             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                   <div class="form-group">
+                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      From Date :
+                      </label>
+                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                         <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" />  -->
+                         <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
+                      </div>
+                   </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                   <div class="form-group">
+                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      To Date :
+                      </label>
+                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                         <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> -->
+                         <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
+                      </div>
+                   </div>
                 </div>
                 <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
-                    <!-- <button type="button" class="btn btn-success">Search</button> -->
-                    <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
-                    </div>
-    </div>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-            <div class="col-sm-6 col-md-6 col-xs-3 ">
-                <span class="legal"> Statement Of Expenses</span>
-            </div>
-            <div class="rightmenu">
-                <div class="toolbar pull-right">
-                    <ul class="toolbar-content btnCon">
-                       
-                        <li>
-                           
-                            <label>
-                               Previous Day
-                            </label>
-                        </li>
-                        <li>
-                         
-                            <label>
-                               Last One Week
-                            </label>
-                        </li>
-                         
-                         <li>
-                                
-                                 <label>
-                                   Last One Month
-                                 </label>
-                             </li>
-                     </ul>
+                   <!-- <button type="button" class="btn btn-success">Search</button> -->
+                   
+                   <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
                 </div>
-            </div>
-        </div>   
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="holdingreportGrid">
-            <table class="bankmasterTable" id="bankmastertable">
-                <thead>
-                 
-  
-                    <tr>
-  
-                        <th style="width: 182px"> Date</th>
-                        <th style="width: 222px">Settlement Date</th>
-                        <th style="width: 233px">Tran Reference</th>
-                        <th style="width: 204px">Detail</th>
-                        <th style="width: 205px">Desc/Notes</th>
-                        <th style="width: 124px">Amount</th>
-                      
-                       
-                    </tr>
-                </thead>
-                <tbody class="scrollbar">
-                    <tr>
-                        <td colspan="9"><strong >Expenses-Paid
-                        </strong>
-                       
-                            <table>
-                                <tbody>
-
-                                    <tr >
-                                       
-                                            <td style="width: 128px">31/05/2020</td>
-                                            <td style="width: 159px">31/05/2020</td>
-                                            <td style="width: 160px" >2222222</td>
-                                            <td style="width: 145px">Custody Charge --cash</td>
-                                            <td style="width: 147px">Expense Entry</td>
-                                            <td style="width: 89px">2000.00</td>
-                                           
-                                           
-                                        </tr>
-                                        <tr >
-                                       
-                                            <td style="width: 128px">31/05/2020</td>
-                                            <td style="width: 159px">31/05/2020</td>
-                                            <td style="width: 160px" >2222222</td>
-                                            <td style="width: 145px">Custody Charge --cash</td>
-                                            <td style="width: 147px">Expense Entry</td>
-                                            <td style="width: 89px">2000.00</td>
-                                           
-                                           
-                                        </tr>
-                                        <tr >
-                                       
-                                            <td style="width: 128px">31/05/2020</td>
-                                            <td style="width: 159px">31/05/2020</td>
-                                            <td style="width: 160px" >2222222</td>
-                                            <td style="width: 145px">Custody Charge --cash</td>
-                                            <td style="width: 147px">Expense Entry</td>
-                                            <td style="width: 89px">2000.00</td>
-                                           
-                                           
-                                        </tr>
-                                    
-                         
-                                </tbody>
-                            <tfoot>
-                       
-                                <tr>
-                                        <td style="width: 168px">Total Expenses-paid</td>
-                                        <td style="width: 202px">1</td>
-                                        <td style="width: 211px">2</td>
-                                        <td style="width: 187px" >3</td>
-                                        <td style="width: 188px" >4</td>
-                                        <td style="width: 116px" >212,110.00</td>
-                                      
-                                        
-                                </tr>
-                                <tr>
-                                    <td style="width: 168px">Total Expenses-paid</td>
-                                    <td style="width: 202px">1</td>
-                                    <td style="width: 211px">2</td>
-                                    <td style="width: 187px" >3</td>
-                                    <td style="width: 188px" >4</td>
-                                    <td style="width: 116px" >212,110.00</td>
-                                  
-                                    
-                            </tr>
-                        
-                            </tfoot>
-            </table>
-            </td>
-                       
-                    </tr>
-               
-                    <tr>
-                        <td colspan="9">
-                            <table>
-                                <tbody>
-                                 
-                                    
-                                </tbody>
-                         
-            </table>
-            </td>
-                       
-                    </tr>
-                    
-                </tbody>
-                
-            </table>
-  
-        </div>
-  </div>
-            
-        </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv1 p-0"  style="display:block">
-            <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+             </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
+             <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
                 <div class="col-sm-6 col-md-6 col-xs-3 ">
-                    <span class="legal">Expenses Statement Summary </span>  
+                   <span class="legal"> Statement Of Expenses</span>
                 </div>
                 <div class="rightmenu">
-                    <div class="toolbar pull-right">
-                        <ul class="toolbar-content btnCon">
-                           
-                            <li>
+                   <div class="toolbar pull-right">
+                      <ul class="toolbar-content btnCon">
+                         <li>
+                            <label>
+                            Previous Day
+                            </label>
+                         </li>
+                         <li>
+                            <label>
+                            Last One Week
+                            </label>
+                         </li>
+                         <li>
+                            <label>
+                            Last One Month
+                            </label>
+                         </li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="holdingreportGrid">
+                   <table class="bankmasterTable" id="bankmastertable">
+                      <thead>
+                         <tr>
+                            <th style="width: 182px"> Date</th>
+                            <th style="width: 222px">Settlement Date</th>
+                            <th style="width: 233px">Tran Ref.</th>
+                            <th style="width: 204px">Detail</th>
+                            <th style="width: 205px">Desc/Notes</th>
+                            <th style="width: 124px">Amount</th>
+                         </tr>
+                      </thead>
+                      <tbody class="scrollbar">
+                         <tr>
+                            <td colspan="9">
+                               <strong >Expenses-Paid
+                               </strong>
+                               <table>
+                                  <tbody>
+                                     <tr *ngFor="let data of statementOfExpenses ; index as i" >
+                                        <td style="width: 182px">{{data.Date }}</td>
+                                        <td style="width: 222px">{{data.SettlementDate }}</td>
+                                        <td style="width: 233px">{{data.TranRef }}</td>
+                                        <td style="width: 204px">{{data.Detail }}</td>
+                                        <td style="width: 205px">{{data.DescNotes }}</td>
+                                        <td style="width: 124px">{{data.Amount }}</td>
+                                     </tr>
+                                  </tbody>
+                                  <tfoot>
+                                    <!-- <tbody> -->
+                                        <tr *ngFor="let data1 of statementOfExpenses1 ; index as i" >
+                                           <td style="width: 182px">{{data1.Date }}</td>
+                                           <td style="width: 222px">{{data1.SettlementDate }}</td>
+                                           <td style="width: 233px">{{data1.TranRef }}</td>
+                                           <td style="width: 204px">{{data1.Detail }}</td>
+                                           <td style="width: 205px">{{data1.DescNotes }}</td>
+                                           <td style="width: 124px">{{data1.Amount }}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td style="width: 168px">Total Expenses-paid</td>
+                                            <td style="width: 202px">1</td>
+                                            <td style="width: 211px">2</td>
+                                            <td style="width: 187px" >3</td>
+                                            <td style="width: 188px" >4</td>
+                                            <td style="width: 116px" >212,110.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 168px">Total Expenses-paid</td>
+                                            <td style="width: 202px">1</td>
+                                            <td style="width: 211px">2</td>
+                                            <td style="width: 187px" >3</td>
+                                            <td style="width: 188px" >4</td>
+                                            <td style="width: 116px" >212,110.00</td>
+                                        </tr> -->
+                                       <!-- </tbody> -->
+                                    </tfoot>
+                               </table>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td colspan="9">
+                               <table>
+                                  <tbody>
+                                  </tbody>
+                               </table>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+          </div>
+          <!-- <div class="col-md-12 col-sm-12 col-xs-12 tableDiv1 p-0"  style="display:block">
+                 <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+                     <div class="col-sm-6 col-md-6 col-xs-3 ">
+                         <span class="legal">Expenses Statement Summary </span>  
+                     </div>
+                     <div class="rightmenu">
+                         <div class="toolbar pull-right">
+                             <ul class="toolbar-content btnCon">
                                 
-                                <label>
-                                   Previous Day
-                                </label>
-                            </li>
-                            <li>
-                             
-                                <label>
-                                   Last One Week
-                                </label>
-                            </li>
-                             
-                             <li>
-                                    
+                                 <li>
+                                     
                                      <label>
-                                       Last One Month
+                                        Previous Day
                                      </label>
                                  </li>
-                         </ul>
-                    </div>
-                </div>
-            </div>   
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="holdingreportGrid">
-                <table class="bankmasterTable" >
-                    <thead>
-                     
-      
-                        <tr>
-      
-                            <th style="width: 253px"> Transaction Description</th>
-                            <th style="width: 310px">Total Paid Amount</th>
-                            <th style="width: 317px">Total Payable Amount</th>
-                            <th style="width: 288px">Total Amount</th>
-                            
+                                 <li>
+                                  
+                                     <label>
+                                        Last One Week
+                                     </label>
+                                 </li>
+                                  
+                                  <li>
+                                         
+                                          <label>
+                                            Last One Month
+                                          </label>
+                                      </li>
+                              </ul>
+                         </div>
+                     </div>
+                 </div>   
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                     <div class="holdingreportGrid">
+                     <table class="bankmasterTable" >
+                         <thead>
                           
-                           
-                        </tr>
-                    </thead>
-                    <tbody class="scrollbar">
-                        <tr>
-                            <td colspan="9">
-                           
-                           
-                                <table>
-                                    <tbody>
-    
-                                        <tr >
-                                           
-                                                <td style="width: 128px">Custody Charge</td>
-                                                <td style="width: 159px">4,000.00</td>
-                                                <td style="width: 160px" >0.00</td>
-                                                <td style="width: 145px">4,000.00</td>
-                                              
-                                               
-                                               
-                                            </tr>
-                                          
-                                        <tr >
-                                           
-                                            <td style="width: 128px">Custody Charge</td>
-                                            <td style="width: 159px">4,000.00</td>
-                                            <td style="width: 160px" >0.00</td>
-                                            <td style="width: 145px">4,000.00</td>
-                                          
-                                           
-                                           
-                                        </tr>
-                                        
-                                        <tr >
-                                           
-                                            <td style="width: 128px">Custody Charge</td>
-                                            <td style="width: 159px">4,000.00</td>
-                                            <td style="width: 160px" >0.00</td>
-                                            <td style="width: 145px">4,000.00</td>
-                                          
-                                           
-                                           
-                                        </tr>
-                                    </tbody>
-                                <tfoot>
-                           
-                                    <tr>
-                                            <td style="width: 168px">Total </td>
-                                            <td style="width: 202px">412,210.00</td>
-                                            <td style="width: 211px">0.00</td>
-                                            <td style="width: 187px" >412,210.00</td>
-                                     
-                                          
-                                            
-                                    </tr>
+             
+                             <tr>
+             
+                                 <th style="width: 253px"> Transaction Description</th>
+                                 <th style="width: 310px">Total Paid Amount</th>
+                                 <th style="width: 317px">Total Payable Amount</th>
+                                 <th style="width: 288px">Total Amount</th>
                                  
-                            
-                                </tfoot>
-                </table>
-                </td>
-                           
-                        </tr>
-                   
-                        <tr>
-                            <td colspan="9">
-                                <table>
-                                    <tbody>
-                                     
-                                        
-                                    </tbody>
-                             
-                </table>
-                </td>
-                           
-                        </tr>
+                               
+                                
+                             </tr>
+                         </thead>
+                         <tbody class="scrollbar">
+                             <tr>
+                                 <td colspan="9">
+                                
+                                
+                                     <table>
+                                         <tbody>
+             
+                                             <tr >
+                                                
+                                                     <td style="width: 128px">Custody Charge</td>
+                                                     <td style="width: 159px">4,000.00</td>
+                                                     <td style="width: 160px" >0.00</td>
+                                                     <td style="width: 145px">4,000.00</td>
+                                                   
+                                                    
+                                                    
+                                                 </tr>
+                                               
+                                             <tr >
+                                                
+                                                 <td style="width: 128px">Custody Charge</td>
+                                                 <td style="width: 159px">4,000.00</td>
+                                                 <td style="width: 160px" >0.00</td>
+                                                 <td style="width: 145px">4,000.00</td>
+                                               
+                                                
+                                                
+                                             </tr>
+                                             
+                                             <tr >
+                                                
+                                                 <td style="width: 128px">Custody Charge</td>
+                                                 <td style="width: 159px">4,000.00</td>
+                                                 <td style="width: 160px" >0.00</td>
+                                                 <td style="width: 145px">4,000.00</td>
+                                               
+                                                
+                                                
+                                             </tr>
+                                         </tbody>
+                                     <tfoot>
+                                
+                                         <tr>
+                                                 <td style="width: 168px">Total </td>
+                                                 <td style="width: 202px">412,210.00</td>
+                                                 <td style="width: 211px">0.00</td>
+                                                 <td style="width: 187px" >412,210.00</td>
+                                          
+                                               
+                                                 
+                                         </tr>
+                                      
+                                 
+                                     </tfoot>
+                     </table>
+                     </td>
+                                
+                             </tr>
                         
-                    </tbody>
-                    
-                </table>
-      
-            </div>
-      </div>
-                
-            </div>
-      
-        </form>
+                             <tr>
+                                 <td colspan="9">
+                                     <table>
+                                         <tbody>
+                                          
+                                             
+                                         </tbody>
+                                  
+                     </table>
+                     </td>
+                                
+                             </tr>
+                             
+                         </tbody>
+                         
+                     </table>
+             
+                 </div>
+             </div> -->
+    
+    
+       </form>
     </div>
-  
-  </div>
-  
-  
+ </div>
