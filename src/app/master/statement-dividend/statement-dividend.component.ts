@@ -32,6 +32,7 @@ export class StatementDividendComponent implements OnInit {
   public SumTotal_Amount:number;
   public SumTDS_Amount:number;
   StaticArray={};
+  ShowLoaderp:boolean;
 
 
 
@@ -61,6 +62,7 @@ export class StatementDividendComponent implements OnInit {
     else {
       this.btnPrev=true;
     }
+    
 
 }
 nextClick(){
@@ -115,20 +117,34 @@ bindGrid(){
     return;
   }
   else{
-
+    let item = JSON.parse(sessionStorage.getItem('User'));
 
  var jasondata= {
   "fromdate":this.StatementDividendForm.controls['Formdate'].value ,
   "PageCount": this.PageCount,
-  "todate":this.StatementDividendForm.controls['Todate'].value
+  "todate":this.StatementDividendForm.controls['Todate'].value,
+  "UserId": item.UserId,
  
 }
-var currentContext = this;
+this.ShowLoaderp=true;
 this._StatementDividendService.BindGrid(jasondata).subscribe((res)=>{
 console.log(res);
 this.bindgrid=res.Table;
 this.bindgridDivident=res.Table1;
 // this.pagination=res.Table1;
+
+
+for(var i=0;i<res.Table.length;i++){
+   
+  if(this.bindgrid[i].ReceivedDate == ""){
+    this.bindgrid[i].ReceivedDate = '#####'
+    // this.bindgrid1[i].FromDate = ''
+    // this.bindgrid1[i].Amount = ''
+  }
+  
+
+}
+
 
 
 this.SumReceivableAmount=res.Table2[0].SumReceivableAmount;
@@ -145,7 +161,7 @@ this.SumTDS_Amount=res.Table3[0].SumTDS_Amount;
 
 console.log(this.bindgrid)
 console.log(this.pagination)
-
+this.ShowLoaderp=false;
 
 })
 }

@@ -1,11 +1,7 @@
 <div class="main-content maincontainer">
   <div class="content">
 
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-          </div>
-      </div>
+      
 
       <form [formGroup]="StatementDividendForm" class="form">
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
@@ -108,6 +104,9 @@
               </div>
           </div>
       </div>   
+      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition"*ngIf="ShowLoaderp" >
+        <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+    </div>
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="holdingreportGrid">
           <table class="bankmasterTable" id="bankmastertable">

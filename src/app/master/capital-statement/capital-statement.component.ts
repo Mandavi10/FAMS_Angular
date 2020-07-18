@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 import{CapitalStatementModel,pagination} from '../../../Models/CapitalStatement/capitalStatement';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-capital-statement',
   templateUrl: './capital-statement.component.html',
@@ -25,6 +26,7 @@ export class CapitalStatementComponent implements OnInit {
   public SumST:number;
   public SumLT:number;
   public SumAfterIndex_LT:number;
+  ShowLoaderp:boolean;
   StaticArray={};
 
 
@@ -146,29 +148,58 @@ LastOneWeekFun(){
       return;
     }
     else{
-  
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      console.log(item.UserId);
 
    var jasondata= {
     "fromdate":this.capitalStatForm.controls['Formdate'].value ,
     "PageCount": this.PageCount,
-    "todate":this.capitalStatForm.controls['Todate'].value
+    "todate":this.capitalStatForm.controls['Todate'].value,
+    "UserId": item.UserId,
    
   }
-  var currentContext = this;
+  this.ShowLoaderp=true;
 this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 
   this.bindgrid=res.Table;
   //this.pagination=res.Table1;
+  console.log('bindgrid');
+  console.log(res);
+  console.log(res.Table[0].SaleAmount);
+  console.log(this.bindgrid[0].SaleDate);
+
+  for(var i=0;i<res.Table.length;i++){
+   
+    if(this.bindgrid[i].SaleAmount == null){
+      this.bindgrid[i].SaleAmount = '#####'
+      // this.bindgrid1[i].FromDate = ''
+      // this.bindgrid1[i].Amount = ''
+    }
+    if( this.bindgrid[i].PurchaseAmount == null){
+      this.bindgrid[i].PurchaseAmount = '#####'
+    }
+    if( this.bindgrid[i].IndexedCost == null){
+      this.bindgrid[i].IndexedCost = '#####'
+    }
+    if( this.bindgrid[i].LT == null){
+      this.bindgrid[i].LT = '#####'
+    }
+    if( this.bindgrid[i].AfterIndex_LT == null){
+      this.bindgrid[i].AfterIndex_LT = '#####'
+    }
+    
+
+  }
+ 
+  console.log(this.bindgrid);
   this.SumSaleAmount=res.Table1[0].SumSaleAmount;
   this.SumPurchaseAmount=res.Table1[0].SumPurchaseAmount;
   this.SumIndexedCost=res.Table1[0].SumIndexedCost;
   this.SumST=res.Table1[0].SumST;
   this.SumLT=res.Table1[0].SumLT;
   this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
-  console.log(this.SumSaleAmount)
-  console.log(this.bindgrid)
-  console.log(this.pagination)
-
+  
+  this.ShowLoaderp=false;
   
   })
 }
@@ -252,7 +283,7 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 
   downloadMainGrid() {   //real downlad grid
     
-        var csvData = this.ConvertToCSV(JSON.stringify(this.downloadExcelgrid));
+        var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
          var a = document.createElement("a");
           a.setAttribute('style', 'display:none;');
           document.body.appendChild(a);
@@ -266,54 +297,8 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
   }
 
 
-  // downloadpdf() {
 
-  //           let doc = new jsPDF('p', 'pt', 'a4');
-  //           doc.setFontSize(5);
-  //            doc.setFontStyle('arial');
-  //     let columns = [
-  //       {title: "SrNo", dataKey: "SrNo"},
-  //       {title: "Refrence", dataKey: "Refrence1"},
-  //           {title: "Created On", dataKey: "CreatedOn"},
-  //           {title: "Updated On", dataKey: "UpdatedOn"},
-  //           {title: "created By", dataKey: "createdBy"},
-  //           {title: "Updated By", dataKey: "UpdatedBy"},
-  //           {title: "FileUpdatedCount", dataKey: "FileUpdatedCount"},
-  //           {title: "BankValidation", dataKey: "BankValidation"},
-  //           {title: "AcValidation", dataKey: "AcValidation"},
-  //           {title: "Saved Count", dataKey: "SavedCount"},
-  //           {title: "Edit Count", dataKey: "EditCount"},
-  //           {title: "Entity Name", dataKey: "entityName"},
-  //       ];
-        
-       
-  //     let rows = [
-  //       {"id": 1, "name": "Shaw", "country": "Tanzania"},
-  //       {"id": 2, "name": "Nelson", "country": "Kazakhstan"},
-  //       {"id": 3, "name": "Garcia", "country": "Madagascar"},
-  //     ];
-  //              // Error ========================
-  //              doc.autoTable(columns, {
-  //               theme : 'plain',
-  //               styles: {
-  //                 fontSize: 12
-  //               },
-  //               startY: 150,
-  //               showHeader: 'never',
-  //               createdCell: function(cell, data) {
-  //                 var tdElement = cell.raw;
-  //                 if (tdElement.classList.contains('hrow')) {
-  //                   cell.styles.fontStyle = 'bold';
-  //                 }
-  //               }
-  //             });
-  //       doc.autoTable({html:"#tblreport"});
-  //       let finalY = doc.previousAutoTable.finalY; //this gives you the value of the end-y-axis-position of the previous autotable.
-  //   doc.text("Text to be shown relative to the table", 12, finalY + 10);
-  //       doc.save('teste.pdf');
-        
-    
-  //          }
-    
 
+
+  
 }

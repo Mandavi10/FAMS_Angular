@@ -16,7 +16,7 @@
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="downloadphtml()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                                  <label>
                                     Export to PDF
@@ -26,9 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
-            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-        </div>
+       
        
         <div class="row">
             
@@ -92,9 +90,12 @@
                 </div>
             </div>
         </div>   
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition"*ngIf="ShowLoaderp" >
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="capitalStatementGrid">
-                <table class="bankmasterTable">
+                <table class="bankmasterTable" id="gridmain">
                     <thead>
                         <tr>
 
