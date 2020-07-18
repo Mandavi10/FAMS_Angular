@@ -45,7 +45,9 @@
             </div>
         </div>
        
-        <div class="row">
+        
+            <form [formGroup]="BankBookForm" autocomplete="off" appNorightclick style="overflow:visible">
+                <div class="row">
        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
         
         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -55,164 +57,152 @@
               </label>
               <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                   
-                  <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                  <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
               </div>
           </div>
       </div>
-            <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                            
-                            <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                            <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" /> 
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                     <!-- <button type="button" class="btn btn-success">Search</button> -->
-                    <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
+                    <button type="button" (click)="BindGrid(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
                     </div>
     </div>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                 
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
+    <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+        <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+             
+        </div>
+        <div class="rightmenu">
+            <div class="toolbar pull-right">
+                <ul class="toolbar-content btnCon">
+                   
+                    <li (click)="PreviousDayFun()">
+                       
+                        <label>
+                           Previous Day
+                        </label>
+                    </li>
+                    <li (click)="LastOneWeekFun()">
+                     
+                        <label>
+                           Last One Week
+                        </label>
+                    </li>
+                     
+                     <li (click)="LastOneMonthFun()">
+                            
+                             <label>
+                               Last One Month
+                             </label>
+                         </li>
+                 </ul>
             </div>
-            <div class="rightmenu">
-                <div class="toolbar pull-right">
-                    <ul class="toolbar-content btnCon">
-                       
-                        <li>
-                           
-                            <label>
-                               Previous Day
-                            </label>
-                        </li>
-                        <li>
-                         
-                            <label>
-                               Last One Week
-                            </label>
-                        </li>
-                         
-                         <li>
-                                
-                                 <label>
-                                   Last One Month
-                                 </label>
-                             </li>
-                     </ul>
-                </div>
-            </div>
-        </div>   
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="holdingreportGrid">
-            <table class="bankmasterTable" id="bankmastertable">
-                <thead>
-                    <tr>
+        </div>
+    </div>   
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="holdingreportGrid">
+        <table class="bankmasterTable" id="bankmastertable">
+            <thead>
+                <tr>
 
-                        <th style="width: 250px"></th>
-                        <th style="width: 410px; text-align: center;" colspan="4"></th>
-                        <!-- <th style="width: 710px; text-align: center" colspan="6">Purchase</th> -->
-                        <th style="width: 360px; text-align: center" colspan="3">Amount</th>
+                    <th style="width: 250px"></th>
+                    <th style="width: 410px; text-align: center;" colspan="4"></th>
+                    <!-- <th style="width: 710px; text-align: center" colspan="6">Purchase</th> -->
+                    <th style="width: 360px; text-align: center" colspan="3">Amount</th>
 
-                    </tr>
-  
-                    <tr>
-  
-                        <th style="width: 137px">Set Date</th>
-                        <th style="width: 183px">Transaction Account</th>
-                        <th style="width: 191px">Transaction Description</th>
-                        <th style="width: 109px">Security</th>
-                        <th style="width: 173px">Buy/ Sell Amount</th>
-                        <th style="width: 139px">Income</th>
-                        <th style="width: 123px">Expenses</th>
-                       <th style="width: 123px">Dep/with</th> 
-                        <th style="width: 132px">Balance</th>
-                       
-                    </tr>
-                </thead>
-                <tbody class="scrollbar">
-                    <tr>
-                        <td colspan="9"><strong >Cash- Received/Paid
-                        </strong>
-                       
-                            <table>
-                                <tbody>
+                </tr>
 
-                                    <tr >
+                <tr>
+
+                    <th style="width: 137px">Set Date</th>
+                    <th style="width: 183px">Transaction Account</th>
+                    <th style="width: 191px">Transaction Description</th>
+                    <th style="width: 109px">Security</th>
+                    <th style="width: 173px">Buy/ Sell Amount</th>
+                    <th style="width: 139px">Income</th>
+                    <th style="width: 123px">Expenses</th>
+                   <th style="width: 123px">Dep/with</th> 
+                    <th style="width: 132px">Balance</th>
+                   
+                </tr>
+            </thead>
+            <tbody class="scrollbar">
+                <tr>
+                    <td colspan="9"><strong >Cash- Received/Paid
+                    </strong>
+                   
+                        <table>
+                            <tbody>
+
+                                <tr *ngFor="let Data of BindgridList">
+                                   
+                                        <td style="width: 176px">{{Data.SetDate}}</td>  
+                                        <td style="width: 128px">{{Data.TransAccount}}</td>
+                                        <td style="width: 141px" >{{Data.TransactionDesc}}</td>
+                                        <td style="width: 85px">{{Data.Security}}</td>
+                                        <td style="width: 116px">{{Data.Buy_SellAmount}}</td>
+                                        <td style="width: 108px">{{Data.Income}}</td>
+                                        <td style="width: 89px">{{Data.Expenses}}</td>
+                                         <td style="width: 85px">{{Data.Dep_with}}</td>
+                                        <td style="width: 95px">{{Data.Balance}}</td>
                                        
-                                            <td style="width: 176px">31/05/2020</td>
-                                            <td style="width: 128px">Direct</td>
-                                            <td style="width: 141px" >Custody Charge --cash</td>
-                                            <td style="width: 85px">Expense</td>
-                                            <td style="width: 116px">0.00</td>
-                                            <td style="width: 108px">0.00</td>
-                                            <td style="width: 89px">2,000.00</td>
-                                             <td style="width: 85px">0.00</td>
-                                            <td style="width: 95px">-2,000.00</td>
-                                           
-                                        </tr>
-                                        <tr >
+                                    </tr>
+                                    <!-- <tr >
+                                   
+                                        <td style="width: 176px">31/05/2020</td>
+                                        <td style="width: 128px">Direct</td>
+                                        <td style="width: 141px" >Custody Charge --cash</td>
+                                        <td style="width: 85px">Expense</td>
+                                        <td style="width: 116px">0.00</td>
+                                        <td style="width: 108px">0.00</td>
+                                        <td style="width: 89px">2,000.00</td>
+                                         <td style="width: 85px">0.00</td>
+                                        <td style="width: 95px">-2,000.00</td>
                                        
-                                            <td style="width: 176px">31/05/2020</td>
-                                            <td style="width: 128px">Direct</td>
-                                            <td style="width: 141px" >Custody Charge --cash</td>
-                                            <td style="width: 85px">Expense</td>
-                                            <td style="width: 116px">0.00</td>
-                                            <td style="width: 108px">0.00</td>
-                                            <td style="width: 89px">2,000.00</td>
-                                             <td style="width: 85px">0.00</td>
-                                            <td style="width: 95px">-2,000.00</td>
-                                           
-                                        </tr>
-                                        <tr >
+                                    </tr> -->
+                                    <!-- <tr >
+                                   
+                                        <td style="width: 176px">31/05/2020</td>
+                                        <td style="width: 128px">Direct</td>
+                                        <td style="width: 141px" >Custody Charge --cash</td>
+                                        <td style="width: 85px">Expense</td>
+                                        <td style="width: 116px">0.00</td>
+                                        <td style="width: 108px">0.00</td>
+                                        <td style="width: 89px">2,000.00</td>
+                                         <td style="width: 85px">0.00</td>
+                                        <td style="width: 95px">-2,000.00</td>
                                        
-                                            <td style="width: 176px">31/05/2020</td>
-                                            <td style="width: 128px">Direct</td>
-                                            <td style="width: 141px" >Custody Charge --cash</td>
-                                            <td style="width: 85px">Expense</td>
-                                            <td style="width: 116px">0.00</td>
-                                            <td style="width: 108px">0.00</td>
-                                            <td style="width: 89px">2,000.00</td>
-                                             <td style="width: 85px">0.00</td>
-                                            <td style="width: 95px">-2,000.00</td>
-                                           
-                                        </tr>
-                                        <tr >
+                                    </tr> -->
+                                    <!-- <tr >
+                                   
+                                        <td style="width: 176px">31/05/2020</td>
+                                        <td style="width: 128px">Direct</td>
+                                        <td style="width: 141px" >Custody Charge --cash</td>
+                                        <td style="width: 85px">Expense</td>
+                                        <td style="width: 116px">0.00</td>
+                                        <td style="width: 108px">0.00</td>
+                                        <td style="width: 89px">2,000.00</td>
+                                         <td style="width: 85px">0.00</td>
+                                        <td style="width: 95px">-2,000.00</td>
                                        
-                                            <td style="width: 176px">31/05/2020</td>
-                                            <td style="width: 128px">Direct</td>
-                                            <td style="width: 141px" >Custody Charge --cash</td>
-                                            <td style="width: 85px">Expense</td>
-                                            <td style="width: 116px">0.00</td>
-                                            <td style="width: 108px">0.00</td>
-                                            <td style="width: 89px">2,000.00</td>
-                                             <td style="width: 85px">0.00</td>
-                                            <td style="width: 95px">-2,000.00</td>
-                                           
-                                        </tr>
+                                    </tr> -->
+                     
+                            </tbody>
+                        <tfoot>
                          
-                                </tbody>
-                            <tfoot>
-                             
-                                <tr>
-                                        <td style="width: 176px">Total Cash-- Received/Paid</td>
-                                        <td style="width: 128px"></td>
-                                        <td style="width: 141px"></td>
-                                        <td style="width: 85px" ></td>
-                                        <td style="width: 116px" >13,307.84</td>
-                                        <td style="width: 108px" >0.00</td>
-                                        <td style="width: 89px" >207,000.00</td>
-                                        <td style="width: 85px" >0.00</td>
-                                        <td style="width: 95px" >-193,692.16</td>
-                                        
-                                </tr>
-                                <tr>
-                                    <td style="width: 176px">Bank Total</td>
+                            <tr>
+                                    <td style="width: 176px">Total Cash-- Received/Paid</td>
                                     <td style="width: 128px"></td>
                                     <td style="width: 141px"></td>
                                     <td style="width: 85px" ></td>
@@ -224,10 +214,10 @@
                                     
                             </tr>
                             <tr>
-                                <td style="width: 176px">Total</td>
+                                <td style="width: 176px">Bank Total</td>
                                 <td style="width: 128px"></td>
                                 <td style="width: 141px"></td>
-                                <td style="width: 85px" >Closing Balance</td>
+                                <td style="width: 85px" ></td>
                                 <td style="width: 116px" >13,307.84</td>
                                 <td style="width: 108px" >0.00</td>
                                 <td style="width: 89px" >207,000.00</td>
@@ -235,34 +225,49 @@
                                 <td style="width: 95px" >-193,692.16</td>
                                 
                         </tr>
-  
-                            </tfoot>
-            </table>
-            </td>
-                       
+                        <tr>
+                            <td style="width: 176px">Total</td>
+                            <td style="width: 128px"></td>
+                            <td style="width: 141px"></td>
+                            <td style="width: 85px" >Closing Balance</td>
+                            <td style="width: 116px" >13,307.84</td>
+                            <td style="width: 108px" >0.00</td>
+                            <td style="width: 89px" >207,000.00</td>
+                            <td style="width: 85px" >0.00</td>
+                            <td style="width: 95px" >-193,692.16</td>
+                            
                     </tr>
-               
-                    <tr>
-                        <td colspan="9">
-                            <table>
-                                <tbody>
-                                 
-                                    
-                                </tbody>
-                         
-            </table>
-            </td>
-                       
-                    </tr>
-                    
-                </tbody>
+
+                        </tfoot>
+        </table>
+        </td>
+                   
+                </tr>
+           
+                <tr>
+                    <td colspan="9">
+                        <table>
+                            <tbody>
+                             
+                                
+                            </tbody>
+                     
+        </table>
+        </td>
+                   
+                </tr>
                 
-            </table>
-  
-        </div>
-  </div>
+            </tbody>
             
-        </div>
+        </table>
+
+    </div>
+</div>
+        
+    </div>
+            </form>
+   
+  
       
         </form>
     </div>
