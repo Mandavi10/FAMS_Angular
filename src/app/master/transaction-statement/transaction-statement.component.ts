@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TransactionstatementService } from '../../Services/TransactionStatement/transactionstatement.service';
 import { Bindmaingrid } from '../../../Models/TransactionStatement/bindmaingrid';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-statement',
@@ -12,6 +13,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class TransactionStatementComponent implements OnInit {
   BindmaingridList : Bindmaingrid;TransactionStatementForm : FormGroup;HeaderArray:any=[];divMainGrid:boolean=false;
+  StaticArray:any=[];FromDate:any;ToDate:any;
 
   columnDefs = [
     {headerName: 'Transaction Description', field: 'TransactionDesc', width: 180},
@@ -41,7 +43,7 @@ rowData = [
 ];
 
   constructor(private router: Router,private TSService : TransactionstatementService
-    , private formBuilder: FormBuilder) { }
+    , private formBuilder: FormBuilder,public datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.router.navigate(['/Home']);
@@ -78,6 +80,8 @@ rowData = [
   }
 
   BindGrid(FromDate,ToDate){
+    this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
+    this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     this.divMainGrid=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserId = Sessionvalue.UserId;
@@ -97,6 +101,10 @@ rowData = [
         TransactionDesc: "Transaction Description", TransactionDate: "Transaction Date", SettlementDate: "Settlement Date", Security: "Security",
         Exchange: "Exchange", Quantity: "Quantity", UnitPrice: "UnitPrice", Brkg: "Brkg", STT: "STT", SettlementAmount: "SettlementAmount"
     }
+    this.StaticArray = {value:"ADROIT PMS SERVICES PVT LTD",value1:"MUMBAI",value2:"TRANSACTION STATEMENT",
+  value3:"From " + this.FromDate +" To " + this.ToDate ,value4:"Account : 6010001     RUBY DECOSTA   - ADT001",
+value5:"ADROITPMS1"}
+
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';
   var row = "";
@@ -105,6 +113,17 @@ rowData = [
       var line = "";
 
       if (i == 0) {
+        for (var index in this.StaticArray) {
+            if (line != '') line += ','
+
+            line += this.StaticArray[index];
+            str += line + '\r\n';
+            line = "";
+        }
+        
+    }
+    line = '';
+      if (i == 0) {
           for (var index in this.HeaderArray) {
               if (line != '') line += ','
 
@@ -112,7 +131,7 @@ rowData = [
           }
           str += line + '\r\n';
       }
-      var line = '';
+      line = '';
       for (var index in array[i]) {
           if (line != '') line += ','
           line += (<string>array[i][index]);
