@@ -7,4 +7,5 @@ export class AppSettings {
    public static SaveUser_URL='http://localhost:58515/';
    public static BankValidate_URL='http://localhost:63149/';
    public static AccountValidate_URL='http://localhost:58287/';
+   public static CapitalStatement ='http://localhost:55073/';
 }
