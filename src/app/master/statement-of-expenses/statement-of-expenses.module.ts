@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { StatementOfExpensesComponent } from './statement-of-expenses.component';
 import { StatementOfExpensesRoutingModule } from './statement-of-expenses-routing.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
+  declarations: [StatementOfExpensesComponent],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,ReactiveFormsModule,
     StatementOfExpensesRoutingModule
   ]
 })

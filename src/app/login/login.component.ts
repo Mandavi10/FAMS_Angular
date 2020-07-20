@@ -13,7 +13,11 @@ import{FormJsondata} from '../../Models/Login/form-jsondata';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  
+
   showSideNav= true;  loader1 : boolean = false; loader2 : boolean=false;
+
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
   randomcaptchavalue:string="";  randomcaptcha:string=""; 
