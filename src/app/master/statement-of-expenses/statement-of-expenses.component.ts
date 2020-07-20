@@ -10,7 +10,7 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';  
+//import html2canvas from 'html2canvas';  
 
 import { Router, ActivatedRoute } from '@angular/router';
 
