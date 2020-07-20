@@ -24,7 +24,7 @@
     "core-js": "^2.5.4",
     "crypto-js": "^4.0.0",
     "faker": "^4.1.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^1.4.1",
     "jspdf-autotable": "^3.5.3",
     "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.3.3",

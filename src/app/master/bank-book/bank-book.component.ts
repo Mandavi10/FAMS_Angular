@@ -6,6 +6,9 @@ import { Bindgrid } from '../../../Models/BankBook/bindgrid';
 import { Totalsumgrid } from '../../../Models/BankBook/totalsumgrid';
 import { DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 
 @Component({
   selector: 'app-bank-book',
@@ -15,7 +18,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 export class BankBookComponent implements OnInit {
   BindgridList:Bindgrid;BankBookForm:FormGroup;TotalsumgridData:Totalsumgrid;Buy_SellAmount:any;Income:any;
   Expenses:any;Dep_with:any;Balance:any;griddiv:boolean=false;HeaderArray:any=[];StaticArray:any=[];
-  FromDate:any;ToDate:any;
+  FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe) { }
 
@@ -84,6 +87,13 @@ export class BankBookComponent implements OnInit {
 value3:"From " + this.FromDate +" To " + this.ToDate ,
 value5:"ADROITPMS1"}
 
+this.StaticArray1={value:"Bank Total",value1:"",value2:"",value3:"",value4:"",value5:""
+,value6:"",value7:"",value8:this.Buy_SellAmount,value9:this.Income,value10:this.Expenses,value11:this.Dep_with,value12:this.Balance}
+
+this.StaticArray2={value:"Total",value1:"",value2:"",value3:"",value4:"",value5:""
+,value6:"",value7:"	Closing Balance",value8:this.Buy_SellAmount,value9:this.Income,value10:this.Expenses,value11:this.Dep_with,value12:this.Balance}
+
+
 var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
 var str = '';
 var row = "";
@@ -117,6 +127,18 @@ var row = "";
     }
     str += line + '\r\n';
 }
+var line = "";
+  for (var index in this.StaticArray1) {
+      if (line != '') line += ','
+      line += this.StaticArray1[index];
+  }  
+  str += line + '\r\n';
+  var line = "";
+  for (var index in this.StaticArray2) {
+      if (line != '') line += ','
+      line += this.StaticArray2[index];
+  }  
+  str += line + '\r\n';
 return str;
 }
 downloadCSVFile() {
@@ -130,6 +152,30 @@ downloadCSVFile() {
   a.download = 'BankBook.csv';/* your file name*/
   a.click();
   return 'success';
+}
+downloadPDFFile(){
+   
+  debugger;  
+  var doc = new jsPDF();  
+ 
+  doc.setFontSize(11);
+  doc.setTextColor(100);
+
+
+  (doc as any).autoTable({
+    head: this.Head,
+    body: this.BindgridList,
+    theme: 'plain',
+    didDrawCell: data => {
+      console.log(data.column.index)
+    }
+  })
+      // Open PDF document in new tab
+    doc.output('dataurlnewwindow')
+  
+    // Download PDF document  
+    doc.save('BankBook.pdf');
+
 }
 
 }
