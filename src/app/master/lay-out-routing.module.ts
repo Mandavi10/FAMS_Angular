@@ -66,7 +66,8 @@ const routes: Routes = [
  {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'}
         ]
       }
-      ];
+];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule], providers: [
