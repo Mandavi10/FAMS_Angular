@@ -12,6 +12,18 @@ table thead tr th {
     width:100%
 }
 
+.loaderposition {
+  position: absolute;
+  z-index: 9999 !important;
+  text-align: center;
+  /* top: 37%; */
+}
+.loaderimagepage {
+  margin-left: 2%;
+  margin-top: 0%;
+  width: 8%;
+}
+
  #capitalStatementGrid { overflow:auto;}
 strong {
     color: #0a2e40;
