@@ -6,6 +6,9 @@ import { Bindgrid } from '../../../Models/BankBook/bindgrid';
 import { Totalsumgrid } from '../../../Models/BankBook/totalsumgrid';
 import { DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Commonfields } from '../../../Models/commonfields';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -18,17 +21,42 @@ import 'jspdf-autotable';
 export class BankBookComponent implements OnInit {
   BindgridList:Bindgrid;BankBookForm:FormGroup;TotalsumgridData:Totalsumgrid;Buy_SellAmount:any;Income:any;
   Expenses:any;Dep_with:any;Balance:any;griddiv:boolean=false;HeaderArray:any=[];StaticArray:any=[];
-  FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];
+  FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];BindcustomerallfieldsList:Bindcustomerallfields;
+  loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;
   constructor(private BSService : BankbookService,private router: Router, 
-    private formBuilder: FormBuilder,public datepipe: DatePipe) { }
+    private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
     this.BankBookForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : ['']
+      FromDate :[''], ToDate : [''],CustomerAccount : ['']
   });
+  let item = JSON.parse(sessionStorage.getItem('User'));  
+  this.userType=this.Dbsecurity.Decrypt( item.UserType);
+  if(this.userType == 2)
+  {
+    this.divCustomer=true;
+    this.BindCustomers();
   }
+  else{
+    this.divCustomer=false;
+  } 
 
+
+  this.BindCustomers();
+  }
+  BindCustomers(){
+    this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
+      (data) => {
+           this.BindcustomerallfieldsList = data.Table;
+           this.loader1=false;this.loader2=false;
+      });
+  }
   BindGrid(FromDate,ToDate){
+    this.loader1=true;this.loader2=true;
     this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     this.griddiv=true;
@@ -37,7 +65,8 @@ export class BankBookComponent implements OnInit {
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate,   
-      "ToDate" :  ToDate         
+      "ToDate" :  ToDate,
+      "CustomerAccount" : this.BankBookForm.controls['CustomerAccount'].value       
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
@@ -48,6 +77,7 @@ export class BankBookComponent implements OnInit {
         this.Expenses=this.TotalsumgridData[0].Expenses;
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
+        this.loader1=false;this.loader2=false;
         });
   }
 
