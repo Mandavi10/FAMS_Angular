@@ -51,7 +51,7 @@
             </label>
             <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                 
-                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
+                <input name="date" type="date" id="" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate  /> 
             </div>
         </div>
     </div>
@@ -62,10 +62,27 @@
                       </label>
                       <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                          
-                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate formControlName="ToDate" /> 
+                          <input name="date" type="date" id="" formControlName="Todate"  [ngClass]="{ 'validate': submitted && f.Todate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate  /> 
                       </div>
                   </div>
               </div>
+
+              <div class="col-md-5 col-sm-5 col-xs-12" *ngIf="CustNameDive">
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                       Customer Name :
+                    </label>
+                    <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+    
+                            <option value="">Select</option>
+                            <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                        </select>
+                      
+                    </div>
+                </div>
+            </div>
+            
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
                   <button type="button" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
@@ -136,7 +153,7 @@
                     </strong>
                           <table>
                               <tbody>
-                                  <tr *ngFor="let data of Currentportfolio" >
+                                  <tr *ngFor="let data of CurrentportfolioList" >
                                      
                                           <td style="width: 215px">{{data.Security }}</td>
                                           <td style="width: 105px">{{data.Price }}</td>
@@ -369,14 +386,14 @@
                                       <td style="width: 105px"></td>
                                       <td style="width: 71px"></td>
                                       <td style="width: 77px" ></td>
-                                      <td style="width: 99px" >64665</td>
+                                      <td style="width: 99px" >{{STSumTotalCost}}</td>
                                       <td style="width: 103px" ></td>
-                                      <td style="width: 97px" >646564</td>
-                                      <td style="width: 93px" >566</td>
-                                      <td style="width: 95px" >-665</td>
-                                      <td style="width: 68px" >-266</td>
+                                      <td style="width: 97px" >{{STSumMarketValue}}</td>
+                                      <td style="width: 93px" >{{STSumIncome}}</td>
+                                      <td style="width: 95px" >{{STSumGL}}</td>
+                                      <td style="width: 68px" >{{STSumPercentG_L}}</td>
                                       <td style="width: 74px" ></td>
-                                      <td style="width: 69px" >6466</td>
+                                      <td style="width: 69px" >{{STSumPercentAssets}}</td>
                               </tr>
 
                           </tfoot>
@@ -396,14 +413,14 @@
                                     <td style="width: 105px"></td>
                                     <td style="width: 71px"></td>
                                     <td style="width: 77px" ></td>
-                                    <td style="width: 99px" ><strong >64665</strong></td>
+                                    <td style="width: 99px" ><strong >{{ETSumTotalCost}}</strong></td>
                                     <td style="width: 103px" ></td>
-                                    <td style="width: 97px" ><strong >646564</strong></td>
-                                    <td style="width: 93px" ><strong >566</strong></td>
-                                    <td style="width: 95px" ><strong >-665</strong></td>
-                                    <td style="width: 68px" ><strong >-266</strong></td>
+                                    <td style="width: 97px" ><strong >{{ETSumMarketValue}}</strong></td>
+                                    <td style="width: 93px" ><strong >{{ETSumIncome}}</strong></td>
+                                    <td style="width: 95px" ><strong >{{ETSumGL}}</strong></td>
+                                    <td style="width: 68px" ><strong >{{ETSumPercentG_L}}</strong></td>
                                     <td style="width: 74px" ></td>
-                                    <td style="width: 69px" ><strong >6466</strong></td>
+                                    <td style="width: 69px" ><strong >{{ETSumPercentAssets}}</strong></td>
                                       </tr>
                                   
                               </tbody>
