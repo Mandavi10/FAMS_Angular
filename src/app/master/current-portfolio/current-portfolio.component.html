@@ -7,7 +7,7 @@
           </div>
       </div>
 
-      <form class="form">
+      <form [formGroup]="CurrentPortfolioForm" autocomplete="off" appNorightclick>
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                <span class="legal"></span>
@@ -25,9 +25,7 @@
                           </label>
 
                           
-                          <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
-                              <i class="fa fa-file-excel-o"></i>
-                          </button></a> --> 
+                         
                       </li>
                        
                        <li >
@@ -36,9 +34,7 @@
                                   <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
                                  
                                </label>
-                               <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
-                                  <i class="fa fa-file-pdf-o"></i>
-                              </button></a> -->
+                            
                            </li>
                    </ul>
               </div>
@@ -55,7 +51,7 @@
             </label>
             <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                 
-                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
             </div>
         </div>
     </div>
@@ -66,13 +62,16 @@
                       </label>
                       <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                          
-                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
+                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate formControlName="ToDate" /> 
                       </div>
                   </div>
               </div>
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
-                  <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
+                  <button type="button" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
+                  <!-- <button type="submit" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button> -->
+
+                  <!-- <button type="button" (click)="test()" class="btn btn-success"> Search</button> -->
                   </div>
   </div>
   </div>
@@ -108,7 +107,7 @@
               </div>
           </div>
       </div>   
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="divMainGrid">
           <div class="holdingreportGrid">
           <table class="bankmasterTable" id="bankmastertable">
               <thead>
@@ -137,22 +136,22 @@
                     </strong>
                           <table>
                               <tbody>
-                                  <tr >
+                                  <tr *ngFor="let data of Currentportfolio" >
                                      
-                                          <td style="width: 215px">Bank OF India</td>
-                                          <td style="width: 105px">69598</td>
-                                          <td style="width: 71px" >69598</td>
-                                          <td style="width: 77px">69598</td>
-                                          <td style="width: 99px">69598</td>
-                                          <td style="width: 103px">69598</td>
-                                          <td style="width: 97px">69598</td>
-                                           <td style="width: 93px">69598</td>
-                                          <td style="width: 95px">-69598</td>
-                                          <td style="width: 68px">-69598</td>
-                                          <td style="width: 74px">-69598</td>
-                                          <td style="width: 69px">69598</td>
+                                          <td style="width: 215px">{{data.Security }}</td>
+                                          <td style="width: 105px">{{data.Price }}</td>
+                                          <td style="width: 71px" >{{data.Quantity }}</td>
+                                          <td style="width: 77px">{{data.UnitCost }}</td>
+                                          <td style="width: 99px">{{data.TotalCost }}</td>
+                                          <td style="width: 103px">{{data.MarkedPrice }}</td>
+                                          <td style="width: 97px">{{data.MarketValue }}</td>
+                                           <td style="width: 93px">{{data.Income }}</td>
+                                          <td style="width: 95px">{{data.TotalG_L }}</td>
+                                          <td style="width: 68px">{{data.PercentG_L }}</td>
+                                          <td style="width: 74px">{{data.IRRPercent }}</td>
+                                          <td style="width: 69px">{{data.PercentAssets }}</td>
                                       </tr>
-                                      <tr >
+                                      <!-- <tr >
                                      
                                         <td style="width: 215px">Bank OF India</td>
                                         <td style="width: 105px">69598</td>
@@ -361,7 +360,7 @@
                                         <td style="width: 68px">-69598</td>
                                         <td style="width: 74px">-69598</td>
                                         <td style="width: 69px">69598</td>
-                                    </tr>
+                                    </tr> -->
                               </tbody>
                           <tfoot>
                            
