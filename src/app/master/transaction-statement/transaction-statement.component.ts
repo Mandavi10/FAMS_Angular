@@ -5,6 +5,9 @@ import { TransactionstatementService } from '../../Services/TransactionStatement
 import { Bindmaingrid } from '../../../Models/TransactionStatement/bindmaingrid';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Commonfields } from '../../../Models/commonfields';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -15,8 +18,8 @@ import 'jspdf-autotable';
 })
 export class TransactionStatementComponent implements OnInit {
   BindmaingridList : Bindmaingrid;TransactionStatementForm : FormGroup;HeaderArray:any=[];divMainGrid:boolean=false;
-  StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];
-
+  StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];divCustomer:boolean=false;
+  BindcustomerallfieldsList:Bindcustomerallfields; userType:number;
   columnDefs = [
     {headerName: 'Transaction Description', field: 'TransactionDesc', width: 180},
     {headerName: 'Transaction Date', field: 'TransactionDate', width: 150 },
@@ -45,14 +48,35 @@ rowData = [
 ];
 
   constructor(private router: Router,private TSService : TransactionstatementService
-    , private formBuilder: FormBuilder,public datepipe: DatePipe) { }
+    , private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
+    debugger;
     this.router.navigate(['/Home']);
     this.router.navigate(['/TransactionStatement']);
     this.TransactionStatementForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : ['']
+      FromDate :[''], ToDate : [''],CustomerAccount:['']
   });
+        let item = JSON.parse(sessionStorage.getItem('User'));  
+        this.userType=this.Dbsecurity.Decrypt( item.UserType);
+        if(this.userType == 2)
+        {
+          this.divCustomer=true;
+          this.BindCustomers();
+        }
+        else{
+          this.divCustomer=false;
+        } 
+  }
+
+  BindCustomers(){
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.TSService.BindCustomers(JSON.stringify(Data)).subscribe(
+      (data) => {
+           this.BindcustomerallfieldsList = data.Table;
+      });
   }
 
   PreviousDayFun(){
@@ -81,7 +105,7 @@ rowData = [
     this.TransactionStatementForm.controls['FromDate'].setValue(yesterday);
   }
 
-  BindGrid(FromDate,ToDate){
+  BindGrid(FromDate,ToDate,CustomerAccount){
     this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     this.divMainGrid=true;
@@ -90,7 +114,8 @@ rowData = [
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
-      "ToDate" :  ToDate          //this.TransactionStatementForm.controls['ToDate']
+      "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
+      "CustomerAccount" : this.TransactionStatementForm.controls['CustomerAccount'].value
     }
     this.TSService.BindGrid(JsonData).subscribe(
       (data) => {

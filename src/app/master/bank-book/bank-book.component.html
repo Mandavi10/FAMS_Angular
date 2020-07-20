@@ -1,10 +1,8 @@
 <div class="main-content maincontainer">
     <div class="content">
-  
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-            </div>
+        <div class="loaderOverlay"  *ngIf="loader1" ></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="loader2">
+            <img src="../../assets/images/loader.gif" />
         </div>
   
         <form class="form">
@@ -49,7 +47,21 @@
             <form [formGroup]="BankBookForm" autocomplete="off" appNorightclick style="overflow:visible">
                 <div class="row">
        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-        
+        <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="divCustomer">
+            <div class="form-group">
+              <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                 Customer Name :
+              </label>
+              <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="CustomerAccount">
+      
+                      <option value="">Select</option>
+                      <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                  </select>
+                
+              </div>
+          </div>
+      </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
           <div class="form-group">
               <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
@@ -61,6 +73,7 @@
               </div>
           </div>
       </div>
+  
             <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
@@ -72,11 +85,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
+                <div class="col-sm-1 col-xs-1 col-md-1 mt-2 btndiv">
+                    <div class="btntry ">
                     <!-- <button type="button" class="btn btn-success">Search</button> -->
-                    <button type="button" (click)="BindGrid(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
+                    <button type="button" (click)="BindGrid(FromDate.value,ToDate.value)" class="btn btn-success "> Search</button>
                     </div>
+                </div>  
     </div>
+</div>
+<div class="row">
+<div class="col-md-12 col-xs-12 col-sm-12">
+  
+</div>
+
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
     <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
