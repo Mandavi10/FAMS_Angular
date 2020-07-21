@@ -46,9 +46,27 @@ const routes: Routes = [
 {path: 'SecuritiesCustomer', loadChildren: './securities-customer/securities-customer.module#SecuritiesCustomerModule'},
 {path: 'MyNotes', loadChildren: './my-notes/my-notes.module#MynotesModule'},
 {path: 'OrderProcessing', loadChildren: './order-processing/order-processing.module#OrderProcessingModule'},
+{path: 'OrderProcessingNew', loadChildren: './order-processing-new/order-processing-new.module#OrderProcessingNewModule'},
+{path: 'BrokerMaster', loadChildren: './broker-master/broker-master.module#BrokerMasterModule'},
+{path: 'DistributorMaster', loadChildren: './distributor-master/distributor-master.module#DistributorMasterModule'},
 
+{path: 'BankBook', loadChildren: './bank-book/bank-book.module#BankBookModule'},
+
+
+{path: 'CapitalStatement', loadChildren: './capital-statement/capital-statement.module#CapitalStatementModule'},
+
+
+
+
+
+{path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
+{path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
+
+{path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
+ {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},
         ]
-  }
+      }
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

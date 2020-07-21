@@ -1,13 +1,4 @@
 
- .boxhead
- {
-     background-color: #f1f2f3;
-     padding: 9px 5px 5px 5px;
-     border-radius: 5px;
-     border: 2px solid #e6edf3;
- }
- 
-
   .chipsContainer{
     padding: 5px 0px 5px 5px;
     width: 84%;
@@ -150,10 +141,7 @@ select {
   border-radius: 5px;
   background-color: #f8fbfb;}
 
-.userlistpop, .modal-header {
-    
-  background-color: #00172e;
-}
+
 .close{color: #ffffff;
   opacity: 1;}
 .modal-title{color:#ffffff !important;}
@@ -234,7 +222,7 @@ select {
 #createuser .modal-header {
     background-color: #143b63;
 }
-#createuser .modal-content{height:658px}
+
 .chipsContainer{
   padding: 1px 0px 1px 5px;
     max-width: 95%;
@@ -345,4 +333,144 @@ select {
   border: solid 1px #eee;
   border-radius: 3px;
   width:100%
+}
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+}
+
+
+@media only screen and (min-width: 1100px) and (max-width: 1200px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+}
+
+
+@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+}
+
+
+@media only screen and (min-width: 800px) and (max-width: 900px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+}
+
+@media only screen and (min-width: 700px) and (max-width: 800px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+.toolbar-content li {
+  margin-right: 4px !important; 
+  padding:1px 6px 0px 1px !important; 
+ }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 700px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+.toolbar-content li {
+  margin-right: 4px !important; 
+  padding:1px 6px 0px 1px !important; 
+ }
+
+}
+
+
+
+@media only screen and (min-width: 499px) and (max-width: 600px) {
+  #createuser .modal-dialog{
+    float: right;
+}
+#createuser .modal-content {
+height: 565px !important;
+}
+#createuser .modal-dialog {
+width: 100% !important;
+}
+
+.toolbar-content li {
+  margin-right: 4px !important; 
+  padding:1px 6px 0px 1px !important; 
+ }
+}
+
+@media (max-width: 498px) {
+
+  #createuser .modal-dialog{
+    margin: 0px 0 0 0% !important;
+}
+#createuser .modal-dialog {
+  width: 100% !important;
+}
+
+#createuser .modal-content {
+  height: 565px !important;
+}
+.toolbar-content li {
+ margin-right: 4px !important; 
+ padding:1px 6px 0px 1px !important; 
+}
+
 }

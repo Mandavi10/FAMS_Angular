@@ -1,6 +1,12 @@
 <div class="main-content maincontainer">
         <div class="content">
-            <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+                <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                    <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
                 <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                      <span class="legal"></span>
                  
@@ -11,7 +17,7 @@
     
                             
                               
-                            <li>
+                            <li (click)="downloadCSVFile($event)">
                                 <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
                                 <label>
                                     Export to Excel
@@ -29,7 +35,7 @@
                                     Upload User
                                 </label>
                             </li> -->
-                            <li (click)="onClickcitymaster($event)">
+                            <li (click)="onClickcitymaster($event)" [style.display]="showNew ? 'block' : 'none'">
                                 <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                                 <label>
                                     New
@@ -54,16 +60,24 @@
                 
                 
                <ag-grid-angular
-        style="width: 100%; height: 130px;"
+        style="width: 100%; height: 350px;"
         class="ag-theme-alpine"
-        [rowData]="rowData"
+        [rowData]="city"
         [columnDefs]="columnDefs"
-        [enableFilter]="false"
+        [enableFilter]="true"
           [enableSorting]="true"
-          [showToolPanel]="true">
+          [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true" (cellClicked)="onRowSelected($event)"
+          (gridReady)="onGridReady($event)"
+          >
     </ag-grid-angular>
                
-                
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+                <span class="previousBtn">Previous</span>
+                <span class="paginationCount">50 out of 200</span>
+                <span class="nextBtn">Next</span>
+            </div>
+    </div> 
             </div>
             
            
@@ -77,8 +91,8 @@
                     
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
-                            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                            <div class="col-sm-12 col-md-12 col-xs-12 no-padding">
                                 <h4 class="pageTitle">
                                     Create City
                                      </h4>
@@ -93,56 +107,80 @@
                         </div>
                         
                             <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                                    <form class="" >
+                                <form [formGroup]="CityFormGrp" autocomplete="off" class="form" appNorightclick>
                                                         <div class="row no-padding mt-2">
-                                                            <div class="col-md-12 col-sm-4 col-xs-12 p-0">
-                                                                    <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                                                             <div class="form-group">
-                                                                                <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                                    Country:
                                                                                 </label>
-                                                                                <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                        <select class="dropdown col-sm-7 col-md-12 col-xs-7">
+                                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                                        <!-- <select class="dropdown col-sm-7 col-md-12 col-xs-7">
                                                                                                 <option>Select Country</option>
                                                                                                 <option>IND</option>
                                                                                                 <option>AUS</option>
                                                                                                 <option>USA</option>
                                                                                                 <option>AFG</option>
-                                                                                            </select>
+                                                                                            </select> -->
+                                                                                            <div class="form-group input-group" >
+                                                                                                <select class="col-md-12 col-xs-12 col-sm-12" #Country (change)="loadAllState(Country.value)"  formControlName="CountryCode">
+                                                                                                <option value="0" selected>Select Country</option>
+                                                                                                <option *ngFor="let data of country" value={{data.CountryCode}}  >
+                                                                                                    {{data.CountryName}}
+                                                                                                </option>
+                                                                                                </select>
+                                                                                            </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                                                                 <div class="form-group">
-                                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                                        State:
                                                                                     </label>
-                                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                                            <select class="dropdown col-sm-7 col-md-12 col-xs-7">
+                                                                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                                            <!-- <select class="dropdown col-sm-7 col-md-12 col-xs-7">
                                                                                                     <option>Select State</option>
                                                                                                     
-                                                                                                </select>
+                                                                                                </select> -->
+
+                                                                                        <div class="form-group input-group" >
+                                                                                            <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="StateCode">
+                                                                                            <option value="0" selected>Select State</option>
+                                                                                            <option *ngFor="let data of state" value={{data.StateCode}}  >
+                                                                                                {{data.StateName}}
+                                                                                            </option>
+                                                                                            </select>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
 
-                                                            <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                        City Code:
                                                                     </label>
-                                                                    <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                        <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                        <!-- <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                        <!-- <input type="text" required name="cityCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="CityCode" /> -->
+                                                                        <div class="form-group input-group" [ngClass]="displayFieldCss('CityCode')">
+                                                                            <input type="text" required name="cityCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="CityCode" />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12 col-sm-4 col-xs-12">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                                                         City Name:
                                                                     </label>
-                                                                    <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                                                        <input type="text"  class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                        <!-- <input type="text"  class="col-sm-12 col-md-12 col-xs-12" /> -->
+                                                                        <div class="form-group input-group" [ngClass]="displayFieldCss('CityName')">
+                                                                            <input type="text" required name="cityName" class="col-sm-12 col-md-12 col-xs-12" formControlName="CityName" />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -154,19 +192,84 @@
                                        
                                     </form>
                                 </div>
+
+                                <div class="downbtnposition">
+                                        <!-- <button type="button" class="btn btn-success">Save</button> -->
+                                        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+                                        </div>
+
+
+
                     </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
                   
-                    <button type="button" class="btn btn-success">Save</button>
+
+                    <!-- <button type="button" class="btn btn-success">Save</button> -->
+                    <!-- <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button> -->
                     </div>
+
+
                     
                     </div>
                     </div>
                     </div>
     
         </div>
+
+        <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">
+           
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+            <p>Saved Successfully</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+          
+         </div>
+            
+            </div>
+            </div>
+            </div>
+         
+         
+         
+            <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+               <div class="modal-dialog modal-sm">
+               <div class="modal-content">
+               
+               <!-- Modal Header -->
+               <div class="modal-header">
+               <h4 class="modal-title">
+              
+               </h4>
+               <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+               </div>
+               
+               <!-- Modal body -->
+               <div class="modal-body">
+               <p>Updated Successfully</p>
+               </div>
+               
+               <!-- Modal footer -->
+               <div class="modal-footer">
+               <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+             
+            </div>
+               
+               </div>
+               </div>
+               <!-- </div> -->
     
     </div>
     

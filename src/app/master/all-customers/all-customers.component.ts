@@ -3,6 +3,8 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { AllCustomersService } from '../../Services/AllCustomers/all-customers.service';
 import { AllCustomers} from '../../../Models/AllCustomers/all-customers';
 import { SaveAllFields} from '../../../Models/AllCustomers/save-all-fields';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Allcustomerresponse } from 'src/Models/AllCustomers/allcustomerresponse';
@@ -21,6 +23,9 @@ export class AllCustomersComponent implements OnInit {
   selectedRowId:number;
   CustomerId:number;
   Temp: number = 1; 
+
+  isShowLoader:boolean=false;
+
   columnDefs = [
     {headerName: 'Sr. No.', field: 'Sno', width:'80'},
     {headerName: 'Customer Account', field: 'AccountNo', width:'150'},
@@ -61,7 +66,7 @@ hideupdatepopup() {
  this.showModalupdatepopup = false;
 }
 
-  constructor(private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
   isShowGrid:boolean=true;
   isShowForm:boolean=false;
 
@@ -130,15 +135,26 @@ onRowSelected(event){
         }
         else {
             this.UpdateData();
+
         }
     } else {
         this.validateAllFormFields(this.AllCustomersForm);
-    }
+
+            this.isShowLoader=false;
+
+        }
+    // } else {
+    //     this.validateAllFormFields(this.AllCustomersForm);
+    //     this.isShowLoader=false;
+
+    // }
   }
 
 SaveData(){
   debugger;
- 
+
+  this.isShowLoader=true;
+
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   //let SaveallfieldsList = new Saveallfields();
   //this.SaveallfieldsList.UserId = "3";
@@ -147,6 +163,7 @@ SaveData(){
   this.AllCustomerService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
 
     (data) => {
+    
       this.CustomerResponse = data;
       if (data[0].value == "1") {
         this.onClicksavepopup();
@@ -154,10 +171,17 @@ SaveData(){
         this.BindGrid();
         this.isShowForm=false;
         this.isShowGrid=true;
+
+        this.isShowLoader=false;
+
+
+
       }
       else
       {
+    this.isShowLoader=false;
         alert("Customer Username already exist. !!")
+        this.isShowLoader=false;
         //this.BindGrid();
       }
   //     this.CommonfieldsList = data.Table; 
@@ -171,7 +195,9 @@ SaveData(){
  
   UpdateData(){
     debugger;
-   
+
+    this.isShowLoader=true;
+
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     //let SaveallfieldsList = new Saveallfields();
     //this.SaveallfieldsList.UserId = "3";
@@ -180,6 +206,8 @@ SaveData(){
     this.AllCustomerService.UpdateData(JSON.stringify(this.SaveallfieldsList),this.CustomerId).subscribe(
   
       (data) => {
+
+
         this.CustomerResponse = data;
         if (data[0].value == "1") {
           this.onClickupdatepopup();
@@ -187,12 +215,24 @@ SaveData(){
           this.BindGrid();
           this.isShowForm=false;
           this.isShowGrid=true;
+
+          this.isShowLoader=false;
         }
         else
         {
           alert("Customer Username already exist. !!")
-          //this.BindGrid();
+          this.isShowLoader=false;
+
+    this.isShowLoader=false;
+
         }
+    //     else
+    //     {
+    // this.isShowLoader=false;
+    //       alert("Customer Username already exist. !!")
+
+    //       //this.BindGrid();
+    //     }
     //     this.CommonfieldsList = data.Table; 
           
          });
@@ -220,4 +260,68 @@ validateAllFormFields(formGroup: FormGroup) {
       }
   });
 }
+private gridApi;
+private gridColumnApi;
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+downloadCSVFile() {
+  debugger;
+var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+    this.gridApi.exportDataAsCsv(params);
+  }
+
 }

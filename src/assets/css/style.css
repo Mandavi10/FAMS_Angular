@@ -6,12 +6,26 @@
     .loss {
         color: #f31313
     }
+    .fullmaincontainer{position: relative;
+        float: left;
+        width: 100%}
+
+    #createuser .modal-content{height:619px}
+    .menuBar .fa-bars{ display:none}
+
 .modal {
     background: rgba(0,0,0,0.6) !important;
 }
+.modal-header {      
+    background-color: #ffffff;
+  }
+  .modal .close {
+        opacity: 0.8;}
 
-.loaderposition{    position: absolute;
-    z-index: 9999 !important;}
+.loaderposition{        position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    top: 37%;}
 
 
 .loaderimagepage{margin-left: 45%;margin-top: 19%;width: 8%;}
@@ -109,9 +123,16 @@ font-family:"Segoe UI"; }
 .exportExcelBtn:hover {
         color: #fff !important;}
 
-.paginationDiv{position: absolute;
+.paginationDiv{position: fixed;
     right: 0px;
-    bottom: -20px;}
+    bottom: 23px;}
+
+    .downbtnposition{position: absolute !important;
+        right: 26px !important;
+        bottom: 45px !important;}
+    .ag-theme-alpine .ag-ltr .ag-header-select-all {
+        margin-right: 5px !important;
+    }
     .paginationDiv span{font-family: arial;}
 .paginationDiv .previousBtn, .paginationDiv .nextBtn{padding: 3px 8px;
     background: #ddd;
@@ -166,6 +187,7 @@ font-family:"Segoe UI"; }
         color: #003974 !important;}
 .ag-center-cols-container{ width:100% !important}
 .ag-theme-alpine .ag-cell-inline-editing{height:28px !important; padding: 0px !important}
+.ag-center-cols-container{width:2000px !important}
 
 
 .guidetext{color: #e81c26;
@@ -2122,6 +2144,20 @@ pre.prettyprint {
     [class*=vspace-][class*="-sm"] {
         display: block
     }
+  
+        .maincontainer{width:100% !important}
+        .menuBar .fa-bars{ display:block}
+        #sidenav .fa-th{display:none}
+        .dvLinks{ position: absolute !important;
+            width: 165px !important;
+            z-index: 999 !important;
+            background: #fff !important;
+            box-shadow: none !important;
+            max-height: 575px !important;}
+        .breadcrum {
+                margin-left: 17px;}
+            .navbar .navbar-collapse, .navbar .navbar-header {
+                margin-left: 30px !important;}
 }
 
 @media only screen and (max-width: 991px) {
@@ -3074,6 +3110,11 @@ pre.prettyprint {
     }
 }
 
+@media only screen and (max-width: 767px) {
+.navbar .navbar-collapse, .navbar .navbar-header {
+    margin-left: 30px !important;}
+}
+
 @media only screen and (max-width: 480px) {
     .navbar-form .form-group {
         width: 80%
@@ -3091,7 +3132,9 @@ pre.prettyprint {
     .navbar.navbar-collapse {
         background-color: transparent
     }
-
+    .navbar .navbar-collapse, .navbar .navbar-header {
+        margin-left: 0px !important;
+    }
         .navbar.navbar-collapse:before {
             background: #438EB9;
             content: "";
@@ -3477,6 +3520,14 @@ body.mob-safari .sidebar.sidebar-fixed {
     body.mob-safari .navbar-fixed-top:not(.navbar-collapse) + .main-container .sidebar-fixed {
         top: 90px
     }
+
+    #createuser .modal-dialog{
+       width: 100%!important;
+    }
+    #createuser .modal-content{
+        height: 565px;
+    }
+
 }
 
 @media (max-width: 991px) {
@@ -9723,7 +9774,7 @@ table td span i {
     width: -o-8px;
     height: -o-8px;
     width: 7px;
-    height: 5px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -24833,7 +24884,7 @@ s.companyddl .logouthover {
 
 .adminddl .dropdown-menu.dropdown-close {
     top: 92%;
-    left: -96px;
+    left: -164px;
     right: 7px;
     width: 180px;
 }
@@ -26695,6 +26746,7 @@ th.dow {
     .banner1 {
         width: 70% !important;
     }
+   
 }
 
 @media only screen and (min-width: 601px) and (max-width: 760px) {

@@ -1,6 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
@@ -20,27 +20,31 @@
                                         </label>
                                     </li>
 
-                                    <li (click)="onClicksavepopup($event)" >
+                                    <!-- <li (click)="onClicksavepopup($event)" >
                                       
                                         <label>
                                             Popup
                                         </label>
-                                    </li>
+                                    </li> -->
                          
                         
                      </ul>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
        
 <div class="" id="tbldiv" *ngIf="Isdiv1">
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"  >
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-2"  >
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>    
               <ag-grid-angular
-        style="width: 100%; height: 130px;"
+        style="width: 100%; height:350px;"
         class="ag-theme-alpine"
         [rowData]="rowData"
         [columnDefs]="columnDefs"
@@ -48,16 +52,23 @@
           [enableSorting]="true"
           [showToolPanel]="true">
     </ag-grid-angular>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+                <span class="previousBtn">Previous</span>
+                <span class="paginationCount">50 out of 200</span>
+                <span class="nextBtn">Next</span>
+            </div>
+    </div> 
                
                 
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="paginationDiv">
                             <span class="previousBtn">Previous</span>
                             <span class="paginationCount">50 out of 200</span>
                             <span class="nextBtn">Next</span>
                         </div>
-               </div>
+               </div> -->
             </div>
 
         <div class="row" id="formdiv"*ngIf="Isdiv2">
@@ -65,54 +76,54 @@
 
 
             <div class="col-md-12 col-sm-12 col-xs-12" >
-                <div class="col-md-12 col-sm-12 col-xs-12 detailBox">
+                <div class="col-md-12 col-sm-12 col-xs-12 detailBox ">
                  
               
 
    <div class="col-md-7 col-xs-12 col-sm-7 p-0"  style="display: inline-block;">
-    <label class="lblradiobtnss col-md-1 col-sm-4 col-xs-6 p-0 User">
-                                     <input name="Type" value="u" type="radio"/>
+    <label class="lblradiobtnss col-md-4 col-sm-4 col-xs-3 p-0 User">
+                                     <input name="Type" value="u" type="radio" (click)="onClickUser()"/>
                                      <span class="pl-2">User</span>
                                  </label>
-                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6 p-0 Administrator">
-                                     <input name="Type" value="a" type="radio"/>
+                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-3 p-0 Administrator" *ngIf="IsAdmin">
+                                     <input name="Type" value="a" type="radio" (click)="onClickAdmin()"/>
                                      <span class="pl-2">Administrator</span>
                                  </label>
-       <label class="lblradiobtnss col-md-2 col-sm-4 col-xs-6 p-0 Customer">
-                                     <input name="Type" value="u" type="radio"/>
+       <label class="lblradiobtnss col-md-4 col-sm-4 col-xs-3 p-0 Customer">
+                                     <input name="Type" value="u" type="radio" (click)="onClickCustomer()"/>
                                      <span class="pl-2">Customer</span>
                                  </label>
                                 
        </div>
 
             <div class="form-group">
-               <div class="col-md-12 col-xs-12 col-sm-4 p-0 mt-3 formfield">
+               <div class="col-md-12 col-xs-12 col-sm-12 p-0 mt-3 formfield">
                 <div class="row">
                    
-<div class="col-md-4 col-xs-12 col-sm-4 pr-0">
+<div class="col-md-4 col-xs-12 col-sm-4 ">
 <label class="col-md-4 col-xs-12 col-sm-4 p-0">User ID:</label>
-<input type="text"  class="col-md-7 col-xs-12 col-sm-7"  />
+<input type="text"  class="col-md-7 col-xs-12 col-sm-8"  />
 
 </div>
 <div class="col-md-4 col-xs-12 col-sm-4">
 <label class="col-md-4 col-xs-12 col-sm-4 p-0">Email:</label>
 
-<input type="text" class="col-md-7 col-xs-12 col-sm-7" />
+<input type="text" class="col-md-7 col-xs-12 col-sm-8" />
 </div>
 <div class="col-md-4 col-xs-12 col-sm-4">
 <label class="col-md-4 col-xs-12 col-sm-4 p-0">Contact No.:</label>
 
-<input type="text" class="col-md-7 col-xs-12 col-sm-7" />
+<input type="text" class="col-md-7 col-xs-12 col-sm-8" />
 
 </div>
                         </div>
 </div>
               
                 <div class="row mt-2 userdropdown">
-<div class="col-md-8 col-xs-12 col-sm-4 pr-0 mt-4">
+<div class="col-md-8 col-xs-12 col-sm-4  mt-4">
 <label class="col-md-2 col-xs-12 col-sm-4 p-0">Company Selection:</label>
 
-<select class="dropdown col-sm-7 col-md-10 col-xs-7">
+<select class="dropdown col-sm-8 col-md-10 col-xs-12">
     <option>Select Country</option>
     <option>Company 1</option>
    
@@ -143,7 +154,7 @@
        
 
  
-          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="IsShowAccessRight">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #cbcfd2;">
     <h6 style="color: #003974;
     font-weight: bold;">Access Right</h6>
@@ -156,34 +167,34 @@
                  
                
             <div class="form-group">
-                <div class="row">
-<div class="col-md-12 col-xs-12 col-sm-4 pr-0">
-<label class="col-md-1 col-xs-12 col-sm-4 p-0">Master:</label>
-   <div class="col-md-10 col-xs-12 col-sm-7"  style="display: inline-block;">
-    <label class="lblradiobtnss col-md-2 col-sm-4 col-xs-6">
-                                     <input name="Type" value="u" type="checkbox"/>
+                <div class="row" *ngIf="IsShowMaster">
+<div class="col-md-12 col-xs-12 col-sm-12 pr-0 boxpadding boxnexxxt">
+<label class="col-md-1 col-xs-12 col-sm-4 ">Master:</label>
+   <div class="col-md-10 col-xs-12 col-sm-8 paddingboxnew"  style="display: inline-block;">
+    <label class="lblradiobtnss col-md-3 col-sm-4 col-xs-6 col-lg-2 lblpadding">
+                                     <input name="Type" value="u" type="checkbox" class="check"/>
                                      <span class="pl-2">Create</span>
                                  </label>
-                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6">
-                                     <input name="Type" value="a" type="checkbox"/>
+                                 <label class="lblradiobtnss col-md-3 col-sm-6 col-xs-6 col-lg-2 lblpadding">
+                                     <input name="Type" value="a" type="checkbox" class="check"/>
                                      <span class="pl-2">Edit</span>
                                  </label>
-       <label class="lblradiobtnss col-md-2 col-sm-4 col-xs-6">
-                                     <input name="Type" value="u" type="checkbox"/>
+       <label class="lblradiobtnss col-md-3 col-sm-4 col-xs-6  col-lg-2 lblpadding">
+                                     <input name="Type" value="u" type="checkbox" class="check"/>
                                      <span class="pl-2">View</span>
                                  </label>
-                                 <label class="lblradiobtnss col-md-2 col-sm-6 col-xs-6">
-                                     <input name="Type" value="a" type="checkbox"/>
+                                 <label class="lblradiobtnss col-md-3 col-sm-6 col-xs-6  col-lg-2 lblpadding">
+                                     <input name="Type" value="a" type="checkbox" class="check"/>
                                      <span class="pl-2">Delete</span>
                                  </label>
        </div>
 </div>
 
 </div>
-                <div class="row mt-2">
-<div class="col-md-12 col-xs-12 col-sm-4 pr-0 reportdropdown">
+                <div class="row mt-2" *ngIf="IsShowReports">
+<div class="col-md-12 col-xs-12 col-sm-12 pr-0 reportdropdown">
 <label class="col-md-1 col-xs-12 col-sm-4 p-0">Reports:</label>
-<div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+<div class="col-sm-6 col-md-7 col-xs-12 lblpadding displayinlineblock">
         <div class="chipsContainer" (click)="showDropDown($event)">
             <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
             <ul>

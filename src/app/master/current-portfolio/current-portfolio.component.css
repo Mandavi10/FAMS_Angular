@@ -1,0 +1,43 @@
+/*.holdingreportGrid tbody {
+    max-height: 52vh !important;
+}
+
+.holdingreportGrid {
+    overflow: hidden;
+    overflow-x: auto;
+
+}
+
+
+    .holdingreportGrid table {
+        width: 100%;
+        display:table;
+    }
+    .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
+table tbody tr td table tbody {
+overflow:hidden}*/
+
+table{display: block;}
+
+.holdingreportGrid tbody {
+   
+    display: block;
+    max-height: 68vh;
+}
+
+.holdingreportGrid tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+        
+tfoot{display: block;}
+thead{display: block;}        
+
+.holdingreportGrid thead tr {
+    width: 100%;
+    
+    table-layout: fixed;
+}      
+  
+

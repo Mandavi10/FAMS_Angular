@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-psmcustomers-list',
@@ -13,6 +15,7 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./psmcustomers-list.component.css']
 })
 export class PSMCustomersListComponent implements OnInit {
+  isShowLoader:boolean=false;
   _custodian:Custodian;_portFolio:PortFolio;_linkedPMSEmployee:LinkedPMSEmployee;_pMSCustomerListDetails:PMSCustomerListDetails;_pMSCustomerListCodeDetails;_pMSCustomerList:PMSCustomerList
   Isdiv1:boolean;
   Isdiv:boolean;
@@ -23,15 +26,13 @@ export class PSMCustomersListComponent implements OnInit {
   custodian:Custodian;portFolio:PortFolio;linkedPMSEmployee:LinkedPMSEmployee;pMSCustomerListDetails:PMSCustomerListDetails;pMSCustomerListCodeDetails;pMSCustomerList:PMSCustomerList
   selectedRowId:number=0;
   CustomerListId:number;
-
   Temp: number = 1;  loading: boolean = false;
   message: string;
   setClickedRow: Function;
-
   SelectionStatusOfMutants:any;
-
-
-
+  showBackToCustomerList:boolean=false;
+  showNew:boolean=true;
+  showviewSecurities=true;
   columnDefs1 = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
@@ -62,18 +63,35 @@ rowData2= [
 ];
 
 showModalstatemaster: boolean;
+    BackToCustomer(){
+      this.showBackToCustomerList=false;
+      this.Isdiv1=false;
+      this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showNew=true;
+      this.showviewSecurities=true;
+    }
     onClickviewpms(){
      
       if(this.selectedRowId!=0)
       {
+
+        this.showBackToCustomerList=true;
         this.Isdiv1=true;
         this.Isdiv=false;
         this.BindPMSCustomerListCodeDetails(this.selectedRowId);
+        this.showNew=false;
+        this.showviewSecurities=false;
+
+        this.Isdiv1=true;
+        this.Isdiv=false;
+        this.BindPMSCustomerListCodeDetails(this.selectedRowId);
+
       }
      
     }
 
-    constructor(private formbulider: FormBuilder, private _pmsCustomerListService: PmsCustomerListService) {
+    constructor(private formbulider: FormBuilder, private _pmsCustomerListService: PmsCustomerListService,private router: Router) {
       //  this.custodian = new Custodian();
     }
 
@@ -164,10 +182,14 @@ showModalstatemaster: boolean;
         const datat = this.PMSCustomerListFormGrp.value;
         
         if (this.Temp == 1) {
+          this.isShowLoader=true;
             this.AddCustomerListDetails();
+            this.isShowLoader=false;
         }
         else {
+          this.isShowLoader=true;
             this.UpdateCustomerListDetails();
+            this.isShowLoader=false;
         }
     } else {
         this.validateAllFormFields(this.PMSCustomerListFormGrp);
@@ -314,6 +336,109 @@ showModalstatemaster: boolean;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
+  }
+
+  private gridApi;
+private gridColumnApi;
+
+private gridApi1;
+private gridColumnApi1;
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+onGridReady1(params) {
+  debugger;
+  this.gridApi1 = params.api;
+  this.gridColumnApi1 = params.columnApi;
+}
+downloadCSVFile() {
+  debugger;
+//var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+
+
+
+    var params = {
+      columnKeys: ['SrNo','CustodianCode','ListCode',  'Enable'],
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'PMSCustomerList.csv',
+      columnSeparator: ','
+    };
+   
+    var params1 = {
+      columnKeys: ['SrNo','CustomerAccount','CustomerName', 'PortfolioName','InceptionDate','EmployeeName'],
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'Customer.csv',
+      columnSeparator: ','
+    };
+    if(this.selectedRowId==0)
+    {
+      this.gridApi.exportDataAsCsv(params);
+    }
+    else{
+      this.gridApi1.exportDataAsCsv(params1);
+    }
+    
   }
   
   }

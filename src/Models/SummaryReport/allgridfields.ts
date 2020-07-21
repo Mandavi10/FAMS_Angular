@@ -12,5 +12,7 @@ export class Allgridfields {
     ClosingMarketValue : string;
     ClosingNAV : string;
     ClosingOutstanding : string;
-    
+
+    CustomerAccountNo : string;
+    CustomerName : string;
 }

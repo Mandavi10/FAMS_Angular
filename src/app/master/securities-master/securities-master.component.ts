@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-securities-master',
@@ -13,6 +15,10 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./securities-master.component.css']
 })
 export class SecuritiesMasterComponent implements OnInit {
+  isShowLoader:boolean=false;
+
+
+
   showModalsavepopup: boolean;
   showModalSecurity: boolean;
   showModalupdatepopup:boolean;
@@ -24,11 +30,13 @@ export class SecuritiesMasterComponent implements OnInit {
   Isdiv:boolean;
   SelectionStatusOfMutants:any;
   selectedRowId:number=0;
-  
+  showBackToSecurityList:boolean=false;
   //showModalSecurity: boolean;
   showSecurity = false;
   showGrid = true;
-
+  showviewSecurities=true;
+  // showBackToSecurityList:boolean=false;
+  showNew:boolean=true;
       // columnDefs = [
       //   {headerName: 'All', field: '', width: 60, cellRenderer: function() {
       //     return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
@@ -75,8 +83,12 @@ export class SecuritiesMasterComponent implements OnInit {
         
     ];
     BackToSecurity(){
+      this.showBackToSecurityList=false;
       this.showSecurity = false;
       this.showGrid = true;
+      this.selectedRowId=0;
+      this.showNew=true;
+      this.showviewSecurities=true;
     }
 Edit(SecurityDetailsId)
 {
@@ -87,8 +99,16 @@ debugger;
       
       if(this.selectedRowId!=0)
       {
+
+        this.showNew=false;
+        this.showviewSecurities=false;
+        this.showBackToSecurityList=true;
+        this.showSecurity = true;
+        this.showGrid = false;
+
         this.showSecurity = true;
       this.showGrid = false;
+
         this.BindSecurity(this.selectedRowId);
       }
       
@@ -139,7 +159,7 @@ debugger;
           this.showModalsavepopup = false;
         }
 
-      constructor(private formbulider: FormBuilder, private _securityDetailsService: SecurityDetailsService) {
+      constructor(private router: Router,private formbulider: FormBuilder, private _securityDetailsService: SecurityDetailsService) {
 
         //  this.custodian = new Custodian();
         
@@ -153,7 +173,7 @@ debugger;
             CustodianCode: [0,],
             ListCode: ['',],
             ListName: ['',],
-            SecurityCode: [0,],
+            SecurityCode: ['',],
             SectorCode: [0,],
             SecurityName: ['',],
             Active: [false],
@@ -169,7 +189,7 @@ debugger;
         this.loadAllCountry();
         this.loadAllSector();
         this.loadAllCustodians();
-        this.loadAllSecurityCodeDetails();
+       // this.loadAllSecurityCodeDetails();
         this.loadAllSecurityDetails();
     }
     onRowSelected(event){
@@ -203,10 +223,14 @@ debugger;
           const datat = this.SecurityFormGrp.value;
           
           if (this.Temp == 1) {
+            this.isShowLoader=true;
               this.SaveSecurity();
+              this.isShowLoader=false;
           }
           else {
+            this.isShowLoader=true;
               this.UpdateSecurity();
+              this.isShowLoader=false;
           }
       } else {
           this.validateAllFormFields(this.SecurityFormGrp);
@@ -291,7 +315,7 @@ debugger;
        this.SecurityFormGrp.controls['CountryCode'].setValue(0);
        this.SecurityFormGrp.controls['CustodianCode'].setValue(0);
 
-       this.SecurityFormGrp.controls['SecurityCode'].setValue(0);
+      // this.SecurityFormGrp.controls['SecurityCode'].setValue(0);
        this.SecurityFormGrp.controls['SectorCode'].setValue(0);
       // this.buttonDisabledReset = false;
       //this.buttonDisabledDelete = true
@@ -368,6 +392,109 @@ debugger;
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
     }
+
+    private gridApi;
+    private gridColumnApi;
+    
+    private gridApi1;
+    private gridColumnApi1;
+    getValue(inputSelector) {
+      // var text = document.querySelector(inputSelector).value;
+      var text = 'array';
+       switch (text) {
+         
+         case 'array':
+           return [
+             // [],
+             
+             [
+               {
+                 data: {
+                   value: 'this cell:',
+                   type: 'String',
+                 },
+                 mergeAcross: 1,
+               },
+               // {
+               //   data: {
+               //     value: 'is empty because the first cell has mergeAcross=1',
+               //     type: 'String',
+               //   },
+               // },
+             ],
+             [],
+           ];
+         case 'none':
+           return;
+         case 'tab':
+           return '\t';
+         case 'true':
+           return true;
+         case 'none':
+           return;
+         default:
+           return text;
+       }
+     }
+     getParams() {
+       return {
+         // suppressQuotes: this.getValue('#suppressQuotes'),
+         // columnSeparator: this.getValue('#columnSeparator'),
+         // customHeader: this.getValue('#customHeader'),
+         // customFooter: this.getValue('#customFooter'),
+       };
+     }
+    onGridReady(params) {
+      debugger;
+      this.gridApi = params.api;
+      this.gridColumnApi = params.columnApi;
+    }
+    onGridReady1(params) {
+      debugger;
+      this.gridApi1 = params.api;
+      this.gridColumnApi1 = params.columnApi;
+    }
+
+
+    downloadCSVFile() {
+      debugger;
+   //var params = this.getParams();
+        // if (params.suppressQuotes || params.columnSeparator) {
+        //   alert(
+        //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+        //   );
+        // }
+        var params = {
+          columnKeys: ['SrNo','CountryName','CustodianName', 'ListCode','ListName', 'Active'],
+          skipHeader: false,
+          skipFooters: true,
+          allColumns: true,
+          onlySelected: false,
+          suppressQuotes: true,
+          fileName: 'Security.csv',
+          columnSeparator: ','
+        };
+       
+        var params1 = {
+          columnKeys: ['SrNo','SecurityCode','SecurityName', 'SectorCode'],
+          skipHeader: false,
+          skipFooters: true,
+          allColumns: true,
+          onlySelected: false,
+          suppressQuotes: true,
+          fileName: 'Securities.csv',
+          columnSeparator: ','
+        };
+        if(this.selectedRowId==0)
+        {
+          this.gridApi.exportDataAsCsv(params);
+        }
+        else{
+          this.gridApi1.exportDataAsCsv(params1);
+        }
+        
+      }
+
     
     }
     

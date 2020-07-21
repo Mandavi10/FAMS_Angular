@@ -1,5 +1,12 @@
-<div class="main-content maincontainer">
+<div class="main-content maincontainer" id="divWidth">
     <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+               
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-xs-12">
@@ -9,23 +16,54 @@
                     <div class="col-sm-12 col-md-12 mt-3">
                         <div class=" col-md-12 col-sm-12 col-xs-12">
         
-                            <div class=" portalBox">
-                                <a routerLink="/TrialBalanceReport" routerLinkActive="active">
-                                <img src="../assets/images/trial_icon.png" />
-                                    <h5>Trial Balance Report</h5>
+                            <div class=" portalBox" *ngFor="let Data of BindalltabsList">
+                                <a routerLink="{{Data.url}}" routerLinkActive="active">
+                                <img src="{{Data.ImagePath}}" />
+                                    <h5>{{Data.LinkName}}</h5>
                             </a>
                             </div>
-        
-        
+
                             <div class="portalBox">
-                                <a routerLink="/SummaryReport" routerLinkActive="active">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>Current portfolio</h5>
+                                </a>
+                            </div>
+
+                            <div class="portalBox">
+                                <a routerLink="/StatementDividend" routerLinkActive="active">
+                               
+                                    <h5>Statement Dividend</h5>
+                                </a>
+                            </div>
+                            <!-- ../assets/images/trial_icon.png -->
+                            
+        
+
+                            <div class="portalBox">
+                                <a routerLink="/BankBook" routerLinkActive="active">
                                 <img src="../assets/images/summary_icon.png" />
-                                    <h5>Portfolio Performance Summary</h5>
+                                    <h5>Bank Book</h5>
+                                    </a>
+                                </div>
+                             <div class="portalBox">
+                                <a routerLink="/CapitalStatement" routerLinkActive="active">
+                                <img src="../assets/images/statement_icon.png" />
+                                    <h5>Statement of Capital Gain/Loss</h5>
+
+                                </a>
+                            </div>
+                        
+                            <div class="portalBox">
+                                <a routerLink="/StatementOfExpenses" routerLinkActive="active">
+                                <img src="../assets/images/statement_icon.png" />
+                                    <h5>Statement Of Expenses</h5>
+
                                 </a>
                             </div>
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/HoldingReport" routerLinkActive="active">
                                 <img src="../assets/images/holding_icon.png" />
 
@@ -33,37 +71,48 @@
                                     <li class="" style="list-style: none;"><a routerLink="/HoldingReport" routerLinkActive="active"><span class="menu-text"> <h5>Holding Report</h5></span></a></li>
                                
 
-                                    <!-- <a href="./home/home.module#HomeModule"><img src="../assets/images/holding_icon.png" /></a>
+                                     <a href="./home/home.module#HomeModule"><img src="../assets/images/holding_icon.png" /></a>
                                     <h5>Holding Report</h5> -->
 
                                     <!-- <h5>Holding Report</h5> -->
-                               </a>
+                               <!-- </a>
 
-                            </div>
+                            </div> --> 
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/TransactionStatement" routerLinkActive="active">
                                     <img src="../assets/images/transaction_icon.png" />
                                     <h5>Transaction Statement</h5>
                              </a>
-                            </div>
+                            </div> -->
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
                                     <img src="../assets/images/cash_icon.png" />
                                     <h5>Cash Equivalent</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/MyNotes" routerLinkActive="active">
                                 <img src="../assets/images/notes_icon.png" />
                                 <h5>My Notes</h5>
                            </a>
                            <span class="notificationCount">4</span>
+
                         </div>
-        
+                        <div class="portalBox" *ngIf="OrderProcessing">
+                            <a routerLink="/OrderProcessingNew" routerLinkActive="active" >
+
+                        </div> -->
+                        <!-- <div class="portalBox">
+                            <a routerLink="/OrderProcessingNew" routerLinkActive="active">
+
+                                <img src="../assets/images/orderProcessing_icon.png" />
+                                <h5>Order Processing</h5>
+                            </a>
+                        </div> -->
                         </div>
         
         
@@ -87,5 +136,116 @@
             </div>
         </div>
 
-        </div>
+        <div class="modal" id="ChangePassword" [style.display]="ChangePassWordPopUp ? 'block' : 'none'">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+        
+        
+                <div class="modal-header">
+                    <h4 class="modal-title" style="margin-top: 3%;">
+                        Change Password
+                    </h4>
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideChangePassword()">&times;</button>
+                    </div>
+                
+            
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+               
+                    <div class="col-md-12 col-sm-12 col-xs-12 pr-0" id="divForm" style="display:block">
+                            <form [formGroup]="ChangePasswordForm" autocomplete="off" appNorightclick >
+                                                <div class="row no-padding mt-2">
+                                                    <div class="col-md-12 col-sm-4 col-xs-12 p-0">
+                                                            <div class="col-md-12 col-sm-4 col-xs-12 mt-3">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                           Old Password:
+                                                                        </label>
+                                                                        <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                            <div class="form-group input-group" [ngClass]="displayFieldCss('OldPassword')">
+                                                                            <input type="password" required  class="col-sm-12 col-md-12 col-xs-12" #OldPassWord formControlName="OldPassword"/>
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                New Password:
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('NewPassword')">
+                                                                                <input type="password" required name="NewPassword" class="col-sm-12 col-md-12 col-xs-12" #NewPassWord formControlName="NewPassword"/>
+                                                                            </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+        
+                                                    <div class="col-md-12 col-sm-4 col-xs-12 mt-4">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                Confirm Password:
+                                                            </label>
+                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                                <div class="form-group input-group" [ngClass]="displayFieldCss('ConfirmPassword')">
+                                                                <input type="password" required name="ConfirmPassword" class="col-sm-12 col-md-12 col-xs-12" #ConfirmPassWord formControlName="ConfirmPassword"/>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+        
+                                                          
+                                                           
+                                                        </div>
+                                                    </div>
+                               
+                            </form>
+                        </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+          
+            <button type="button" class="btn btn-success" (click)="ChangePassSave(OldPassWord.value,NewPassWord.value,ConfirmPassWord.value)">Save</button>
+            <button type="button" class="btn btn-success" (click)="ChangePassCancel()">Cancel</button>
+            </div>
+            
+            </div>
+            </div>
+            </div>
+
+            <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">
+               
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                <p><span [innerHTML]="Successtext"></span></p>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+              
+            </div>
+                
+                </div>
+                </div>
+                </div>
+        
+        
+        
+        
+            </div>
         </div>

@@ -1,21 +1,24 @@
 <div class="main-content maincontainer">
     <div class="content">
-            <div class="col-md-12 col-sm-12 col-xs-12 mt-4">
+
+            <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
                
                     <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
                         <img src="../../assets/images/loader.gif" class="loaderimagepage" />
                     </div>
                    
+
+
                 </div>
 
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  <span class="legal"></span>
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-                        <li>
+                        <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
                             <label>
                                 Export to Excel
@@ -54,11 +57,13 @@
         class="ag-theme-alpine"
         [rowData]="AllCustomersList"
         [columnDefs]="columnDefs"
-        [enableFilter]="false"
+        [enableFilter]="true"
           [enableSorting]="true"
           [showToolPanel]="true"
           rowSelection="single"
-            (cellClicked)="onRowSelected($event)"
+            (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
+            (gridReady)="onGridReady($event)"
+
           >
     </ag-grid-angular>
                
@@ -75,6 +80,7 @@
 
 
             
+          
 
 
 
@@ -82,6 +88,7 @@
     
                <div class="form-group scrollciv">
                 <form [formGroup]="AllCustomersForm" autocomplete="off" appNorightclick>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="detailsBox">
             
                             <h6>Customer Details</h6>
@@ -109,7 +116,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Acc:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerAccount')">
                         <input type="text" name="customerAccount" required class="col-md-12 col-xs-12 col-sm-12" id="txtUserAccount"  formControlName="CustomerAccount" />
                         </div>
@@ -126,7 +133,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block pr-0">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Customer Name:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <input type="text" class="col-md-12 col-xs-12 col-sm-12"  />
                 
                     </div>
@@ -135,7 +142,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Portfolia:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Portfolia</option>
                             <option>Portfolia 1</option>
@@ -152,7 +159,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">PMS Employee:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>EMP01</option>
                             <option>EMP02</option>
@@ -171,7 +178,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Inception Date:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <input type="text" id="txtdate1" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -180,7 +187,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Address Line:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -189,7 +196,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">City:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>SD</option>
                             <option>GN</option>
@@ -208,7 +215,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">State:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>DL</option>
                             <option>UP</option>
@@ -223,7 +230,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">PAN:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -243,7 +250,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -252,7 +259,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Designation</option>
                             <option>MD</option>
@@ -268,7 +275,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Email:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -283,7 +290,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Phone:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -292,7 +299,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -310,7 +317,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Name:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -319,7 +326,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0"> Designation:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                             <option>Select Designation</option>
                             <option>MD</option>
@@ -335,7 +342,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Email:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -350,7 +357,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Phone:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -359,7 +366,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                            <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -379,7 +386,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Logo:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="file" />
                 
                     </div>
@@ -388,7 +395,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Name:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerAccount')">
                           <input type="text" required name="customerUsername" class="col-md-12 col-xs-12 col-sm-12" id="txtUserName"  formControlName="CustomerUsername" />
                         </div>
@@ -399,7 +406,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">User Email:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                         <div class="form-group input-group" [ngClass]="displayFieldCss('CustomerEmailID')">
                           <input type="text" required class="col-md-12 col-xs-12 col-sm-12" id="txtUserEmail"  formControlName="CustomerEmailID" />
                         </div>
@@ -417,7 +424,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Mobile No.:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           <input type="text" class="col-md-12 col-xs-12 col-sm-12" />
                 
                     </div>
@@ -426,7 +433,7 @@
                <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with Acc No.:</label>
                     </div>
-                    <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block p-0">
+                    <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block paddinginput">
                            <input type="checkbox" />
                 
                     </div>
@@ -435,7 +442,7 @@
                <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with Mobile No.:</label>
                     </div>
-                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block p-0">
+                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block paddinginput">
                            <input type="checkbox" />
                 
                     </div>
@@ -451,7 +458,7 @@
                <div class="col-md-6 col-xs-12 col-sm-6 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Login with User Email:</label>
                     </div>
-                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block p-0">
+                    <div class="col-md-5 col-xs-12 col-sm-5 d-inline-block paddinginput">
                            <input type="checkbox" />
                 
                     </div>
@@ -460,7 +467,7 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">Active:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block p-0">
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
                           
                             <select class="dropdown col-md-12 col-xs-12 col-sm-12">
                              <option>Active</option>
@@ -474,14 +481,18 @@
                     </div>
                     </div>
                     </div>
-                </form>
+
                 </div>
-                <div class="pull-right mt-1">
+                </form>
+                 <div class="pull-right mt-1 mr-4">
                
                     <input type="button" class="btn btn-success mr-2"  value="Create" (click)="onSubmit()" id="btnCreateCustomerPopUp"  />
                     <input type="button" class="btn btn-success mr-1" value="Cancel" (click)="Cancel()" id="btnCancelCustomerPopUp" />
                 </div>
-            
+                </div>
+               
+               
+               
                   </div> 
     
 

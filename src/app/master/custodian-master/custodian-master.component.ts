@@ -6,6 +6,8 @@ import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -14,6 +16,8 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./custodian-master.component.css']
 })
 export class CustodianMasterComponent implements OnInit {
+  isShowLoader:boolean=false;
+
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
@@ -26,15 +30,20 @@ export class CustodianMasterComponent implements OnInit {
   _pms:PMS;
   selectedRowId:number=0;
   pmsDetails:[];
-
+  showBackToCustodian:boolean=false;
+  showNew:boolean=true;
+  showviewSecurities=true;
   columnDefs = [
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
 return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
     }},
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Country', field: 'CountryName', width:'150'},
+    // {headerName: 'CountryCode', field: 'CountryCode', width:'150'},
+    // {headerName: 'CountryName', field: 'CountryName', width:'150'},
+
     {headerName: 'Custodian Code', field: 'CustodianCode', width:'150'},
-    {headerName: ' Custodian Name', field: 'CustodianName', width:'150'},
+    {headerName: 'Custodian Name', field: 'CustodianName', width:'150'},
 ];
 
 rowData = [
@@ -87,7 +96,7 @@ rowData1 = [
     }
 
 
-  constructor(private formbulider: FormBuilder, private _custodianService: CustodianService) {
+  constructor(private router: Router,private formbulider: FormBuilder, private _custodianService: CustodianService) {
 
       //  this.custodian = new Custodian();
        
@@ -106,13 +115,15 @@ rowData1 = [
       Active: [false],
 
   });
+  this.CustodianFormGrp.controls['PMSName'].disable();
+  this.CustodianFormGrp.controls['PMSAccountNumber'].disable();
+
   // this.setClickedRow = function (index) {
   //     this.selectedRow = index;
   // }
   // this.AllEmployee();
   
   this.loadAllCountry();
-  debugger;
   this.loadAllPMS();
   this.loadAllCustodians();
   }
@@ -121,6 +132,7 @@ rowData1 = [
       if (event.column.colId != "all" ) // only first column clicked
       {
         this.Temp=2;
+       
         this.showModalstatemaster = true;
         this.CustodianFormGrp.controls['CountryCode'].setValue(event.data.CountryCode);
         this.CustodianFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
@@ -142,6 +154,10 @@ rowData1 = [
       // this.showGrid = true;
       this.Isdiv1=false;
       this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showviewSecurities=true;
+        this.showNew=true;
+        this.showBackToCustodian=false;
     }
     BindPMSDetails(CustodianId) {
       debugger;
@@ -154,31 +170,53 @@ rowData1 = [
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
     }
+    BackToCustomer(){
+      this.showBackToCustodian=false;
+      this.Isdiv1=false;
+      this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showNew=true;
+    }
 onClickviewpms(){
-  debugger;
 //  this.onClickupdatepopup();
  //this.onClicksavepopup();
  
   if(this.selectedRowId != 0)
   {
+
+    this.showBackToCustodian=true;
     this.Isdiv1=true;
     this.Isdiv=false;
   this.BindPMSDetails(this.selectedRowId);
+    this.showviewSecurities=false;
+    this.showNew=false;
+
+    this.Isdiv1=true;
+    this.Isdiv=false;
+  this.BindPMSDetails(this.selectedRowId);
+
   }
 }
-onSubmit() {
+onSubmit(pMSName,pMSAccountNumber) {
   debugger;
   //alert('OnSubmi Clicked');
   //this.submitted = true;
   if (this.CustodianFormGrp.valid) {
       //this.sucess=true;
-      const datat = this.CustodianFormGrp.value;
+     // const datat = this.CustodianFormGrp.value;
+      this._custodian = this.CustodianFormGrp.value;
+      this._custodian.PMSName=pMSName;
+      this._custodian.PMSAccountNumber=pMSAccountNumber;
       
       if (this.Temp == 1) {
+        this.isShowLoader=true;
           this.SaveCustodian();
+          this.isShowLoader=false;
       }
       else {
+        this.isShowLoader=true;
           this.UpdateCustodian();
+          this.isShowLoader=false;
       }
   } else {
       this.validateAllFormFields(this.CustodianFormGrp);
@@ -215,7 +253,7 @@ FillPMSDetails(pmscode) {
   }
 SaveCustodian() {
   //debugger;
-  this._custodianService.SaveCustodian(JSON.stringify(this.CustodianFormGrp.value)).subscribe(
+  this._custodianService.SaveCustodian(JSON.stringify(this._custodian)).subscribe(
       (data) => {
           this._custodian = data;
           if (this._custodian.Result = 1) {
@@ -238,7 +276,7 @@ SaveCustodian() {
 }
 
 UpdateCustodian() {
-  this._custodianService.UpdateCustodian(JSON.stringify(this.CustodianFormGrp.value), this.CustodianId).subscribe(
+  this._custodianService.UpdateCustodian(JSON.stringify(this._custodian), this.CustodianId).subscribe(
       (data) => {
           if (data.Result = 1) {
               //this.message = 'Record updated Successfully';
@@ -314,5 +352,110 @@ loadAllCustodians() {
   // console.log(sessionStorage.getItem('ID'));
   this.loading = false;
 }
+
+
+
+private gridApi;
+private gridColumnApi;
+
+private gridApi1;
+private gridColumnApi1;
+getValue(inputSelector) {
+  // var text = document.querySelector(inputSelector).value;
+  var text = 'array';
+   switch (text) {
+     
+     case 'array':
+       return [
+         // [],
+         
+         [
+           {
+             data: {
+               value: 'this cell:',
+               type: 'String',
+             },
+             mergeAcross: 1,
+           },
+           // {
+           //   data: {
+           //     value: 'is empty because the first cell has mergeAcross=1',
+           //     type: 'String',
+           //   },
+           // },
+         ],
+         [],
+       ];
+     case 'none':
+       return;
+     case 'tab':
+       return '\t';
+     case 'true':
+       return true;
+     case 'none':
+       return;
+     default:
+       return text;
+   }
+ }
+ getParams() {
+   return {
+     // suppressQuotes: this.getValue('#suppressQuotes'),
+     // columnSeparator: this.getValue('#columnSeparator'),
+     // customHeader: this.getValue('#customHeader'),
+     // customFooter: this.getValue('#customFooter'),
+   };
+ }
+onGridReady(params) {
+  debugger;
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+onGridReady1(params) {
+  debugger;
+  this.gridApi1 = params.api;
+  this.gridColumnApi1 = params.columnApi;
+}
+downloadCSVFile() {
+  debugger;
+//var params = this.getParams();
+    // if (params.suppressQuotes || params.columnSeparator) {
+    //   alert(
+    //     'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
+    //   );
+    // }
+    var params = {
+      columnKeys: ['SrNo','CountryName','CustodianCode', 'CustodianName'],
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'Custodian.csv',
+      columnSeparator: ','
+    };
+   
+    var params1 = {
+      columnKeys: ['SrNo','PMSCode','PMSName', 'PMSAccountNumber'],
+
+      skipHeader: false,
+      skipFooters: true,
+      allColumns: true,
+      onlySelected: false,
+      suppressQuotes: true,
+      fileName: 'PMS.csv',
+      columnSeparator: ','
+    };
+
+
+    if(this.selectedRowId==0)
+    {
+      this.gridApi.exportDataAsCsv(params);
+    }
+    else{
+      this.gridApi1.exportDataAsCsv(params1);
+    }
+    
+  }
 
 }

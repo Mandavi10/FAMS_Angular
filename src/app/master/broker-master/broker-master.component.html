@@ -1,0 +1,299 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+               
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+           
+
+
+        </div>
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"></span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+                        
+                          
+                        <li (click)="downloadCSVFile()">
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <!-- <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Download Template
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                            <label>
+                                Upload User
+                            </label>
+                        </li> -->
+                        <li (click)="onClickBrokermaster($event)">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+           
+
+        </div>
+       
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+            <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            
+            
+          <ag-grid-angular
+    style="width: 100%; height: 460px;"
+    class="ag-theme-alpine"
+    [rowData]="Bindallfields2List"
+    [columnDefs]="columnDefs"
+    [enableFilter]="false"
+      [enableSorting]="true"
+      [showToolPanel]="true"
+      [pagination]="true" 
+      [paginationAutoPageSize]="true"
+      rowSelection="single"
+      (cellClicked)="onRowSelected($event)">
+</ag-grid-angular>
+           
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div>       
+        </div>
+        
+       
+
+        <div class="modal" id="createuser" [style.display]="showModalBrokermaster ? 'block' : 'none'">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideBrokermaster()">&times;</button>
+                
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                        <div class="col-sm-12 col-md-6 col-xs-12 no-padding">
+                            <h4 class="pageTitle">
+                                Create Broker
+                                 </h4>
+            
+                        </div>
+                        <div class="rightmenu">
+                            <div class="toolbar pull-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                                <form [formGroup]="BrokerMasterForm" autocomplete="off" appNorightclick>
+                                                    <div class="row no-padding mt-2">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                                   Broker Name:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('BrokerName')">
+                                                                    <input type="text"  requied name="BrokerName" class="col-sm-12 col-md-12 col-xs-12" formControlName="BrokerName" />
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                                 Trade Name:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('TradeName')">
+                                                                    <input type="text" requied class="col-sm-12 col-md-12 col-xs-12" formControlName="TradeName"/>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                                Registration No.:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <div class="form-group input-group" [ngClass]="displayFieldCss('RegistrationNo')">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="RegistrationNo"/>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                             GST No.:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="GSTNo"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                                    Stock Exchange Name:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="StockExchangeName">
+                                                                        <option value="" selected>Select</option>
+                                                                        <option value="BSE">BSE</option>
+                                                                        <option value="NSE">NSE</option>
+                                                                        <option value="BOTH">BOTH</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                           Email:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Email"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Telephone:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Telephone"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                             Contact Person:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactPerson"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                             Email:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="ContactEmail"/>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                             Phone:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Phone"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Extension(if any):
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="Extension"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Mobile No.:
+                                                                </label>
+                                                                <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                                    <input type="text"  class="col-sm-12 col-md-12 col-xs-12" formControlName="MobileNo"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                   
+                                </form>
+                            </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+               <!-- <button type="button" class="btn btn-success">Edit</button> -->
+                <button type="button" class="btn btn-success" (click)="SaveData()" >Save</button>
+                </div>
+                
+                </div>
+                </div>
+                </div>
+
+                <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                    <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">
+                   
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    <p><span [innerHTML]="SuccessText"></span></p>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+                  
+                </div>
+                    
+                    </div>
+                    </div>
+                    </div>
+
+    </div>
+
+</div>
+
+

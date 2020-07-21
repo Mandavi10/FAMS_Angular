@@ -348,3 +348,75 @@
       width:100%
     }
     
+    
+@media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} 
+.boxnexxxt{padding-left: 0px;}}
+@media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
+  height: 421px !important; } 
+  .boxnexxxt{padding-left: 0px;} }
+@media only screen and (max-device-width : 767px) {   
+  .maincontainer{width:100% !important}  
+  #createuser .modal-dialog {
+    margin: 3px 0 0 27% !important;
+}
+.successPopup .modal-dialog {
+  width: 90%;
+}
+.toolbar-content li {
+ margin-right: 4px !important; 
+ padding:1px 6px 0px 1px !important; 
+}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .boxnexxxt{padding-left: 0px;}
+}
+@media only screen and (max-device-width: 736px)
+{
+  .boxnexxxt{padding-left: 0px;}
+  .detailBox{margin-top:8px;}
+#createuser .modal-dialog{
+  margin: 3px 0 0 34% !important;
+  
+}
+.check{vertical-align: bottom;}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+}
+@media only screen and (max-device-width: 648px){
+  .detailBox{margin-top:8px;}
+  #createuser .modal-dialog{
+    margin: 3px 0 0 34% !important;
+  }
+  #divform{      overflow-y: scroll!important;
+    height: 286px !important; }
+    .boxnexxxt{padding-left: 0px;}
+    .check{vertical-align: middle;}
+}
+
+@media only screen and (max-device-width : 575px) {  
+.content {
+height: 97%;
+}
+.lblpadding{padding-left:0px;}
+.boxpadding{padding-left:0px;}
+#divform{   overflow-y: scroll!important;
+  height: 421px !important; }
+  .divblock{
+    position: absolute;
+    top: 97%;
+    padding: 0px;
+    left: -4%;
+  }
+  .btnasearch{float: right!important;
+
+    margin-right: 12px;
+}
+  .clientbox{
+    margin: 1% 0% 8% 0%;
+  }
+  .detailBox{margin-top:8px;}
+  .check{vertical-align: middle;}
+}
+@media only screen and (max-device-width : 450px) {  
+  .check{vertical-align: bottom;}
+}

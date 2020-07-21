@@ -6,6 +6,7 @@ import{ResponseData} from '../../../Models/TrialBalanceReport/response-data';
 
 import{TrialbalancereportService}from '../../Services/TrialBalanceReport/trialbalancereport.service';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -28,7 +29,7 @@ export class TrialBalanceReportComponent implements OnInit {
    Lia4OCredit:any;
    currentdate : any;Fromdate : any; Todate : any;
   
-   constructor(private _TrialBalanceService: TrialbalancereportService, private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService) { }
+   constructor(private router: Router,private _TrialBalanceService: TrialbalancereportService, private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService) { }
   isShowCustomer:boolean=false;
   isTotal:boolean=false;
   isUnrealizedGain:boolean=false;
@@ -56,7 +57,8 @@ export class TrialBalanceReportComponent implements OnInit {
   TotalCDebit :any;
   TotalCCredit :any;
     ngOnInit(): void {
-
+      this.router.navigate(['/Home']);
+      this.router.navigate(['/TrialBalanceReport']);
       this.currentdate = new Date();
       this.TrialBalanceForm = this.formBuilder.group({  
        Fromdate :[''], Todate : ['']

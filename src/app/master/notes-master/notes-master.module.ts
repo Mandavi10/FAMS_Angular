@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { NotesMasterComponent } from './notes-master.component';
 import { NotesMasterRoutingModule } from './notes-master-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import{FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [NotesMasterComponent],
   imports: [
     CommonModule,
-    NotesMasterRoutingModule,
+    NotesMasterRoutingModule,FormsModule,ReactiveFormsModule,
     AgGridModule.withComponents([])
   ]
 })

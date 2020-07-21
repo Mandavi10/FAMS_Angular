@@ -1,5 +1,12 @@
 <div class="main-content maincontainer">
     <div class="content">
+
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+        </div>
+
         <form [formGroup]="HoldingReportFormGrp" autocomplete="off" class="form" appNorightclick>
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
@@ -9,22 +16,26 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <li (click)="downloadCSVFile()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
-                                <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a>
+                                <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
+                                Export to CSV
+                                
                             </label>
 
                             
                             <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
                                 <i class="fa fa-file-excel-o"></i>
-                            </button></a> -->
+                            </button></a> --> 
                         </li>
                          
-                         <li>
+                         <li (click)="downloadPDFFile()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
-                                    <a href="../../../assets/Files/Holding Report.pdf"> Export to PDF</a>
+                                    <!-- <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                                    Export to PDF
+                                   
                                  </label>
                                  <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
                                     <i class="fa fa-file-pdf-o"></i>
@@ -119,16 +130,16 @@
 
                     <tr>
 
-                        <th style="width: 323px">Security</th>
-                        <th style="width: 156px">Quantity</th>
-                        <th style="width: 72px" class="price">Unit Cost</th>
-                        <th style="width: 98px" class="price">Cost</th>
-                        <th style="width: 149px" class="price">Price</th>
-                        <th style="width: 133px" class="price">Market Value </th>
-                        <th style="width: 128px">Gain / Loss (+/-)</th>
+                        <th style="width: 326px">Security</th>
+                        <th style="width: 145px">Quantity</th>
+                        <th style="width: 79px" class="price">Unit Cost</th>
+                        <th style="width: 103px" class="price">Cost</th>
+                        <th style="width: 140px" class="price">Price</th>
+                        <th style="width: 139px" class="price">Market Value </th>
+                        <th style="width: 123px">Gain / Loss (+/-)</th>
                         <!-- <th style="width: 10%"></th> -->
-                        <th style="width: 114px">% G/L</th>
-                        <th style="width: 100px">% Assets</th>
+                        <th style="width: 132px">% G/L</th>
+                        <th style="width: 95px">% Assets</th>
                     </tr>
                 </thead>
                 <tbody class="scrollbar">
@@ -471,7 +482,7 @@
                      </tr> -->
                      <tr *ngFor="let data of gridAllFields4 ; index as i" >
                         <td style="width: 331px">Total</td>
-                        <td style="width: 5%"></td>
+                        <td style="width: 7.5%"></td>
                         <td style="width: 10%" class="price"></td>
                         <td style="width: 10%" class="price">{{data.TotalCost }}</td>
                         <td style="width: 10%" class="price"></td>

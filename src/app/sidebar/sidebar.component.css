@@ -1,13 +1,16 @@
 .dvLinks ul li {
     width: 99%;
 }
+.maincontainer{position: relative;
+    float: left;
+    width: 100%}
 
 .dvLinks {
     width: 12%;
     box-shadow: -1px -3px 4px 1px #b1b6bd;
     height: 100%;
     float: left;
-    max-height: 611px;
+    max-height: 579px;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -21,4 +24,8 @@
     display: block;
 }
 .active{ border: 1px solid #8599ad; border-left: 3px solid #003974;  font-weight: 600; background-color: transparent !important;}
-  
+.nav > li > a {
+   
+    font-weight: 600 !important;
+   
+}

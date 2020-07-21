@@ -13,10 +13,15 @@ import{FormJsondata} from '../../Models/Login/form-jsondata';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  showSideNav= true;
+
+  
+
+  showSideNav= true;  loader1 : boolean = false; loader2 : boolean=false;
+
   href1: string;LoginForm: FormGroup;public errormsg: any;message: string; login: Logindetails; btnloginDisabled: boolean = false;
   CaptchaArr = ['redCaptcha','greanCaptcha','blueCaptcha','orangeCaptcha','voiletCaptcha'];
-  randomcaptchavalue:string="";  randomcaptcha:string=""; ChangePassWordPopUp : boolean = false;
+  randomcaptchavalue:string="";  randomcaptcha:string=""; 
+  //isShowLoader : boolean = false;
   constructor(private router: Router,private formBuilder: FormBuilder,private _loginService: LoginServiceService,private Dbsecurity: DbsecurityService) {
     router.events.subscribe(event => {
       if (router.url === '/Dashboard') {
@@ -30,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.LoginForm = this.formBuilder.group({
       //APPID: ['', [Validators.required,Validators.minLength(6),Validators.pattern('^[0-9]*$')]],
       UserName: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      Password: ['', [Validators.required,Validators.pattern('^[0-9]*$')]],
+      Password: [''],
       //Password: ['', [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{7,}')]],
       captcha: ['', [Validators.required]]
   });
@@ -64,24 +69,24 @@ this.LoginForm.reset();
 
 
   onSubmit() {
-    debugger;
     //commenton push
 
     //this.router.navigate(['/Dashboard']);
-
     if (this.LoginForm.valid) {
       
     if(this.AllFields.captcha.value == this.randomcaptcha)
     {
-
+      this.loader1=true; this.loader2=true;
       this.btnloginDisabled = true;
       let _apipostdata = new FormJsondata();
        //_apipostdata.APPID=this.AllFields.APPID.value;
        _apipostdata.UserName=this.AllFields.UserName.value;
        _apipostdata.Password=this.Dbsecurity.Encrypt(this.AllFields.Password.value);
+      // this.isShowLoader = true;
         this._loginService.GetLogin(JSON.stringify(_apipostdata)).subscribe(
             (data) => {
                 this.login = data;
+                this.loader1=false; this.loader2=false;
                 if (data[0].Flag == "0") {
                   this.btnloginDisabled = false;
                     this.errormsg = data[0].FlagValue;
@@ -89,38 +94,37 @@ this.LoginForm.reset();
                     this.BindRandomCaptcha();
                 }
                 else {
-                  if(this.Dbsecurity.Decrypt(data[0].UserId) == "3")
-                  {
-                    this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Dashboard']);
-                  }
-                  else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
-                  || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
-                  || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
-                  {
-                    this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Home']);
-                  }
-                else{
-                  this.btnloginDisabled = false;
-                    sessionStorage.setItem('User', JSON.stringify(data[0]));
-                    let item = JSON.parse(sessionStorage.getItem('User'));
-                    //console.log(item.UserId);
-                    this.router.navigate(['/Dashboard']);
+                  sessionStorage.setItem('User', JSON.stringify(data[0]));
+                  this.router.navigate(['/Home']);
+                //   if(this.Dbsecurity.Decrypt(data[0].UserId) == "3"|| this.Dbsecurity.Decrypt(data[0].UserId) == "4")
+                //   {
+                //     this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Dashboard']);
+                //   }
+                //   else if(this.Dbsecurity.Decrypt(data[0].UserId) == "5"
+                //   || this.Dbsecurity.Decrypt(data[0].UserId) == "1"
+                //   || this.Dbsecurity.Decrypt(data[0].UserId) == "2")
+                //   {
+                //     this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Home']);
+                //   }
+                // else{
+                //   this.btnloginDisabled = false;
+                //     sessionStorage.setItem('User', JSON.stringify(data[0]));
+                //     let item = JSON.parse(sessionStorage.getItem('User'));
+                //     //console.log(item.UserId);
+                //     this.router.navigate(['/Home']);
 
-                  }
+                //   }
                   
                 }
-                var value = this.Dbsecurity.Decrypt(this.login[0].IsDefaultPswdChange);
-                if( value == "False"){
-                    this.ChangePassWordPopUp = true;
-                }
+              
             });
           }
           else{
@@ -132,7 +136,9 @@ this.BindRandomCaptcha();
     else {
         this.validateAllFormFields(this.LoginForm);
     }
+
 }
+ 
 
 ChangePassSave(OldPassWord,NewPassWord,ConfirmedPassword){
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
