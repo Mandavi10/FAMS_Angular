@@ -3,17 +3,19 @@
        <div class="row">
            <div class="col-md-12 col-sm-12 col-xs-12 mt-3 pl-5">
                <span class="report "><strong> Select Reports:</strong></span>
-               <span class="report"><input type="checkbox" checked /> Trial Balance Report</span>
-               <span class="report"><input type="checkbox" checked /> NAV Report</span>
-               <span class="report"><input type="checkbox" checked /> Portfolio</span>
-               <span class="report"><input type="checkbox" checked /> Cash Equivalent</span>
-               <span class="report"><input type="checkbox" /> Transaction Statement</span>
-               <span class="report"><input type="checkbox" /> Bank Book</span>
-               <span class="report"><input type="checkbox" /> Statement of Expenses</span>
-               <span class="report"><input type="checkbox" /> Statement of Dividend</span>
+               <span class="report"><input type="checkbox" checked/> Transaction Statement</span>
+               <span class="report"><input type="checkbox" checked/> Bank Book</span>
+               <span class="report"><input type="checkbox" checked/> Statement of Expenses</span>
+               <span class="report"><input type="checkbox" checked/> Statement of Dividend</span>
+
+               <span class="report"><input type="checkbox" /> Trial Balance Report</span>
+               <span class="report"><input type="checkbox" /> NAV Report</span>
+               <span class="report"><input type="checkbox" /> Portfolio</span>
+               <span class="report"><input type="checkbox" /> Cash Equivalent</span>
+              
            </div>
            <div class="col-md-6 col-sm-6 col-xs-12">
-               <h5>Trial Balance Report</h5>
+               <h5>Transaction Statement</h5>
                <div class="iconBox">
                    <span (click)="showPie()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid()"><i class="fa fa-th" aria-hidden="true"></i></span>
@@ -42,7 +44,7 @@
          
            </div>
            <div class="col-md-6 col-sm-6 col-xs-12">
-               <h5>NAV Report</h5>
+               <h5>Bank Book</h5>
                <div class="iconBox">
                    <span (click)="showPie1()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid1()"><i class="fa fa-th" aria-hidden="true"></i></span>
@@ -71,7 +73,7 @@
          
            </div>
            <div class="col-md-6 col-sm-6 col-xs-12">
-               <h5>Portfolio</h5>
+               <h5>Statement of Expenses</h5>
                <div class="iconBox">
                    <span (click)="showPie2()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid2()"><i class="fa fa-th" aria-hidden="true"></i></span>
@@ -88,7 +90,7 @@
                    <div *ngIf="isGrid2"><ag-grid-angular
            style="width: 100%; height: 250px;"
            class="ag-theme-alpine"
-           [rowData]="rowData2"
+           [rowData]="statementOfExpenses_DataAnalysic"
            [columnDefs]="columnDefs2"
            [enableFilter]="false"
              [enableSorting]="true"
@@ -101,7 +103,7 @@
            </div>
 
            <div class="col-md-6 col-sm-6 col-xs-12">
-               <h5>Cash Equivalent</h5>
+               <h5>Statement of Dividend</h5>
                <div class="iconBox">
                    <span (click)="showPie3()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid3()"><i class="fa fa-th" aria-hidden="true"></i></span>

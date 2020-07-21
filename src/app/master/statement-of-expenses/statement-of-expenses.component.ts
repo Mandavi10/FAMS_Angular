@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatementOfExpenses} from '../../../Models/StatementOfExpense/StatementOfExpenses';
+import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import { StatementexpensesService } from 'src/app/Services/StatementOfExpenses/statementexpenses.service';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UrlSegment } from '@angular/router';
@@ -48,6 +49,7 @@ export class StatementOfExpensesComponent implements OnInit {
   }
   CurrentDate = new Date();
   isShowCustomer:boolean=false;
+  customer:Customer ;
   CustomerAccount:string;
   userType:number;
  accountNumber:string;
@@ -55,21 +57,70 @@ export class StatementOfExpensesComponent implements OnInit {
   pmsDetails:[];
   IsEquity:boolean;
   IsCashAndEquiv:boolean;
+ 
   ngOnInit(): void {
     this.StatementOfExpenseForm = this.formbulider.group({
+      UserId: [0, ],
       FromDate: ['', ],
       ToDate: ['',],
   });
+
+  let item = JSON.parse(sessionStorage.getItem('User'));
+  // this.UserId = item.UserId;
+  // this.EntityId = item.ReferenceId;
+    this.userType=this.Dbsecurity.Decrypt( item.UserType);
+    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    if(this.userType !=1)
+    {
+      this.isShowCustomer=true;
+      this.BindCustomer();
+    }
+    else{
+      this.isShowCustomer=false;
+    }
     
   }
 
-  
+  PreviousDayFun(){
+    var date = new Date();
+    var currentDate = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+    date.setDate(date.getDate() - 1);
+    var yesterday = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['FromDate'].setValue(yesterday);
+  }
+  LastOneWeekFun(){
+    var date = new Date();
+    var currentDate = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+    date.setDate(date.getDate() - 7);
+    var yesterday = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['FromDate'].setValue(yesterday);
+  }
+  LastOneMonthFun(){
+    var date = new Date();
+    var currentDate = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+    date.setDate(date.getDate() - 30);
+    var yesterday = date.toISOString().slice(0,10);
+    this.StatementOfExpenseForm.controls['FromDate'].setValue(yesterday);
+  }
+  BindCustomer() {
+    this.loading = true;
+    var currentContext = this;
+    this._statementexpensesService.BindCustomer().
+        subscribe((data) => {
+            currentContext.customer = data.Table;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+    this.loading = false;
+  }
 
-  BindStatementOfExpReport(FromDate,ToDate) {
+  BindStatementOfExpReport(CustomerAccount,FromDate,ToDate) {
     debugger;
     this.loading = true;
     var currentContext = this;
-    this._statementexpensesService.BindGridAllFields(FromDate,ToDate).
+    this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate).
         subscribe((data) => {
             currentContext.statementOfExpenses = data.Table;
             currentContext.statementOfExpenses1 = data.Table1;
@@ -82,11 +133,25 @@ export class StatementOfExpensesComponent implements OnInit {
     this.loading = false;
   }
   onSubmit() {
+    debugger;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
     if (this.StatementOfExpenseForm.valid) {
         //this.sucess=true;
         const datat = this.StatementOfExpenseForm.value;
+
+       
+        // var CustomerAccount="Cust_000001";
+        // var Date="2020-04-09";
+       // var CustomerAccount:
+        if(datat.UserId=="0")
+        {
+         this.CustomerAccount=this.accountNumber
+        }
+        else{
+         this.CustomerAccount=datat.UserId;
+
+        }
         // var CustomerAccount="Cust_000001";
         // var Date="2020-04-09";
        // var CustomerAccount:
@@ -94,7 +159,7 @@ export class StatementOfExpensesComponent implements OnInit {
         
         var FromDate=datat.FromDate;
         var ToDate=datat.ToDate;
-        this.BindStatementOfExpReport(FromDate,ToDate);
+        this.BindStatementOfExpReport(this.CustomerAccount,FromDate,ToDate);
     } 
   }
   
