@@ -27,19 +27,6 @@ table{display: block;}
         top: 61px;
         right: 14%;}
 
-
-        .loaderposition {
-            position: absolute;
-            z-index: 9999 !important;
-            text-align: center;
-            /* top: 37%; */
-          }
-          .loaderimagepage {
-            margin-left: 2%;
-            margin-top: 0%;
-            width: 8%;
-          }
-
 .holdingreportGrid tbody {
    
     display: block;

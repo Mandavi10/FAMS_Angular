@@ -8,9 +8,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
-//import html2canvas from 'html2canvas';  
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
+// import html2canvas from 'html2canvas';  
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -143,33 +143,29 @@ export class HoldingReportComponent implements OnInit {
         this.BindHoldingReport(this.CustomerAccount,Date);
     } 
   }
-  // downloadPDFFile()
-  // {
-    
-  // }
   downloadPDFFile(){
    
     debugger;  
-    var doc = new jsPDF();  
+    // var doc = new jsPDF();  
    
-    doc.setFontSize(11);
-    doc.setTextColor(100);
+    // doc.setFontSize(11);
+    // doc.setTextColor(100);
   
   
-    (doc as any).autoTable({
-      head: this.head,
-      body: this.gridAllFields5,
-      theme: 'plain',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    })
+    // (doc as any).autoTable({
+    //   head: this.head,
+    //   body: this.gridAllFields5,
+    //   theme: 'plain',
+    //   didDrawCell: data => {
+    //     console.log(data.column.index)
+    //   }
+    // })
   
-    // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
+    // // Open PDF document in new tab
+    // doc.output('dataurlnewwindow')
   
-    // Download PDF document  
-    doc.save('Holding_Report.pdf');
+    // // Download PDF document  
+    // doc.save('Holding_Report.pdf');
 
     // var data = document.getElementById('bankmastertable');  
     // html2canvas(data).then(canvas => {  
@@ -224,9 +220,9 @@ export class HoldingReportComponent implements OnInit {
   }
   ConvertToCSV(objArray) {
     
-      // this.HeaderArray = {
-      //   PMSEmpId: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
-      //   Qualification: "Qualification", About: "About"}
+      this.HeaderArray = {
+        PMSEmpId: "Sr.No.", EmployeeCode: "Employee Code", EmployeeName: "Employee Name", Gender: "Gender",
+        Qualification: "Qualification", About: "About"}
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
     var row = "";
@@ -251,7 +247,6 @@ export class HoldingReportComponent implements OnInit {
     return str;
 }
 downloadCSVFile() {
-  debugger;
     var csvData = this.ConvertToCSV(JSON.stringify(this.gridAllFields5));
     var a = document.createElement("a");
     a.setAttribute('style', 'display:none;');

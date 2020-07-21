@@ -1,16 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentportfolioService } from 'src/app/Services/CurrentPortFolio/currentportfolio.service';
-import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {Currentportfolio} from '../../../Models/CurrentPortfolio/currentportfolio';
-
-
-import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
-import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
-import { Commonfields } from '../../../Models/commonfields';
-
-
 
 @Component({
   selector: 'app-current-portfolio',
@@ -18,30 +6,11 @@ import { Commonfields } from '../../../Models/commonfields';
   styleUrls: ['./current-portfolio.component.css']
 })
 export class CurrentPortfolioComponent implements OnInit {
-  divMainGrid :boolean=false;
-  isShowLoader:boolean=false;CurrentPortfolioForm : FormGroup;loading: boolean = false;
-  CurrentportfolioList : Currentportfolio;
-  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
-  CurrentDate = new Date();
-  STSumGL:number;
-  STSumIncome:number;
-  STSumMarketValue:number;
-  STSumPercentAssets:number;
-  STSumPercentG_L:number;
-  STSumTotalCost:number;
 
-  ETSumGL:number;
-  ETSumIncome:number;
-  ETSumMarketValue:number;
-  ETSumPercentAssets:number;
-  ETSumPercentG_L:number;
-  ETSumTotalCost:number;
-  CustNameDive:boolean;
-  submitted = false;
-  BindcustomerallfieldsList : Bindcustomerallfields;
-  
+  constructor() { }
 
   ngOnInit() {
+
     this.CurrentPortfolioForm = this.formBuilder.group({  
       Formdate:['',Validators.required],
       Todate:['',Validators.required],
@@ -177,5 +146,8 @@ export class CurrentPortfolioComponent implements OnInit {
     this.loading = false;
   }
 }
+
+  }
+
 
 }

@@ -7,7 +7,7 @@
           </div>
       </div>
 
-      <form [formGroup]="CurrentPortfolioForm" autocomplete="off" appNorightclick>
+      <form class="form">
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                <span class="legal"></span>
@@ -25,7 +25,9 @@
                           </label>
 
                           
-                         
+                          <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                              <i class="fa fa-file-excel-o"></i>
+                          </button></a> --> 
                       </li>
                        
                        <li >
@@ -34,7 +36,9 @@
                                   <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
                                  
                                </label>
-                            
+                               <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                                  <i class="fa fa-file-pdf-o"></i>
+                              </button></a> -->
                            </li>
                    </ul>
               </div>
@@ -51,7 +55,7 @@
             </label>
             <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                 
-                <input name="date" type="date" id="" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate  /> 
+                <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
             </div>
         </div>
     </div>
@@ -62,10 +66,11 @@
                       </label>
                       <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                          
-                          <input name="date" type="date" id="" formControlName="Todate"  [ngClass]="{ 'validate': submitted && f.Todate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate  /> 
+                          <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> 
                       </div>
                   </div>
               </div>
+
 
               <div class="col-md-5 col-sm-5 col-xs-12" *ngIf="CustNameDive">
                 <div class="form-group">
@@ -85,10 +90,7 @@
             
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
-                  <button type="button" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
-                  <!-- <button type="submit" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button> -->
-
-                  <!-- <button type="button" (click)="test()" class="btn btn-success"> Search</button> -->
+                  <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
                   </div>
   </div>
   </div>
@@ -124,7 +126,7 @@
               </div>
           </div>
       </div>   
-      <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="divMainGrid">
+      <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="holdingreportGrid">
           <table class="bankmasterTable" id="bankmastertable">
               <thead>
@@ -153,22 +155,22 @@
                     </strong>
                           <table>
                               <tbody>
-                                  <tr *ngFor="let data of CurrentportfolioList" >
+                                  <tr >
                                      
-                                          <td style="width: 215px">{{data.Security }}</td>
-                                          <td style="width: 105px">{{data.Price }}</td>
-                                          <td style="width: 71px" >{{data.Quantity }}</td>
-                                          <td style="width: 77px">{{data.UnitCost }}</td>
-                                          <td style="width: 99px">{{data.TotalCost }}</td>
-                                          <td style="width: 103px">{{data.MarkedPrice }}</td>
-                                          <td style="width: 97px">{{data.MarketValue }}</td>
-                                           <td style="width: 93px">{{data.Income }}</td>
-                                          <td style="width: 95px">{{data.TotalG_L }}</td>
-                                          <td style="width: 68px">{{data.PercentG_L }}</td>
-                                          <td style="width: 74px">{{data.IRRPercent }}</td>
-                                          <td style="width: 69px">{{data.PercentAssets }}</td>
+                                          <td style="width: 215px">Bank OF India</td>
+                                          <td style="width: 105px">69598</td>
+                                          <td style="width: 71px" >69598</td>
+                                          <td style="width: 77px">69598</td>
+                                          <td style="width: 99px">69598</td>
+                                          <td style="width: 103px">69598</td>
+                                          <td style="width: 97px">69598</td>
+                                           <td style="width: 93px">69598</td>
+                                          <td style="width: 95px">-69598</td>
+                                          <td style="width: 68px">-69598</td>
+                                          <td style="width: 74px">-69598</td>
+                                          <td style="width: 69px">69598</td>
                                       </tr>
-                                      <!-- <tr >
+                                      <tr >
                                      
                                         <td style="width: 215px">Bank OF India</td>
                                         <td style="width: 105px">69598</td>
@@ -377,7 +379,7 @@
                                         <td style="width: 68px">-69598</td>
                                         <td style="width: 74px">-69598</td>
                                         <td style="width: 69px">69598</td>
-                                    </tr> -->
+                                    </tr>
                               </tbody>
                           <tfoot>
                            
@@ -386,14 +388,14 @@
                                       <td style="width: 105px"></td>
                                       <td style="width: 71px"></td>
                                       <td style="width: 77px" ></td>
-                                      <td style="width: 99px" >{{STSumTotalCost}}</td>
+                                      <td style="width: 99px" >64665</td>
                                       <td style="width: 103px" ></td>
-                                      <td style="width: 97px" >{{STSumMarketValue}}</td>
-                                      <td style="width: 93px" >{{STSumIncome}}</td>
-                                      <td style="width: 95px" >{{STSumGL}}</td>
-                                      <td style="width: 68px" >{{STSumPercentG_L}}</td>
+                                      <td style="width: 97px" >646564</td>
+                                      <td style="width: 93px" >566</td>
+                                      <td style="width: 95px" >-665</td>
+                                      <td style="width: 68px" >-266</td>
                                       <td style="width: 74px" ></td>
-                                      <td style="width: 69px" >{{STSumPercentAssets}}</td>
+                                      <td style="width: 69px" >6466</td>
                               </tr>
 
                           </tfoot>
@@ -413,14 +415,14 @@
                                     <td style="width: 105px"></td>
                                     <td style="width: 71px"></td>
                                     <td style="width: 77px" ></td>
-                                    <td style="width: 99px" ><strong >{{ETSumTotalCost}}</strong></td>
+                                    <td style="width: 99px" ><strong >64665</strong></td>
                                     <td style="width: 103px" ></td>
-                                    <td style="width: 97px" ><strong >{{ETSumMarketValue}}</strong></td>
-                                    <td style="width: 93px" ><strong >{{ETSumIncome}}</strong></td>
-                                    <td style="width: 95px" ><strong >{{ETSumGL}}</strong></td>
-                                    <td style="width: 68px" ><strong >{{ETSumPercentG_L}}</strong></td>
+                                    <td style="width: 97px" ><strong >646564</strong></td>
+                                    <td style="width: 93px" ><strong >566</strong></td>
+                                    <td style="width: 95px" ><strong >-665</strong></td>
+                                    <td style="width: 68px" ><strong >-266</strong></td>
                                     <td style="width: 74px" ></td>
-                                    <td style="width: 69px" ><strong >{{ETSumPercentAssets}}</strong></td>
+                                    <td style="width: 69px" ><strong >6466</strong></td>
                                       </tr>
                                   
                               </tbody>
