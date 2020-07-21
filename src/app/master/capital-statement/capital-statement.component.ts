@@ -189,12 +189,12 @@ BindCustomers(){
      
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= this.capitalStatForm.controls['CustomerAccount'].value;
+      CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
     }
     else{
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-      userid= item.UserId
+      CustomerAccountNo= item.AccountNo
       
     }
 

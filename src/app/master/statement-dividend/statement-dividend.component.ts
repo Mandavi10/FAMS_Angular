@@ -159,17 +159,17 @@ bindGrid(){
    
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-    CustomerAccountNo= this.StatementDividendForm.controls['CustomerAccount'].value;
+    CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
   }
   else{
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-    userid= item.UserId
+    CustomerAccountNo= item.AccountNo
     
   }
   this.submitted = true;
   if (this.StatementDividendForm.invalid) {
-    alert('invalid')
+    
     return;
   }
   else{

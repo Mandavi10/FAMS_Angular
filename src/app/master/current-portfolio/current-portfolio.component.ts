@@ -82,6 +82,8 @@ export class CurrentPortfolioComponent implements OnInit {
 
   BindCurrentPortFolioReport(FromDate,ToDate) {
 
+    // alert(this.CurrentPortfolioForm.controls['CustomerAccount'].value )
+
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid, CustomerAccountNo;
@@ -90,22 +92,23 @@ export class CurrentPortfolioComponent implements OnInit {
      
       const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= this.Dbsecurity.Encrypt(this.CurrentPortfolioForm.controls['CustomerAccount'].value);
+       CustomerAccountNo= this.Dbsecurity.Encrypt(this.CurrentPortfolioForm.controls['CustomerAccount'].value);
       
     }
     else{
       const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
       IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= item.CustomerAccountNo
+      CustomerAccountNo= item.AccountNo
+      
       
       
     }
 
-    // this.submitted = true;
-    // if (this.CurrentPortfolioForm.invalid) {
-    //   return;
-    // }
-    // else{
+    this.submitted = true;
+    if (this.CurrentPortfolioForm.invalid) {
+      return;
+    }
+    else{
     
     this.loading = true;
     var currentContext = this;
@@ -173,6 +176,6 @@ export class CurrentPortfolioComponent implements OnInit {
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
   }
-//}
+}
 
 }
