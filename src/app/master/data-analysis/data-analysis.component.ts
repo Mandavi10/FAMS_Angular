@@ -390,7 +390,6 @@ BindStatementOfExpReport(FromDate,ToDate) {
             currentContext.statementOfExpenses_DataAnalysic = data.Table;
 			currentContext.statementOfExpenses1_DataAnalysic = data.Table1;
 
-
 			
 			this.dataPoint4Pie= [
 				{ y: 71, label: "Banking" },
