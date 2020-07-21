@@ -141,7 +141,8 @@ export class DataAnalysisComponent implements OnInit {
 // 	];
 //   constructor() { }
 
-//   ngOnInit() {
+   ngOnInit() {
+   }
 // 		let chart = new CanvasJS.Chart("chartContainer", {
 // 		animationEnabled: true,
 // 		exportEnabled: true,

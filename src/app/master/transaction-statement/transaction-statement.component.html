@@ -34,12 +34,12 @@
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                 <form [formGroup]="TransactionStatementForm" autocomplete="off" appNorightclick>
                 
-                    <div class="col-md-3 col-sm-5 col-xs-12" >
+                    <div class="col-md-3 col-sm-3 col-xs-12" >
                         <div class="form-group" *ngIf="divCustomer">
-                            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                Customer Name :
                             </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
                                 <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="CustomerAccount" >
                     
                                     <option value="">Select</option>
@@ -51,27 +51,27 @@
                             
                         </div>
                 
-                    <div class="col-md-4 col-sm-5 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                From Date :
                             </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" class="col-sm-12 col-md-12 col-xs-12" #FromDate formControlName="FromDate">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-5 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                To Date :
                             </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" class="col-sm-12 col-md-12 col-xs-12" #ToDate formControlName="ToDate">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
+                    <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                         <button type="button" class="btn btn-success btnasearch"  (click)="BindGrid(FromDate.value,ToDate.value)">Search</button>
                         </div>
                    
