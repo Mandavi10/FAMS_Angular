@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import{StatementDividentService} from '../../Services/StatementDividend/statement-divident.service';
 import{statementDividend,pagination,DividendModel} from '../../../Models/StatementDividend/StatementDividend';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import{DbsecurityService}from '../../Services/dbsecurity.service';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
+import { Commonfields } from '../../../Models/commonfields';
 
 @Component({
   selector: 'app-statement-dividend',
@@ -32,21 +37,45 @@ export class StatementDividendComponent implements OnInit {
   public SumTotal_Amount:number;
   public SumTDS_Amount:number;
   StaticArray={};
+  StaticArray1={};
+  ShowLoaderp:boolean;
+  CustNameDive:boolean;
+  BindcustomerallfieldsList : Bindcustomerallfields;
 
 
 
   StatementDividendForm:FormGroup;
-  constructor(private _StatementDividendService:StatementDividentService,private formbuilder:FormBuilder) { }
+  constructor(private _StatementDividendService:StatementDividentService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
 
   ngOnInit() {
     this.btnPrev=false;
     this.btnNext==false;
+    this.Showcustdropdown(); 
     this.StatementDividendForm=this.formbuilder.group({
       Formdate:['',Validators.required],
-      Todate:['',Validators.required]
+      Todate:['',Validators.required] ,
+      CustomerAccount:['',Validators.required] 
+      //CustomerAccount
     })
+    this.BindCustomers();
   }
 
+Showcustdropdown(){ 
+  let item = JSON.parse(sessionStorage.getItem('User'));
+  var usertype=this.Dbsecurity.Decrypt(item.UserType);
+  var userid=this.Dbsecurity.Decrypt(item.UserId);
+  
+  if(usertype == 2 ||usertype == 3 || usertype == 4){
+    this.CustNameDive=true; 
+    // this.StatementDividendForm=this.formbuilder.group({
+    //   CustomerAccount:['',Validators.required] 
+    // })
+  }
+  else{
+    this.CustNameDive=false; 
+
+  }
+}
   
   get f() {
     return this.StatementDividendForm.controls;
@@ -61,6 +90,7 @@ export class StatementDividendComponent implements OnInit {
     else {
       this.btnPrev=true;
     }
+    
 
 }
 nextClick(){
@@ -109,26 +139,82 @@ LastOneWeekFun(){
 }
 
 
+BindCustomers(){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  let  Data = new Commonfields();
+  Data.UserId = Sessionvalue.UserId;
+  this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
+    (data) => {
+         this.BindcustomerallfieldsList = data.Table;
+    });
+}
+
 bindGrid(){
+  
+  let item = JSON.parse(sessionStorage.getItem('User'));
+  var usertype=this.Dbsecurity.Decrypt(item.UserType);
+  var userid, CustomerAccountNo;
+
+  if(usertype == 2 ||usertype == 3 || usertype == 4){
+   
+    const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
+    IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+    CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+  }
+  else{
+    const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
+    IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+    CustomerAccountNo= item.AccountNo
+    
+  }
   this.submitted = true;
   if (this.StatementDividendForm.invalid) {
+    alert('invalid')
     return;
   }
   else{
+    
+    // let item = JSON.parse(sessionStorage.getItem('User'));
+    // var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    // var userid, CustomerAccountNo;
+    
+    // if(usertype == 2 ||usertype == 3 || usertype == 4){
 
-
+      
+    //   CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+      
+    // }
+    // else
+    // {
+    //   userid= item.UserId
+    // }
  var jasondata= {
   "fromdate":this.StatementDividendForm.controls['Formdate'].value ,
   "PageCount": this.PageCount,
-  "todate":this.StatementDividendForm.controls['Todate'].value
+  "todate":this.StatementDividendForm.controls['Todate'].value,
+  "UserId": userid,
+  "CustomerAccountNo": CustomerAccountNo
  
 }
-var currentContext = this;
+this.ShowLoaderp=true;
 this._StatementDividendService.BindGrid(jasondata).subscribe((res)=>{
 console.log(res);
 this.bindgrid=res.Table;
 this.bindgridDivident=res.Table1;
 // this.pagination=res.Table1;
+
+
+for(var i=0;i<res.Table.length;i++){
+   
+  if(this.bindgrid[i].ReceivedDate == ""){
+    this.bindgrid[i].ReceivedDate = ''
+    // this.bindgrid1[i].FromDate = ''
+    // this.bindgrid1[i].Amount = ''
+  }
+  
+
+}
+
 
 
 this.SumReceivableAmount=res.Table2[0].SumReceivableAmount;
@@ -145,7 +231,7 @@ this.SumTDS_Amount=res.Table3[0].SumTDS_Amount;
 
 console.log(this.bindgrid)
 console.log(this.pagination)
-
+this.ShowLoaderp=false;
 
 })
 }
@@ -162,9 +248,14 @@ ConvertToCSV(objArray) {   //kislay
     Rate: "Rate", Amount: "Amount", ReceivableAmount: "ReceivableAmount", ReceivedAmount: "ReceivedAmount", TDSAmount
            : "TDSAmount"    , NetAmount: "NetAmount", BalanceAmount: "BalanceAmount"
            }
-           this.StaticArray = {value:"ADROIT PMS SERVICES PVT LTD",value1:"MUMBAI",value2:"STATEMENT OF DIVIDEND",
+  this.StaticArray = {value:"ADROIT PMS SERVICES PVT LTD",value1:"MUMBAI",value2:"STATEMENT OF DIVIDEND",
            value3:"From " + this.StatementDividendForm.controls['Formdate'].value +" To " +this.StatementDividendForm.controls['Todate'].value ,value4:"Account : 6010001     RUBY DECOSTA   - ADT001",
          value5:"ADROITPMS1"}
+
+
+this.StaticArray1={value:"Total",value1:"",value2:"",value3:"",value4:"",value5:""
+         ,value6:this.SumReceivableAmount,value7:this.SumReceivedAmount,value8:this.SumTDSAmount,value9:this.SumNetAmount,value10:this.SumBalanceAmount}
+             
   
   
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
@@ -215,6 +306,15 @@ ConvertToCSV(objArray) {   //kislay
       }
       str += line + '\r\n';
   }
+  var line = "";
+  for (var index in this.StaticArray1) {
+      if (line != '') line += ','
+      line += this.StaticArray1[index];
+  }  
+  str += line + '\r\n';
+  var line = "";
+  
+
   return str;
 }
 
@@ -232,6 +332,32 @@ downloadMainGrid() {   //real downlad grid
          return 'success';
  // });
 }
+
+downloadPDF(){
+  // this.showhead=false;
+  // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+  // //const pdf = new jsPDF('p', 'pt', 'a4');
+  // const pdf = new jsPDF();
+  // pdf.addHTML(elementToPrint, () => {
+  //     pdf.save('web.pdf');
+  // });  
+  var doc = new jsPDF('legal', 'pt','a3' );
+  // doc.text("From HTML", 40, 50);legal
+   //doc.text( 40, 50);
+   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+
+   console.log(res)
+   console.log(res.data)
+   console.log(res.data[0])
+   doc.autoTable(res.columns, res1.data, {
+     startY: 90
+   });
+  
+   doc.save();
+   
+}
+
 
 
 

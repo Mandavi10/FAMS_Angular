@@ -1,11 +1,10 @@
 <div class="main-content maincontainer">
+    <div class="col-md-12 col-sm-12 col-xs-12 loaderposition"*ngIf="ShowLoaderp" >
+        <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+    </div>
   <div class="content">
 
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-          </div>
-      </div>
+      
 
       <form [formGroup]="StatementDividendForm" class="form">
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
@@ -30,10 +29,13 @@
                           </button></a> --> 
                       </li>
                        
-                       <li >
+                       <li (click)=downloadPDF()>
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
-                                  <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
+                                  <!-- <a target="_blank" href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                                  <label>
+                                    Export to PDF
+                                 </label>
                                  
                                </label>
                                <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
@@ -47,29 +49,48 @@
      
       <div class="row">
      <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="CustNameDive">
+            <div class="form-group">
+                <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                   Customer Name :
+                </label>
+                <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+
+                        <option value="">Select</option>
+                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                    </select>
+                  
+                </div>
+            </div>
+        </div>
       
-      <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="col-md-3 col-sm-3 col-xs-12">
         <div class="form-group">
-            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+            <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
              From Date :
             </label>
-            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+            <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                 
                 <input name="date" type="date" id="" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"       class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  /> 
             </div>
         </div>
     </div>
-          <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="col-md-3 col-sm-3 col-xs-12">
                   <div class="form-group">
-                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                        To Date :
                       </label>
-                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                      <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                          
                           <input name="date" type="date" id="" formControlName="Todate" [ngClass]="{ 'validate': submitted && f.Todate.errors }"      class="col-sm-12 col-md-12 col-xs-12 htmldateheight" /> 
                       </div>
                   </div>
               </div>
+
+             
+
+              
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
                   <button type="submit" (click)="bindGrid()" class="btn btn-success"> Search</button>
@@ -108,9 +129,10 @@
               </div>
           </div>
       </div>   
+     
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable">
+          <table class="bankmasterTable" id="bankmastertable1">
               <thead>
 
                   <tr>
@@ -132,7 +154,7 @@
               <tbody class="scrollbar">
                   <tr>
                       <td colspan="9">
-                          <table>
+                          <table id="bankmastertable2">
                               <tbody>
                                   <tr *ngFor="let data of bindgrid" >
                                      
@@ -177,19 +199,19 @@
                       <td colspan="9">
                           <table>
                               <tbody>
-                                <tr>
+                                 <tr>
                                     <td style="width:95px"></td>
-                                    <td style="width: 81px"></td>
+                                    <td style="width: 90px"></td>
                                     <td style="width:96px"></td>
-                                    <td style="width: 94px" ></td>
-                                    <td style="width: 88px" ></td>
-                                    <td style="width: 159px" class="text-right">{{SumReceivableAmount}}</td>
-                                    <td style="width: 107px" class="text-right">{{SumReceivedAmount}}</td>
-                                    <td style="width: 84px" class="text-right">{{SumTDSAmount}}</td>
-                                    <td style="width: 88px" class="text-right">{{SumNetAmount}}</td>
-                                    <td style="width: 93px" class="text-right">{{SumBalanceAmount}}</td>
+                                    <td style="width: 112px" ></td>
+                                    <td style="width: 131px" ></td>
+                                    <td style="width: 161px" class="text-right">{{SumReceivableAmount}}</td>
+                                    <td style="width: 122px" class="text-right">{{SumReceivedAmount}}</td>
+                                    <td style="width: 111px" class="text-right">{{SumTDSAmount}}</td>
+                                    <td style="width: 112px" class="text-right">{{SumNetAmount}}</td>
+                                    <td style="width: 102px" class="text-right">{{SumBalanceAmount}}</td>
                                    
-                            </tr>
+                            </tr> 
                                   
                               </tbody>
                        
