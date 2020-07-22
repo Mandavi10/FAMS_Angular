@@ -19,6 +19,7 @@ export class DataAnalysisComponent implements OnInit {
 	isChart1 = false;
 	isChart2 = false;
 	isChart3 = false;
+	
 	showChart() {
 		
 		this.isGrid = false;
