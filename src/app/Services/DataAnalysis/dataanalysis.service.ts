@@ -7,12 +7,10 @@ import { map, catchError } from 'rxjs/operators';
 //import { error } from 'util';
 import {AppSettings} from 'src/app/app-settings';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class StatementexpensesService {
-
+export class DataanalysisService {
   baseUrl: string = ""; UserId: string = ""; EntityId: string = "";
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
@@ -20,17 +18,12 @@ export class StatementexpensesService {
   this.baseUrl = AppSettings.Login_URL;
   }
 
-  BindCustomer(): Observable<any> {
-    // let item = JSON.parse(sessionStorage.getItem('User'));
-    // this.UserId = item.UserId;
-    // this.EntityId = item.ReferenceId;
-    return this._http.get<any>(this.baseUrl + 'api/HoldingReports/BindCustomer');
-  }
-BindGridAllFields(CustomerAccount,FromDate,ToDate): Observable<any> {
+
+BindGridAllFields(FromDate,ToDate): Observable<any> {
   // let item = JSON.parse(sessionStorage.getItem('User'));
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
-  return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindGridAllFields/'+CustomerAccount+ '/' +FromDate +'/' + ToDate );
+  return this._http.get<any>(this.baseUrl + 'api/DataAnalysis/BindGridAllFields/'+FromDate +'/' + ToDate );
 }
   
 }

@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 import{CapitalStatementModel,pagination} from '../../../Models/CapitalStatement/capitalStatement';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import{DbsecurityService}from '../../Services/dbsecurity.service';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
+import { Commonfields } from '../../../Models/commonfields';
+
 @Component({
   selector: 'app-capital-statement',
   templateUrl: './capital-statement.component.html',
@@ -25,22 +32,46 @@ export class CapitalStatementComponent implements OnInit {
   public SumST:number;
   public SumLT:number;
   public SumAfterIndex_LT:number;
+  ShowLoaderp:boolean;
   StaticArray={};
+  StaticArray1={};
+  StaticArray2={};
+  head=[];
+  showhead:boolean;
+  CustNameDive:boolean;
+  BindcustomerallfieldsList : Bindcustomerallfields;
 
 
-  constructor(private _capitalStateService:CapitalSatementService,private formbuilder:FormBuilder) { }
+  constructor(private _capitalStateService:CapitalSatementService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
 
   ngOnInit(): void {
-    
+    this.showhead=true;
     this.btnPrev=false;
     this.btnNext==false;
+    this.Showcustdropdown();
     this.capitalStatForm=this.formbuilder.group({
       Formdate:['',Validators.required],
-      Todate:['',Validators.required]
+      Todate:['',Validators.required],
+      CustomerAccount:['',Validators.required] 
     })
 
     this.DownloadExcel();
+    this.BindCustomers();
     
+  }
+
+  Showcustdropdown(){
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    var userid=this.Dbsecurity.Decrypt(item.UserId);
+    
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+      this.CustNameDive=true; 
+    }
+    else{
+      this.CustNameDive=false; 
+  
+    }
   }
 
   get f() {
@@ -137,38 +168,105 @@ LastOneWeekFun(){
 }
 
 
-
+BindCustomers(){
+  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  let  Data = new Commonfields();
+  Data.UserId = Sessionvalue.UserId;
+  this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
+    (data) => {
+         this.BindcustomerallfieldsList = data.Table;
+    });
+}
 
 
   bindGrid(){
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    var userid, CustomerAccountNo;
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+     
+      const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+      CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+    }
+    else{
+      const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+      CustomerAccountNo= item.AccountNo
+      
+    }
+
     this.submitted = true;
     if (this.capitalStatForm.invalid) {
       return;
     }
     else{
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      var usertype=this.Dbsecurity.Decrypt(item.UserType);
+      var userid, CustomerAccountNo;
+      
+      // if(usertype == 2 ||usertype == 3 || usertype == 4){
   
+      //   //userid=this.StatementDividendForm.controls['CustomerAccount'].value accountno
+      //   CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+        
+      // } 
+      // else
+      // {
+      //   userid= item.UserId
+      // }
 
    var jasondata= {
     "fromdate":this.capitalStatForm.controls['Formdate'].value ,
     "PageCount": this.PageCount,
-    "todate":this.capitalStatForm.controls['Todate'].value
+    "todate":this.capitalStatForm.controls['Todate'].value,
+    "UserId": item.UserId,
+    "CustomerAccountNo": CustomerAccountNo
    
   }
-  var currentContext = this;
+  this.ShowLoaderp=true;
 this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 
   this.bindgrid=res.Table;
   //this.pagination=res.Table1;
+  console.log('bindgrid');
+  console.log(res);
+  console.log(res.Table[0].SaleAmount);
+  console.log(this.bindgrid[0].SaleDate);
+
+  for(var i=0;i<res.Table.length;i++){
+   
+    if(this.bindgrid[i].SaleAmount == null){
+      this.bindgrid[i].SaleAmount = ''
+      // this.bindgrid1[i].FromDate = ''
+      // this.bindgrid1[i].Amount = ''
+    }
+    if( this.bindgrid[i].PurchaseAmount == null){
+      this.bindgrid[i].PurchaseAmount = ''
+    }
+    if( this.bindgrid[i].IndexedCost == null){
+      this.bindgrid[i].IndexedCost = ''
+    }
+    if( this.bindgrid[i].LT == null){
+      this.bindgrid[i].LT = ''
+    }
+    if( this.bindgrid[i].AfterIndex_LT == null){
+      this.bindgrid[i].AfterIndex_LT = ''
+    }
+    
+
+  }
+ 
+  console.log(this.bindgrid);
   this.SumSaleAmount=res.Table1[0].SumSaleAmount;
   this.SumPurchaseAmount=res.Table1[0].SumPurchaseAmount;
   this.SumIndexedCost=res.Table1[0].SumIndexedCost;
   this.SumST=res.Table1[0].SumST;
   this.SumLT=res.Table1[0].SumLT;
   this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
-  console.log(this.SumSaleAmount)
-  console.log(this.bindgrid)
-  console.log(this.pagination)
-
+  
+  this.ShowLoaderp=false;
   
   })
 }
@@ -197,7 +295,12 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
              this.StaticArray = {value:"ADROIT PMS SERVICES PVT LTD",value1:"MUMBAI",value2:"STATEMENT OF CAPITAL GAIN/LOSS",
              value3:"From " + this.capitalStatForm.controls['Formdate'].value +" To " +this.capitalStatForm.controls['Todate'].value ,value4:"Account : 6010001     RUBY DECOSTA   - ADT001",
            value5:"ADROITPMS1"}
+
+           this.StaticArray1={value:"Total",value1:"",value2:"",value3:"",value4:this.SumSaleAmount,value5:""
+,value6:"",value7:"",value8:this.SumPurchaseAmount,value9:this.SumIndexedCost,value10:"",value11:this.SumST,value12:this.SumLT,value13:this.SumAfterIndex_LT}
     
+this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"Purchase"
+,value6:"",value7:"",value8:"",value9:"",value10:"",value11:"Realized Gain/Loss",value12:"",value13:""}
     
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
@@ -224,7 +327,15 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
       }
       line = '';
   
-  
+      if (i == 0) {
+      for (var index in this.StaticArray2) {
+          if (line != '') line += ','
+          line += this.StaticArray2[index];
+      }  
+      str += line + '\r\n';
+    }
+      var line = "";
+
         if (i == 0) {
             for (var index in this.HeaderArray) {
                 if (line != '') line += ','
@@ -247,12 +358,19 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
         }
         str += line + '\r\n';
     }
+    var line = "";
+  for (var index in this.StaticArray1) {
+      if (line != '') line += ','
+      line += this.StaticArray1[index];
+  }  
+  str += line + '\r\n';
+  var line = "";
     return str;
   }
 
   downloadMainGrid() {   //real downlad grid
     
-        var csvData = this.ConvertToCSV(JSON.stringify(this.downloadExcelgrid));
+        var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
          var a = document.createElement("a");
           a.setAttribute('style', 'display:none;');
           document.body.appendChild(a);
@@ -265,55 +383,56 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
    // });
   }
 
-
-  // downloadpdf() {
-
-  //           let doc = new jsPDF('p', 'pt', 'a4');
-  //           doc.setFontSize(5);
-  //            doc.setFontStyle('arial');
-  //     let columns = [
-  //       {title: "SrNo", dataKey: "SrNo"},
-  //       {title: "Refrence", dataKey: "Refrence1"},
-  //           {title: "Created On", dataKey: "CreatedOn"},
-  //           {title: "Updated On", dataKey: "UpdatedOn"},
-  //           {title: "created By", dataKey: "createdBy"},
-  //           {title: "Updated By", dataKey: "UpdatedBy"},
-  //           {title: "FileUpdatedCount", dataKey: "FileUpdatedCount"},
-  //           {title: "BankValidation", dataKey: "BankValidation"},
-  //           {title: "AcValidation", dataKey: "AcValidation"},
-  //           {title: "Saved Count", dataKey: "SavedCount"},
-  //           {title: "Edit Count", dataKey: "EditCount"},
-  //           {title: "Entity Name", dataKey: "entityName"},
-  //       ];
-        
-       
-  //     let rows = [
-  //       {"id": 1, "name": "Shaw", "country": "Tanzania"},
-  //       {"id": 2, "name": "Nelson", "country": "Kazakhstan"},
-  //       {"id": 3, "name": "Garcia", "country": "Madagascar"},
-  //     ];
-  //              // Error ========================
-  //              doc.autoTable(columns, {
-  //               theme : 'plain',
-  //               styles: {
-  //                 fontSize: 12
-  //               },
-  //               startY: 150,
-  //               showHeader: 'never',
-  //               createdCell: function(cell, data) {
-  //                 var tdElement = cell.raw;
-  //                 if (tdElement.classList.contains('hrow')) {
-  //                   cell.styles.fontStyle = 'bold';
-  //                 }
-  //               }
-  //             });
-  //       doc.autoTable({html:"#tblreport"});
-  //       let finalY = doc.previousAutoTable.finalY; //this gives you the value of the end-y-axis-position of the previous autotable.
-  //   doc.text("Text to be shown relative to the table", 12, finalY + 10);
-  //       doc.save('teste.pdf');
-        
+  downloadPDFFile(){
+   
+    debugger;  
+    var doc = new jsPDF();  
+   
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+  
+    (doc as any).autoTable({
+      head: this.head,
+      body: this.bindgrid,
+      theme: 'plain',
+      didDrawCell: data => {
+        console.log(data.column.index)
+      }
+    })
+        // Open PDF document in new tab
+      doc.output('dataurlnewwindow')
     
-  //          }
-    
+      // Download PDF document  
+      doc.save('StatementOfExpenses.pdf');
+  
+  }
 
+
+
+  downloadPDF(){
+    this.showhead=false;
+    // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+    // //const pdf = new jsPDF('p', 'pt', 'a4');
+    // const pdf = new jsPDF();
+    // pdf.addHTML(elementToPrint, () => {
+    //     pdf.save('web.pdf');
+    // });  
+    var doc = new jsPDF('legal', 'pt','a3' );
+    // doc.text("From HTML", 40, 50);legal
+     //doc.text( 40, 50);
+     var res = doc.autoTableHtmlToJson(document.getElementById("gridmain"));
+     console.log('downloadpdf')
+     console.log(res)
+   console.log(res.data)
+   console.log(res.data[0])
+     doc.autoTable(res.columns, res.data, {
+       startY: 90
+     });
+    
+     doc.save();
+     
+  }
+
+
+  
 }

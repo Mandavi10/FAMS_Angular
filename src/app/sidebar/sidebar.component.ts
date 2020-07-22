@@ -67,7 +67,7 @@ url: "/OrderProcessingNew"};
 var staticData1 = {IconName: "fa fa-hourglass-start",
 LinkID: "10006",
 LinkName: "Data Analysis",
-ParetmenuID: "11",
+ParetmenuID: "0",
 url: "/DataAnalysis"};
 
 

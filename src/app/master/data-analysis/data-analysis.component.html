@@ -1,4 +1,5 @@
 <div class="main-content maincontainer">
+
      <div class="content">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-3 p-0 selectDate mt-2 pl-5">
@@ -86,75 +87,9 @@
                 </div>
             </div>
                 
-          
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h5>Portfolio</h5>
-                <div class="iconBox">
-                    <span (click)="showPie2()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
-                    <span (click)="showGrid2()"><i class="fa fa-th" aria-hidden="true"></i></span>
-                    <span (click)="showChart2()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
-                </div>
-                <div class="col-md-11 col-sm-11 col-xs-11">
-                    <div [style.display]="isPie2 ? 'block' : 'none'">
-                    <div id="chartContainer4" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
-                    </div>
-                    <div [style.display]="isChart2 ? 'block' : 'none'">
-                        <div id="chartContainer5" style="width: 100%; height: 250px;"></div>
-                   
-                    </div> 
-                    <div *ngIf="isGrid2"><ag-grid-angular
-            style="width: 100%; height: 250px;"
-            class="ag-theme-alpine"
-            [rowData]="rowData2"
-            [columnDefs]="columnDefs2"
-            [enableFilter]="false"
-              [enableSorting]="true"
-              [showToolPanel]="true">
-        </ag-grid-angular>
-                </div>
-            </div>
-                
-          
-            </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h5>Cash Equivalent</h5>
-                <div class="iconBox">
-                    <span (click)="showPie3()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
-                    <span (click)="showGrid3()"><i class="fa fa-th" aria-hidden="true"></i></span>
-                    <span (click)="showChart3()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
-                </div>
-                <div class="col-md-11 col-sm-11 col-xs-11">
-                    <div [style.display]="isPie3 ? 'block' : 'none'">
-                    <div id="chartContainer6" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
-                    </div>
-                    <div [style.display]="isChart3 ? 'block' : 'none'">
-                        <div id="chartContainer7" style="width: 100%; height: 250px;"></div>
-                   
-                    </div> 
-                    <div *ngIf="isGrid3"><ag-grid-angular
-            style="width: 100%; height: 250px;"
-            class="ag-theme-alpine"
-            [rowData]="rowData3"
-            [columnDefs]="columnDefs3"
-            [enableFilter]="false"
-              [enableSorting]="true"
-              [showToolPanel]="true">
-        </ag-grid-angular>
-                </div>
-            </div>
-                
-          
-            </div>
-        </div>
-       
-                 
-           
-                            
- 
-
-              
-    </div>
+    
+             
+   </div>
 
 </div>
