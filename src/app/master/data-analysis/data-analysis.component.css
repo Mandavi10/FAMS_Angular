@@ -21,4 +21,6 @@ h5{ color: #003974;
 .bs-datepicker-container{width:80% !important; z-index:9999 !important}
 .bottom, .ng-tns-c44-3, .ng-star-inserted{z-index:9999 !important}
 .dateSelect input[type="text"]{height:25px}
+
 .canvasjs-chart-toolbar button{display:none !important}
+
