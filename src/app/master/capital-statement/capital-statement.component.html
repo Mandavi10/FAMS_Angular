@@ -1,4 +1,8 @@
 <div class="main-content maincontainer">
+    <form [formGroup]="capitalStatForm" autocomplete="off">
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition"*ngIf="ShowLoaderp" >
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
     <div class="content">
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
@@ -8,14 +12,14 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <li (click)="downloadMainGrid()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="downloadPDF()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                                  <label>
                                     Export to PDF
@@ -25,11 +29,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
-            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-        </div>
+       
        
         <div class="row">
+            
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                 <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="CustNameDive">
                     <div class="form-group">
@@ -51,10 +54,8 @@
                             <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                From Date :
                             </label>
-
                             <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }" class="col-sm-12 col-md-12 col-xs-12">
-
                             </div>
                         </div>
                     </div>
@@ -73,13 +74,10 @@
                     
                     <div class="col-md-1 col-sm-1 col-xs-12 mt-2  ">
                         <button type="button" class="btn btn-success btnasearch" (click)="bindGrid()">Search</button>
-
-                          
                         </div>
-                  
-                   
                    
             </div>
+            
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0 mt-4" id="tbldiv" style="display:block">
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
@@ -90,20 +88,20 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
                        
-                        <li>
+                        <li (click)="PreviousDayFun()">
                            
                             <label>
                                 Yesterday
                             </label>
                         </li>
-                        <li>
+                        <li (click)="LastOneWeekFun()">
                          
                             <label>
                                 Last Week
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="LastTwoWeekFun()">
                                 
                                  <label>
                                     Last 2 Weeks
@@ -113,24 +111,25 @@
                 </div>
             </div>
         </div>   
+       
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="capitalStatementGrid">
-                <table class="bankmasterTable">
+                <table class="bankmasterTable" id="gridmain">
                     <thead>
-                        <tr>
+                        <!-- <tr >
 
                             <th style="width: 250px"></th>
                             <th style="width: 410px; text-align: center;" colspan="4">Sale</th>
                             <th style="width: 710px; text-align: center" colspan="6">Purchase</th>
                             <th style="width: 360px; text-align: center" colspan="3">Realized Gain/Loss</th>
 
-                        </tr>
+                        </tr> -->
                         <tr>
 
                             <th style="width: 250px">Security</th>
                             <th style="width: 100px">Sale Date</th>
                             <th style="width: 100px">Sale Qty</th>
-                            <th class="text-right" style="width: 100px">Sale Rate</th>
+                            <th class="text-right" style="width: 106px">Sale Rate</th>
                             <th class="text-right" style="width: 110px">Sale Amount</th>
 
                             <th style="width: 120px">Purchase Date</th>
@@ -147,26 +146,26 @@
                     </thead>
                     <tbody class="scrollbar">
                        
-                        <tr>
+                        <tr *ngFor="let data of bindgrid">
 
-                            <td style="width: 250px">BAJAJ FINANCE LIMITED- 09/11/17 INE296A01024</td>
-                            <td style="width: 100px">05/04/20</td>
-                            <td style="width: 100px">100</td>
-                            <td class="text-right" style="width: 100px">652.6428</td>
-                            <td class="text-right" style="width: 110px">65,264.28</td>
+                            <td style="width: 237px">{{data.Security}}</td>
+                            <td style="width: 145px">{{data.SaleDate}}</td>
+                            <td style="width: 96px">{{data.SaleQty}}</td>
+                            <td class="text-right" style="width: 87px">{{data.SaleRate}}</td>
+                            <td class="text-right" style="width: 241px">{{data.SaleAmount}}</td>
 
-                            <td style="width: 120px">09/11/17</td>
-                            <td class="text-right" style="width: 120px">1,750.361</td>
-                            <td class="text-right" style="width: 100px">1,690.00</td>
-                            <td class="text-right" style="width: 160px">175,036.10</td>
-                            <td class="text-right" style="width: 120px">175,036.10</td>
-                            <td class="text-center" style="width: 100px">878</td>
+                            <td style="width: 231px">{{data.PurchaseDate}}</td>
+                            <td class="text-right" style="width: 120px">{{data.PurchaseRate}}</td>
+                            <td class="text-right" style="width: 137px">{{data.Price}}</td>
+                            <td class="text-right" style="width: 181px">{{data.PurchaseAmount}}</td>
+                            <td class="text-right" style="width: 160px">{{data.IndexedCost}}</td>
+                            <td class="text-center" style="width: 120px">{{data.DaysHeld}}</td>
 
-                            <td class="text-right" style="width: 100px">0.00 </td>
-                            <td class="text-right loss" style="width: 100px">-109,771.82</td>
-                            <td class="text-right loss" style="width: 160px">-109,771.82</td>
+                            <td class="text-right" style="width: 100px">{{data.ST}} </td>
+                            <td class="text-right loss" style="width: 100px">{{data.LT}}</td>
+                            <td class="text-right loss" style="width: 224px">{{data.AfterIndex_LT}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
 
                             <td style="width: 250px">BAJAJ FINANCE LIMITED- 09/11/17 INE296A01024</td>
                             <td style="width: 100px">05/04/20</td>
@@ -260,28 +259,28 @@
                             <td class="text-right" style="width: 100px">0.00 </td>
                             <td class="loss text-right" style="width: 100px">-109,771.82</td>
                             <td class="text-right loss" style="width: 160px">-109,771.82</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                     <tfoot >
                        
                         <tr>
 
-                            <td style="width: 500px">Total</td>
-                            <td style="width: 100px"></td>
-                            <td style="width: 100px"></td>
-                            <td class="text-right" style="width: 100px"></td>
-                            <td class="text-right" style="width: 110px">65,264.28</td>
+                            <td style="width:237px">Total</td>
+                            <td style="width: 95px"></td>
+                            <td style="width:96px"></td>
+                            <td class="text-right" style="width: 93px"></td>
+                            <td class="text-right" style="width: 118px">{{SumSaleAmount}}</td>
 
-                            <td style="width: 120px"></td>
+                            <td style="width: 155px"></td>
                             <td class="text-right" style="width: 120px"></td>
-                            <td class="text-right" style="width: 100px"></td>
-                            <td class="text-right" style="width: 350px">175,036.10</td>
-                            <td class="text-right" style="width: 120px">175,036.10</td>
-                            <td class="text-center" style="width: 100px"></td>
+                            <td class="text-right" style="width: 137px"></td>
+                            <td class="text-right" style="width: 100px">{{SumPurchaseAmount}}</td>
+                            <td class="text-right" style="width: 114px">{{SumIndexedCost}}</td>
+                            <td class="text-center" style="width: 59px"></td>
 
-                            <td class="text-right" style="width: 100px">0.00 </td>
-                            <td class="text-right loss" style="width: 100px">-109,771.82</td>
-                            <td class="text-right loss" style="width: 160px">-109,771.82</td>
+                            <td class="text-right" style="width: 100px">{{SumST}} </td>
+                            <td class="text-right loss" style="width: 75px">{{SumLT}}</td>
+                            <td class="text-right loss" style="width: 145px">{{SumAfterIndex_LT}}</td>
                         </tr>
 
                     </tfoot>
@@ -289,16 +288,16 @@
 </div>
             
         </div>
-        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="paginationDiv">
-                    <span class="previousBtn">Previous</span>
-                    <span class="paginationCount">50 out of 200</span>
-                    <span class="nextBtn">Next</span>
+                    <span class="previousBtn"(click)="prevClick()" *ngIf="btnPrev">Previous</span>
+                    <span class="paginationCount">{{data}}</span>
+                    <span class="nextBtn"(click)="nextClick()" *ngIf="btnNext">Next</span>
                 </div>
-       </div> -->
+       </div>
         </div>
       
 
     </div>
-
+</form>
 </div>

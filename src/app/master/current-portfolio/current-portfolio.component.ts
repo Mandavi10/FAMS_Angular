@@ -1,4 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentportfolioService } from 'src/app/Services/CurrentPortFolio/currentportfolio.service';
+import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {Currentportfolio} from '../../../Models/CurrentPortfolio/currentportfolio';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
+import { Commonfields } from '../../../Models/commonfields';
+
+
 
 @Component({
   selector: 'app-current-portfolio',
@@ -6,11 +19,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./current-portfolio.component.css']
 })
 export class CurrentPortfolioComponent implements OnInit {
+  divMainGrid :boolean=false;
+  isShowLoader:boolean=false;CurrentPortfolioForm : FormGroup;loading: boolean = false;
+  CurrentportfolioList : Currentportfolio;
+  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
+  CurrentDate = new Date();
+  STSumGL:number;
+  STSumIncome:number;
+  STSumMarketValue:number;
+  STSumPercentAssets:number;
+  STSumPercentG_L:number;
+  STSumTotalCost:number;
 
-  constructor() { }
+  ETSumGL:number;
+  ETSumIncome:number;
+  ETSumMarketValue:number;
+  ETSumPercentAssets:number;
+  ETSumPercentG_L:number;
+  ETSumTotalCost:number;
+  CustNameDive:boolean;
+  submitted = false;
+  BindcustomerallfieldsList : Bindcustomerallfields;
+  
 
   ngOnInit() {
-
     this.CurrentPortfolioForm = this.formBuilder.group({  
       Formdate:['',Validators.required],
       Todate:['',Validators.required],
@@ -50,7 +82,7 @@ export class CurrentPortfolioComponent implements OnInit {
   
 
   BindCurrentPortFolioReport(FromDate,ToDate) {
-
+debugger;
     // alert(this.CurrentPortfolioForm.controls['CustomerAccount'].value )
 
     let item = JSON.parse(sessionStorage.getItem('User'));
@@ -147,7 +179,25 @@ export class CurrentPortfolioComponent implements OnInit {
   }
 }
 
-  }
+downloadPDF(){
+  // this.showhead=false;
+ 
+  var doc = new jsPDF('legal', 'pt','a3' );
+  // doc.text("From HTML", 40, 50);legal
+   //doc.text( 40, 50);
+   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+   console.log('downloadpdf')
+   console.log(res)
+ console.log(res.data)
+ console.log(res.data[0])
+   doc.autoTable(res.columns, res1.data, {
+     startY: 90
+   });
+  
+   doc.save();
+   
+}
 
 
 }

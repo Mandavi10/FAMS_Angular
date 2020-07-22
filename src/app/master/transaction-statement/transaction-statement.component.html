@@ -8,14 +8,14 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <li (click)="downloadCSVFile()">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="downloadPDFFile()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                  <label>
                                     Export to PDF
@@ -32,7 +32,6 @@
        
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-
                 <form [formGroup]="TransactionStatementForm" autocomplete="off" appNorightclick>
                 
                     <div class="col-md-3 col-sm-3 col-xs-12" >
@@ -53,16 +52,12 @@
                         </div>
                 
                     <div class="col-md-3 col-sm-3 col-xs-12">
-
                         <div class="form-group">
                             <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                From Date :
                             </label>
-
                             <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" class="col-sm-12 col-md-12 col-xs-12" #FromDate formControlName="FromDate">
-
-                          
                             </div>
                         </div>
                     </div>
@@ -71,7 +66,6 @@
                             <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                To Date :
                             </label>
-
                             <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" class="col-sm-12 col-md-12 col-xs-12" #ToDate formControlName="ToDate">
                             </div>
@@ -79,12 +73,11 @@
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                         <button type="button" class="btn btn-success btnasearch"  (click)="BindGrid(FromDate.value,ToDate.value)">Search</button>
-
                         </div>
-                    </div>
                    
-                   
-            </div>
+           
+                    </form>        
+                 </div>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-4 p-0" id="tbldiv" style="display:block">
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
@@ -95,20 +88,20 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
                        
-                        <li>
+                        <li (click)="PreviousDayFun()">
                            
                             <label>
                                 Previous day
                             </label>
                         </li>
-                        <li>
+                        <li (click)="LastOneWeekFun()">
                          
                             <label>
                                 Last one week
                             </label>
                         </li>
                          
-                         <li>
+                         <li (click)="LastOneMonthFun()">
                                 
                                  <label>
                                     Last One Month
@@ -118,17 +111,19 @@
                 </div>
             </div>
         </div>   
-        <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="col-md-12 col-sm-12 col-xs-12 " *ngIf="divMainGrid">
             <ag-grid-angular
-            style="width: 100%; height: 250px;"
+            style="width: 100%; height: 460px;"
             class="ag-theme-alpine"
-            [rowData]="rowData"
+            [rowData]="BindmaingridList"
             [columnDefs]="columnDefs"
             [enableFilter]="false"
               [enableSorting]="true"
-              [showToolPanel]="true">
+              [showToolPanel]="true"
+              [pagination]="true" 
+      [paginationAutoPageSize]="true">
         </ag-grid-angular>
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
             <div class="paginationDiv">
                     <span class="previousBtn">Previous</span>
                     <span class="paginationCount">50 out of 200</span>

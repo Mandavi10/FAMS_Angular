@@ -9,5 +9,3 @@ const routes: Routes = [{path:'',component:BankBookComponent}];
   exports: [RouterModule]
 })
 export class BankBookRoutingModule { }
-
-

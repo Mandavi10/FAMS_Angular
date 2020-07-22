@@ -15,6 +15,7 @@ h5{ color: #003974;
 .iconBox span i{  color: #003974;
     font-size: 15px;}
 .report{color: #003974;
-    padding: 3px;
+    padding: 3px 5px;
 }
 .report input{ vertical-align: sub;color: #003974;}
+.ng-star-inserted{z-index:9999}
