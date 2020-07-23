@@ -87,6 +87,7 @@ this.isShowGrid=true;
     this.isShowForm=false;
     this.isShowGrid=true;
   }
+  
   ShowGridOrForm()
   {
 this.isShowForm=true;
