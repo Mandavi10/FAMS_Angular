@@ -28,11 +28,11 @@
                          
                       </li>
                        
-                       <li >
+                       <li (click)="downloadPDF()">
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
-                                  <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a>
-                                 
+                                  <!-- <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                                   Export to PDF
                                </label>
                             
                            </li>
@@ -43,13 +43,27 @@
      
       <div class="row">
      <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-      
-      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-5 col-xs-12" *ngIf="CustNameDive">
+            <div class="form-group">
+                <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                   Customer Name :
+                </label>
+                <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" #CustomerAccount [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+
+                        <option value="">Select</option>
+                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                    </select>
+                  
+                </div>
+            </div>
+        </div>
+      <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="form-group">
-            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
              From Date :
             </label>
-            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+            <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                 
                 <input name="date" type="date" id="" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate  /> 
             </div>
@@ -57,31 +71,17 @@
     </div>
           <div class="col-md-3 col-sm-4 col-xs-12">
                   <div class="form-group">
-                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                        To Date :
                       </label>
-                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                      <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                          
                           <input name="date" type="date" id="" formControlName="Todate"  [ngClass]="{ 'validate': submitted && f.Todate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate  /> 
                       </div>
                   </div>
               </div>
 
-              <div class="col-md-5 col-sm-5 col-xs-12" *ngIf="CustNameDive">
-                <div class="form-group">
-                    <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                       Customer Name :
-                    </label>
-                    <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" #CustomerAccount [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
-    
-                            <option value="">Select</option>
-                            <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
-                        </select>
-                      
-                    </div>
-                </div>
-            </div>
+           
             
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
@@ -126,7 +126,7 @@
       </div>   
       <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="divMainGrid">
           <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable">
+          <table class="bankmasterTable" id="bankmastertable1">
               <thead>
 
                   <tr>
@@ -151,7 +151,7 @@
                       </strong>
                       <strong style="display: block;">Shares
                     </strong>
-                          <table>
+                          <table id="bankmastertable2">
                               <tbody>
                                   <tr *ngFor="let data of CurrentportfolioList" >
                                      

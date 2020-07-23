@@ -184,7 +184,6 @@ BindCustomers(){
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid, CustomerAccountNo;
-  
     if(usertype == 2 ||usertype == 3 || usertype == 4){
      
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');

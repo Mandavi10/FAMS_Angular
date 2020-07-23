@@ -169,7 +169,7 @@ bindGrid(){
   }
   this.submitted = true;
   if (this.StatementDividendForm.invalid) {
-    
+    alert('invalid')
     return;
   }
   else{

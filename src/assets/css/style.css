@@ -1,4 +1,6 @@
-﻿.price {
+.bs-datepicker-container{width:80% !important; z-index:9999 !important}
+.bottom, .ng-tns-c44-3, .ng-star-inserted{z-index:9999 !important}
+.price {
     text-align:right !important}
     .profit {
         color: #249e33

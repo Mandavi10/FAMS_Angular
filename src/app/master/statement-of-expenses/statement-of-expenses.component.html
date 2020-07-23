@@ -38,6 +38,29 @@
              </div>
           </div>
           <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12" *ngIf="isShowCustomer">
+               <div class="form-group" >
+                   <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      Customer Name :
+                   </label>
+                   <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock" >
+                       <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                           <option>Select Customer</option>
+                           <option>Customer 1</option>
+                           <option>Customer 2</option>
+                           <option>Customer 3</option>
+                       </select> -->
+   
+                       <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                           <option value="0" selected>Select Customer</option>
+                           <option *ngFor="let data of customer" value={{data.UserId}}  >
+                               {{data.UserName}}
+                           </option>
+                        </select>
+                     
+                   </div>
+               </div>
+           </div>
              <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                 <div class="col-md-4 col-sm-4 col-xs-12">
                    <div class="form-group">
@@ -73,24 +96,28 @@
                 <div class="col-sm-6 col-md-6 col-xs-3 ">
                    <span class="legal"> Statement Of Expenses</span>
                 </div>
-                <div class="rightmenu">
+                <div class="rightmenu" style="display:block">
                    <div class="toolbar pull-right">
                       <ul class="toolbar-content btnCon">
-                         <li>
-                            <label>
-                            Previous Day
-                            </label>
-                         </li>
-                         <li>
-                            <label>
-                            Last One Week
-                            </label>
-                         </li>
-                         <li>
-                            <label>
-                            Last One Month
-                            </label>
-                         </li>
+                        <li (click)="PreviousDayFun()">
+                           
+                           <label>
+                              Previous Day
+                           </label>
+                       </li>
+                       <li>
+                        
+                           <label (click)="LastOneWeekFun()">
+                              Last One Week
+                           </label>
+                       </li>
+                        
+                        <li (click)="LastOneMonthFun()">
+                               
+                                <label>
+                                  Last One Month
+                                </label>
+                            </li>
                       </ul>
                    </div>
                 </div>
@@ -100,7 +127,7 @@
                    <table class="bankmasterTable" id="bankmastertable">
                       <thead>
                          <tr>
-                            <th style="width: 182px"> Date</th>
+                            <th style="width: 182px">Date</th>
                             <th style="width: 222px">Settlement Date</th>
                             <th style="width: 233px">Tran Ref.</th>
                             <th style="width: 204px">Detail</th>

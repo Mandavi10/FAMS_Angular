@@ -4,7 +4,8 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {Currentportfolio} from '../../../Models/CurrentPortfolio/currentportfolio';
-
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -81,7 +82,7 @@ export class CurrentPortfolioComponent implements OnInit {
   
 
   BindCurrentPortFolioReport(FromDate,ToDate) {
-
+debugger;
     // alert(this.CurrentPortfolioForm.controls['CustomerAccount'].value )
 
     let item = JSON.parse(sessionStorage.getItem('User'));
@@ -177,5 +178,26 @@ export class CurrentPortfolioComponent implements OnInit {
     this.loading = false;
   }
 }
+
+downloadPDF(){
+  // this.showhead=false;
+ 
+  var doc = new jsPDF('legal', 'pt','a3' );
+  // doc.text("From HTML", 40, 50);legal
+   //doc.text( 40, 50);
+   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+   console.log('downloadpdf')
+   console.log(res)
+ console.log(res.data)
+ console.log(res.data[0])
+   doc.autoTable(res.columns, res1.data, {
+     startY: 90
+   });
+  
+   doc.save();
+   
+}
+
 
 }

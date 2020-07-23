@@ -56,17 +56,26 @@ export class BankBookComponent implements OnInit {
       });
   }
   BindGrid(FromDate,ToDate){
+    debugger;
     this.loader1=true;this.loader2=true;
     this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     this.griddiv=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var UserId = Sessionvalue.UserId;
+    var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+    var CustomerAccount="";
+    if(UserId=="30007" ||
+    UserId=="30008"){
+      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+    }
+    else{
+      CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
+    }
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate,   
       "ToDate" :  ToDate,
-      "CustomerAccount" : this.BankBookForm.controls['CustomerAccount'].value       
+      "CustomerAccount" : CustomerAccount       
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {

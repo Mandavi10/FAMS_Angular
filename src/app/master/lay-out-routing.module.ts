@@ -63,11 +63,11 @@ const routes: Routes = [
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
 
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
- {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'}
+ {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},
         ]
       }
-];
 
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule], providers: [
