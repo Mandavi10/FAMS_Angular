@@ -117,7 +117,7 @@ rowData1 = [
     this.PMSEmployeesForm = this.formBuilder.group({  
       EmployeeCode : [''], EmployeeName :[''], Gender : [], Qualification : [''], About : [''],
       CustomerCode : [''], CustomerName : [''] , Custodian : [''], InceptionDate : [''], EmpLinkingDate : [''],
-      Active : ['']
+      Active : [''],Emailid:['',[Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
   });
     this.BindGrid();
     this.BindCustodian();

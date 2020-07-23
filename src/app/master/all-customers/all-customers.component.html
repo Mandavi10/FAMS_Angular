@@ -159,13 +159,17 @@
                <div class="col-md-4 col-xs-12 col-sm-4 d-inline-block">
                     <label class="col-md-12 col-xs-12 col-sm-12 p-0">PMS Employee:</label>
                     </div>
-                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput">
-                        <select class="dropdown col-md-12 col-xs-12 col-sm-12">
-                            <option>EMP01</option>
+                    <div class="col-md-7 col-xs-12 col-sm-7 d-inline-block paddinginput" id="empcode" [ngClass]="displayFieldCss('EmployeeCode')">
+                        <select class="dropdown col-md-12 col-xs-12 col-sm-12"   formControlName="EmployeeCode">
+                            <option  value="" selected>Select PMS Emp</option>
+                            <option  *ngFor="let data of linkedPMSEmployee" value={{data.EmployeeCode}}  >
+                                {{data.EmployeeName}}
+                            </option>
+                            <!-- <option>EMP01</option>
                             <option>EMP02</option>
                             <option>EMP03</option>
                             <option>EMP04</option>
-                            <option>EMP05</option>
+                            <option>EMP05</option> -->
                         </select>
                 
                     </div>
