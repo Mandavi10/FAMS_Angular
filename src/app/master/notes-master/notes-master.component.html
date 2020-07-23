@@ -85,12 +85,42 @@
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
         <div class=" col-sm-12 col-xs-12 col-md-12 formatbox  ">
                         <div class=" col-sm-12 col-xs-12 col-md-12 boxhead "> 
-                             
+                            <div class="col-sm-12 col-xs-12 col-md-1">
+                                <div class="sendBtn">
+                                    <img src="assets/images/send_icon.png" />
+                                    <label>Send</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12 col-md-11 p-0">
+                             <div class="row">
+                                  
+                        <div class="col-md-9 col-sm-12 col-lg-9 col-xs-12">
+                            <div class="form-group" style="margin:0px">
+                              
+                                <label class="col-sm-1 col-md-1 col-xs-12 control-label no-padding" style="margin-top: 5px;">
+                                   To:</label>
+                                <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
+                                    <div class="form-group input-group m-0 mb-1">
+                                    <input type="email" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" />
+                                </div>
+                                </div>
+                                     
+                            </div>
+                        </div> 
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 mt-1">
+
+                            <div class="form-group input-group">
+                            <input type="checkbox" style=" margin-right: 5px!important; margin-top: 1px;" /> 
+                                <label>Send to all customers</label>
+                        </div>
+                   
+                </div>  
+                             </div>
                                               
-                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 p-0">
                                 <div class="form-group" style="margin:0px">
                                   
-                                    <label class="col-sm-1 col-md-1 col-xs-12 control-label no-padding" style="margin-top: 10px;">
+                                    <label class="col-sm-1 col-md-1 col-xs-12 subject control-label no-padding" style="margin-top: 5px;">
                                        Subject:</label>
                                     <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
                                         <div class="form-group input-group m-0 mb-1" [ngClass]="displayFieldCss('Subject')">
@@ -100,7 +130,7 @@
                                          
                                 </div>
                             </div>
-                             
+                        </div>
         
                             <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
                             <textarea rows="500" cols="220" #Note formControlName="Note">
@@ -113,33 +143,12 @@
                             
     
     </div>
-                            <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
-
-                                        <div class="form-group input-group">
-                                        <input type="checkbox" /> 
-                                            <label>All Customers</label>
-                                    </div>
-                               
-                            </div>     
-                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                <div class="form-group" style="margin:0px">
-                                  
-                                    <label class="col-sm-1 col-md-1 col-xs-12 control-label no-padding" style="margin-top: 10px;">
-                                       To:</label>
-                                    <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
-                                        <div class="form-group input-group m-0 mb-1" [ngClass]="displayFieldCss('Subject')">
-                                        <input type="text" required id="Text1" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" />
-                                    </div>
-                                    </div>
-                                         
-                                </div>
-                            </div> 
+                            
                             <div class="rightmenu">
                                 <div class="toolbar pull-right mt-2">
                                     <button type="button" class="btn btn-sm btn-success mr-2"  (click)="SaveData(Subject.value,Note.value,File.value)"> Save </button> 
                                     <button type="button" class="btn btn-sm btn-success mr-2" (click)="CancelFun()"> Cancel</button> 
-                                    <button type="button" class="btn btn-sm btn-success"> Send</button> 
-                                 
+                                   
                                 </div>
                             </div>
                               
