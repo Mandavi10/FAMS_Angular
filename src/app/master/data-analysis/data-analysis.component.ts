@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from 'src/assets/js/canvasjs.min';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, from } from 'rxjs';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import{DbsecurityService}from '../../Services/dbsecurity.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {DataanalysisService} from '../../Services/Graphbind/dataanalysis.service';
+import{Employee,Customer,ReportLink} from '../../../Models/GraphBind/graphbind';
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -144,9 +150,29 @@ export class DataAnalysisComponent implements OnInit {
 		{ srNo: '2', security: 'SOLAR INDUSTRIES INDIA LTD', quantity: '1,804', cost: '2,678,810', mktValue: '4,793,499', assets: '9.57%'},
 		{ srNo: '3', security: 'SOLAR INDUSTRIES INDIA LTD', quantity: '1,804', cost: '2,678,810', mktValue: '4,793,499', assets: '9.57%'},
 	];
-  constructor() { }
+
+	Datanalysis: FormGroup;EmployeeCodedesabled: boolean = false;CustomerCodedesabled: boolean = false;
+	Employeeshowhid=true;Customershowhid=true; Table:Employee;Table1:Customer;Table2:ReportLink;
+	Customercodearray=[]; Table1Length:number=0;
+  constructor(private route:ActivatedRoute,private router: Router, private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService,private _GraphService:DataanalysisService) { }
 
   ngOnInit() {
+
+	this.Datanalysis = this.formBuilder.group({
+		Employeename: ['', Validators.required], 
+		CustomerName:['', Validators.required],
+		DateRangePicker:['', Validators.required],
+		Report:['', Validators.required],
+		DateRangePicker1:['', Validators.required],
+		Report1:['', Validators.required],
+		DateRangePicker2:['', Validators.required],
+		Report2:['', Validators.required],
+		DateRangePicker3:['', Validators.required],
+		Report3:['', Validators.required]
+	});
+		  
+	
+
 		let chart = new CanvasJS.Chart("chartContainer", {
 		animationEnabled: true,
 		exportEnabled: true,
@@ -169,6 +195,8 @@ export class DataAnalysisComponent implements OnInit {
 		}]
 	});
 		
+	
+
   chart.render();
   
   let chart1 = new CanvasJS.Chart("chartContainer1", {
@@ -349,5 +377,135 @@ export class DataAnalysisComponent implements OnInit {
 	});
 		
 	chart6.render();
+//	this.Validationfield();
+	this.Binddata();
+	
 }
+isFieldValid(field: string) {
+	return !this.Datanalysis.get(field).valid && this.Datanalysis.get(field).touched;
+	}
+	displayFieldCss(field: string) {
+	 
+			return {
+			  'validate': this.isFieldValid(field),
+		
+	  }
+	  
+	}
+	validateAllFormFields(formGroup: FormGroup) {
+	  Object.keys(formGroup.controls).forEach(field => {
+		  const control = formGroup.get(field);
+		  if (control instanceof FormControl) {
+			  control.markAsTouched({ onlySelf: true });
+		  } else if (control instanceof FormGroup) {
+			  this.validateAllFormFields(control);
+		  }
+	  });
+	}
+	Validationfield()
+	{
+		let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+		var UserType = this.Dbsecurity.Decrypt(Sessionvalue.UserType);
+		const Employeename = this.Datanalysis.get('Employeename');
+		const CustomerName = this.Datanalysis.get('CustomerName');
+		if(UserType=="1")
+		{
+			Employeename.clearValidators(); Employeename.updateValueAndValidity();
+			CustomerName.clearValidators(); CustomerName.updateValueAndValidity();
+			this.Employeeshowhid=false;this.Customershowhid=false;
+		}
+		else if(UserType=="2")
+		{
+			this.Employeeshowhid=false;this.Customershowhid=true;
+			Employeename.clearValidators(); Employeename.updateValueAndValidity();
+			CustomerName.setValidators(Validators.required); CustomerName.updateValueAndValidity();
+		}
+		else 
+		if(UserType=="3")
+		{
+			this.Employeeshowhid=true;this.Customershowhid=true;
+			Employeename.setValidators(Validators.required); Employeename.updateValueAndValidity();
+			CustomerName.setValidators(Validators.required); CustomerName.updateValueAndValidity();
+		} 
+		else if(UserType=="4")
+		{
+			this.Employeeshowhid=true;this.Customershowhid=true;
+			Employeename.setValidators(Validators.required); Employeename.updateValueAndValidity();
+			CustomerName.setValidators(Validators.required); CustomerName.updateValueAndValidity();
+		} 
+		
+		const DateRangePicker = this.Datanalysis.get('DateRangePicker');
+		const Report = this.Datanalysis.get('Report');
+		const DateRangePicker1 = this.Datanalysis.get('DateRangePicker1');
+		const Report1 = this.Datanalysis.get('Report1');
+		const DateRangePicker2 = this.Datanalysis.get('DateRangePicker2');
+		const Report2 = this.Datanalysis.get('Report2');
+		const DateRangePicker3 = this.Datanalysis.get('DateRangePicker3');
+		const Report3 = this.Datanalysis.get('Report2');
+		
+	}
+
+	ValueAssign(Employeeid)
+	{
+		
+	this.Customercodearray=[]; let Sponcode='1';
+	for(var i=0;i<this.Table1Length;i++){
+		
+		if(this.Table1[i].PMSEmpId==Employeeid)
+		{
+			if(this.Customercodearray.length>0)
+			{
+			 for(var x=0;x<this.Customercodearray.length;x++){
+	   
+				if(this.Customercodearray[x].CustId ==this.Table[i].CustId && this.Customercodearray[x].CustomerName ==this.Table[i].CustomerName)
+				{
+				 Sponcode='2';
+					break;
+				}
+			 }
+			 if(Sponcode=='1'){
+				this.Customercodearray.push(
+					{"CustId":  ""+ this.Table1[i].CustId+""},
+					{"CustomerName":  ""+ this.Table1[i].CustomerName+""}
+			  
+					);
+				}
+		  }
+		  else
+		  {
+			this.Customercodearray.push(
+				{"CustId":  ""+ this.Table1[i].CustId+""},
+				{"CustomerName":  ""+ this.Table1[i].CustomerName+""}
+		  
+				);
+			}
+
+		  
+			
+		
+		}
+	}
+	}
+   Binddata()
+   {
+	this._GraphService.BinddataOnPageLoad().subscribe(
+        (data) => {
+			this.Table = data.Table; 
+			this.Table1 = data.Table1; 
+			this.Table1Length=data.Table1.length;
+			this.Customercodearray=[];
+			this.Table2 = data.Table2; 
+
+		});
+   }
+
+	Generate_click()
+	{
+		if (this.Datanalysis.valid) {
+alert('hii');
+		}
+		else{
+			this.validateAllFormFields(this.Datanalysis);
+		}
+	}
 }
