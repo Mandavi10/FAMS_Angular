@@ -1,29 +1,55 @@
 <div class="main-content maincontainer">
     <div class="content">
+        <form [formGroup]="Datanalysis" autocomplete="off">
        <div class="row">
-           <div class="col-md-4 col-sm-4 col-xs-4 p-0 selectDate mt-2 pl-5">
+           <div *ngIf="Employeeshowhid" class="col-md-4 col-sm-4 col-xs-4 p-0 selectDate mt-2 pl-5">
                <div class="form-group">
                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
-                      Customer Name:
+                      Employee Name:
                    </label>
                     
                    <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName">
-
-                        <option value="0">Select</option>
-                        <option value="1">Customer 1</option>  
-                        <option value="2">Customer 2</option>                    
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Employeename" #Employeename
+                    [ngClass]="displayFieldCss('Employeename')" (change)="ValueAssign(Employeename.value)" [attr.disabled]="EmployeeCodedesabled ? '' : null"
+                    >
+                    <option selected value="">Select</option>
+                    <option *ngFor="let Employee of Table;index as i" value={{Employee.PMSEmpId}} >
+                        {{Employee.EmployeeName}}                                                                                
+                    </option>
+                                       -->
                     </select>
                       
                    </div>
                </div>
            </div>
+
+           <div *ngIf="Customershowhid" class="col-md-4 col-sm-4 col-xs-4 p-0 selectDate mt-2 pl-5">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                   Customer Name:
+                </label>
+                 
+                <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
+                 <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerName"
+                 [ngClass]="displayFieldCss('CustomerName')" [attr.disabled]="CustomerCodedesabled ? '' : null"
+                 >
+                 <option selected value="">Select</option>
+                 <option *ngFor="let Customer of Customercodearray;index as i" value={{Customer.CustId}} >
+                    {{Customer.CustomerName}}                                                                                
+                </option>
+                 </select>
+                   
+                </div>
+            </div>
+        </div>
+
+
            <div class="col-md-8 col-sm-8 col-xs-8 mt-2">
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li>
+                        <li (click)="Generate_click()">  
                             <i class="fa fa-pencil-square-o" aria-hidden="true" title="Generate"></i>
                             <label>
                                 Generate
@@ -43,7 +69,7 @@
                     <span class="pull-right">Select Date:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control" bsDaterangepicker >
+                    <input type="text" id="txtDateRangePicker" [ngClass]="displayFieldCss('DateRangePicker')"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control" bsDaterangepicker >
             
                 </div>
             </div>
@@ -54,13 +80,13 @@
                     <span class="pull-right">Select Report:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report">
-
-                        <option value="0">Select</option>
-                        <option value="1">Trial Balance Report</option>  
-                        <option value="2">NAV Report</option>  
-                        <option value="3">Portfolio</option>  
-                        <option value="4">Cash Equivalent</option>                   
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report"
+                    [ngClass]="displayFieldCss('CustomerName')" 
+                    >
+                    <option selected value="">Select</option>
+                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                        {{ReportLink.LinkName}}                                                                                
+                    </option>                   
                     </select>
                 </div>
             </div>
@@ -101,7 +127,7 @@
                     <span class="pull-right">Select Date:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker1"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control" bsDaterangepicker >
+                    <input type="text" id="txtDateRangePicker1" [ngClass]="displayFieldCss('DateRangePicker1')"   formControlName="DateRangePicker1" placeholder="Select Date" class="form-control" bsDaterangepicker >
             
                 </div>
             </div>
@@ -112,13 +138,13 @@
                     <span class="pull-right">Select Report:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report">
-
-                        <option value="0">Select</option>
-                        <option value="1">Trial Balance Report</option>  
-                        <option value="2">NAV Report</option>  
-                        <option value="3">Portfolio</option>  
-                        <option value="4">Cash Equivalent</option>                   
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report1"
+                    [ngClass]="displayFieldCss('Report1')" 
+                    >
+                    <option selected value="">Select</option>
+                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                        {{ReportLink.LinkName}}                                                                                
+                    </option>      
                     </select>
                 </div>
             </div>
@@ -159,7 +185,7 @@
                     <span class="pull-right">Select Date:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker2"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control" bsDaterangepicker >
+                    <input type="text" id="txtDateRangePicker2"  formControlName="DateRangePicker2" [ngClass]="displayFieldCss('DateRangePicker2')" placeholder="Select Date" class="form-control" bsDaterangepicker >
             
                 </div>
             </div>
@@ -170,13 +196,13 @@
                     <span class="pull-right">Select Report:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report">
-
-                        <option value="0">Select</option>
-                        <option value="1">Trial Balance Report</option>  
-                        <option value="2">NAV Report</option>  
-                        <option value="3">Portfolio</option>  
-                        <option value="4">Cash Equivalent</option>                   
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report2"
+                    [ngClass]="displayFieldCss('Report2')" 
+                    >
+                    <option selected value="">Select</option>
+                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                        {{ReportLink.LinkName}}                                                                                
+                    </option>      
                     </select>
                 </div>
             </div>
@@ -217,7 +243,7 @@
                     <span class="pull-right">Select Date:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker3"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control" bsDaterangepicker >
+                    <input type="text" id="txtDateRangePicker3"  formControlName="DateRangePicker3" [ngClass]="displayFieldCss('DateRangePicker3')"  placeholder="Select Date" class="form-control" bsDaterangepicker >
             
                 </div>
             </div>
@@ -228,13 +254,13 @@
                     <span class="pull-right">Select Report:</span>
                  </label>
                  <div class="col-sm-8 col-md-8 col-xs-8 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report">
-
-                        <option value="0">Select</option>
-                        <option value="1">Trial Balance Report</option>  
-                        <option value="2">NAV Report</option>  
-                        <option value="3">Portfolio</option>  
-                        <option value="4">Cash Equivalent</option>                   
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Report3"
+                    [ngClass]="displayFieldCss('Report3')" 
+                    >
+                    <option selected value="">Select</option>
+                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                        {{ReportLink.LinkName}}                                                                                
+                    </option>      
                     </select>
                 </div>
             </div>
@@ -267,7 +293,7 @@
          
            </div>
        </div>
-      
+        </form>
                 
           
                            
