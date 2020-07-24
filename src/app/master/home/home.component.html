@@ -9,21 +9,294 @@
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-xs-12">
-                    <!-- <span class="legal">Home</span> -->
+                
+               
+                    <div class="col-sm-12 col-md-12 mt-3 ">
+                        <div class="col-md-9 col-xs-9 col-sm-9 pl-0 mailbox">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                
+                                    <div class="searchbox">
+                                        <span class="searchicon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="col-md-12 col-sm-12 col-xs-12" placeholder="Search" #SearchData (keyup)="SearchFun(SearchData.value)"/>
+                                    </div>
+                                </div>
+                                <!-- style="overflow-y: scroll; height: 559px;" -->
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0 notificationscroll">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0 allunreaddatebox">
+                                
+                                    <div class="col-md-1 col-sm-4 col-xs-2 p-0">
+                                        <div class="msgall pull-left">
+                                            <label>All</label>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="col-md-7 col-sm-4 col-xs-4 p-0" > 
+                                        <div class="unreadall pull-left">
+                                            <label>Unread</label>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="date pull-right">
+                                            <!-- <label>By Date</label> -->
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                
+                                    <div class=" col-md-12 col-sm-12 col-xs-12 oldermsgbox pull-left">
+                                       <label>Older</label>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="col-md-12 col-sm-12 col-xs-12 " >
+                                    <div class="col-md-12 col-sm-12 col-xs-12 notificationboxactive" >
+                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                            <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                        <span>Amity Online</span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                               
+                                        <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                        <span class="pull-right">  <i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                        <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                            <span>Addmission Opens for Online Master course </span>
+                                            
+                                            </div>
+                                            <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                <span>3/5/2020 </span>
+                                                <span>5:30 PM </span>
+                                                </div>
+                                            </div>
+                                      
+                                </div>
+                                 
+                                    <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                            <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                        <label>Amity Online</label>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                               
+                                        <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                        <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                        <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                            <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                            
+                                            </div>
+                                            <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                <label>3/5/2020 </label>
+                                                <label>5:30 PM </label>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                                <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                            <label>Union Bank Of India</label>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                                   
+                                            <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                            <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                            <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                                <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                                
+                                                </div>
+                                                <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                    <label>3/5/2020 </label>
+                                                    <label>5:30 PM </label>
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                                    <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                                <label>State Bank Of India</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                                       
+                                                <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                                <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                                <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                                    <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                                    
+                                                    </div>
+                                                    <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                        <label>3/5/2020 </label>
+                                                        <label>5:30 PM </label>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                                        <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                                    <label>Axis Bank </label>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                                           
+                                                    <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                                    <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                                    <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                                        <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                                        
+                                                        </div>
+                                                        <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                            <label>3/5/2020 </label>
+                                                            <label>5:30 PM </label>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </div>
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                                            <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                                        <label>IDFC Bank </label>
+                                                            </div>
+                                                            <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                                               
+                                                        <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                                        <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                                        <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                                            <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                                            
+                                                            </div>
+                                                            <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                                <label>3/5/2020 </label>
+                                                                <label>5:30 PM </label>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                                                <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
+                                                            <label>Allahabad Bank</label>
+                                                                </div>
+                                                                <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
+                                                                   
+                                                            <span >  <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment"></i></span>
+                                                            <span class="pull-right">  <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
+                                                            <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                                                <label>Hi Tarun, Open a Kotak 811 account insta...</label>
+                                                                
+                                                                </div>
+                                                                <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                                                    <label>3/5/2020 </label>
+                                                                    <label>5:30 PM </label>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                            </div>
+                              
+                                
+                                          </div>
+                                
+                              
+                                        </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 mt-5 col-lg-6 downloadattachment">
+                            <div class="col-md-12 col-sm-12 col-xs-12 mt-3"> 
+                      
+                                <span class="pull-right attachment">
+                                     <i class="fa fa-paperclip paperclipicon" aria-hidden="true" title="Attachment">
+                                        
+                                   </i> <label>Download Attachment</label> </span>
+                                </div>
+                             <div class="col-md-12 col-sm-12 col-xs-12 boxright">
+                
+                             <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="textbox ">
+                
+                   We Are Happy To Tell You That Amity University Registration Are open For B.Tech/BBA/BCA/MBA
+                    For More Further information Contact Us On This No: 18000028767, 18800028767 
+                    <span ></span>
+                
+                
                 </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 mt-3">
-                        <div class=" col-md-12 col-sm-12 col-xs-12">
+                
+                
+                             </div>
+                            </div>
+                          </div>
+                
+
+
+    
+                    </div>
+                        <div class=" col-md-3 col-sm-3 col-xs-3">
         
-                            <div class=" portalBox" *ngFor="let Data of BindalltabsList">
+                            <!-- <div class=" portalBox" *ngFor="let Data of BindalltabsList">
                                 <a routerLink="{{Data.url}}" routerLinkActive="active">
                                 <img src="{{Data.ImagePath}}" />
                                     <h5>{{Data.LinkName}}</h5>
                             </a>
-                            </div>
+                            </div> -->
 
-                            <!-- <div class="portalBox">
+                            <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>Dashboard</h5>
+                                </a>
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>User Setup</h5>
+                                </a>
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>Order Processing</h5>
+                                </a>
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>User Setup</h5>
+                                </a>
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>Trial Balance Report</h5>
+                                </a>
+                            </div>
+                             <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
                                     <h5>Current portfolio</h5>
@@ -35,20 +308,20 @@
                                
                                     <h5>Statement Dividend</h5>
                                 </a>
-                            </div> -->
+                            </div> 
                             <!-- ../assets/images/trial_icon.png -->
                             
         
 
-                            <!-- <div class="portalBox">
+                           <div class="portalBox">
                                 <a routerLink="/BankBook" routerLinkActive="active">
-                                <img src="../assets/images/summary_icon.png" />
+                              
                                     <h5>Bank Book</h5>
                                     </a>
                                 </div>
                              <div class="portalBox">
                                 <a routerLink="/CapitalStatement" routerLinkActive="active">
-                                <img src="../assets/images/statement_icon.png" />
+                               
                                     <h5>Statement of Capital Gain/Loss</h5>
 
                                 </a>
@@ -56,69 +329,60 @@
                         
                             <div class="portalBox">
                                 <a routerLink="/StatementOfExpenses" routerLinkActive="active">
-                                <img src="../assets/images/statement_icon.png" />
+                              
                                     <h5>Statement Of Expenses</h5>
 
                                 </a>
-                            </div> -->
+                            </div> 
         
         
-                            <!-- <div class="portalBox">
+                            <div class="portalBox">
                                 <a routerLink="/HoldingReport" routerLinkActive="active">
-                                <img src="../assets/images/holding_icon.png" />
-
-                                   
-                                    <li class="" style="list-style: none;"><a routerLink="/HoldingReport" routerLinkActive="active"><span class="menu-text"> <h5>Holding Report</h5></span></a></li>
                                
 
-                                     <a href="./home/home.module#HomeModule"><img src="../assets/images/holding_icon.png" /></a>
-                                    <h5>Holding Report</h5> -->
+                                   
+                                  
+                                    <h5>Holding Report</h5> 
 
                                     <!-- <h5>Holding Report</h5> -->
-                               <!-- </a>
+                              </a>
 
-                            </div> --> 
+                            </div> 
         
         
-                            <!-- <div class="portalBox">
+                            <div class="portalBox">
                                 <a routerLink="/TransactionStatement" routerLinkActive="active">
-                                    <img src="../assets/images/transaction_icon.png" />
+                                   
                                     <h5>Transaction Statement</h5>
                              </a>
-                            </div> -->
+                            </div>
         
         
-                            <!-- <div class="portalBox">
+                            <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
-                                    <img src="../assets/images/cash_icon.png" />
+                                  
                                     <h5>Cash Equivalent</h5>
                                 </a>
-                            </div> -->
-                            <!-- <div class="portalBox">
-                                <a routerLink="/MyNotes" routerLinkActive="active">
-                                <img src="../assets/images/notes_icon.png" />
-                                <h5>My Notes</h5>
-                           </a>
-                           <span class="notificationCount">4</span>
-
-                        </div>
-                        <div class="portalBox" *ngIf="OrderProcessing">
-                            <a routerLink="/OrderProcessingNew" routerLinkActive="active" >
-
-                        </div> -->
-                        <!-- <div class="portalBox">
-                            <a routerLink="/OrderProcessingNew" routerLinkActive="active">
-
-                                <img src="../assets/images/orderProcessing_icon.png" />
-                                <h5>Order Processing</h5>
-                            </a>
-                        </div> -->
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CashEquivalent" routerLinkActive="active">
+                                  
+                                    <h5>Data Analysis</h5>
+                                </a>
+                            </div>
+                            <div class="portalBox">
+                                <a routerLink="/CashEquivalent" routerLinkActive="active">
+                                  
+                                    <h5>Notification</h5>
+                                </a>
+                            </div>
+                          
                         </div>
         
         
                     </div>
         
-                </div>
+               
                 <!-- <div class="col-sm-12 col-md-12">
                     <div class=" col-md-12 col-sm-12 col-xs-12 noteBox">
                         <h5>Important Notes:</h5>

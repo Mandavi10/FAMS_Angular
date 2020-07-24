@@ -4,7 +4,8 @@ import { AllCustomersService } from '../../Services/AllCustomers/all-customers.s
 import { AllCustomers} from '../../../Models/AllCustomers/all-customers';
 import { SaveAllFields} from '../../../Models/AllCustomers/save-all-fields';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { PmsCustomerListService } from 'src/app/Services/PMSCustomerList/pms-customer-list.service';
+import {Custodian,PortFolio,LinkedPMSEmployee,PMSCustomerListDetails,PMSCustomerListCodeDetails,PMSCustomerList  } from '../../../Models/PMSCustomerList/pmsCustomerList';
 
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Allcustomerresponse } from 'src/Models/AllCustomers/allcustomerresponse';
@@ -23,6 +24,7 @@ export class AllCustomersComponent implements OnInit {
   selectedRowId:number;
   CustomerId:number;
   Temp: number = 1; 
+  linkedPMSEmployee:LinkedPMSEmployee;
 
   isShowLoader:boolean=false;
 
@@ -66,15 +68,17 @@ hideupdatepopup() {
  this.showModalupdatepopup = false;
 }
 
-  constructor(private router: Router,private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private AllCustomerService : AllCustomersService,private _pmsCustomerListService: PmsCustomerListService) { }
   isShowGrid:boolean=true;
   isShowForm:boolean=false;
 
   ngOnInit(): void {
     this.AllCustomersForm = this.formBuilder.group({  
-      CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+      CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      EmployeeCode: ['',Validators.required]
   });
  this.BindGrid();
+ this.BindLinkedPMSEmployee();
  this.isShowForm=false;
 this.isShowGrid=true;
   }
@@ -83,11 +87,26 @@ this.isShowGrid=true;
     this.isShowForm=false;
     this.isShowGrid=true;
   }
+  
   ShowGridOrForm()
   {
 this.isShowForm=true;
 this.isShowGrid=false;
   }
+
+
+  BindLinkedPMSEmployee() {
+    
+    // this.loading = true;
+    var currentContext = this;
+    this._pmsCustomerListService.BindLinkedPMSEmployee().
+        subscribe((data) => {
+            currentContext.linkedPMSEmployee = data.Table;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+    // this.loading = false;
+  }
+
 
 BindGrid(){
   this.AllCustomerService.BindGrid().subscribe(
@@ -160,6 +179,8 @@ SaveData(){
   //this.SaveallfieldsList.UserId = "3";
 
   this.SaveallfieldsList = this.AllCustomersForm.value;
+  console.log('savedata')
+  console.log(this.AllCustomersForm.value)
   this.AllCustomerService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
 
     (data) => {

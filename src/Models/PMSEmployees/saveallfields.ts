@@ -12,4 +12,5 @@ export class Saveallfields {
     PMSEmpId : string;
     Active : string;
     UserId : string;
+    EmailId : string;
 }

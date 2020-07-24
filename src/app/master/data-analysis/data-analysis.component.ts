@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from 'src/assets/js/canvasjs.min';
 
-
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -20,6 +19,7 @@ export class DataAnalysisComponent implements OnInit {
 	isChart1 = false;
 	isChart2 = false;
 	isChart3 = false;
+	
 	showChart() {
 		
 		this.isGrid = false;
