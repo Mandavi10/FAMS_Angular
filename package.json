@@ -25,7 +25,7 @@
     "crypto-js": "^4.0.0",
     "faker": "^4.1.0",
     "jspdf": "^1.5.3",
-    "jspdf-autotable": "^3.5.3",
+    "jspdf-autotable": "^3.5.6",
     "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
