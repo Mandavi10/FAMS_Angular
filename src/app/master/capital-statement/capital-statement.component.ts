@@ -410,29 +410,29 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
 
 
 
-  downloadPDF(){
-    this.showhead=false;
-    // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
-    // //const pdf = new jsPDF('p', 'pt', 'a4');
-    // const pdf = new jsPDF();
-    // pdf.addHTML(elementToPrint, () => {
-    //     pdf.save('web.pdf');
-    // });  
-    var doc = new jsPDF('legal', 'pt','a3' );
-    // doc.text("From HTML", 40, 50);legal
-     //doc.text( 40, 50);
-     var res = doc.autoTableHtmlToJson(document.getElementById("gridmain"));
-     console.log('downloadpdf')
-     console.log(res)
-   console.log(res.data)
-   console.log(res.data[0])
-     doc.autoTable(res.columns, res.data, {
-       startY: 90
-     });
+  // downloadPDF(){
+  //   this.showhead=false;
+  //   // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+  //   // //const pdf = new jsPDF('p', 'pt', 'a4');
+  //   // const pdf = new jsPDF();
+  //   // pdf.addHTML(elementToPrint, () => {
+  //   //     pdf.save('web.pdf');
+  //   // });  
+  //   var doc = new jsPDF('legal', 'pt','a3' );
+  //   // doc.text("From HTML", 40, 50);legal
+  //    //doc.text( 40, 50);
+  //    var res = doc.autoTableHtmlToJson(document.getElementById("gridmain"));
+  //    console.log('downloadpdf')
+  //    console.log(res)
+  //  console.log(res.data)
+  //  console.log(res.data[0])
+  //    doc.autoTable(res.columns, res.data, {
+  //      startY: 90
+  //    });
     
-     doc.save();
+  //    doc.save();
      
-  }
+  // }
 
 
   
