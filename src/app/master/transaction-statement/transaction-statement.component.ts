@@ -110,12 +110,19 @@ rowData = [
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     this.divMainGrid=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var UserId = Sessionvalue.UserId;
+    var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+    if(UserId=="30007" ||
+    UserId=="30008"){
+      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+    }
+    else{
+      CustomerAccount = this.TransactionStatementForm.controls['CustomerAccount'].value;
+    }
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
       "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
-      "CustomerAccount" : this.TransactionStatementForm.controls['CustomerAccount'].value
+      "CustomerAccount" : CustomerAccount
     }
     this.TSService.BindGrid(JsonData).subscribe(
       (data) => {

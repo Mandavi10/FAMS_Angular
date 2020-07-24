@@ -184,17 +184,16 @@ BindCustomers(){
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid, CustomerAccountNo;
-  
     if(usertype == 2 ||usertype == 3 || usertype == 4){
      
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= this.capitalStatForm.controls['CustomerAccount'].value;
+      CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
     }
     else{
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-      userid= item.UserId
+      CustomerAccountNo= item.AccountNo
       
     }
 

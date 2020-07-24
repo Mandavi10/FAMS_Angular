@@ -31,4 +31,11 @@ export class BankbookService {
        headers 
    });
   }
+  BindEmployee(em:any){
+    const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindEmployees' , body, {
+       headers 
+    });
+  }
 }

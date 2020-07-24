@@ -7,8 +7,8 @@
   
         <form class="form">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                 <span class="legal"></span>
+            <div class="col-sm-6 col-md-6 col-xs-3">
+                               <span class="legal">Bank Book</span>
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
@@ -47,12 +47,28 @@
             <form [formGroup]="BankBookForm" autocomplete="off" appNorightclick style="overflow:visible">
                 <div class="row">
        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="divEmployee">
+            <div class="form-group">
+              <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                Employee Name :
+              </label>
+              <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId">
+      
+                      <option value="">Select</option>
+                      <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                  </select>
+                                
+              </div>
+          </div>
+      </div>
+
         <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="divCustomer">
             <div class="form-group">
-              <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+              <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                  Customer Name :
               </label>
-              <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+              <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                   <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="CustomerAccount">
       
                       <option value="">Select</option>
@@ -62,24 +78,24 @@
               </div>
           </div>
       </div>
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-3 col-xs-12">
           <div class="form-group">
-              <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+              <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                From Date :
               </label>
-              <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+              <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                   
                   <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
               </div>
           </div>
       </div>
   
-            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                          To Date :
                         </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                            
                             <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" /> 
                         </div>
@@ -135,6 +151,9 @@
         <div class="holdingreportGrid">
         <table class="bankmasterTable" id="bankmastertable">
             <thead>
+                <tr *ngFor="let Data of HeaderList">
+                    <td colspan="6" class="text-center">{{Data.Data}}</td>
+                 </tr>
                 <tr>
 
                     <th style="width: 250px"></th>
@@ -284,8 +303,17 @@
 
     </div>
 </div>
+
+
         
     </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+                <span class="previousBtn">Previous</span>
+                <span class="paginationCount">50 out of 200</span>
+                <span class="nextBtn">Next</span>
+            </div>
+    </div> 
             </form>
    
   

@@ -7,7 +7,8 @@
         float: left;
         width: 100% !important;
     }
-
+.notificationscroll{    overflow-y: auto;
+    max-height: 509px;}
 .menuBox{width: 19%;
     background: transparent;
     border-radius: 0px;
@@ -42,25 +43,113 @@ border-right: 1px solid #dfe6e8;
     display: inline-block;
     padding-left: 5px;}
 
-
-
-    
-    .portalBox {
+    .msgall {
+        font-size:13px;
+        font-family: unset;
+          color:#3c8dbc;
+      }
+      .boxright{
+        padding: 19px 0px 19px 0px;
+      }
+      
+      .fullmaincontainer {
         position: relative;
-        cursor: pointer;
-        width: 19.1%;
-        display: inline-block;
-        text-align: center;
-        border-right: 1px solid #eae6e6;
-        border-bottom: 1px solid #eae6e6;
-        margin-bottom: 15px;
-        padding: 15px 10px 10px;
-        margin-right: 5px;
-        margin-left: 5px;
-        vertical-align: top;
-        height: 68px;
-        overflow: hidden;
-    }
+        float: left;
+        width: 100% !important;
+      }
+      
+      .paperclipicon{
+        font-size:14px;
+        padding:3px 4px;
+      }
+      .unreadall {
+        font-size:13px;
+        font-family: unset;
+      }
+      .date {
+         font-size:13px;
+        font-family: unset;
+      }
+      .attachment{
+        cursor:pointer;
+      }
+      .searchicon {position: absolute;
+      right: 23px;
+      top: 3px;
+      font-size: 15px;}
+      .allunreaddatebox{ padding: 5px 2px 4px 2px!important;}
+      .oldermsgbox{
+        background-color: #cdcdcd2b;
+      
+        padding: 2px 5px 2px 5px;
+      }
+      
+      .notificationboxactive .notificationlabel label {
+        font-size:13px;
+          font-family: unset;
+         
+      }
+      .notificationboxunactive .notificationlabel label {
+        font-size:13px;
+          font-family: unset;
+         
+         
+      }
+      .notificationboxunactive .notificationtext label{ 
+         font-family: unset;
+        color:#3c8dbc;
+      }
+      .notificationboxunactive .notificationdate label{
+        font-family: unset;
+        color:#3c8dbc;
+       }
+       .notificationdate label{font-weight: 400;
+        font-size: 11px;
+        display: inline-block;}
+        .notificationdate label:first-child{ margin-right: 3px;}
+       .notificationboxunactive .notificationlinktxt label{color:#c5c5c5;}
+        .notificationboxactive{  border: 1px solid #cbdde8;
+          padding: 7px 0px 7px 0px;
+          font-family: unset;
+          background-color: #81c2e8a6;
+          
+          border-left:3px solid #3c8dbc;
+    margin-bottom: 7px;
+        }
+        .mailbox{border: 1px solid #c5c5c57d;
+        padding-top:10px;}
+        .downloadattachment{    
+            height: 509px;
+        max-height: 509px;}
+        
+
+
+        .notificationboxunactive{
+          border: 1px solid #cbdde8;
+          padding: 7px 0px 7px 0px;
+          font-family: unset;
+          background-color: #fff;
+         border-left:3px solid #3c8dbc;
+         margin-bottom: 7px;
+        
+        }
+        
+
+
+ .activeclass{background-color: #79646429;}
+        .portalBox {
+            position: relative;
+            cursor: pointer;
+            width: 104%;
+            display: inline-block;
+            text-align: center;
+            border-bottom: 1px solid #eae6e6;
+            margin-bottom: 4px;        
+            vertical-align: top;
+            overflow: hidden;
+        }
+
+  
         .portalBox:hover {
         background: #f2f2f3;
 box-shadow: 1px 1px 2px 1px #dfdfdf;
@@ -68,10 +157,10 @@ box-shadow: 1px 1px 2px 1px #dfdfdf;
         .portalBox img {
             width: 12%;
             display: inline-block;
-            float:left
+            float:left;
         }
 
-        .portalBox h5 {font-size: 16px;
+        .portalBox h5 {font-size: 13px;
             color: #20343f;
             padding-top: 0px;
             display: inline-block;
@@ -98,7 +187,7 @@ min-height: 386px;
 
         .noteBox h5 {
             color: #0a2e40;
-            font-size: 18px;
+            font-size: 12px;
         }
 
         .noteBox ul {
@@ -142,117 +231,3 @@ min-height: 386px;
     padding: 3px 0 2px 0px;
     z-index: 9999;
     right: 1px;}
-     @media only screen and (max-width:900px) {
-        .portalBox {
-            position: relative;
-            cursor: pointer;
-            width: 23.2%;
-            display: inline-block;
-            text-align: center;
-            border-right: 1px solid #eae6e6;
-            border-bottom: 1px solid #eae6e6;
-            margin-bottom: 15px;
-            padding: 15px 10px 10px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: top;
-            height: 68px;
-            overflow: hidden;
-        }
-}
-
-    @media only screen and (max-width:767px) {
-        .portalBox {
-            position: relative;
-            cursor: pointer;
-            width: 23.2%;
-            display: inline-block;
-            text-align: center;
-            border-right: 1px solid #eae6e6;
-            border-bottom: 1px solid #eae6e6;
-            margin-bottom: 15px;
-            padding: 15px 10px 10px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: top;
-            height: 68px;
-            overflow: hidden;
-        }
-    }
-
-    @media only screen and (max-width:650px) {
-        .portalBox {
-        position: relative;
-        cursor: pointer;
-        width: 30%;
-        display: inline-block;
-        text-align: center;
-        border-right: 1px solid #eae6e6;
-        border-bottom: 1px solid #eae6e6;
-        margin-bottom: 15px;
-        padding: 15px 10px 10px;
-        margin-right: 5px;
-        margin-left: 5px;
-        vertical-align: top;
-        height: 68px;
-        overflow: hidden;
-    }
-}
-  
-    @media only screen and (max-width:450px) {
-
-        .portalBox {
-            position: relative;
-            cursor: pointer;
-            width: 47%;
-            display: inline-block;
-            text-align: center;
-            border-right: 1px solid #eae6e6;
-            border-bottom: 1px solid #eae6e6;
-            margin-bottom: 15px;
-            padding: 15px 10px 10px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: top;
-            height: 68px;
-            overflow: hidden;
-        }
-    }
-    @media only screen and (max-width:360px) {
-        .portalBox {
-            position: relative;
-            cursor: pointer;
-            width: 46%;
-            display: inline-block;
-            text-align: center;
-            border-right: 1px solid #eae6e6;
-            border-bottom: 1px solid #eae6e6;
-            margin-bottom: 15px;
-            padding: 15px 10px 10px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: top;
-            height: 68px;
-            overflow: hidden;
-        }
-    }
-
-
-    @media only screen and (max-width:330px) {
-        .portalBox {
-            position: relative;
-            cursor: pointer;
-            width: 46%;
-            display: inline-block;
-            text-align: center;
-            border-right: 1px solid #eae6e6;
-            border-bottom: 1px solid #eae6e6;
-            margin-bottom: 15px;
-            padding: 15px 10px 10px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: top;
-            height: 68px;
-            overflow: hidden;
-        }
-    }

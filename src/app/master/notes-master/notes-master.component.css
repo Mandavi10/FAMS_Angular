@@ -425,6 +425,22 @@ select {
 }
 .mailBox{ overflow: hidden; }
 .mailBox textarea{ width:100%}
+
+.sendBtn{text-align:center; border: 1px solid #cbcfd2;
+  padding: 8px 5px 0px;
+  width: 100%;}
+  .sendBtn img{width:30%}
+  .sendBtn label{display: block;
+    color: #003974;
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 4px;}
+  .sendBtn:hover {
+    background: #efeeee;
+    box-shadow: 0px 1px 2px 1px #b7b3b3;
+}
+.subject{max-width:6.2% !important}
+
 @media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} }
 @media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
   height: 421px !important; } 
