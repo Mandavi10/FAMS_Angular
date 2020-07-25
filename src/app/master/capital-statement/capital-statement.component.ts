@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 import{CapitalStatementModel,pagination} from '../../../Models/CapitalStatement/capitalStatement';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -383,29 +383,33 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
    // });
   }
 
-  downloadPDFFile(){
+  // downloadPDFFile(){
    
-    debugger;  
-    var doc = new jsPDF();  
+  //   debugger;  
+  //   var doc = new jsPDF();  
    
-    doc.setFontSize(11);
-    doc.setTextColor(100);
+  //   doc.setFontSize(11);
+  //   doc.setTextColor(100);
   
-    (doc as any).autoTable({
-      head: this.head,
-      body: this.bindgrid,
-      theme: 'plain',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    })
-        // Open PDF document in new tab
-      doc.output('dataurlnewwindow')
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.bindgrid,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //       // Open PDF document in new tab
+  //     doc.output('dataurlnewwindow')
     
-      // Download PDF document  
-      doc.save('StatementOfExpenses.pdf');
+  //     // Download PDF document  
+  //     doc.save('StatementOfExpenses.pdf');
   
+
   }
+
+  // }
+
 
 
 
