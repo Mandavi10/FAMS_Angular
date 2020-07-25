@@ -64,7 +64,10 @@ const routes: Routes = [
 
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
  {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},
-        ]
+ {path: 'FileUpload', loadChildren: './file-upload/file-upload.module#FileUploadModule'},
+    
+
+ ]
       }
 
 ];
