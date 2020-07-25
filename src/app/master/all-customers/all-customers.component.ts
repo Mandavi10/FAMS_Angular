@@ -34,7 +34,6 @@ export class AllCustomersComponent implements OnInit {
     {headerName: 'User Name', field: 'UserName', width:'150'},
     {headerName: 'User Email', field: 'EmailId', width:'150'},
     {headerName: 'Active', field: 'Active', width:'150'},
-   
     
 ];
 
