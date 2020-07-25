@@ -10,7 +10,7 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -171,33 +171,33 @@ export class HoldingReportComponent implements OnInit {
     // Download PDF document  
     doc.save('Holding_Report.pdf');
 
-    // var data = document.getElementById('bankmastertable');  
-    // html2canvas(data).then(canvas => {  
-    //   // Few necessary setting options  
-    //   var imgWidth = 208;   
-    //   var pageHeight = 295;    
-    //   var imgHeight = canvas.height * imgWidth / canvas.width;  
-    //   var heightLeft = imgHeight;  
+    var data = document.getElementById('bankmastertable');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
   
-    //   const contentDataURL = canvas.toDataURL('image/png')  
-    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-    //   var position = 0;  
-    //   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-    //   pdf.save('MYPdf.pdf'); // Generated PDF   
-    // });  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('MYPdf.pdf'); // Generated PDF   
+    });  
 
 
     
   
-    // var base64 = btoa(
-    //   new Uint8Array(this.rowData)
-    //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
-    // );
-    // const linkSource = 'data:application/pdf;base64,' + base64;
-    // const downloadLink = document.createElement("a");
-    // downloadLink.href = linkSource;
-    // downloadLink.download = "a.pdf";
-    // downloadLink.click()
+  //   var base64 = btoa(
+  //     new Uint8Array(this.rowData)
+  //       .reduce((data, byte) => data + String.fromCharCode(byte), '')
+  //   );
+  //   const linkSource = 'data:application/pdf;base64,' + base64;
+  //   const downloadLink = document.createElement("a");
+  //   downloadLink.href = linkSource;
+  //   downloadLink.download = "a.pdf";
+  //   downloadLink.click()
   //  var jsPDF: any;
   //   var doc = new jsPDF();
   //   var col = ["Id", "TypeID","Accnt","Amnt","Start","End","Contrapartida"];
