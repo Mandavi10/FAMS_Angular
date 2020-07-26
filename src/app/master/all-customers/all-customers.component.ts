@@ -73,7 +73,8 @@ hideupdatepopup() {
 
   ngOnInit(): void {
     this.AllCustomersForm = this.formBuilder.group({  
-      CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      CustomerAccount : [''], CustomerUsername :[''], 
+      CustomerEmailID : [''],
       EmployeeCode: ['',Validators.required]
   });
  this.BindGrid();
