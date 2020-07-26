@@ -18,7 +18,7 @@
                              <option *ngFor="let Employee of Table;index as i" value={{Employee.PMSEmpId}} >
                                  {{Employee.EmployeeName}}                                                                                
                              </option>
-                                                -->
+                                            
                              </select>
                                
                             </div>
@@ -33,10 +33,10 @@
                           
                          <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
                           <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="CustomerName"
-                          [ngClass]="displayFieldCss('CustomerName')" [attr.disabled]="CustomerCodedesabled ? '' : null"
+                          [ngClass]="displayFieldCss('CustomerName')" #CustomerName (change)="ReportValueAssign(CustomerName.value)" [attr.disabled]="CustomerCodedesabled ? '' : null"
                           >
                           <option selected value="">Select</option>
-                          <option *ngFor="let Customer of Customercodearray;index as i" value={{Customer.CustId}} >
+                          <option *ngFor="let Customer of Table1;index as i" value={{Customer.CustId}} >
                              {{Customer.CustomerName}}                                                                                
                          </option>
                           </select>
@@ -71,8 +71,8 @@
                             <span class="">Select Report:</span>
                          </label>
                          <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
-                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report"
-                            [ngClass]="displayFieldCss('CustomerName')" 
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report" #Report
+                            [ngClass]="displayFieldCss('Report')"   (change)="Report1R(Report.value)"
                             >
                             <option selected value="">Select</option>
                             <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
@@ -123,6 +123,11 @@
                
          
            </div>
+
+
+
+
+
            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="col-md-5 col-sm-6 col-xs-6 p-0">
                         <div class="col-md-12 col-sm-12 col-xs-12 p-0">
@@ -130,8 +135,8 @@
                             <span class="">Select Report:</span>
                          </label>
                          <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
-                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report1"
-                            [ngClass]="displayFieldCss('Report1')" 
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report1"#Report1
+                            [ngClass]="displayFieldCss('Report1')"     (change)="Report2R(Report1.value)"
                             >
                             <option selected value="">Select</option>
                             <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
@@ -181,6 +186,8 @@
                
          
            </div>
+
+
            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="col-md-5 col-sm-6 col-xs-6 p-0">
                         <div class="col-md-12 col-sm-12 col-xs-12 p-0">
@@ -189,7 +196,7 @@
                          </label>
                          <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report2"
-                            [ngClass]="displayFieldCss('Report2')" 
+                            [ngClass]="displayFieldCss('Report2')" #Report2  (change)="Report3R(Report2.value)"
                             >
                             <option selected value="">Select</option>
                             <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
@@ -247,7 +254,7 @@
                          </label>
                          <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report3"
-                            [ngClass]="displayFieldCss('Report3')" 
+                            [ngClass]="displayFieldCss('Report3')" #Report3  (change)="Report4R(Report3.value)"
                             >
                             <option selected value="">Select</option>
                             <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >

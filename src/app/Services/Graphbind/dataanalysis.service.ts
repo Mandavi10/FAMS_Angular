@@ -16,4 +16,27 @@ export class DataanalysisService {
    BinddataOnPageLoad(): Observable<any> {  
    return this._http.get<any>(this.baseUrl + 'api/AllCustomer/BindGraphGrid/');
 }
+BinddataOnPageLoad1(em:any): Observable<any> {  
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/BindGraphGrid1/', body, {
+    headers 
+});
+}
+BinddataOnPageLoad2(em:any): Observable<any> {  
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/BindGraphGrid2/', body, {
+    headers 
+});
+}
+
+BinddataCustomer(em:any): Observable<any> {  
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/BindGraphGrid3/', body, {
+    headers 
+});
+}
+
 }
