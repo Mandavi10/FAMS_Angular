@@ -54,7 +54,7 @@
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
             <div class="filter">
-                <input type="text" placeholder="Search" />
+                <input type="text" #SearchData (keyup.enter)="SearchFun(SearchData.value)" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             
@@ -85,7 +85,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
         <div class=" col-sm-12 col-xs-12 col-md-12 formatbox  ">
                         <div class=" col-sm-12 col-xs-12 col-md-12 boxhead "> 
-                            <div class="col-sm-12 col-xs-12 col-md-1">
+                            <div class="col-sm-12 col-xs-12 col-md-1" [attr.disabled]="btnsavedisable ? '' : null"  (click)="SaveData()">
                                 <div class="sendBtn">
                                     <img src="assets/images/send_icon.png" />
                                     <label>Send</label>
@@ -101,7 +101,7 @@
                                    To:</label>
                                 <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
                                     <div class="form-group input-group m-0 mb-1">
-                                    <input type="email" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" />
+                                    <input type="email" id="txtEmailId" placeholder="to@company.ca, to@company.ca..."  (focusout)="chkEmail()" [attr.disabled]="Emailcodedisabled ? '' : null"  [ngClass]="displayFieldCss('Email')" formControlName="Email" name="Email"  class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" />
                                 </div>
                                 </div>
                                      
@@ -110,7 +110,7 @@
                         <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 mt-1">
 
                             <div class="form-group input-group">
-                            <input type="checkbox" style=" margin-right: 5px!important; margin-top: 1px;" /> 
+                            <input type="checkbox" [ngClass]="displayFieldCss('Allcustomercheck')" [attr.disabled]="Allcheckboxcodedisabled ? '' : null" formControlName="Allcustomercheck" name="Allcustomercheck" (change)="Allcustomer_Change();" style=" margin-right: 5px!important; margin-top: 1px;" /> 
                                 <label>Send to all customers</label>
                         </div>
                    
@@ -124,7 +124,7 @@
                                        Subject:</label>
                                     <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
                                         <div class="form-group input-group m-0 mb-1" [ngClass]="displayFieldCss('Subject')">
-                                        <input type="text" required id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject formControlName="Subject"/>
+                                        <input type="text" [attr.disabled]="Subjectcodedisabled ? '' : null" [ngClass]="displayFieldCss('Subject')" formControlName="Subject" name="Subject" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" />
                                     </div>
                                     </div>
                                          
@@ -133,12 +133,14 @@
                         </div>
         
                             <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
-                            <textarea rows="500" cols="220" #Note formControlName="Note">
+                            <textarea rows="500" cols="220" [attr.disabled]="Subjectnotecodedisabled ? '' : null" [ngClass]="displayFieldCss('SubjectNote')" formControlName="SubjectNote" name="SubjectNote">
         
         </textarea>
         <div class="btnbox pull-left mt-2">
-            <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button>
-            <input type="file"  id="attachment" style="display:inline-block;" class="mt-" #File formControlName = "File"/>
+            <a href="{{imagebindurl}}" (click)="CheckClickLink()" [attr.disabled]="Attachmentcodedisabled ? '' : null" class="btn btn-sm btn-success mr-2" alt="" target="_blank"><i class="fa fa-paperclip"></i> Attachment</a>
+            <!-- <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button> -->
+            <input type="file"  (change)="Filechangeevent($event,1)" [attr.disabled]="FileCoddisabled ? '' : null" style="display:inline-block;" class="mt-" />
+            <label id="lblName">{{lblmsg}}</label>
         </div>         
                             
     
@@ -146,7 +148,7 @@
                             
                             <div class="rightmenu">
                                 <div class="toolbar pull-right mt-2">
-                                    <button type="button" class="btn btn-sm btn-success mr-2"  (click)="SaveData(Subject.value,Note.value,File.value)"> Save </button> 
+                                    <!-- <button type="button" class="btn btn-sm btn-success mr-2" [attr.disabled]="btnsavedisable ? '' : null"  (click)="SaveData()"> Save </button>  -->
                                     <button type="button" class="btn btn-sm btn-success mr-2" (click)="CancelFun()"> Cancel</button> 
                                    
                                 </div>

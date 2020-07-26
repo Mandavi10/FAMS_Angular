@@ -50,6 +50,38 @@ export class LoginServiceService {
         headers
     });
     }
+
+    BindNote(em:any): Observable<any> {
+      const body = em;
+      const headers = new HttpHeaders().set('content-type', 'application/json');
+      return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindAllNotification', body, {
+        headers
+    });
+    }
+
+    BindNoteCount(em:any): Observable<any> {
+      const body = em;
+      const headers = new HttpHeaders().set('content-type', 'application/json');
+      return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindAllNotification2', body, {
+        headers
+    });
+    }
+
+    BindSearchNote(em:any): Observable<any> {
+      const body = em;
+      const headers = new HttpHeaders().set('content-type', 'application/json');
+      return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindAllNotification1', body, {
+        headers
+    });
+    }
+
+    BindRowwisedata(em:any): Observable<any> {
+      const body = em;
+      const headers = new HttpHeaders().set('content-type', 'application/json');
+      return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindAlldataNotification', body, {
+        headers
+    });
+    }
     
     
 errorHandler(error: Response) {  

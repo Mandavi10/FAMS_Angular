@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, FormBuilder, FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotemasterService } from '../../Services/NoteMsater/notemaster.service';
 import {Bindgridfields} from '../../../Models/NoteMaster/bindgridfields';
 import { Commonfields } from '../../../Models/commonfields';
-
+import { DbsecurityService } from 'src/app/Services/dbsecurity.service';
+import { ValueCache } from 'ag-grid-community';
+import {AppSettings} from 'src/app/app-settings';
 
 @Component({
   selector: 'app-notes-master',
@@ -19,6 +21,9 @@ export class NotesMasterComponent implements OnInit {
     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
       return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
           }},
+          {hide: true , field: 'NMId', width: 150},
+          {hide: true , field: 'FontSize', width: 150},
+          {hide: true , field: 'EmailType', width: 150},
     {headerName: 'Sr. No.', field: 'srNo', width:'80'},
     {headerName: 'Subject', field: 'subject', width:'150'},
     {headerName: 'Date of Submission', field: 'dateofsubmission', width:'150'},
@@ -45,6 +50,24 @@ onClicksavepopup(event) {
   showModalstatemaster: boolean;
   showGrid = true;
   showForm = false;
+  Allcustomer_Change()
+  {
+  const Email = this.NoteMasterForm.get('Email');
+  document.getElementById("txtEmailId").setAttribute("placeholder", "");
+    if(this.NoteMasterForm.controls['Allcustomercheck'].value==true){
+      this.NoteMasterForm.controls['Email'].setValue('');
+     this.Emailcodedisabled=true;
+     Email.clearValidators(); Email.updateValueAndValidity();
+  }
+  else{
+      this.Emailcodedisabled=false;
+      this.NoteMasterForm.controls['Email'].setValue('');
+      Email.setValidators(Validators.required); Email.updateValueAndValidity();
+  }
+
+   
+  }
+
   onClickNew() {
     this.NoteMasterForm.reset();
     this.liNew = false;
@@ -60,20 +83,94 @@ onClicksavepopup(event) {
     hidestatemaster() {
     this.showModalstatemaster = false;
     }
-  constructor(private NMService : NotemasterService,private router: Router,private formBuilder: FormBuilder) { }
+  constructor(private NMService : NotemasterService,private router: Router,private formBuilder: FormBuilder) {
+    this.baseUrl = AppSettings.Login_URL;
+  }
 
+  baseUrl: string = ""; imagebindurl:any='';Attachmentcodedisabled:boolean= true;imagefilename:string="";
+  Emailcodedisabled:boolean=false; IscustomerAll:string="";imageurl:any=''; fileToUpload: any;
+  lblmsg:string='';imagebase64:any='';currentId: number = 0; Isattachments:string="";
+  Allcheckboxcodedisabled:boolean=false; Subjectcodedisabled:boolean=false;
+  Subjectnotecodedisabled:boolean=false; FileCoddisabled:boolean=false;
+  btnsavedisable:boolean=false;
   ngOnInit(): void {
     this.NoteMasterForm = this.formBuilder.group({ 
-      Subject : ['',Validators.required] , Note : [''] ,File : [''] , FontSize : ['']
+      Email : ['',[Validators.required]] ,
+      Allcustomercheck : [''] ,
+      Subject : ['',Validators.required] , 
+      SubjectNote : ['',Validators.required],
+      Attachments:['']
     });
     this.BindGrid();
   }
+  commaSepEmail = (control: AbstractControl): { [key: string]: any } | null => {
+    alert(control.value);
+    const emails = control.value.split(',');
+    const forbidden = emails.some(email => Validators.email(new FormControl(email)));
+    console.log(forbidden);
+    return forbidden ? { 'Email': { value: control.value } } : null;
+  };
+  chkEmail() {
+    let email = ((document.getElementById("txtEmailId") as HTMLInputElement).value);
+    let check=0;
+    let regex = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
+    const email1 = ((document.getElementById("txtEmailId") as HTMLInputElement).value).split(',');
+    for(var i=0;i<email1.length;i++)
+    {
+      if (regex.test(email1[i]) != true) {
+        check=1;
+      }
+    }
+    
+    if (check==1) {
+        this.NoteMasterForm.controls['Email'].setValue('');
+        document.getElementById("txtEmailId").classList.add('validate');
+        document.getElementById("txtEmailId").setAttribute("placeholder", "Invalid-Email");
+    }
+    else {
+        document.getElementById("txtEmailId").classList.remove('validate');
+        document.getElementById("txtEmailId").setAttribute("placeholder", "");
+    }       
+  }
+  
+  SearchFun(Searchvalue)
+  {
+    debugger;
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var Email = Sessionvalue.UserId;
+    var JsonData ={
+      "UserId":Email,
+      "Searchvalue":Searchvalue
+    }
+    this.NMService.BindSearchGrid(JsonData).subscribe(
+      (data) => {
+        this.BindgridfieldsList = data.Table;
+      });
+      this.isShowLoader = false;
+  }
+
+
+
   CancelFun(){
   this.showGrid = true;
   this.showForm = false;
   this.liNew = true;
   this.liExporttoex = true;
+  this.btnsavedisable=false;
   this.NoteMasterForm.reset();
+  this.Allcheckboxcodedisabled=false;
+  this.Emailcodedisabled=false;
+  this.Subjectnotecodedisabled=false;
+  this.Subjectcodedisabled=false;
+  this.Attachmentcodedisabled=true;
+  this.FileCoddisabled=false;
+  this.imagefilename="";
+  const Email = this.NoteMasterForm.get('Email');
+  Email.setValidators(Validators.required); Email.updateValueAndValidity();
+
+
+  this.BindGrid();
   }
 
   BindGrid(){
@@ -87,45 +184,113 @@ onClicksavepopup(event) {
         this.BindgridfieldsList = data.Table;   
   });
 }
-SaveData(Subject,Note,File){
-  this.isShowLoader = true;
-  if (this.NoteMasterForm.valid) {
-  let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-  var UserId = Sessionvalue.UserId;
-  var JsonData ={
-    "UserId": UserId,
-    "Subject": Subject,
-    "Note" : Note,
-    "Attachment": File,
-    "NMId" : this.NMId
+
+Filechangeevent(event: any,field)
+{
+  this.imageurl=null;
+  this.lblmsg='';
+  if(event.target.files[0].size <2942439)
+  {
+    if (event.target.files[0].type=='image/png' ||event.target.files[0].type=='image/jpeg'||
+    event.target.files[0].type=='image/jpg' ||event.target.files[0].type=='image/gif' ||
+    event.target.files[0].type=='image/bmp') {
+
+    this.currentId = field;
+    //this.imageurl=event.target.files[0];
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.handleInputChange(file);
+    }
+    else
+    {
+    this.lblmsg='Please select jpg, jpeg, png, gif or bmp file only';
+    }
+    }
   }
-  this.NMService.SaveData(JSON.stringify(JsonData)).subscribe(
-    (data) => {  
-      this.CommonfieldsList = data.Table;   
-      if(this.CommonfieldsList[0].Result == "1"){
-        this.SucesspopText = "Saved Successfully";
-        this.showModalsavepopup = true;
-      }
-      else if(this.CommonfieldsList[0].Result == "2"){     
-        this.SucesspopText = "Updated Successfully";
-        this.showModalsavepopup = true;       
-      }
-      else{
-        this.SucesspopText = "Error";
-        this.showModalsavepopup = true;
-      }
-      this.showGrid = true;
-      this.showForm = false;
-      this.liNew = true;
-      this.liExporttoex = true;
-      this. BindGrid();
-});
+  else{alert("Scan image size can't be more than 3 MB");}
+
+}
+handleInputChange(files) {
+  var file = files;
+  var pattern = /image-*/;
+  var reader = new FileReader();
+  if (!file.type.match(pattern)) {
+    alert('invalid format');
+    return;
+  }
+  reader.onloadend = this._handleReaderLoaded.bind(this);
+  reader.readAsDataURL(file);
+
+}
+_handleReaderLoaded(e) {
+  let id = this.currentId;
+  let reader = e.target;
+  var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+  //this.imageSrc = base64result;
+  switch (id) {
+    case 1:
+  this.fileToUpload = base64result;
+
+  }
+}
+
+SaveData()
+{
+if(this.NMId !='')
+{
+  event.preventDefault();
+}
+else{
+
+  if (this.NoteMasterForm.valid) {   
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var UserId = Sessionvalue.UserId;
+    if(this.NoteMasterForm.controls['Allcustomercheck'].value==true){
+      this.IscustomerAll="1";
+    }
+    else{
+  this.IscustomerAll=this.NoteMasterForm.controls['Email'].value;
+    }
+
+   
+    const Email = this.NoteMasterForm.get('Email');
+      var JsonData ={
+    "Email" : this.IscustomerAll,
+    "Subject":  this.NoteMasterForm.controls['Subject'].value,
+    "Note" :  this.NoteMasterForm.controls['SubjectNote'].value,
+    "Attachment":  this.fileToUpload,
+    "UserId": UserId
+       }
+       this.NMService.SaveData(JSON.stringify(JsonData)).subscribe(
+            (data) => {  
+              this.CommonfieldsList = data.Table;   
+              if(this.CommonfieldsList[0].Result == "1"){
+                this.Emailcodedisabled=false;
+                Email.setValidators(Validators.required); Email.updateValueAndValidity();
+                this.SucesspopText = "Saved Successfully";
+                this.showModalsavepopup = true;
+              }
+              else{
+                this.SucesspopText = "Error";
+                this.showModalsavepopup = true;
+              }
+              this.showGrid = true;
+              this.showForm = false;
+              this.liNew = true;
+              this.liExporttoex = true;
+              this.isShowLoader = false;
+              this. BindGrid();
+        });
   }
   else{
+
     this.validateAllFormFields(this.NoteMasterForm);
   }
-  this.isShowLoader = false;
 }
+}
+
 validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
@@ -205,21 +370,67 @@ downloadCSVFile() {
   a.click();
   return 'success';
 }
-onRowSelected(event){
-  if (event.column.colId != "0" ) // only first column clicked
+CheckClickLink()
+{
+  if(this.imagefilename =='')
   {
-  this.NMId = "";
-  this.NoteMasterForm.reset();
-  this.NoteMasterForm.controls['Subject'].setValue(event.data.subject);
-  this.NoteMasterForm.controls['Note'].setValue(event.data.Note);
-  this.NoteMasterForm.controls['Note'].setValue(event.data.FontSize);
+    event.preventDefault();
+  }
+  
+}
+onRowSelected(event){
+  
+   this.NMId = event.data.NMId;
+   this.NoteMasterForm.reset();
+   this.NoteMasterForm.controls['Subject'].setValue(event.data.subject);
+   this.NoteMasterForm.controls['SubjectNote'].setValue(event.data.Note);
+  this.imagefilename=event.data.FontSize;
+  this.imagebindurl="";
+this.imagebindurl=this.baseUrl+"/"+"Notificationattachments"+"/"+this.imagefilename;
+  if(this.imagefilename !='')
+  {
+    this.Attachmentcodedisabled=false;
+  }
+  else
+  {
+    
+    this.Attachmentcodedisabled=true;
+  }
+  
+  this.Allcheckboxcodedisabled=true;
+  this.Emailcodedisabled=true;
+  this.Subjectnotecodedisabled=true;
+  this.Subjectcodedisabled=true;
+  this.FileCoddisabled=true;
+   if(event.data.EmailType=="2")
+   {
+    this.BindallEmail(event.data.NMId);
+    
+   }
+   else{
+    this.NoteMasterForm.controls['Allcustomercheck'].setValue('true');
+   }
+  
   this.liNew = false;
   this.showGrid = false;
   this.showForm = true;
   this.liExporttoex = false;
-  }
-  //else if ((event.column.colId == "0" ) && (event.node.selected) ){
-    this.NMId = event.data.NMId;
- // }
+  this.btnsavedisable=true;
+  
 }
+
+
+
+BindallEmail(Notificationid)
+{
+  var JsonData ={
+    "UserId": Notificationid
+  }
+  this.NMService.BindEmaildata(JSON.stringify(JsonData)).subscribe(
+    (data) => {  
+      this.BindgridfieldsList = data.Table;   
+      this.NoteMasterForm.controls['Email'].setValue(this.BindgridfieldsList[0].subject);
+});
+}
+
 }
