@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { LoginServiceService } from '../../Services/login-service.service';
 import { Commonfields } from '../../../Models/commonfields';
-import { Bindalltabs } from '../../../Models/Login/bindalltabs';
+import { Bindalltabs,BindallNotification,BinddataNotification,BindallNotificationCount } from '../../../Models/Login/bindalltabs';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import {AppSettings} from 'src/app/app-settings';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,17 +12,38 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
-
+  SubjectNote:string='';
 
   OrderProcessing:boolean=false;
 
   Successtext : any; BindalltabsList : Bindalltabs; isShowLoader : boolean = false;
+  Isattchmentsfalse: boolean = false;
+  BindallNotificationdata : BindallNotification;   BindallNotificationdata1:BindallNotificationCount;
+  BindallNotificationdata2:BindallNotificationCount;
+  BindallNotificationdata3:BindallNotificationCount;
+  Isnotificationfound:boolean=false;
+  BindallNotificationwisedata : BinddataNotification;
+  IsAll:string='1'; Notebind:string=''; lblall:string=''; lblunreadall:string='';
+  lbltodayall:string='';
+  constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { 
+    this.baseUrl = AppSettings.Login_URL;
+  }
 
-  constructor(private formbulider: FormBuilder,private Dbsecurity: DbsecurityService, private _loginService : LoginServiceService) { }
+//   jquery_1_11_3_min_p('#searchText').keypress(function (event) {
+
+//     var keycode = (event.keyCode ? event.keyCode : event.which);
+//     if (keycode == '13') {
+
+//         SearchBindRequestHeader();
+//     }
+
+// });
 
   ngOnInit(): void {
     let item1 = JSON.parse(sessionStorage.getItem('User'));
     var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
+    this.BindAllPost();
+    this.BindAllPostcount();
 if(UsertType !="1"){
 }
 else{
@@ -46,6 +67,7 @@ this.OrderProcessing=false;
                     this.ChangePassWordPopUp = true;
                 }
                 this.BindAllTab();
+               
   }
   onClicksavepopup(event) {
     this.showModalsavepopup = true;
@@ -59,6 +81,29 @@ this.OrderProcessing=false;
     this.ChangePassWordPopUp  = false;
   }
   
+  SearchFun(Searchvalue)
+  {
+    debugger;
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var JsonData ={
+      "EmailId":Email,
+      "NotiType":this.IsAll,
+      "Searchvalue":Searchvalue
+    }
+    this._loginService.BindSearchNote(JsonData).subscribe(
+      (data) => {
+        this.BindallNotificationdata = data.Table;
+        
+      });
+      this.isShowLoader = false;
+  }
+
+
+  
+
+
   ChangePassSave(OldPassWord,NewPassWord,ConfirmedPassword){
     if (this.ChangePasswordForm.valid) {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
@@ -135,6 +180,133 @@ this.OrderProcessing=false;
       });
       this.isShowLoader = false;
   }
+  imagefilename:string=""; baseUrl: string = ""; imagebindurl:any='';
+  Attachmentcodedisabled:boolean= false;
+  CheckClickLink()
+  {
+    if(this.imagefilename =='')
+    {
+      event.preventDefault();
+    }
+  }
+  divClickRead(Lineid)
+  {
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var JsonData ={
+      "EmailId":Email,
+      "NotiType":Lineid
+    }
+    this._loginService.BindRowwisedata(JsonData).subscribe(
+      (data) => {
+        this.BindallNotificationwisedata = data.Table;
+        this.Notebind= this.BindallNotificationwisedata[0].Note;
+        this.imagefilename=this.BindallNotificationwisedata[0].AttachmentFile;
+        this.imagebindurl="";
+      this.imagebindurl=this.baseUrl+"/"+"Notificationattachments"+"/"+this.imagefilename;
+        if(this.imagefilename !='')
+        {
+          this.Attachmentcodedisabled=true;
+        }
+        else
+        {
+          
+          this.Attachmentcodedisabled=false;
+        }
+        this.BindAllPostcount();
+      });
+      var dynamicid='Dynamicdiv'+Lineid;
+      var element = document.getElementById(dynamicid);
+   element.classList.remove("notificationboxactive");
+
+      this.isShowLoader = false;
+      
+  }
+  ClickAll()
+  {
+    
+   this.IsAll='1';
+   var element = document.getElementById("myDIV1");
+   element.classList.remove("msgall");
+   var element1 = document.getElementById("myDIV");
+   element1.classList.add("msgall");
+   var element2 = document.getElementById("myDIV2");
+   element2.classList.remove("msgall");
+   this.BindAllPost();
+   
+  }
+
+  ClickRead()
+  {
+    
+    this.IsAll='2';
+    this.BindAllPost();
+    var element = document.getElementById("myDIV");
+    element.classList.remove("msgall");
+    var element1 = document.getElementById("myDIV1");
+    element1.classList.add("msgall");
+    var element2 = document.getElementById("myDIV2");
+    element2.classList.remove("msgall");
+  }
+
+  ClickTodayNotification()
+  {
+    
+    this.IsAll='3';
+    this.BindAllPost();
+    var element = document.getElementById("myDIV");
+    element.classList.remove("msgall");
+    var element1 = document.getElementById("myDIV1");
+    element1.classList.remove("msgall");
+    var element2 = document.getElementById("myDIV2");
+    element2.classList.add("msgall");
+  }
+
+  BindAllPost(){
+    
+    debugger;
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var JsonData ={
+      "EmailId":Email,
+      "NotiType":this.IsAll
+    }
+    this._loginService.BindNote(JsonData).subscribe(
+      (data) => {
+        this.BindallNotificationdata = data.Table;
+
+        
+      });
+      this.isShowLoader = false;
+  }
+
+  BindAllPostcount(){
+    
+    debugger;
+    this.isShowLoader = true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var JsonData ={
+      "EmailId":Email
+    }
+    this._loginService.BindNoteCount(JsonData).subscribe(
+      (data) => {
+        this.BindallNotificationdata1 = data.Table;
+        this.lblall=this.BindallNotificationdata1[0].Total;
+
+        this.BindallNotificationdata2 = data.Table1;
+        this.lblunreadall=this.BindallNotificationdata2[0].Total;
+
+        this.BindallNotificationdata3 = data.Table2;
+        this.lbltodayall=this.BindallNotificationdata3[0].Total;
+        
+        
+      });
+      this.isShowLoader = false;
+  }
+
+  
  
 
 }
