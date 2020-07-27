@@ -1,0 +1,289 @@
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+            <div class="col-sm-6 col-md-6 col-xs-3">
+                 <span class="legal"> Portfolio Summary</span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                       
+                         <li (click)="downloadCSVFile()">
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                            <label>
+                                Export to CSV
+                            </label>
+                        </li>
+                    
+                            <li> 
+                                 <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                                 <label>
+                                    Export to PDF
+                                 </label>
+                             </li>
+                            
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
+        
+        <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                    <form [formGroup]="SummaryReportForm" autocomplete="off" appNorightclick>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                   Customer Name :
+                </label>
+                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                        <option value="0">Select</option>
+                        <option value="1"> Customer 1 </option>                     
+                    </select>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                       From Date :
+                    </label>
+                    <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Fromdate" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 ">
+                    <div class="form-group">
+                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                         To Date :
+                        </label>
+                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
+                    <button type="button" class="btn btn-success btnasearch">Search</button>
+                    </div>
+                    </form>
+           
+    </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0 mt-3" id="tbldiv" style="display:block">
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content btnCon">
+                       
+                        <li (click)="PreviousDayFun()">
+                           
+                            <label>
+                               Previous Day
+                            </label>
+                        </li>
+                        <li>
+                         
+                            <label (click)="LastOneWeekFun()">
+                               Last One Week
+                            </label>
+                        </li>
+                         
+                         <li (click)="LastOneMonthFun()">
+                                
+                                 <label>
+                                   Last One Month
+                                 </label>
+                             </li>
+                     </ul>
+                </div>
+            </div>
+        </div>  
+     
+        <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
+
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div id="portfolioSummaryGrid">
+                <table class="bankmasterTable">
+                    <thead style="border-bottom:0px">
+                        <tr>
+                            <th>
+                                <table>
+                                    <tr>
+                                        <td class="text-center">ADROIT PMS SERVICES PVT LTD</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">MUMBAI</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center" style="font-weight: bold; font-size: 13px !important;">PORTFOLIO SUMMARY</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">As Of 30/06/2020
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span>Account : 6010001</span>     <span>RUBY DECOSTA - ADT001	</span>			
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">ADROITPMS1
+                                        </td>
+                                    </tr>
+                                </table></th>
+                        </tr> 
+                        
+                       
+                    </thead>
+                   
+                </table>
+                <div class="col-sm-6 col-md-6 col-xs-6 pl-0" id="portfolioAllocation">
+               <div class="col-sm-12 col-md-12 col-xs-12 pl-0">
+                <span class="legal subHeading">Portfolio Allocation</span>
+           </div>
+                <table class="bankmasterTable" id="allocation" style="width:93%">
+                    <thead>
+                       <tr>
+
+                            <th style="width: 360px">Description </th>
+                            <th style="width: 100px" class="price">Market Value</th>
+                            <th style="width: 100px">%Assets</th>
+                        </tr>
+                    </thead>
+                    <tbody class="scrollbar">
+                       
+                        <tr>
+                            <td style="width: 360px">Equity </td>
+                            <td style="width: 100px" class="price">1,669,414.50</td>
+                            <td style="width: 100px" class="profit">112.75 %</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 360px">Cash and Equivalent  </td>
+                            <td style="width: 100px" class="price">(188,782.16)</td>
+                            <td style="width: 100px" class="loss">-12.75 %</td>
+                        </tr>
+                    </tbody>
+                    <tfoot >
+                       
+                        <tr>
+                            <td style="width:360px">Total</td>
+                            <td style="width: 100px" class="price">1,480,632.34</td>
+                            <td style="width: 100px">100.00 %</td>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+            <div id="portfolioSummary" class="col-sm-6 col-md-6 col-xs-6 p-0">
+                <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+                 <span class="legal subHeading">Portfolio Summary</span>
+            </div>
+                 <table class="bankmasterTable" id="summary">
+                      <tbody class="scrollbar">
+                        
+                         <tr>
+                             <td style="width: 250px">Portfolio Inception Date</td>
+                             <td style="width: 100px">1/1/2020 </td>
+                         </tr>
+                         <tr>
+                             <td style="width: 250px">Net Capital In (+) / Out (-) </td>
+                             <td style="width: 100px">2,497,336.02</td>
+                         </tr>
+                         <tr>
+                            <td style="width: 250px">Realized Gain</td>
+                            <td style="width: 100px" class="loss">-178,934.39 </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px">Unrealized Gain </td>
+                            <td style="width: 100px" class="loss">-631,351.29</td>
+                        </tr>
+                     </tbody>
+                    
+                 </table>
+             </div>
+
+             <div class="col-sm-12 col-md-12 col-xs-12 p-0 mt-1" id="portfolioPerformance">
+                <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+                 <span class="legal subHeading">Portfolio Performance</span>
+            </div>
+                 <table class="bankmasterTable" id="performance">
+                     <thead>
+                        <tr>
+ 
+                             <th style="width: 250px">Period </th>
+                             <th style="width: 100px">Portfolio</th>
+                             <th style="width: 100px">NIFTY</th>
+                             <th style="width: 100px">BSE500</th>
+                         </tr>
+                     </thead>
+                     <tbody class="scrollbar">
+                        
+                         
+                        <tr>
+                            <td style="width: 250px">1 Month </td>
+                            <td style="width: 100px" class="loss">-6.08 %</td>
+                            <td style="width: 100px" class="profit">7.53 %</td>
+                            <td style="width: 100px" class="profit">8.24%</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px">3 Month </td>
+                            <td style="width: 100px" class="loss">-6.08 %</td>
+                            <td style="width: 100px" class="profit">7.53 %</td>
+                            <td style="width: 100px" class="profit">8.24%</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px">6 Month </td>
+                            <td style="width: 100px" class="loss">-6.08 %</td>
+                            <td style="width: 100px" class="profit">7.53 %</td>
+                            <td style="width: 100px" class="profit">8.24%</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px">Since inception date 01/01/2020 </td>
+                            <td style="width: 100px" class="loss">-6.08 %</td>
+                            <td style="width: 100px" class="profit">7.53 %</td>
+                            <td style="width: 100px" class="profit">8.24%</td>
+                        </tr>
+                     </tbody>
+                     
+                 </table>
+             </div>
+</div>
+            
+        </div>
+        <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+             <span class="legal subHeading">Report Disclosure Statement</span>
+             <p style="font-size:10px"><strong>Method :</strong> &nbsp;
+                Time weighted - Daily valuation method is used for rate of return calculation. Portfolio valuation is done on the date of any external cash flow with daily
+                weighted cash flows. Periodic returns are geometrically linked. Total return includes realized and unrealized gains and income. Calculations are after
+                deduction of transaction charges. Trade date accounting is used for calculations. Accrual accounting is used for fixed income securities. Market values of
+                fixed income securities include accrued income. Accrual accounting is used for a dividend as of ex-dividend date.</p>
+        </div>
+            
+         </div>
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div> -->
+
+</div>
+            
+        </div>
+      
+
+    </div>
+
+</div>
+

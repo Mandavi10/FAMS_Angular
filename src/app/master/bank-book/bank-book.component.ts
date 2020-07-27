@@ -14,7 +14,7 @@ import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomera
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';  
+//import html2canvas from 'html2canvas';  
 
 
 @Component({
@@ -389,62 +389,62 @@ downloadCSVFile() {
   return 'success';
 }
 
-downloadPDFFile(){
+// downloadPDFFile(){
    
-  debugger;  
-  // var doc = new jsPDF();  
+//   debugger;  
+//   // var doc = new jsPDF();  
  
-  // doc.setFontSize(11);
-  // doc.setTextColor(100);
+//   // doc.setFontSize(11);
+//   // doc.setTextColor(100);
 
-  // if(this.EvenOdd % 2 !=0)
-  // {
-  //   (doc as any).autoTable({
-  //     head: this.head,
-  //     body: this.statementOfExpenses4,
-  //     theme: 'plain',
-  //     didDrawCell: data => {
-  //       console.log(data.column.index)
-  //     }
-  //   })
-  //     // Open PDF document in new tab
-  //   doc.output('dataurlnewwindow')
+//   // if(this.EvenOdd % 2 !=0)
+//   // {
+//   //   (doc as any).autoTable({
+//   //     head: this.head,
+//   //     body: this.statementOfExpenses4,
+//   //     theme: 'plain',
+//   //     didDrawCell: data => {
+//   //       console.log(data.column.index)
+//   //     }
+//   //   })
+//   //     // Open PDF document in new tab
+//   //   doc.output('dataurlnewwindow')
   
-  //   // Download PDF document  
-  //   doc.save('StatementOfExpenses.pdf');
-  // }
-  // else
-  // {
-  //   (doc as any).autoTable({
-  //     head: this.head,
-  //     body: this.statementOfExpenses5,
-  //     theme: 'plain',
-  //     didDrawCell: data => {
-  //       console.log(data.column.index)
-  //     }
-  //   })
-  //     // Open PDF document in new tab
-  //   doc.output('dataurlnewwindow')
+//   //   // Download PDF document  
+//   //   doc.save('StatementOfExpenses.pdf');
+//   // }
+//   // else
+//   // {
+//   //   (doc as any).autoTable({
+//   //     head: this.head,
+//   //     body: this.statementOfExpenses5,
+//   //     theme: 'plain',
+//   //     didDrawCell: data => {
+//   //       console.log(data.column.index)
+//   //     }
+//   //   })
+//   //     // Open PDF document in new tab
+//   //   doc.output('dataurlnewwindow')
   
-  //   // Download PDF document  
-  //   doc.save('StatementOfExpenses_Summary.pdf');
-  // }
+//   //   // Download PDF document  
+//   //   doc.save('StatementOfExpenses_Summary.pdf');
+//   // }
 
-  var data = document.getElementById('bankmastertable');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+//   var data = document.getElementById('bankmastertable');  
+//     html2canvas(data).then(canvas => {  
+//       // Few necessary setting options  
+//       var imgWidth = 208;   
+//       var pageHeight = 295;    
+//       var imgHeight = canvas.height * imgWidth / canvas.width;  
+//       var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
-    });    
+//       const contentDataURL = canvas.toDataURL('image/png')  
+//       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+//       var position = 0;  
+//       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+//       pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
+//     });    
   
 
-}
+// }
 }
