@@ -110,6 +110,7 @@ else{ this.PageCount = 1;}
       });  
   }
 
+  
   BindDefaultData(){
     this.loader1=true;this.loader2=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
