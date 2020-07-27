@@ -82,6 +82,7 @@ if(this.userType == 3){
   }
   }
 
+  
   NextData(){
     if(this.userType == 3 ){
       this.CustomerAccount="";
