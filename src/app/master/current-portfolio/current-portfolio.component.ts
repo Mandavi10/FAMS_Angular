@@ -8,7 +8,7 @@ import {Currentportfolio} from '../../../Models/CurrentPortfolio/currentportfoli
 // import 'jspdf-autotable';
 
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
-import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
+//import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
 
 
@@ -22,7 +22,7 @@ export class CurrentPortfolioComponent implements OnInit {
   divMainGrid :boolean=false;
   isShowLoader:boolean=false;CurrentPortfolioForm : FormGroup;loading: boolean = false;
   CurrentportfolioList : Currentportfolio;
-  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
   CurrentDate = new Date();
   STSumGL:number;
   STSumIncome:number;
@@ -49,7 +49,7 @@ export class CurrentPortfolioComponent implements OnInit {
       CustomerAccount:['',Validators.required] 
   });
   this.Showcustdropdown();
-  this.BindCustomers();
+  //this.BindCustomers();
   }
 
   get f() {
@@ -70,15 +70,15 @@ export class CurrentPortfolioComponent implements OnInit {
   }
 
 
-  BindCustomers(){
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let  Data = new Commonfields();
-    Data.UserId = Sessionvalue.UserId;
-    this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
-      (data) => {
-           this.BindcustomerallfieldsList = data.Table;
-      });
-  }
+  // BindCustomers(){
+  //   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  //   let  Data = new Commonfields();
+  //   Data.UserId = Sessionvalue.UserId;
+  //   this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
+  //     (data) => {
+  //          this.BindcustomerallfieldsList = data.Table;
+  //     });
+  // }
   
 
   BindCurrentPortFolioReport(FromDate,ToDate) {

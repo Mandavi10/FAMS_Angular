@@ -29,6 +29,7 @@ export class BankBookComponent implements OnInit {
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
+  NoRecord:boolean=false;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -67,9 +68,9 @@ if(this.userType == 3){
   }
 
   BindNextData(value){
-    debugger; 
     if(value == 1){this.PageCount = this.PageCount+1;}
     else if(value == 0){this.PageCount = this.PageCount-1;}
+    if(this.PageCount >= 1){
     if(this.PageCount != 0 || this.PageCount !="" ){
       this.loader1=true;this.loader2=true;
     this.griddiv=true;
@@ -84,6 +85,8 @@ if(this.userType == 3){
     }
     else{this.NextData();}
   }
+}
+else{ this.PageCount = 1;}
   }
 
   
@@ -198,19 +201,6 @@ if(this.userType == 3){
       });
   }
 
-  BindCustomers(){
-    this.loader1=true;this.loader2=true;
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let  Data = new Commonfields();
-    Data.UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-    this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
-      (data) => {
-           this.BindcustomerallfieldsList = data.Table;
-           this.loader1=false;this.loader2=false;
-      });
-  }
-
-
   SearchData(FromDate,ToDate){
     this.FromDate = FromDate;
     this.ToDate = ToDate;
@@ -259,6 +249,13 @@ if(this.userType == 3){
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.TotalRecord=this.TotalsumgridData[0].Total;
+        // if(data.Table.lenght == 0  && data.Table2.lenght == 0 ){ 
+        //   this.NoRecord = true;
+        //   this.PageCount = this.PageCount + 1;
+        // }
+        // else{
+        //   this.NoRecord = false;
+        // }
         //this.divTotal=false;
       //   if(this.Flag !=""){
       //     this.Flag = this.Flag +1;
