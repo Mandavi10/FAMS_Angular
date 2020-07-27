@@ -22,6 +22,7 @@ table{display: block;}
 .holdingreportGrid tbody {
    
     display: block;
+    /* max-height: 32vh; */
     max-height: 32vh;
     overflow: hidden;
 }

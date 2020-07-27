@@ -4,5 +4,5 @@ export class Totalsumgrid {
     Expenses: string;
     Dep_with: string;
     Balance: string;
-    
+    Total: string;
 }

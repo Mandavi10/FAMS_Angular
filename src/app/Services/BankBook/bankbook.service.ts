@@ -26,7 +26,7 @@ export class BankbookService {
     //return this._http.get<any>(this.baseUrl + 'api/SummaryReports/BindCustomers/'+ this.UserId);
     const body = em;
     const headers = new HttpHeaders().set('content-type', 'application/json');
-   return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindCustomers' , body, {
+   return this._http.post<any>(this.baseUrl + 'api/BankBook/BindCustomers' , body, {
        headers 
    });
   }
@@ -36,5 +36,21 @@ export class BankbookService {
     return this._http.post<any>(this.baseUrl + 'api/BankBook/BindEmployees' , body, {
        headers 
     });
+  }
+
+  BindDefaultData(em:any): Observable<any> { 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindDefaultData', body, {
+      headers 
+  });
+  }
+
+  BindNextData(em:any): Observable<any> { 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindNextData', body, {
+      headers 
+  });
   }
 }

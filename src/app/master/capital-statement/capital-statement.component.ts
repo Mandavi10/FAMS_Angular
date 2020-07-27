@@ -405,7 +405,9 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
   //     // Download PDF document  
   //     doc.save('StatementOfExpenses.pdf');
   
-  // }
+
+  }
+
 
 
 

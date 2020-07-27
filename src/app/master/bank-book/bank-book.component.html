@@ -53,6 +53,9 @@
                 Employee Name :
               </label>
               <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomers(EmployeeId.value)">
+
                   <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId">
       
                       <option value="">Select</option>
@@ -71,12 +74,14 @@
               <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                   <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="CustomerAccount">
       
-                      <option value="">Select</option>
-                      <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                      <option value="" selected>Select</option>
+                      <option value="">All Customers</option>
+                      <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                   </select>
                 
               </div>
           </div>
+
       </div>
         <div class="col-md-3 col-sm-3 col-xs-12">
           <div class="form-group">
@@ -101,11 +106,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-1 col-xs-1 col-md-1 mt-2 btndiv">
-                    <div class="btntry ">
+                <div class="col-sm-1 col-xs-1 col-md-1 mt-2 btndiv pull-right">
+            
                     <!-- <button type="button" class="btn btn-success">Search</button> -->
-                    <button type="button" (click)="BindGrid(FromDate.value,ToDate.value)" class="btn btn-success "> Search</button>
-                    </div>
+                    <button type="button" (click)="SearchData(FromDate.value,ToDate.value,CustomerAccount.value)" class="btn btn-success ml-5 "> Search</button>
+                   
                 </div>  
     </div>
 </div>
@@ -147,12 +152,19 @@
             </div>
         </div>
     </div>   
-    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="griddiv">
+    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="griddiv" style="overflow-y: scroll;
+    height: 453px;">
         <div class="holdingreportGrid">
         <table class="bankmasterTable" id="bankmastertable">
+
+            <thead style="background-color:#fff">
+                <tr *ngFor="let Data of HeaderList">
+                    <td colspan="8" class="text-center">{{Data.Date}}</td>
+
             <thead>
                 <tr *ngFor="let Data of HeaderList">
                     <td colspan="6" class="text-center">{{Data.Data}}</td>
+
                  </tr>
                 <tr>
 
@@ -239,7 +251,7 @@
                                     </tr> -->
                      
                             </tbody>
-                        <tfoot>
+                        <tfoot *ngIf="divTotal">
                          
                             <tr>
                                     <td style="width: 176px">Total Cash-- Received/Paid</td>
@@ -309,6 +321,9 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="paginationDiv">
+                <span class="previousBtn" (click)="BindNextData(0)">Previous</span>
+                <span class="paginationCount" [innerHTML]="PaginationCount"></span>
+                <span class="nextBtn" (click)="BindNextData(1)">Next</span>
                 <span class="previousBtn">Previous</span>
                 <span class="paginationCount">50 out of 200</span>
                 <span class="nextBtn">Next</span>

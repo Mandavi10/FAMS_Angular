@@ -5,6 +5,7 @@ import { BankbookService } from '../../Services/BankBook/bankbook.service';
 import { Bindgrid } from '../../../Models/BankBook/bindgrid';
 import { Totalsumgrid } from '../../../Models/BankBook/totalsumgrid';
 import { Header } from '../../../Models/BankBook/header';
+import { Bindemployee } from '../../../Models/BankBook/bindemployee'
 import { Bindemployees } from '../../../Models/BankBook/bindemployees';
 import { DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +14,7 @@ import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomera
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import html2canvas from 'html2canvas';  
 
 
 @Component({
@@ -25,30 +27,166 @@ export class BankBookComponent implements OnInit {
   Expenses:any;Dep_with:any;Balance:any;griddiv:boolean=false;HeaderArray:any=[];StaticArray:any=[];
   FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];BindcustomerallfieldsList:Bindcustomerallfields;
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
-  divEmployee:boolean=false;BindemployeesList:Bindemployees;
+  divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
+  TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
+
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
-    debugger;
+   
+    this.loader1 = true; this.loader2 = true;
     this.BankBookForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : [''],CustomerAccount : ['']
+      FromDate :[''], ToDate : [''],CustomerAccount : [''] , EmployeeId : ['']
   });
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType);
 if(this.userType == 3){
+  this.UserId = this.Dbsecurity.Decrypt(item.UserId);
+  this.CustomerAccount = ""; 
   this.divCustomer=true;
   this.divEmployee=true;
   this.BindEmployee();
 }
-  if(this.userType == 2){
+
+  else if(this.userType == 2){
+    this.UserId = this.Dbsecurity.Decrypt(item.UserId);
+    this.CustomerAccount = "";
     this.divCustomer=true;
     this.divEmployee=false;
     this.BindCustomers();
   }
+
+  else{
+    this.UserId = this.Dbsecurity.Decrypt(item.UserId);
+    this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+  }
+  this.PageCount = 1;
+  this.BindDefaultData();
+  this.loader1 = false; this.loader2 = false;
+  }
+
+  BindNextData(value){
+    debugger; 
+    if(value == 1){this.PageCount = this.PageCount+1;}
+    else if(value == 0){this.PageCount = this.PageCount-1;}
+    if(this.PageCount != 0 || this.PageCount !="" ){
+      this.loader1=true;this.loader2=true;
+    this.griddiv=true;
+    if(this.userType == 3){
+      this.BindGrid(this.FromDate,this.ToDate);
+    } 
+    else if(this.userType == 1 ){
+      this.BindGrid(this.FromDate,this.ToDate);
+    } 
+    else if(this.userType == 2){
+      this.BindGrid(this.FromDate,this.ToDate);
+    }
+    else{this.NextData();}
+  }
+  }
+
+  
+  NextData(){
+    if(this.userType == 3 ){
+      this.CustomerAccount="";
+    }
+    var JsonData ={
+      "UserId" : this.UserId,
+      "CustomerAccount" : this.CustomerAccount ,
+      "PageCount" : this.PageCount
+    }
+    this.BSService.BindNextData(JsonData).subscribe(
+      (data) => {
+        this.FromDate = data.Table[0]["FromDate"];
+        this.ToDate = data.Table[0]["ToDate"];
+        if(this.userType != 3 ){
+        this.CustomerAccount = data.Table[0]["CustomerAccount"];
+        }
+        this.BindGrid(this.FromDate,this.ToDate);
+      });  
+  }
+
+  BindDefaultData(){
+    this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var JsonData ={
+      "UserId" : this.UserId,
+      "CustomerAccount" : this.CustomerAccount ,
+      "PageCount" : this.PageCount
+    }
+    this.BSService.BindDefaultData(JsonData).subscribe(
+      (data) => {
+        this.FromDate = data.Table[0]["FromDate"];
+        this.ToDate = data.Table[0]["ToDate"];
+        this.BankBookForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+        this.BankBookForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+        this.BankBookForm.controls["CustomerAccount"].setValue(data.Table[0].CustomerAccount);
+        if(this.userType != 1 ){
+        this.CustomerAccount = data.Table[0].CustomerAccount;
+        }
+        if(this.userType != 3 ){
+          this.CustomerAccount = data.Table[0].CustomerAccount;
+          }
+        this.PageCount = 1;
+        this.griddiv=true;  
+        this.BindDefaultGrid();     
+      });
+      this.loader1=false;this.loader2=false;
+      
+  }
+  BindDefaultGrid(){
+    this.loader1=true;this.loader2=true;
+    var JsonData ={
+      "UserId" : this.UserId,
+      "FromDate" : this.FromDate,   
+      "ToDate" :  this.ToDate,
+      "CustomerAccount" : this.CustomerAccount,
+      "PageCount" : this.PageCount       
+    }
+
+    this.BSService.BindGrid(JsonData).subscribe(
+      (data) => {
+        this.BindgridList = data.Table; 
+        this.TotalsumgridData = data.Table1;
+        this.HeaderList = data.Table2;
+        this.Buy_SellAmount=this.TotalsumgridData[0].Buy_SellAmount;
+        this.Income=this.TotalsumgridData[0].Income;
+        this.Expenses=this.TotalsumgridData[0].Expenses;
+        this.Dep_with=this.TotalsumgridData[0].Dep_with;
+        this.Balance=this.TotalsumgridData[0].Balance;
+        });
+      this.loader1=false;this.loader2=false;
+  }
+
+  BindCustomersOnChange(EmployeeId){
+    this.loader1=true;this.loader2=true;
+    let  Data = new Commonfields();
+    Data.UserId = EmployeeId ;
+    this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
+      (data) => {
+           this.BindcustomerallfieldsList = data.Table;
+           this.loader1=false;this.loader2=false;
+      });
+
   }
   
+
+  
   BindEmployee(){
+    this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.BSService.BindEmployee(JSON.stringify(Data)).subscribe(
+      (data) => {
+           this.BindemployeesList = data.Table;
+           this.loader1=false;this.loader2=false;
+      });
+  }
+
+  BindCustomers(){
+
     this.loader1=true;this.loader2=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
@@ -64,7 +202,7 @@ if(this.userType == 3){
     this.loader1=true;this.loader2=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
-    Data.UserId = Sessionvalue.UserId;
+    Data.UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
     this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindcustomerallfieldsList = data.Table;
@@ -72,11 +210,23 @@ if(this.userType == 3){
       });
   }
 
+
+  SearchData(FromDate,ToDate){
+    this.FromDate = FromDate;
+    this.ToDate = ToDate;
+    this.CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
+    this.PageCount = 1;
+    this.BindGrid( this.FromDate, this.ToDate);
+  }
+
+
   BindGrid(FromDate,ToDate){
     debugger;
     this.loader1=true;this.loader2=true;
+    if(this.FromDate == ""){
     this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
+    }
     this.griddiv=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
@@ -88,14 +238,18 @@ if(this.userType == 3){
     else{
       CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
     }
+
     var JsonData ={
-      "UserId" : UserId,
+      "UserId" : this.UserId,
       "FromDate" :   FromDate,   
       "ToDate" :  ToDate,
-      "CustomerAccount" : CustomerAccount       
+      "CustomerAccount" : this.CustomerAccount,
+      "PageCount" : this.PageCount         
+
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
+        debugger;
         this.BindgridList = data.Table; 
         this.TotalsumgridData = data.Table1;
         this.HeaderList = data.Table2;
@@ -104,7 +258,34 @@ if(this.userType == 3){
         this.Expenses=this.TotalsumgridData[0].Expenses;
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
+        this.TotalRecord=this.TotalsumgridData[0].Total;
+        //this.divTotal=false;
+      //   if(this.Flag !=""){
+      //     this.Flag = this.Flag +1;
+      //   }
+      //   if( this.NoOfPage == ""){
+      //   this.NoOfPage = this.BindgridList[0].NoOfPage;
+      //   this.Code = this.BindgridList[0].Code;
+      //   this.Flag = 1;
+      //   }
+      //  if(this.NoOfPage == this.Flag &&  this.Code == this.BindgridList[0].Code){
+      //    // this.divTotal = true;
+      //     this.NoOfPage = "";
+      //     this.Code = "";
+      //  }
+      //  if(this.BindgridList[0].NoOfPage == 0){
+      //   this.divTotal=true;
+      //   this.NoOfPage == "";
+      // }
+      //  else{
+      //    this.Flag = 1;
+      //  }
+
+
+
+
         this.loader1=false;this.loader2=false;
+       // this.PaginationCount = (this.PaginationCount + data.Table1.length) + " Out " + this.TotalRecord;
         });
   }
 
@@ -210,29 +391,63 @@ downloadCSVFile() {
   a.click();
   return 'success';
 }
+
 downloadPDFFile(){
    
   debugger;  
-  var doc = new jsPDF();  
+  // var doc = new jsPDF();  
  
-  doc.setFontSize(11);
-  doc.setTextColor(100);
+  // doc.setFontSize(11);
+  // doc.setTextColor(100);
 
-
-  (doc as any).autoTable({
-    head: this.Head,
-    body: this.BindgridList,
-    theme: 'plain',
-    didDrawCell: data => {
-      console.log(data.column.index)
-    }
-  })
-      // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
+  // if(this.EvenOdd % 2 !=0)
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses4,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
   
-    // Download PDF document  
-    doc.save('BankBook.pdf');
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses.pdf');
+  // }
+  // else
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses5,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
+  
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses_Summary.pdf');
+  // }
+
+  var data = document.getElementById('bankmastertable');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
+    });    
+  
 
 }
-
 }
