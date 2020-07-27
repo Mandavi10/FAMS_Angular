@@ -21,12 +21,21 @@ export class TransactionstatementService {
       headers 
   });
   }
-  BindCustomers(em:any){
-    //return this._http.get<any>(this.baseUrl + 'api/SummaryReports/BindCustomers/'+ this.UserId);
-    const body = em;
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-   return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindCustomers' , body, {
-       headers 
-   });
+  BindEmployee(UserId){
+    // const body = em;
+     const headers = new HttpHeaders().set('content-type', 'application/json');
+     return this._http.post<any>(this.baseUrl + 'api/StatementOfExpenses/BindEmployees/'+ UserId , {
+        headers 
+     });
+   }
+  BindCustomer(EmployeeId): Observable<any> {
+    return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindCustomer/'+ EmployeeId);
+  }
+
+  BindDefaultData(GAccountNumber,UserId): Observable<any> {
+    return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/BindDefaultData/' +GAccountNumber+ '/' +UserId   );
+  }
+  NextRecordBind(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
+    return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/NextRecordBind/'+CustomerAccount+ '/' +FromDate +'/' + ToDate +'/' + SeqNo );
   }
 }

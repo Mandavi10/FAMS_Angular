@@ -10,7 +10,8 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas'; 
+
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -90,7 +91,9 @@ export class HoldingReportComponent implements OnInit {
 
   BindHoldingReport(CustomerAccount,Date) {
     debugger;
-    this.loading = true;
+    //this.loading = true;
+    this.isShowLoader=true;
+    
     var currentContext = this;
     this._holdingReportService.BindGridAllFields(CustomerAccount,Date).
         subscribe((data) => {
@@ -119,7 +122,8 @@ export class HoldingReportComponent implements OnInit {
             }
         });
     // console.log(sessionStorage.getItem('ID'));
-    this.loading = false;
+    this.isShowLoader=false;
+    //this.loading = false;
   }
   onSubmit() {
     //alert('OnSubmi Clicked');
@@ -150,26 +154,26 @@ export class HoldingReportComponent implements OnInit {
   downloadPDFFile(){
    
     debugger;  
-    var doc = new jsPDF();  
+    // var doc = new jsPDF();  
    
-    doc.setFontSize(11);
-    doc.setTextColor(100);
+    // doc.setFontSize(11);
+    // doc.setTextColor(100);
   
   
-    (doc as any).autoTable({
-      head: this.head,
-      body: this.gridAllFields5,
-      theme: 'plain',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    })
+    // (doc as any).autoTable({
+    //   head: this.head,
+    //   body: this.gridAllFields5,
+    //   theme: 'plain',
+    //   didDrawCell: data => {
+    //     console.log(data.column.index)
+    //   }
+    // })
   
-    // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
+    // // Open PDF document in new tab
+    // doc.output('dataurlnewwindow')
   
-    // Download PDF document  
-    doc.save('Holding_Report.pdf');
+    // // Download PDF document  
+    // doc.save('Holding_Report.pdf');
 
     var data = document.getElementById('bankmastertable');  
     html2canvas(data).then(canvas => {  
@@ -183,7 +187,7 @@ export class HoldingReportComponent implements OnInit {
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;  
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
+      pdf.save('Holding_Report.pdf'); // Generated PDF   
     });  
 
 
