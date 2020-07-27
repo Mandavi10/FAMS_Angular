@@ -1,0 +1,433 @@
+<div class="main-content maincontainer">
+  <div class="content">
+      <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3">
+               <span class="legal">PortfolioFact</span>
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content">
+                     
+                       <li (click)="downloadCSVFile()">
+                          <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                          <label>
+                              Export to CSV
+                          </label>
+                      </li>
+                  
+                          <li> 
+                               <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                               <label>
+                                  Export to PDF
+                               </label>
+                           </li>
+                          
+                   </ul>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+          <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+      </div>
+      
+      <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                  <form>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="form-group">
+              <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                 Customer Name :
+              </label>
+              <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                      <option value="0">Select</option>
+                      <option value="1"> Customer 1 </option>                     
+                  </select>
+                
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="form-group">
+                  <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                     From Date :
+                  </label>
+                  <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                      <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Fromdate" >
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12 ">
+                  <div class="form-group">
+                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                       To Date :
+                      </label>
+                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                          <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate">
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
+                  <button type="button" class="btn btn-success btnasearch">Search</button>
+                  </div>
+                  </form>
+         
+  </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0 mt-3" id="tbldiv" style="display:block">
+      <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+               
+          </div>
+          <div class="rightmenu">
+              <div class="toolbar pull-right">
+                  <ul class="toolbar-content btnCon">
+                     
+                      <li (click)="PreviousDayFun()">
+                         
+                          <label>
+                             Previous Day
+                          </label>
+                      </li>
+                      <li>
+                       
+                          <label (click)="LastOneWeekFun()">
+                             Last One Week
+                          </label>
+                      </li>
+                       
+                       <li (click)="LastOneMonthFun()">
+                              
+                               <label>
+                                 Last One Month
+                               </label>
+                           </li>
+                   </ul>
+              </div>
+          </div>
+      </div>  
+   
+      <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div id="portfolioSummaryGrid">
+              <table class="bankmasterTable">
+                  <thead style="border-bottom:0px">
+                      <tr>
+                          <th>
+                              <table>
+                                  <tr>
+                                      <td class="text-center">ADROIT PMS SERVICES PVT LTD</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="text-center">MUMBAI</td>
+                                  </tr>
+                                  
+                                  <tr>
+                                      <td class="text-center" style="font-weight: bold; font-size: 13px !important;">Portfolio Fact</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="text-center">As Of 30/06/2020
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td class="text-center"><span>Account : 6010001</span>     <span>RUBY DECOSTA - ADT001	</span>			
+
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td class="text-center">ADROITPMS1
+                                      </td>
+                                  </tr>
+                              </table></th>
+                      </tr> 
+                      
+                     
+                  </thead>
+                 
+              </table>
+              <div class="col-sm-6 col-md-6 col-xs-6 pl-0" id="portfolioAllocation">
+             <div class="col-sm-12 col-md-12 col-xs-12 pl-0">
+              <span class="legal subHeading">Sector Allocation</span>
+         </div>
+              <table class="bankmasterTable" id="allocation" style="width:99%">
+                  <thead>
+                     <tr>
+
+                          <th style="width: 60px">Sr.No. </th>
+                          <th style="width: 347px">Sector</th>
+                          <th style="width: 50px">%Assets</th>
+                      </tr>
+                  </thead>
+                  <tbody class="scrollbar">
+                     
+                      <tr>
+                          <td style="width: 60px">1</td>
+                          <td style="width: 350px">Banks</td>
+                          <td style="width: 100px">4.0%</td>
+                      </tr>
+                      <tr>
+                          <td style="width: 60px">2</td>
+                          <td style="width: 350px">Other</td>
+                          <td style="width: 100px">2.75 %</td>
+                      </tr>
+                      <tr>
+                        <td style="width: 60px">3</td>
+                        <td style="width: 100px">Other</td>
+                        <td style="width: 100px">2.75 %</td>
+                    </tr>
+                    <tr>
+                      <td style="width: 60px">4</td>
+                      <td style="width: 100px">Other</td>
+                      <td style="width: 100px">2.75 %</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 60px">5</td>
+                    <td style="width: 100px">Other</td>
+                    <td style="width: 100px">2.75 %</td>
+                </tr>
+                <tr>
+                  <td style="width: 60px">6</td>
+                  <td style="width: 100px">Other</td>
+                  <td style="width: 100px">2.75 %</td>
+              </tr>
+              <tr>
+                <td style="width: 60px">7</td>
+                <td style="width: 100px">Other</td>
+                <td style="width: 100px">2.75 %</td>
+            </tr>
+                  </tbody>
+                  <tfoot >
+                     
+                      <tr>
+                          <td style="width:60px"></td>
+                          <td style="width: 350px">Total</td>
+                          <td style="width: 100px">6.75 %</td>
+                      </tr>
+
+                  </tfoot>
+              </table>
+          </div>
+          <div id="portfolioSummary" class="col-sm-6 col-md-6 col-xs-6 p-0">
+              <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+               <span class="legal subHeading">Portfolio Holdings</span>
+          </div>
+              
+                <table class="bankmasterTable" id="summary" style="width:93%">
+                  <thead>
+                     <tr>
+
+                          <th style="width: 60px">Sr.No. </th>
+                          <th style="width: 100px">security</th>
+                          <th style="width: 100px">sector</th>
+                          <th style="width: 100px">MKT Value</th>
+                          <th style="width: 100px">%Assets</th>
+                      </tr>
+                  </thead>
+                  <tbody class="scrollbar">
+                     
+                      <tr>
+                          <td style="width: 60px">1</td>
+                          <td style="width: 100px">Cash</td>
+                          <td style="width: 100px">Cash</td>
+                          <td style="width: 100px">Banks</td>
+                          <td style="width: 100px">4.0%</td>
+                      </tr>
+                      <tr>
+                          <td style="width: 60px">2</td>
+                          <td style="width: 100px">Cash</td>
+                          <td style="width: 100px">cash</td>
+                          <td style="width: 100px">4</td>
+                          <td style="width: 100px">4%</td>
+                      </tr>
+                      <tr>
+                        <td style="width: 60px">3</td>
+                        <td style="width: 100px">Cash</td>
+                        <td style="width: 100px">cash</td>
+                        <td style="width: 100px">4</td>
+                        <td style="width: 100px">4%</td>
+                    </tr>
+                    <tr>
+                      <td style="width: 60px">4</td>
+                      <td style="width: 100px">Cash</td>
+                      <td style="width: 100px">cash</td>
+                      <td style="width: 100px">4</td>
+                      <td style="width: 100px">4%</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 60px">5</td>
+                    <td style="width: 100px">Cash</td>
+                    <td style="width: 100px">cash</td>
+                    <td style="width: 100px">4</td>
+                    <td style="width: 100px">4%</td>
+                </tr>
+                <tr>
+                  <td style="width: 60px">6</td>
+                  <td style="width: 100px">Cash</td>
+                  <td style="width: 100px">cash</td>
+                  <td style="width: 100px">4</td>
+                  <td style="width: 100px">4%</td>
+              </tr>
+                  </tbody>
+                  <tfoot >
+                     
+                      <tr>
+                          <td style="width:60px"></td>
+                          <td style="width:140px">Total</td>
+                          <td style="width:60px"></td>
+                          <td style="width: 100px">4</td>
+                          <td style="width: 100px">4%</td>
+                      </tr>
+
+                  </tfoot>
+              </table>
+                  
+              
+           </div>
+
+           <div class="col-sm-12 col-md-6 col-xs-12 p-0 mt-1" id="portfolioPerformance">
+              <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+               <span class="legal subHeading">Portfolio Summary</span>
+          
+               <table class="bankmasterTable" id="performance" style="width:97%;">
+                   <thead>
+                      <tr>
+
+                           <th style="width: 250px">Since 27/07/2020 </th>
+                           <th style="width: 100px">Amount</th>
+                           
+                       </tr>
+                   </thead>
+                   <tbody class="scrollbar">
+                      
+                       
+                      <tr>
+                          <td style="width: 250px">Profit/Loss</td>
+                          <td style="width: 100px">54</td>
+                      
+                      </tr>
+                      <tr>
+                          <td style="width: 250px">Profit/Loss</td>
+                          <td style="width: 100px">54</td>
+                        
+                      </tr>
+                      <tr>
+                        <td style="width: 250px">Profit/Loss</td>
+                        <td style="width: 100px">54</td>
+                      
+                    </tr>
+                    <tr>
+                      <td style="width: 250px">Profit/Loss</td>
+                      <td style="width: 100px">54</td>
+                    
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">Profit/Loss</td>
+                    <td style="width: 100px">54</td>
+                  
+                </tr>
+                <tr>
+                  <td style="width: 250px">Profit/Loss</td>
+                  <td style="width: 100px">54</td>
+                
+              </tr>
+                     
+                   </tbody>
+                   
+               </table>
+              </div>
+           </div>
+           <div id="portfolioSummary" class="col-sm-6 col-md-6 col-xs-6 p-0">
+            <div class="col-sm-12 col-md-12 col-xs-12 p-0">
+             <span class="legal subHeading">Performance(TWRR)</span>
+        </div>
+            
+              <table class="bankmasterTable" id="summary" style="width:93%">
+                <thead>
+                   <tr>
+
+                        <th style="width: 60px"></th>
+                        <th style="width: 100px">MTD</th>
+                        <th style="width: 100px">QTD</th>
+                        <th style="width: 100px">YTD</th>
+                        <th style="width: 100px">Since</th>
+                    </tr>
+                </thead>
+                <tbody class="scrollbar">
+                   
+                    <tr>
+                        <td style="width: 60px">NIFTY</td>
+                        <td style="width: 100px">4%</td>
+                        <td style="width: 100px">4%</td>
+                        <td style="width: 100px">4%</td>
+                        <td style="width: 100px">4%</td>
+                    </tr>
+                    <tr>
+                      <td style="width: 60px">NIFTY</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 60px">NIFTY</td>
+                    <td style="width: 100px">4%</td>
+                    <td style="width: 100px">4%</td>
+                    <td style="width: 100px">4%</td>
+                    <td style="width: 100px">4%</td>
+                </tr>
+                <tr>
+                  <td style="width: 60px">NIFTY</td>
+                  <td style="width: 100px">4%</td>
+                  <td style="width: 100px">4%</td>
+                  <td style="width: 100px">4%</td>
+                  <td style="width: 100px">4%</td>
+              </tr>
+              <tr>
+                <td style="width: 60px">NIFTY</td>
+                <td style="width: 100px">4%</td>
+                <td style="width: 100px">4%</td>
+                <td style="width: 100px">4%</td>
+                <td style="width: 100px">4%</td>
+            </tr>
+            <tr>
+              <td style="width: 60px">NIFTY</td>
+              <td style="width: 100px">4%</td>
+              <td style="width: 100px">4%</td>
+              <td style="width: 100px">4%</td>
+              <td style="width: 100px">4%</td>
+          </tr>
+                    <tr>
+                      <td style="width: 60px">NIFTY</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                      <td style="width: 100px">4%</td>
+                  </tr>
+                </tbody>
+              
+            </table>
+                
+            
+         </div>
+</div>
+          
+      </div>
+      
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="paginationDiv">
+          <span class="previousBtn">Previous</span>
+          <span class="paginationCount">50 out of 200</span>
+          <span class="nextBtn">Next</span>
+      </div>
+</div> -->
+
+</div>
+          
+      </div>
+    
+
+  </div>
+
+</div>
+
