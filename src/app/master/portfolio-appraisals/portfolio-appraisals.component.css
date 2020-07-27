@@ -18,12 +18,21 @@ table tbody tr td table tbody {
 overflow:hidden}*/
 
 table{display: block;}
-.scrollbar{overflow:scroll !important}
+.loaderposition {
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    /* top: 37%; */
+  }
+  .loaderimagepage {
+    margin-left: 0%;
+    margin-top: 21%;
+    width: 8%;
+  }
 .holdingreportGrid tbody {
    
     display: block;
-    /* max-height: 32vh; */
-    overflow: hidden;
+    
 }
 
 .holdingreportGrid tbody tr {
@@ -40,5 +49,6 @@ thead{display: block;}
     
     table-layout: fixed;
 }      
+.holdingreportGrid{height:202px;}
   
 
