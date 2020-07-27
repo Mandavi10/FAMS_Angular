@@ -1,4 +1,6 @@
 export class Bindgrid {
+   FinalSecNo: string;
+   NoOfPage: string;
    SetDate: string;
      TransAccount : string;
      TransactionDesc: string;

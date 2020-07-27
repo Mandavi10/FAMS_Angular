@@ -14,7 +14,6 @@ export class BankbookService {
   constructor(private Dbsecurity: DbsecurityService,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {   
       this.baseUrl = AppSettings.Login_URL;
   }
-
   BindGrid(em:any): Observable<any> { 
     const body = em; 
     const headers = new HttpHeaders().set('content-type', 'application/json');
@@ -22,13 +21,35 @@ export class BankbookService {
       headers 
   });
   }
-  
   BindCustomers(em:any){
     //return this._http.get<any>(this.baseUrl + 'api/SummaryReports/BindCustomers/'+ this.UserId);
     const body = em;
     const headers = new HttpHeaders().set('content-type', 'application/json');
-   return this._http.post<any>(this.baseUrl + 'api/SummaryReports/BindCustomers' , body, {
+   return this._http.post<any>(this.baseUrl + 'api/BankBook/BindCustomers' , body, {
        headers 
    });
   }
+  BindEmployee(em:any){
+    const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindEmployees' , body, {
+       headers 
+    });
+  }
+  BindDefaultData(em:any): Observable<any> { 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindDefaultData', body, {
+      headers 
+  });
+  }
+
+  BindNextData(em:any): Observable<any> { 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindNextData', body, {
+      headers 
+  });
+  }
+
 }

@@ -18,11 +18,12 @@ table tbody tr td table tbody {
 overflow:hidden}*/
 
 table{display: block;}
-
+.scrollbar{overflow:scroll !important}
 .holdingreportGrid tbody {
    
     display: block;
-    max-height: 68vh;
+    /* max-height: 32vh; */
+    overflow: hidden;
 }
 
 .holdingreportGrid tbody tr {
