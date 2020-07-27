@@ -1,0 +1,54 @@
+/*.holdingreportGrid tbody {
+    max-height: 52vh !important;
+}
+
+.holdingreportGrid {
+    overflow: hidden;
+    overflow-x: auto;
+
+}
+
+
+    .holdingreportGrid table {
+        width: 100%;
+        display:table;
+    }
+    .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
+table tbody tr td table tbody {
+overflow:hidden}*/
+
+table{display: block;}
+.loaderposition {
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    /* top: 37%; */
+  }
+  .loaderimagepage {
+    margin-left: 0%;
+    margin-top: 21%;
+    width: 8%;
+  }
+.holdingreportGrid tbody {
+   
+    display: block;
+    
+}
+
+.holdingreportGrid tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+        
+tfoot{display: block;}
+thead{display: block;}        
+
+.holdingreportGrid thead tr {
+    width: 100%;
+    
+    table-layout: fixed;
+}      
+.holdingreportGrid{height:202px;}
+  
+
