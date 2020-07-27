@@ -1,10 +1,10 @@
 <div class="main-content maincontainer">
     <div class="content">
-       <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-          </div>
-       </div>
+         </div>
+     </div>
        <form [formGroup]="StatementOfExpenseForm" autocomplete="off" appNorightclick>
           <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
              <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
@@ -100,7 +100,7 @@
                       </div>
                    </div>
                 </div>
-                <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right ">
+                <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
                    <!-- <button type="button" class="btn btn-success">Search</button> -->
                    
                    <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
@@ -224,11 +224,10 @@
                 </div>
              </div>
 
-             <div class="paginationDiv">
+            <div class="paginationDiv">
                <span class="previousBtn" (click)="PreviousClick()">Previous</span>
                <span class="paginationCount"  id="lblcount"></span>
                <span class="nextBtn" (click)="NextClick()" >Next</span>
-
            </div>
            
           </div>
