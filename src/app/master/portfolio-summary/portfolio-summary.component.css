@@ -1,0 +1,61 @@
+.bankmasterTable thead tr th table tr td{padding:1px !important}
+
+table thead tr th {
+    color: #003974 !important;
+    height: 30px;
+    font-size: 12px !important;
+    font-weight: 600;
+}
+#portfolioAllocation .bankmasterTable{display:inline-block}
+#portfolioAllocation .bankmasterTable thead{ display: inline-block; width:100%}
+#portfolioAllocation .bankmasterTable tbody {
+    max-height: 10vh !important;
+    display: inline-block;
+    width:100%
+}
+
+#portfolioSummary .bankmasterTable{display:inline-block}
+#portfolioSummary .bankmasterTable thead{ display: inline-block; width:100%}
+#portfolioSummary .bankmasterTable tbody {
+    max-height: 17vh !important;
+    display: inline-block;
+    width:100%
+}
+#portfolioPerformance .bankmasterTable{display:inline-block}
+#portfolioPerformance .bankmasterTable thead{ display: inline-block; width:100%}
+#portfolioPerformance .bankmasterTable tbody {
+    max-height: 14vh !important;
+    display: inline-block;
+    width:100%
+}
+
+.loaderposition {
+  position: absolute;
+  z-index: 9999 !important;
+  text-align: center;
+  /* top: 37%; */
+}
+.loaderimagepage {
+  margin-left: 2%;
+  margin-top: 0%;
+  width: 8%;
+}
+
+ #portfolioPerformance { overflow:auto;}
+strong {
+    color: #0a2e40;
+    font-size: 12px;
+}
+.bankmasterTable tr td table tr:nth-child(even) {
+    background-color:transparent;
+}
+.bankmasterTable thead tr:first-child th:first-child {
+padding-left:0px}
+
+.bankmasterTable tr td table tr td:first-child {
+text-align:left !important}
+.bankmasterTable tr td table tr td {
+text-align:right !important}
+    .bankmasterTable tbody tr td table tbody {
+    overflow:hidden !important}
+   

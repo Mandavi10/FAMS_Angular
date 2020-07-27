@@ -14,7 +14,7 @@ import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomera
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';  
+//import html2canvas from 'html2canvas';  
 
 
 @Component({
@@ -29,6 +29,7 @@ export class BankBookComponent implements OnInit {
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
+  NoRecord:boolean=false;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -67,9 +68,9 @@ if(this.userType == 3){
   }
 
   BindNextData(value){
-    debugger; 
     if(value == 1){this.PageCount = this.PageCount+1;}
     else if(value == 0){this.PageCount = this.PageCount-1;}
+    if(this.PageCount >= 1){
     if(this.PageCount != 0 || this.PageCount !="" ){
       this.loader1=true;this.loader2=true;
     this.griddiv=true;
@@ -84,6 +85,8 @@ if(this.userType == 3){
     }
     else{this.NextData();}
   }
+}
+else{ this.PageCount = 1;}
   }
 
   
@@ -198,19 +201,6 @@ if(this.userType == 3){
       });
   }
 
-  BindCustomers(){
-    this.loader1=true;this.loader2=true;
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let  Data = new Commonfields();
-    Data.UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-    this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
-      (data) => {
-           this.BindcustomerallfieldsList = data.Table;
-           this.loader1=false;this.loader2=false;
-      });
-  }
-
-
   SearchData(FromDate,ToDate){
     this.FromDate = FromDate;
     this.ToDate = ToDate;
@@ -259,6 +249,13 @@ if(this.userType == 3){
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.TotalRecord=this.TotalsumgridData[0].Total;
+        // if(data.Table.lenght == 0  && data.Table2.lenght == 0 ){ 
+        //   this.NoRecord = true;
+        //   this.PageCount = this.PageCount + 1;
+        // }
+        // else{
+        //   this.NoRecord = false;
+        // }
         //this.divTotal=false;
       //   if(this.Flag !=""){
       //     this.Flag = this.Flag +1;
@@ -392,62 +389,62 @@ downloadCSVFile() {
   return 'success';
 }
 
-downloadPDFFile(){
+// downloadPDFFile(){
    
-  debugger;  
-  // var doc = new jsPDF();  
+//   debugger;  
+//   // var doc = new jsPDF();  
  
-  // doc.setFontSize(11);
-  // doc.setTextColor(100);
+//   // doc.setFontSize(11);
+//   // doc.setTextColor(100);
 
-  // if(this.EvenOdd % 2 !=0)
-  // {
-  //   (doc as any).autoTable({
-  //     head: this.head,
-  //     body: this.statementOfExpenses4,
-  //     theme: 'plain',
-  //     didDrawCell: data => {
-  //       console.log(data.column.index)
-  //     }
-  //   })
-  //     // Open PDF document in new tab
-  //   doc.output('dataurlnewwindow')
+//   // if(this.EvenOdd % 2 !=0)
+//   // {
+//   //   (doc as any).autoTable({
+//   //     head: this.head,
+//   //     body: this.statementOfExpenses4,
+//   //     theme: 'plain',
+//   //     didDrawCell: data => {
+//   //       console.log(data.column.index)
+//   //     }
+//   //   })
+//   //     // Open PDF document in new tab
+//   //   doc.output('dataurlnewwindow')
   
-  //   // Download PDF document  
-  //   doc.save('StatementOfExpenses.pdf');
-  // }
-  // else
-  // {
-  //   (doc as any).autoTable({
-  //     head: this.head,
-  //     body: this.statementOfExpenses5,
-  //     theme: 'plain',
-  //     didDrawCell: data => {
-  //       console.log(data.column.index)
-  //     }
-  //   })
-  //     // Open PDF document in new tab
-  //   doc.output('dataurlnewwindow')
+//   //   // Download PDF document  
+//   //   doc.save('StatementOfExpenses.pdf');
+//   // }
+//   // else
+//   // {
+//   //   (doc as any).autoTable({
+//   //     head: this.head,
+//   //     body: this.statementOfExpenses5,
+//   //     theme: 'plain',
+//   //     didDrawCell: data => {
+//   //       console.log(data.column.index)
+//   //     }
+//   //   })
+//   //     // Open PDF document in new tab
+//   //   doc.output('dataurlnewwindow')
   
-  //   // Download PDF document  
-  //   doc.save('StatementOfExpenses_Summary.pdf');
-  // }
+//   //   // Download PDF document  
+//   //   doc.save('StatementOfExpenses_Summary.pdf');
+//   // }
 
-  var data = document.getElementById('bankmastertable');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+//   var data = document.getElementById('bankmastertable');  
+//     html2canvas(data).then(canvas => {  
+//       // Few necessary setting options  
+//       var imgWidth = 208;   
+//       var pageHeight = 295;    
+//       var imgHeight = canvas.height * imgWidth / canvas.width;  
+//       var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
-    });    
+//       const contentDataURL = canvas.toDataURL('image/png')  
+//       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+//       var position = 0;  
+//       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+//       pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
+//     });    
   
 
-}
+// }
 }
