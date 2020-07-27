@@ -21,6 +21,13 @@
                                     Export to PDF
                                  </label>
                              </li>
+
+                             <li (click)="onClickupdatepopup()">
+                                <i class="fa fa-text" aria-hidden="true" title="Summary"></i>
+                                <label>
+                                    Summary
+                                </label>
+                            </li>
                      </ul>
                 </div>
             </div>
@@ -150,9 +157,9 @@
                 <div class="holdingreportGrid">
                    <table class="bankmasterTable" id="bankmastertable">
                       <thead>
-                        <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                        <!-- <tr *ngFor="let data of bindmaingridHeader ; index as i">
                             <td colspan="6" class="text-center; ">{{data.Date }}</td>
-                         </tr>
+                         </tr> -->
                          <!-- <tr>
                             <th style="width: 182px">Date</th>
                             <th style="width: 222px">Settlement Date</th>
@@ -169,9 +176,9 @@
                                </strong> -->
                                <table>
                                   <tbody>
-                                     <!-- <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                                     <tr *ngFor="let data of bindmaingridHeader ; index as i">
                                         <td colspan="6" class="text-center">{{data.Date }}</td>
-                                     </tr> -->
+                                     </tr>
                                      <div *ngIf="isShowbindmaingridDetails" >
                                     
                                      <tr *ngFor="let data of bindmaingridDetails ; index as i"  >
@@ -191,7 +198,7 @@
                                         <td style="width: 204px">{{data.SettlementAmount }}</td>
                                      </tr>
                                      </div>
-                                     <div *ngIf="isShowmaingridDetailsSummary" >
+                                     <!-- <div *ngIf="isShowmaingridDetailsSummary" >
                                         <tr *ngFor="let data of bindmaingridDetailsSummary ; index as i" >
                                         <td style="width: 182px">{{data.TransactionDesc }}</td>
                                         <td style="width: 222px">{{data.PreviousPeriodTranNotSettle }}</td>
@@ -202,7 +209,7 @@
                                         <td style="width: 233px">{{data.TotalCurrentPeriodTran }}</td>
                                         <td style="width: 204px">{{data.TotalCurrentPeriodSettled }}</td>
                                         </tr>
-                                     </div>
+                                     </div> -->
                                   </tbody>
                                   <tfoot>                                   
                                     </tfoot>
@@ -228,6 +235,80 @@
                <span class="nextBtn" (click)="NextClick()" >Next</span>
            </div>
         </div>
+
+        <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">
+           <p>Summary Details</p>
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+          
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="holdingreportGridpop">
+                       <table class="bankmasterTable" id="bankmastertable">
+                          <thead>
+                           
+                             <!-- <tr>
+                                <th style="width: 182px">Date</th>
+                                <th style="width: 222px">Settlement Date</th>
+                                <th style="width: 233px">Tran Ref.</th>
+                                <th style="width: 204px">Detail</th>
+                                <th style="width: 205px">Desc/Notes</th>
+                                <th style="width: 124px">Amount</th>
+                             </tr> -->
+                          </thead>
+                          <tbody class="popscrollbar">
+                             <tr>
+                                <td colspan="9">
+                                   <!-- <strong >Expenses-Paid
+                                   </strong> -->
+                                   <table>
+                                      <tbody>
+                                         <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                                            <td colspan="6" class="text-center">{{data.Date }}</td>
+                                         </tr>
+                                        
+                                         <div>
+                                            <tr *ngFor="let data of bindmaingridDetailsSummary ; index as i" >
+                                            <td style="width: 182px">{{data.TransactionDesc }}</td>
+                                            <td style="width: 222px">{{data.PreviousPeriodTranNotSettle }}</td>
+                                            <td style="width: 233px">{{data.PreviousPeriodTranSettledCurrentPeriod }}</td>
+                                            <td style="width: 204px">{{data.CurrentPeriodTranSettledDuringPeriod }}</td>
+    
+                                            <td style="width: 222px">{{data.CurrentPeriodTranNotSettled }}</td>
+                                            <td style="width: 233px">{{data.TotalCurrentPeriodTran }}</td>
+                                            <td style="width: 204px">{{data.TotalCurrentPeriodSettled }}</td>
+                                            </tr>
+                                         </div>
+                                      </tbody>
+                                     
+                                   </table>
+                                </td>
+                             </tr>
+                            
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+          
+         </div>
+            
+            </div>
+            </div>
+            </div>
     </div>
 </div>
 

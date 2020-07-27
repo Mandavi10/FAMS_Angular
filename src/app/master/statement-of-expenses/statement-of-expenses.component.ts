@@ -242,6 +242,7 @@ export class StatementOfExpensesComponent implements OnInit {
 
   // }
   BindCustomerOnChange(EmployeeId) {
+    this.EvenOdd=1;
     this.loading = true;
     var currentContext = this;
     this._statementexpensesService.BindCustomer(EmployeeId).
@@ -297,6 +298,7 @@ export class StatementOfExpensesComponent implements OnInit {
     this.isShowLoader=false;
   }
   onSubmit() {
+    this.EvenOdd=1;
     debugger;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
