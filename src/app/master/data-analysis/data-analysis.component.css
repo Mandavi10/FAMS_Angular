@@ -3,19 +3,30 @@
 h5{ color: #003974;
     font-weight: bold;
     text-align: center;}
+
+    .inputboxheight{height: 22px !important;}
+
+    select {
+        padding: 0px 0px !important;
+    }
 .iconBox{
-        width: 90px;
-        position: absolute;
-        right: 10px;
-        z-index: 9999;
-        top: 12px;
-        border: 1px solid #9bb2ca;}
-.iconBox span{width:33%; display:inline-block; text-align: center;  padding: 2px 5px 1px 5px; cursor:pointer !important}
+    width: 60px;
+    position: absolute;
+    right: 20px;
+    z-index: 9999;
+    top: 1px;
+    border: 1px solid #9bb2ca;}
+.iconBox span{width:33%; display:inline-block; text-align: center;  padding: 2px 0px 1px 0px; cursor:pointer !important}
 .iconBox span:first-child, .iconBox span:nth-child(2){border-right:1px solid #9bb2ca}
 .iconBox span i{  color: #003974;
-    font-size: 15px;}
+    font-size: 12px;}
 .report{color: #003974;
     padding: 3px 5px;
 }
 .report input{ vertical-align: sub;color: #003974;}
-.ng-star-inserted{z-index:9999}
+.bs-datepicker-container{width:80% !important; z-index:9999 !important}
+.bottom, .ng-tns-c44-3, .ng-star-inserted{z-index:9999 !important}
+.dateSelect input[type="text"]{height:25px}
+
+.canvasjs-chart-toolbar button{display:none !important}
+

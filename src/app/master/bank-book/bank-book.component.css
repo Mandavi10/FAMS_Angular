@@ -23,6 +23,7 @@ table{display: block;}
    
     display: block;
     /* max-height: 32vh; */
+    max-height: 32vh;
     overflow: hidden;
 }
 

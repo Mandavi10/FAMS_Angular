@@ -34,44 +34,45 @@
         <div class="row">
             
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-                <div class="col-md-4 col-sm-5 col-xs-12">
+                <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="CustNameDive">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                           Customer Name :
+                        </label>
+                        <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+        
+                                <option value="">Select</option>
+                                <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                            </select>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                            <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                From Date :
                             </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }" class="col-sm-12 col-md-12 col-xs-12">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-5 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                            <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                                To Date :
                             </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                                 <input type="date" formControlName="Todate"  [ngClass]="{ 'validate': submitted && f.Todate.errors }" class="col-sm-12 col-md-12 col-xs-12">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-5 col-sm-5 col-xs-12" *ngIf="CustNameDive">
-                        <div class="form-group">
-                            <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                               Customer Name :
-                            </label>
-                            <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                                <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
-            
-                                    <option value="">Select</option>
-                                    <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
-                                </select>
-                              
-                            </div>
-                        </div>
-                    </div>
+                
                     
-                    <div class="col-md-2 col-sm-2 col-xs-12 mt-2  ">
+                    <div class="col-md-1 col-sm-1 col-xs-12 mt-2  ">
                         <button type="button" class="btn btn-success btnasearch" (click)="bindGrid()">Search</button>
                         </div>
                    

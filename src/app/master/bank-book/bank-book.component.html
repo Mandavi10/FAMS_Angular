@@ -53,7 +53,10 @@
                 Employee Name :
               </label>
               <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+
                   <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomers(EmployeeId.value)">
+
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId">
       
                       <option value="">Select</option>
                       <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
@@ -153,9 +156,15 @@
     height: 453px;">
         <div class="holdingreportGrid">
         <table class="bankmasterTable" id="bankmastertable">
+
             <thead style="background-color:#fff">
                 <tr *ngFor="let Data of HeaderList">
                     <td colspan="8" class="text-center">{{Data.Date}}</td>
+
+            <thead>
+                <tr *ngFor="let Data of HeaderList">
+                    <td colspan="6" class="text-center">{{Data.Data}}</td>
+
                  </tr>
                 <tr>
 
@@ -315,6 +324,9 @@
                 <span class="previousBtn" (click)="BindNextData(0)">Previous</span>
                 <span class="paginationCount" [innerHTML]="PaginationCount"></span>
                 <span class="nextBtn" (click)="BindNextData(1)">Next</span>
+                <span class="previousBtn">Previous</span>
+                <span class="paginationCount">50 out of 200</span>
+                <span class="nextBtn">Next</span>
             </div>
     </div> 
             </form>

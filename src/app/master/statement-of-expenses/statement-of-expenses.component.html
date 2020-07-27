@@ -1,10 +1,10 @@
 <div class="main-content maincontainer">
     <div class="content">
-       <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-          </div>
-       </div>
+         </div>
+     </div>
        <form [formGroup]="StatementOfExpenseForm" autocomplete="off" appNorightclick>
           <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
              <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
@@ -38,13 +38,52 @@
              </div>
           </div>
           <div class="row">
+          
              <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-                <div class="col-md-4 col-sm-4 col-xs-12">
+               <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
+                  <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                      Employee Name :
+                    </label>
+                    <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                        <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+            
+                            <option value="0">Select</option>
+                            <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                        </select>
+                                      
+                    </div>
+                </div>
+               </div>
+               <div class="col-md-3 col-sm-4 col-xs-12"  *ngIf="isShowCustomer">
+                  <div class="form-group" >
+                      <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         Customer Name :
+                      </label>
+                      <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock" >
+                          <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                              <option>Select Customer</option>
+                              <option>Customer 1</option>
+                              <option>Customer 2</option>
+                              <option>Customer 3</option>
+                          </select> -->
+      
+                          <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                              <option value="0" selected>All Customer</option>
+                              <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                  {{data.UserName}}
+                              </option>
+                           </select>
+                        
+                      </div>
+                  </div>
+              </div>
+                <div class="col-md-3 col-sm-4 col-xs-12">
                    <div class="form-group">
-                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                       From Date :
                       </label>
-                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                      <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                          <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" />  -->
                          <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                       </div>
@@ -52,19 +91,19 @@
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-12">
                    <div class="form-group">
-                      <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                      <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                       To Date :
                       </label>
-                      <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                      <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                          <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> -->
                          <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
                       </div>
                    </div>
                 </div>
-                <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
+                <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
                    <!-- <button type="button" class="btn btn-success">Search</button> -->
                    
-                   <button type="submit" (click)="onSubmit()" class="btn btn-success"> Search</button>
+                   <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
                 </div>
              </div>
           </div>
@@ -73,24 +112,28 @@
                 <div class="col-sm-6 col-md-6 col-xs-3 ">
                    <span class="legal"> Statement Of Expenses</span>
                 </div>
-                <div class="rightmenu">
+                <div class="rightmenu" style="display:block">
                    <div class="toolbar pull-right">
                       <ul class="toolbar-content btnCon">
-                         <li>
-                            <label>
-                            Previous Day
-                            </label>
-                         </li>
-                         <li>
-                            <label>
-                            Last One Week
-                            </label>
-                         </li>
-                         <li>
-                            <label>
-                            Last One Month
-                            </label>
-                         </li>
+                        <li (click)="PreviousDayFun()">
+                           
+                           <label>
+                              Previous Day
+                           </label>
+                       </li>
+                       <li>
+                        
+                           <label (click)="LastOneWeekFun()">
+                              Last One Week
+                           </label>
+                       </li>
+                        
+                        <li (click)="LastOneMonthFun()">
+                               
+                                <label>
+                                  Last One Month
+                                </label>
+                            </li>
                       </ul>
                    </div>
                 </div>
@@ -98,24 +141,28 @@
              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="holdingreportGrid">
                    <table class="bankmasterTable" id="bankmastertable">
-                      <thead>
+                      <!-- <thead>
                          <tr>
-                            <th style="width: 182px"> Date</th>
+                            <th style="width: 182px">Date</th>
                             <th style="width: 222px">Settlement Date</th>
                             <th style="width: 233px">Tran Ref.</th>
                             <th style="width: 204px">Detail</th>
                             <th style="width: 205px">Desc/Notes</th>
                             <th style="width: 124px">Amount</th>
                          </tr>
-                      </thead>
+                      </thead> -->
                       <tbody class="scrollbar">
                          <tr>
                             <td colspan="9">
-                               <strong >Expenses-Paid
-                               </strong>
+                               <!-- <strong >Expenses-Paid
+                               </strong> -->
                                <table>
                                   <tbody>
-                                     <tr *ngFor="let data of statementOfExpenses ; index as i" >
+                                     <tr *ngFor="let data of statementOfExpenses3 ; index as i">
+                                        <td colspan="6" class="text-center">{{data.Date }}</td>
+                                     </tr>
+                                     <div *ngIf="isShowstatementOfExpenses4" >
+                                     <tr *ngFor="let data of statementOfExpenses4 ; index as i"  >
                                         <td style="width: 182px">{{data.Date }}</td>
                                         <td style="width: 222px">{{data.SettlementDate }}</td>
                                         <td style="width: 233px">{{data.TranRef }}</td>
@@ -123,17 +170,26 @@
                                         <td style="width: 205px">{{data.DescNotes }}</td>
                                         <td style="width: 124px">{{data.Amount }}</td>
                                      </tr>
+                                     </div>
+                                     <div *ngIf="isShowstatementOfExpenses5" >
+                                     <tr *ngFor="let data of statementOfExpenses5 ; index as i" >
+                                       <td style="width: 182px">{{data.TransactionDescription }}</td>
+                                       <td style="width: 222px">{{data.TotalPaidAmount }}</td>
+                                       <td style="width: 233px">{{data.TotalPayableAmount }}</td>
+                                       <td style="width: 204px">{{data.TotalPaidAmount }}</td>
+                                    </tr>
+                                     </div>
                                   </tbody>
-                                  <tfoot>
+                                  <!-- <tfoot> -->
                                     <!-- <tbody> -->
-                                        <tr *ngFor="let data1 of statementOfExpenses1 ; index as i" >
+                                        <!-- <tr *ngFor="let data1 of statementOfExpenses1 ; index as i" >
                                            <td style="width: 182px">{{data1.Date }}</td>
                                            <td style="width: 222px">{{data1.SettlementDate }}</td>
                                            <td style="width: 233px">{{data1.TranRef }}</td>
                                            <td style="width: 204px">{{data1.Detail }}</td>
                                            <td style="width: 205px">{{data1.DescNotes }}</td>
                                            <td style="width: 124px">{{data1.Amount }}</td>
-                                        </tr>
+                                        </tr> -->
                                         <!-- <tr>
                                             <td style="width: 168px">Total Expenses-paid</td>
                                             <td style="width: 202px">1</td>
@@ -151,7 +207,7 @@
                                             <td style="width: 116px" >212,110.00</td>
                                         </tr> -->
                                        <!-- </tbody> -->
-                                    </tfoot>
+                                    <!-- </tfoot> -->
                                </table>
                             </td>
                          </tr>
@@ -167,6 +223,13 @@
                    </table>
                 </div>
              </div>
+
+            <div class="paginationDiv">
+               <span class="previousBtn" (click)="PreviousClick()">Previous</span>
+               <span class="paginationCount"  id="lblcount"></span>
+               <span class="nextBtn" (click)="NextClick()" >Next</span>
+           </div>
+           
           </div>
           <!-- <div class="col-md-12 col-sm-12 col-xs-12 tableDiv1 p-0"  style="display:block">
                  <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">

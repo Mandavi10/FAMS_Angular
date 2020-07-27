@@ -5,7 +5,8 @@ import { BankbookService } from '../../Services/BankBook/bankbook.service';
 import { Bindgrid } from '../../../Models/BankBook/bindgrid';
 import { Totalsumgrid } from '../../../Models/BankBook/totalsumgrid';
 import { Header } from '../../../Models/BankBook/header';
-import { Bindemployee } from '../../../Models/BankBook/bindemployee';
+import { Bindemployee } from '../../../Models/BankBook/bindemployee'
+import { Bindemployees } from '../../../Models/BankBook/bindemployees';
 import { DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Commonfields } from '../../../Models/commonfields';
@@ -28,11 +29,12 @@ export class BankBookComponent implements OnInit {
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
+
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
-    debugger;
+   
     this.loader1 = true; this.loader2 = true;
     this.BankBookForm = this.formBuilder.group({  
       FromDate :[''], ToDate : [''],CustomerAccount : [''] , EmployeeId : ['']
@@ -46,6 +48,7 @@ if(this.userType == 3){
   this.divEmployee=true;
   this.BindEmployee();
 }
+
   else if(this.userType == 2){
     this.UserId = this.Dbsecurity.Decrypt(item.UserId);
     this.CustomerAccount = "";
@@ -53,6 +56,7 @@ if(this.userType == 3){
     this.divEmployee=false;
     this.BindCustomers();
   }
+
   else{
     this.UserId = this.Dbsecurity.Decrypt(item.UserId);
     this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
@@ -167,7 +171,22 @@ if(this.userType == 3){
 
   }
   
+
+  
   BindEmployee(){
+    this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    let  Data = new Commonfields();
+    Data.UserId = Sessionvalue.UserId;
+    this.BSService.BindEmployee(JSON.stringify(Data)).subscribe(
+      (data) => {
+           this.BindemployeesList = data.Table;
+           this.loader1=false;this.loader2=false;
+      });
+  }
+
+  BindCustomers(){
+
     this.loader1=true;this.loader2=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
@@ -191,6 +210,7 @@ if(this.userType == 3){
       });
   }
 
+
   SearchData(FromDate,ToDate){
     this.FromDate = FromDate;
     this.ToDate = ToDate;
@@ -208,12 +228,24 @@ if(this.userType == 3){
     this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     }
     this.griddiv=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+    var CustomerAccount="";
+    if(UserId=="30007" ||
+    UserId=="30008"){
+      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+    }
+    else{
+      CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
+    }
+
     var JsonData ={
       "UserId" : this.UserId,
       "FromDate" :   FromDate,   
       "ToDate" :  ToDate,
       "CustomerAccount" : this.CustomerAccount,
       "PageCount" : this.PageCount         
+
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {

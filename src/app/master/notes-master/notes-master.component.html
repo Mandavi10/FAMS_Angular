@@ -54,7 +54,7 @@
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
             <div class="filter">
-                <input type="text" placeholder="Search" />
+                <input type="text" #SearchData (keyup.enter)="SearchFun(SearchData.value)" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             
@@ -84,63 +84,73 @@
          <form [formGroup]="NoteMasterForm" autocomplete="off" appNorightclick>
         <div class="col-md-12 col-sm-12 col-xs-12  pr-0" *ngIf="showForm">
         <div class=" col-sm-12 col-xs-12 col-md-12 formatbox  ">
-                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead ">                            
-                            <div class="col-md-12 col-sm-12 col-xs-12  ">
-                        <div class="col-sm-2 col-xs-12 col-md-2  col-lg-2 pl-0">
-                                  <label class="boldlabel">
-                                <b class="boldspan">B</b>
-                                </label>
-                                  <label class="underlabel">
-                                <span class="underspan">U</span>
-                                </label>
-                                  <label class="italiclabel">
-                                <i class="italicspan">I</i>
-                                </label>
-                                </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 lblpadding" >
-                                <div class="form-group">
-                                  
-                                    <label class="col-sm-5 col-md-4 col-xs-12 control-label p-0">
-                                       Font Size:</label>
-                                    <div class="col-sm-7 col-md-8 col-xs-12 no-padding">
-                                        <input type="text" id="" class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" formControlName="FontSize">
-                                    </div>
-                                        
+                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead "> 
+                            <div class="col-sm-12 col-xs-12 col-md-1" [attr.disabled]="btnsavedisable ? '' : null"  (click)="SaveData()">
+                                <div class="sendBtn">
+                                    <img src="assets/images/send_icon.png" />
+                                    <label>Send</label>
                                 </div>
                             </div>
-        
-                            <div class="col-md-6 col-sm-5 col-lg-4 col-xs-12 p-0">
-                                <div class="form-group">
+                            <div class="col-sm-12 col-xs-12 col-md-11 p-0">
+                             <div class="row">
                                   
-                                    <label class="col-sm-5 col-md-3 col-xs-12 control-label no-padding">
+                        <div class="col-md-9 col-sm-12 col-lg-9 col-xs-12">
+                            <div class="form-group" style="margin:0px">
+                              
+                                <label class="col-sm-1 col-md-1 col-xs-12 control-label no-padding" style="margin-top: 5px;">
+                                   To:</label>
+                                <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
+                                    <div class="form-group input-group m-0 mb-1">
+                                    <input type="email" id="txtEmailId" placeholder="to@company.ca, to@company.ca..."  (focusout)="chkEmail()" [attr.disabled]="Emailcodedisabled ? '' : null"  [ngClass]="displayFieldCss('Email')" formControlName="Email" name="Email"  class="col-sm-12 col-md-12 col-xs-12" style="border:1px solid #cbcfd2 !important" />
+                                </div>
+                                </div>
+                                     
+                            </div>
+                        </div> 
+                        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 mt-1">
+
+                            <div class="form-group input-group">
+                            <input type="checkbox" [ngClass]="displayFieldCss('Allcustomercheck')" [attr.disabled]="Allcheckboxcodedisabled ? '' : null" formControlName="Allcustomercheck" name="Allcustomercheck" (change)="Allcustomer_Change();" style=" margin-right: 5px!important; margin-top: 1px;" /> 
+                                <label>Send to all customers</label>
+                        </div>
+                   
+                </div>  
+                             </div>
+                                              
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 p-0">
+                                <div class="form-group" style="margin:0px">
+                                  
+                                    <label class="col-sm-1 col-md-1 col-xs-12 subject control-label no-padding" style="margin-top: 5px;">
                                        Subject:</label>
-                                    <div class="col-sm-7 col-md-9 col-xs-12 no-padding">
-                                        <div class="form-group input-group" [ngClass]="displayFieldCss('Subject')">
-                                        <input type="text" required id="Text1" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" #Subject formControlName="Subject"/>
+                                    <div class="col-sm-11 col-md-11 col-xs-11 no-padding">
+                                        <div class="form-group input-group m-0 mb-1" [ngClass]="displayFieldCss('Subject')">
+                                        <input type="text" [attr.disabled]="Subjectcodedisabled ? '' : null" [ngClass]="displayFieldCss('Subject')" formControlName="Subject" name="Subject" class="col-sm-12 col-md-12 col-xs-12"style="border:1px solid #cbcfd2 !important" />
                                     </div>
                                     </div>
                                          
                                 </div>
                             </div>
-                             
-                         </div>
+                        </div>
         
                             <div class="col-md-12 col-sm-12 col-xs-12 mailBox">
-                            <textarea rows="500" cols="226" #Note formControlName="Note">
+                            <textarea rows="500" cols="220" [attr.disabled]="Subjectnotecodedisabled ? '' : null" [ngClass]="displayFieldCss('SubjectNote')" formControlName="SubjectNote" name="SubjectNote">
         
         </textarea>
+        <div class="btnbox pull-left mt-2">
+            <a href="{{imagebindurl}}" (click)="CheckClickLink()" [attr.disabled]="Attachmentcodedisabled ? '' : null" class="btn btn-sm btn-success mr-2" alt="" target="_blank"><i class="fa fa-paperclip"></i> Attachment</a>
+            <!-- <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button> -->
+            <input type="file"  (change)="Filechangeevent($event,1)" [attr.disabled]="FileCoddisabled ? '' : null" style="display:inline-block;" class="mt-" />
+            <label id="lblName">{{lblmsg}}</label>
+        </div>         
                             
-                            </div>
+    
+    </div>
+                            
                             <div class="rightmenu">
-
-                                <div class="btnbox pull-left mt-2">
-                                    <button type="button" class="btn btn-sm btn-success mr-2" id="" ><i class="fa fa-paperclip"></i> Attachment </button>
-                                    <input type="file"  id="attachment" style="display:inline-block;" class="mt-" #File formControlName = "File"/>
-                                </div>
                                 <div class="toolbar pull-right mt-2">
-                                    <button type="button" class="btn btn-sm btn-success mr-2" id=""  (click)="SaveData(Subject.value,Note.value,File.value)"> Save </button> 
-                                    <button type="button" class="btn btn-sm btn-success" id="" (click)="CancelFun()"> Cancel</button> 
-                                 
+                                    <!-- <button type="button" class="btn btn-sm btn-success mr-2" [attr.disabled]="btnsavedisable ? '' : null"  (click)="SaveData()"> Save </button>  -->
+                                    <button type="button" class="btn btn-sm btn-success mr-2" (click)="CancelFun()"> Cancel</button> 
+                                   
                                 </div>
                             </div>
                               

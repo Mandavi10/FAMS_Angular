@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{StatementDividentService} from '../../Services/StatementDividend/statement-divident.service';
 import{statementDividend,pagination,DividendModel} from '../../../Models/StatementDividend/StatementDividend';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -159,12 +159,12 @@ bindGrid(){
    
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-    CustomerAccountNo= this.StatementDividendForm.controls['CustomerAccount'].value;
+    CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
   }
   else{
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-    userid= item.UserId
+    CustomerAccountNo= item.AccountNo
     
   }
   this.submitted = true;

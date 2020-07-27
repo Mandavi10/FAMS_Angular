@@ -1,3 +1,26 @@
+.holdingreportGrid tbody {
+   
+  display: block;
+  max-height: 40vh;
+}
+
+.holdingreportGrid tbody tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+      
+tfoot{display: block;}
+thead{display: block;}        
+
+.holdingreportGrid thead tr {
+  width: 100%;
+  
+  table-layout: fixed;
+}      
+.holdingreportGrid{height:202px;}
+
+
 
 @media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} }
 @media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;

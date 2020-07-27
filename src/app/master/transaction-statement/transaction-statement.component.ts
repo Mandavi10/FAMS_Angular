@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TransactionstatementService } from '../../Services/TransactionStatement/transactionstatement.service';
-import { Bindmaingrid } from '../../../Models/TransactionStatement/bindmaingrid';
+import { BindmaingridHeader,BindmaingridDetails,BindmaingridDetailsSummary } from '../../../Models/TransactionStatement/bindmaingrid';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Commonfields } from '../../../Models/commonfields';
+import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import {Bindemployee} from '../../../Models/StatementOfExpense/StatementOfExpenses';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -17,8 +19,33 @@ import 'jspdf-autotable';
   styleUrls: ['./transaction-statement.component.css']
 })
 export class TransactionStatementComponent implements OnInit {
-  BindmaingridList : Bindmaingrid;TransactionStatementForm : FormGroup;HeaderArray:any=[];divMainGrid:boolean=false;
-  StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];divCustomer:boolean=false;
+  RunningNoOfPage:number;
+  NoOfPage:number;
+  CustomerAccountNo :any;
+
+
+  isShowmaingridDetailsSummary:boolean=false;
+  isShowbindmaingridDetails:boolean=false;
+  CustomerAccount:string;
+  customer:Customer ;
+  accountNumber:string;
+  GAccountNumber:any;
+  GUserId:number;
+  isShowsEmployee:boolean=false;
+  BindemployeesList:Bindemployee;
+
+  UniqueSeqNo:number=1;
+  Page_SeqNo:number=1;
+  SeqNo:number=1;
+  Summary_SeqNo:number=1;
+  isShowLoader:boolean=false;
+  bindmaingridHeader : BindmaingridHeader;
+  bindmaingridDetails : BindmaingridDetails;
+  bindmaingridDetailsSummary : BindmaingridDetailsSummary;
+  isShowBindmaingridDetails:boolean=false;
+  
+  TransactionStatementForm : FormGroup;HeaderArray:any=[];divMainGrid:boolean=false;
+  StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];isShowCustomer:boolean=false;
   BindcustomerallfieldsList:Bindcustomerallfields; userType:number;
   columnDefs = [
     {headerName: 'Transaction Description', field: 'TransactionDesc', width: 180},
@@ -51,29 +78,120 @@ rowData = [
     , private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
-    debugger;
-    this.router.navigate(['/Home']);
-    this.router.navigate(['/TransactionStatement']);
-    this.TransactionStatementForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : [''],CustomerAccount:['']
-  });
-        let item = JSON.parse(sessionStorage.getItem('User'));  
-        this.userType=this.Dbsecurity.Decrypt( item.UserType);
-        if(this.userType == 2)
-        {
-          this.divCustomer=true;
-          this.BindCustomers();
-        }
-        else{
-          this.divCustomer=false;
-        } 
-  }
+        debugger;
+        // this.router.navigate(['/Home']);
+        // this.router.navigate(['/TransactionStatement']);
+        this.TransactionStatementForm = this.formBuilder.group({  
+          EmployeeId: [0, ],
+          UserId: [0, ],
+          FromDate :[''], 
+          ToDate : [''],
+          CustomerAccount:['']
+        });
+        // let item = JSON.parse(sessionStorage.getItem('User'));  
+        // this.userType=this.Dbsecurity.Decrypt( item.UserType);
+        // if(this.userType == 2)
+        // {
+        //   this.isShowCustomer=true;          
+        //   var currentContext = this;
+        //   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+        //   this.BindCustomers(this.Dbsecurity.Decrypt(Sessionvalue.UserId));
+        // }
+        // else{
+        //   this.isShowCustomer=false;
+        // } 
+        debugger;
 
-  BindCustomers(){
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let  Data = new Commonfields();
-    Data.UserId = Sessionvalue.UserId;
-    this.TSService.BindCustomers(JSON.stringify(Data)).subscribe(
+
+        let item = JSON.parse(sessionStorage.getItem('User'));
+  // this.UserId = item.UserId;
+  // this.EntityId = item.ReferenceId;
+    this.userType=this.Dbsecurity.Decrypt(item.UserType);
+    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    debugger;
+    if(this.userType ==1)
+    {
+      this.GUserId=item.UserId;
+      this.GAccountNumber=this.accountNumber;   
+    }
+
+   else if(this.userType ==3)
+    {
+      this.GUserId=item.UserId;
+      this.GAccountNumber="0";
+      this.BindEmployee();
+     
+    }
+    else if(this.userType ==2)
+    {
+     // this.isShowCustomer=true;
+     this.GUserId=item.UserId;
+     this.GAccountNumber="1";
+     this.isShowCustomer=true;          
+       var currentContext = this;
+       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+       this.BindCustomers(this.Dbsecurity.Decrypt(Sessionvalue.UserId));
+    }
+    else{
+      this.GUserId=item.UserId;
+      this.GAccountNumber="0";
+      this.isShowCustomer=false;
+      this.isShowsEmployee=false;
+    }
+    debugger;
+     if (this.TransactionStatementForm.controls["UserId"].value==0 && this.TransactionStatementForm.controls["FromDate"].value==""  && this.TransactionStatementForm.controls["ToDate"].value=="") 
+    {
+      this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+    }
+        // this.TransactionStatementForm.controls["UserId"].setValue("6010005");
+        // this.TransactionStatementForm.controls["FromDate"].setValue("2020-06-30");
+        // this.TransactionStatementForm.controls["ToDate"].setValue("2020-06-30");
+        // this.BindGrid("6010005","2020-01-01","2020-06-30",1);
+  }
+  BindDefaultLast(GAccountNumber,UserId)
+  {
+    this.TSService.BindDefaultData(GAccountNumber,UserId).
+    subscribe((data) => {
+      //this.statementOfExpenses_Default=data.Table;
+     // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+      this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      this.TransactionStatementForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+      this.TransactionStatementForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+    this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.SeqNo,this.Summary_SeqNo) ;
+    });
+    
+  }
+  BindEmployee(){
+    // this.loader1=true;this.loader2=true;
+     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    // let  Data = new Commonfields();
+     //Data.UserId = Sessionvalue.UserId;
+     this.TSService.BindEmployee(Sessionvalue.UserId).subscribe(
+       (data) => {
+         debugger;
+            this.BindemployeesList = data.Table;
+            this.isShowsEmployee=true;
+           // this.loader1=false;this.loader2=false;
+       });
+   }
+
+   BindCustomerOnChange(EmployeeId) {
+     alert(EmployeeId);
+   // this.loading = true;
+    var currentContext = this;
+    this.TSService.BindCustomer(EmployeeId).
+        subscribe((data) => {
+            currentContext.customer = data.Table;
+            this.isShowCustomer=true;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+    //this.loading = false;
+  }
+  BindCustomers(EmployeeId){
+    // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    // let  Data = new Commonfields();
+    // Data.UserId = Sessionvalue.UserId;
+    this.TSService.BindCustomer(EmployeeId).subscribe(
       (data) => {
            this.BindcustomerallfieldsList = data.Table;
       });
@@ -105,25 +223,169 @@ rowData = [
     this.TransactionStatementForm.controls['FromDate'].setValue(yesterday);
   }
 
-  BindGrid(FromDate,ToDate,CustomerAccount){
-    this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
-    this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
-    this.divMainGrid=true;
+  PreviousClick()
+  {
+    this.SeqNo-=1;
+    //this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd);
+    this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+  }
+    // if(this.EvenOdd % 2 !=0)
+    // {
+
+    //   this.TSService.NextRecordBind(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd).
+    //   subscribe((data) => {
+    //     if(data.Table.length!=0)
+    //     {
+    //       this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd);
+    //     }
+        
+    //   });
+    // }
+    // else
+    // {
+    //   this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd-1);
+    // }
+    
+  //}
+  NextClick()
+  {
+    debugger;
+    this.SeqNo+=1;
+    this.UniqueSeqNo+=1;
+    this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+    // this.TSService.NextRecordBind(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo).
+    //   subscribe((data) => {
+    //   //this.statementOfExpenses_Default=data.Table;
+    //  // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+    //     if(data.Table.length!=0)
+    //     {
+    //       // this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+    //       // this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+    //       // this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+    //       // this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
+    //       this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+    //     }
+    //     else{
+    //       this.Summary_SeqNo +=1;
+    //     }
+
+    //   })
+
+
+
+
+    // if(this.EvenOdd % 2 !=0)
+    // {
+
+    //   this.TSService.NextRecordBind(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd).
+    //   subscribe((data) => {
+    //     if(data.Table.length!=0)
+    //     {
+    //       //this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd);
+    //     }
+    //   });
+    // }
+    // else
+    // {
+    //   this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd-1);
+    // }
+  }
+
+  BindGrid(CustomerAccount,FromDate,ToDate,SeqNo,SummarySeqNo){
+    // this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
+    // this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
+    // this.divMainGrid=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var UserId = Sessionvalue.UserId;
+    var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+    // if(UserId=="30007" || UserId=="30008"){
+    //   CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+    // }
+    // else{
+    //   CustomerAccount = this.TransactionStatementForm.controls['CustomerAccount'].value;
+    // }
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
       "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
-      "CustomerAccount" : this.TransactionStatementForm.controls['CustomerAccount'].value
+      "CustomerAccount" : CustomerAccount,
+      "SeqNo":SeqNo,
+      "SummarySeqNo":SummarySeqNo
     }
+    var currentContext = this;
     this.TSService.BindGrid(JsonData).subscribe(
       (data) => {
-        this.BindmaingridList = data.Table;        
+
+        debugger;
+        // this.isShowbindmaingridDetails=true;
+        currentContext.bindmaingridHeader = data.Table;
+
+        // this.NoOfPage = data.Table1[4].NoOfPage;
+        // this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
+
+
+        // if(this.NoOfPage >=this.SeqNo && this.CustomerAccountNo == data.Table1[4].CustomerAccountNo)
+        // {
+        //   this.isShowbindmaingridDetails=true;
+        //   this.isShowmaingridDetailsSummary=false;
+        //   currentContext.bindmaingridDetails = data.Table1;
+        // }
+        // else
+        // {
+        //   this.SeqNo -=1;
+        //   this.isShowbindmaingridDetails=false;
+        //   this.isShowmaingridDetailsSummary=true;
+        //   currentContext.bindmaingridDetailsSummary = data.Table2;
+        // }
+        // if(this.UniqueSeqNo <= data.Table1[0].NoOfPage)
+        // {
+        //   this.isShowbindmaingridDetails=true;
+        //   this.isShowmaingridDetailsSummary=false;
+        //   currentContext.bindmaingridDetails = data.Table1;
+        // }
+        // else
+        // {
+        //   this.isShowbindmaingridDetails=false;
+        //   this.isShowmaingridDetailsSummary=true;
+        //   currentContext.bindmaingridDetailsSummary = data.Table2;
+        // }
+        this.isShowbindmaingridDetails=true;
+        this.isShowmaingridDetailsSummary=false;
+        currentContext.bindmaingridDetails = data.Table1;  
+        currentContext.bindmaingridDetailsSummary = data.Table2;  
         });
   }
+  onSubmit() {
+    debugger;
+    //alert('OnSubmi Clicked');
+    //this.submitted = true;
+    if (this.TransactionStatementForm.valid) {
+        //this.sucess=true;
+        const datat = this.TransactionStatementForm.value;
 
-  ConvertToCSV(objArray) {
+       
+        // var CustomerAccount="Cust_000001";
+        // var Date="2020-04-09";
+       // var CustomerAccount:
+        if(datat.UserId=="0")
+        {
+         //this.CustomerAccount=this.accountNumber
+          this.CustomerAccount=datat.UserId; //change to discuss with vipul
+        }
+        else{
+         this.CustomerAccount=datat.UserId;
+
+        }
+        // var CustomerAccount="Cust_000001";
+        // var Date="2020-04-09";
+       // var CustomerAccount:
+       
+        
+        var FromDate=datat.FromDate;
+        var ToDate=datat.ToDate;
+        this.BindGrid(this.CustomerAccount,FromDate,ToDate,this.SeqNo,this.Summary_SeqNo);
+    } 
+  }
+ConvertToCSV(objArray) {
       this.HeaderArray = {
         TransactionDesc: "Transaction Description", TransactionDate: "Transaction Date", SettlementDate: "Settlement Date", Security: "Security",
         Exchange: "Exchange", Quantity: "Quantity", UnitPrice: "UnitPrice", Brkg: "Brkg", STT: "STT", SettlementAmount: "SettlementAmount"
@@ -181,7 +443,7 @@ this.StaticArray1={value:"Current Period Transactions",value1:"Current Period Se
   return str;
 }
 downloadCSVFile() {
-    var csvData = this.ConvertToCSV(JSON.stringify(this.BindmaingridList));
+    var csvData = this.ConvertToCSV(JSON.stringify(this.bindmaingridDetails));
     var a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
@@ -203,7 +465,7 @@ downloadPDFFile(){
 
   (doc as any).autoTable({
     head: this.head,
-    body: this.BindmaingridList,
+    body: this.bindmaingridDetails,
     theme: 'plain',
     didDrawCell: data => {
       console.log(data.column.index)

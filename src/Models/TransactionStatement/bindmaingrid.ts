@@ -1,4 +1,8 @@
-export class Bindmaingrid {
+export class BindmaingridHeader {
+    Date:any;
+}
+
+export class BindmaingridDetails {
     TransactionDesc: string;
     TransactionDate: string;
     SettlementDate: string;
@@ -10,3 +14,14 @@ export class Bindmaingrid {
     STT: string;
     SettlementAmount: string;
 }
+
+export class BindmaingridDetailsSummary {
+    TransactionDesc: string;
+    PreviousPeriodTranNotSettle: string;
+    PreviousPeriodTranSettledCurrentPeriod: string;
+    CurrentPeriodTranSettledDuringPeriod: string;
+    CurrentPeriodTranNotSettled: string;
+    TotalCurrentPeriodTran: string;
+    TotalCurrentPeriodSettled: string;
+}
+

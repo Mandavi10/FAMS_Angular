@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 import{CapitalStatementModel,pagination} from '../../../Models/CapitalStatement/capitalStatement';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -184,17 +184,16 @@ BindCustomers(){
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid, CustomerAccountNo;
-  
     if(usertype == 2 ||usertype == 3 || usertype == 4){
      
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= this.capitalStatForm.controls['CustomerAccount'].value;
+      CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
     }
     else{
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
       IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
-      userid= item.UserId
+      CustomerAccountNo= item.AccountNo
       
     }
 
@@ -384,29 +383,31 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
    // });
   }
 
-  downloadPDFFile(){
+  // downloadPDFFile(){
    
-    debugger;  
-    var doc = new jsPDF();  
+  //   debugger;  
+  //   var doc = new jsPDF();  
    
-    doc.setFontSize(11);
-    doc.setTextColor(100);
+  //   doc.setFontSize(11);
+  //   doc.setTextColor(100);
   
-    (doc as any).autoTable({
-      head: this.head,
-      body: this.bindgrid,
-      theme: 'plain',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    })
-        // Open PDF document in new tab
-      doc.output('dataurlnewwindow')
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.bindgrid,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //       // Open PDF document in new tab
+  //     doc.output('dataurlnewwindow')
     
-      // Download PDF document  
-      doc.save('StatementOfExpenses.pdf');
+  //     // Download PDF document  
+  //     doc.save('StatementOfExpenses.pdf');
   
+
   }
+
 
 
 
