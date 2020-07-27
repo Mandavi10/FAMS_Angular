@@ -1,7 +1,13 @@
+.warningPopup .modal-dialog, .successPopup .modal-dialog {
+  margin-top: 44px !important;
+}
+.successPopup .modal-content{width: 118%;
+  height: 591px!important;
+}
 .holdingreportGrid tbody {
    
-  display: block;
-  max-height: 40vh;
+  /* display: block;
+  max-height: 40vh; */
 }
 
 .holdingreportGrid tbody tr {
@@ -9,7 +15,17 @@
   display: table;
   table-layout: fixed;
 }
-      
+ .popscrollbar{overflow:scroll;
+max-height:500px;
+height:500px;} 
+
+
+
+.holdingreportGrid tbody{
+  overflow-x: scroll;
+  width: 100%;
+
+}
 tfoot{display: block;}
 thead{display: block;}        
 
