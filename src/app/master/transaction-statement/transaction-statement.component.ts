@@ -7,7 +7,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 import { DatePipe } from '@angular/common';
 import { Commonfields } from '../../../Models/commonfields';
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
-import {Bindcustomerallfields} from '../../../Models/SummaryReport/bindcustomerallfields';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import {Bindemployee} from '../../../Models/StatementOfExpense/StatementOfExpenses';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
@@ -124,7 +124,11 @@ rowData = [
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
+      this.TransactionStatementForm.controls["UserId"].setValue(0);
+      this.isShowCustomer=true;
       this.BindEmployee();
+      //this.BindCustomers();
+
      
     }
     else if(this.userType ==2)
@@ -187,7 +191,27 @@ var currentContext=this;
     subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
      // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+      // this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+
+      if(this.userType==3)
+     {
+      if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+      {
+       this.TransactionStatementForm.controls["UserId"].setValue(0);
+      }
+      else{
+       this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      }
+
+     }
+     else
+     {
       this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+     }
+    
+
+    //this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+    
       this.TransactionStatementForm.controls["FromDate"].setValue(data.Table[0].FromDate);
       this.TransactionStatementForm.controls["ToDate"].setValue(data.Table[0].ToDate);
     this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.SeqNo,this.Summary_SeqNo) ;
@@ -658,7 +682,6 @@ downloadPDFFile(){
       pdf.save('Transaction_Statement.pdf'); // Generated PDF   
     });    
   
-
 }
 
 }

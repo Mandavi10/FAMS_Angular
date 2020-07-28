@@ -49,10 +49,9 @@
                           <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                               <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
                   
-                                  <option value="0">Select</option>
+                                  <option value="0">All Employee</option>
                                   <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
                               </select>
-                                            
                           </div>
                       </div>
                      </div>
