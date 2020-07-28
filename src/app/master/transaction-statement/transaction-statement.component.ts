@@ -7,7 +7,7 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
 import { DatePipe } from '@angular/common';
 import { Commonfields } from '../../../Models/commonfields';
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
-import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
+import {Bindcustomerallfields} from '../../../Models/SummaryReport/bindcustomerallfields';
 import {Bindemployee} from '../../../Models/StatementOfExpense/StatementOfExpenses';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
