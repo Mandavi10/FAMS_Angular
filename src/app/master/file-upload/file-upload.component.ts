@@ -13,10 +13,12 @@ export class FileUploadComponent implements OnInit {
   showModalsavepopup:boolean;
   public btnupload:boolean=true;public btnfileinput:boolean=false;
   @ViewChild('fileInput') fileInput
-  constructor(private FileuploadService : FileuploadService) { }
+  constructor(private FileuploadService : FileuploadService,private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
- 
+    this.fileupload = this.formBuilder.group({  
+      fileupload :['']
+  });
   }
 
   uploadClick()
