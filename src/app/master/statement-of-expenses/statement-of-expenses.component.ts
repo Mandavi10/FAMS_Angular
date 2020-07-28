@@ -511,7 +511,8 @@ downloadPDFFile(){
       var position = 0;  
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
       pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
-    });    
+    });   
+     
   
 
 }
