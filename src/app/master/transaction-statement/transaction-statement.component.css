@@ -11,7 +11,7 @@
 }
 
 .holdingreportGrid tbody tr {
-  width: 100%;
+  width: 97%;
   display: table;
   table-layout: fixed;
 }
@@ -34,7 +34,9 @@ thead{display: block;}
   
   table-layout: fixed;
 }      
-.holdingreportGrid{height:202px;}
+.holdingreportGrid{height: 444px;
+  overflow-y: auto;
+  overflow-x: hidden;}
 
 
 
