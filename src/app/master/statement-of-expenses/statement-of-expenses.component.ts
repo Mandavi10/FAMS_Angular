@@ -242,6 +242,7 @@ export class StatementOfExpensesComponent implements OnInit {
 
   // }
   BindCustomerOnChange(EmployeeId) {
+    this.EvenOdd=1;
     this.loading = true;
     var currentContext = this;
     this._statementexpensesService.BindCustomer(EmployeeId).
@@ -297,6 +298,7 @@ export class StatementOfExpensesComponent implements OnInit {
     this.isShowLoader=false;
   }
   onSubmit() {
+    this.EvenOdd=1;
     debugger;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
@@ -504,12 +506,21 @@ downloadPDFFile(){
     //   var imgHeight = canvas.height * imgWidth / canvas.width;  
     //   var heightLeft = imgHeight;  
   
+
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
+    });    
+
     //   const contentDataURL = canvas.toDataURL('image/png')  
     //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
     //   var position = 0;  
     //   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
     //   pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
     // });    
+
   
 
 }

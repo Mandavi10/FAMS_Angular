@@ -12,6 +12,8 @@ import {Bindemployee} from '../../../Models/StatementOfExpense/StatementOfExpens
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { timer } from 'rxjs';
+import html2canvas from 'html2canvas';  
 
 @Component({
   selector: 'app-transaction-statement',
@@ -21,12 +23,15 @@ import 'jspdf-autotable';
 export class TransactionStatementComponent implements OnInit {
   RunningNoOfPage:number;
   NoOfPage:number;
+  Default_NoOfPage:number=1;
   CustomerAccountNo :any;
 
 
   isShowmaingridDetailsSummary:boolean=false;
   isShowbindmaingridDetails:boolean=false;
   CustomerAccount:string;
+  // FromDate:any;
+  // ToDate:any;
   customer:Customer ;
   accountNumber:string;
   GAccountNumber:any;
@@ -43,7 +48,7 @@ export class TransactionStatementComponent implements OnInit {
   bindmaingridDetails : BindmaingridDetails;
   bindmaingridDetailsSummary : BindmaingridDetailsSummary;
   isShowBindmaingridDetails:boolean=false;
-  
+  showModalupdatepopup:boolean;
   TransactionStatementForm : FormGroup;HeaderArray:any=[];divMainGrid:boolean=false;
   StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];isShowCustomer:boolean=false;
   BindcustomerallfieldsList:Bindcustomerallfields; userType:number;
@@ -125,12 +130,20 @@ rowData = [
     else if(this.userType ==2)
     {
      // this.isShowCustomer=true;
-     this.GUserId=item.UserId;
-     this.GAccountNumber="1";
-     this.isShowCustomer=true;          
-       var currentContext = this;
-       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-       this.BindCustomers(this.Dbsecurity.Decrypt(Sessionvalue.UserId));
+    // //  this.GUserId=item.UserId;
+    // //  this.GAccountNumber="1";
+    // //  this.isShowCustomer=true;          
+    // //    var currentContext = this;
+    // //    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    // //    //this.BindCustomers(this.Dbsecurity.Decrypt(Sessionvalue.UserId));
+    // //    this.BindCustomers(this.GAccountNumber);
+
+
+       this.isShowCustomer=true;    
+       this.GUserId=item.UserId;
+       this.GAccountNumber="1";
+        this.BindCustomers();
+
     }
     else{
       this.GUserId=item.UserId;
@@ -147,6 +160,26 @@ rowData = [
         // this.TransactionStatementForm.controls["FromDate"].setValue("2020-06-30");
         // this.TransactionStatementForm.controls["ToDate"].setValue("2020-06-30");
         // this.BindGrid("6010005","2020-01-01","2020-06-30",1);
+  }
+
+  
+  onClickupdatepopup() {
+    debugger;
+var currentContext=this;
+    this.TSService.GetSummary(this.CustomerAccountNo).
+    subscribe((data) => {
+      if(data.Table.length!=0)
+      {
+      //  this.bindmaingridDetailsSummary=data.Table;
+        currentContext.bindmaingridDetailsSummary=data.Table
+        this.showModalupdatepopup = true;
+      }
+    });
+    
+  }
+  hideupdatepopup() {
+    debugger;
+    this.showModalupdatepopup = false;
   }
   BindDefaultLast(GAccountNumber,UserId)
   {
@@ -176,8 +209,9 @@ rowData = [
    }
 
    BindCustomerOnChange(EmployeeId) {
-     alert(EmployeeId);
+    // alert(EmployeeId);
    // this.loading = true;
+   this.SeqNo=1;
     var currentContext = this;
     this.TSService.BindCustomer(EmployeeId).
         subscribe((data) => {
@@ -187,17 +221,30 @@ rowData = [
     // console.log(sessionStorage.getItem('ID'));
     //this.loading = false;
   }
-  BindCustomers(EmployeeId){
-    // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    // let  Data = new Commonfields();
-    // Data.UserId = Sessionvalue.UserId;
-    this.TSService.BindCustomer(EmployeeId).subscribe(
-      (data) => {
-           this.BindcustomerallfieldsList = data.Table;
-      });
-  }
 
-  PreviousDayFun(){
+  BindCustomers() {
+   // this.loading = true;
+    var currentContext = this;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
+        subscribe((data) => {
+            currentContext.customer = data.Table;
+            this.isShowCustomer=true;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+   // this.loading = false;
+  }
+  // BindCustomers(EmployeeId){
+  //   // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  //   // let  Data = new Commonfields();
+  //   // Data.UserId = Sessionvalue.UserId;
+  //   this.TSService.BindCustomer(EmployeeId).subscribe(
+  //     (data) => {
+  //          this.BindcustomerallfieldsList = data.Table;
+  //     });
+  // }
+
+   PreviousDayFun(){
     var date = new Date();
     var currentDate = date.toISOString().slice(0,10);
     this.TransactionStatementForm.controls['ToDate'].setValue(currentDate);
@@ -251,8 +298,69 @@ rowData = [
   {
     debugger;
     this.SeqNo+=1;
-    this.UniqueSeqNo+=1;
+
     this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+
+    // this.UniqueSeqNo+=1;
+    // this.Default_NoOfPage+=1;    
+    //   this.TSService.NextRecordBind(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo).
+    // subscribe((data) => {
+    //   if(data.Table.length!=0)
+    //   {
+    //     this.NoOfPage=data.Table[0].NoOfPage;
+    //     //this.CustomerAccount=data.Table[0].CustomerAccount;
+    //     if(this.CustomerAccount != data.Table[0].CustomerAccount)
+    //     {
+    //       this.Default_NoOfPage=1;
+    //     }
+    //     this.FromDate=data.Table[0].FromDate;
+    //     this.ToDate=data.Table[0].ToDate;
+    //     //this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.SeqNo,this.Summary_SeqNo) ;
+    //     //this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+    //   }
+    // });
+    // if(this.SeqNo==3)
+    // {
+    //   this.CustomerAccountNo="6010002";
+    // }
+
+    // timer(300).subscribe(x => {
+    //   this.NextBind()
+    // })
+    
+
+    // if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && this.SeqNo==3)
+    // {
+    //        this.SeqNo -=1;
+    //       this.isShowbindmaingridDetails=false;
+    //       this.isShowmaingridDetailsSummary=true;
+          
+    // }
+    // else if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && (this.SeqNo==1 || this.SeqNo==2))
+    // {
+    //   this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+       
+    // }
+
+    // if((this.CustomerAccountNo=="6010002" || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && this.SeqNo==4)
+    // {
+    //     this.SeqNo -=1;
+    //    this.isShowbindmaingridDetails=false;
+    //    this.isShowmaingridDetailsSummary=true;
+       
+    // }
+    // else if((this.CustomerAccountNo=="6010002"  || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && (this.SeqNo==1 || this.SeqNo==2 || this.SeqNo==3))
+    // {
+    //   this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+     
+    // }
+
+
+
+
+
+
+    // this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
     // this.TSService.NextRecordBind(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo).
     //   subscribe((data) => {
     //   //this.statementOfExpenses_Default=data.Table;
@@ -289,8 +397,23 @@ rowData = [
     // {
     //   this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.EvenOdd-1);
     // }
-  }
+  
+    }
+  // NextBind()
+  // {
+  //   if (this.Default_NoOfPage<=this.NoOfPage)
+  //    {
+  //     this.BindGrid(this.TransactionStatementForm.controls["UserId"].value,this.TransactionStatementForm.controls["FromDate"].value,this.TransactionStatementForm.controls["ToDate"].value,this.SeqNo,this.Summary_SeqNo);
+  //     //this.BindGrid(this.CustomerAccount,this.FromDate,this.ToDate,this.SeqNo,this.Summary_SeqNo) ;
+  //    }
+  //    else
+  //    {
+  //     this.SeqNo -=1;
+  //     this.isShowbindmaingridDetails=false;
+  //     this.isShowmaingridDetailsSummary=true;
+  //    }
 
+  // }
   BindGrid(CustomerAccount,FromDate,ToDate,SeqNo,SummarySeqNo){
     // this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     // this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
@@ -303,6 +426,8 @@ rowData = [
     // else{
     //   CustomerAccount = this.TransactionStatementForm.controls['CustomerAccount'].value;
     // }
+
+    
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
@@ -320,7 +445,40 @@ rowData = [
         currentContext.bindmaingridHeader = data.Table;
 
         // this.NoOfPage = data.Table1[4].NoOfPage;
-        // this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
+          this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
+
+        //  if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && this.SeqNo==3)
+        //  {
+        //        // this.SeqNo -=1;
+        //        this.isShowbindmaingridDetails=false;
+        //        this.isShowmaingridDetailsSummary=true;
+        //        this.bindmaingridDetailsSummary = data.Table2;
+        //  }
+        //  else if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && (this.SeqNo==1 || this.SeqNo==2))
+        //  {
+        //     this.isShowbindmaingridDetails=true;
+        //     this.isShowmaingridDetailsSummary=false;
+        //     this.bindmaingridDetails = data.Table1;
+        //     this.bindmaingridDetailsSummary = data.Table2;
+        //  }
+
+        //  if((this.CustomerAccountNo=="6010002" || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && this.SeqNo==4)
+        //  {
+        //     // this.SeqNo -=1;
+        //     this.isShowbindmaingridDetails=false;
+        //     this.isShowmaingridDetailsSummary=true;
+        //     this.bindmaingridDetailsSummary = data.Table2;
+        //  }
+        //  else if((this.CustomerAccountNo=="6010002"  || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && (this.SeqNo==1 || this.SeqNo==2 || this.SeqNo==3))
+        //  {
+        //   this.isShowbindmaingridDetails=true;
+        //   this.isShowmaingridDetailsSummary=false;
+        //   this.bindmaingridDetails = data.Table1;
+        //   this.bindmaingridDetailsSummary = data.Table2;
+        //  }
+
+
+
 
 
         // if(this.NoOfPage >=this.SeqNo && this.CustomerAccountNo == data.Table1[4].CustomerAccountNo)
@@ -348,13 +506,19 @@ rowData = [
         //   this.isShowmaingridDetailsSummary=true;
         //   currentContext.bindmaingridDetailsSummary = data.Table2;
         // }
+
+
+
+
+
         this.isShowbindmaingridDetails=true;
         this.isShowmaingridDetailsSummary=false;
         currentContext.bindmaingridDetails = data.Table1;  
-        currentContext.bindmaingridDetailsSummary = data.Table2;  
+       // currentContext.bindmaingridDetailsSummary = data.Table2;  
         });
   }
   onSubmit() {
+    this.SeqNo=1;
     debugger;
     //alert('OnSubmi Clicked');
     //this.submitted = true;
@@ -457,25 +621,43 @@ downloadCSVFile() {
 downloadPDFFile(){
    
   debugger;  
-  var doc = new jsPDF();  
+  // var doc = new jsPDF();  
  
-  doc.setFontSize(11);
-  doc.setTextColor(100);
+  // doc.setFontSize(11);
+  // doc.setTextColor(100);
 
 
-  (doc as any).autoTable({
-    head: this.head,
-    body: this.bindmaingridDetails,
-    theme: 'plain',
-    didDrawCell: data => {
-      console.log(data.column.index)
-    }
-  })
-      // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
+  // (doc as any).autoTable({
+  //   head: this.head,
+  //   body: this.bindmaingridDetails,
+  //   theme: 'plain',
+  //   didDrawCell: data => {
+  //     console.log(data.column.index)
+  //   }
+  // })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
   
-    // Download PDF document  
-    doc.save('StatementOfExpenses.pdf');
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses.pdf');
+
+
+
+  var data = document.getElementById('bankmastertable');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('Transaction_Statement.pdf'); // Generated PDF   
+    });    
+  
 
 }
 

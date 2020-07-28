@@ -106,10 +106,10 @@ debugger;
     }
 
     this.submitted = true;
-    if (this.CurrentPortfolioForm.invalid) {
-      return;
-    }
-    else{
+    // if (this.CurrentPortfolioForm.invalid) {
+    //   return;
+    // }
+    // else{
     
     this.loading = true;
     var currentContext = this;
@@ -176,7 +176,7 @@ debugger;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
-  }
+  //}
 }
 
 // downloadPDF(){
