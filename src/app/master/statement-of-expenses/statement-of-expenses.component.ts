@@ -98,7 +98,10 @@ export class StatementOfExpensesComponent implements OnInit {
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
+      this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      this.isShowCustomer=true;
       this.BindEmployee();
+      //this.BindCustomer();
      
     }
     else if(this.userType ==2)
@@ -125,11 +128,29 @@ export class StatementOfExpensesComponent implements OnInit {
   }
   BindDefaultLast(GAccountNumber,UserId)
   {
+    debugger;
     this._statementexpensesService.BindDefaultData(GAccountNumber,UserId).
     subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
      // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+     if(this.userType==3)
+     {
+      if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+      {
+       this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      }
+      else{
+       this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      }
+
+     }
+     else
+     {
       this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+     }
+    
+     //this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+
       this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
       this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
     this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
@@ -511,8 +532,7 @@ downloadPDFFile(){
       var position = 0;  
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
       pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
-    });   
-     
+    });    
   
 
 }
