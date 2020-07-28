@@ -24,3 +24,17 @@ export class pagination{
     TR:string;
     
 }
+
+export class BindEmployees{
+
+    PMSEmpId:string;
+    EmployeeName:string;
+    
+}
+
+export class BindCustomer{
+
+    CustomerAccountNo:string;
+    UserName:string;
+    
+}
