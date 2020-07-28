@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StatementOfExpenses} from '../../../Models/StatementOfExpense/StatementOfExpenses';
+import { StatementOfExpenses,StatementOfExpenses1,StatementOfExpenses2,StatementOfExpenses3
+  ,StatementOfExpenses4,StatementOfExpenses_Default,StatementOfExpenses5,Bindemployee} from '../../../Models/StatementOfExpense/StatementOfExpenses';
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import { StatementexpensesService } from 'src/app/Services/StatementOfExpenses/statementexpenses.service';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,11 +10,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 //import html2canvas from 'html2canvas';  
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-statement-of-expenses',
@@ -21,17 +23,24 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./statement-of-expenses.component.css']
 })
 export class StatementOfExpensesComponent implements OnInit {
+  isShowsEmployee:boolean=false;
+  isShowstatementOfExpenses4:boolean=false;
+  isShowstatementOfExpenses5:boolean=false;
+  EvenOdd:number=1;
 
   isShowLoader:boolean=false;
-
-
   HeaderArray : any =[];
   holdingReport:any=[];
   showModalstatemaster: boolean;
   StatementOfExpenseForm: FormGroup; 
   statementOfExpenses:StatementOfExpenses;
-  statementOfExpenses1:StatementOfExpenses;
-  statementOfExpenses2:StatementOfExpenses;
+  statementOfExpenses1:StatementOfExpenses1;
+  statementOfExpenses2:StatementOfExpenses2;
+  statementOfExpenses3:StatementOfExpenses3;
+  statementOfExpenses4:StatementOfExpenses4;
+  statementOfExpenses_Default:StatementOfExpenses_Default;
+  statementOfExpenses5:StatementOfExpenses5;
+  BindemployeesList:Bindemployee;
    
    gridAllFields5: any []; 
    head = []
@@ -57,31 +66,131 @@ export class StatementOfExpensesComponent implements OnInit {
   pmsDetails:[];
   IsEquity:boolean;
   IsCashAndEquiv:boolean;
+  GAccountNumber:any;
+  GUserId:number;
  
   ngOnInit(): void {
     this.StatementOfExpenseForm = this.formbulider.group({
+      EmployeeId: [0, ],
       UserId: [0, ],
       FromDate: ['', ],
       ToDate: ['',],
   });
+  
+ 
+  
 
   let item = JSON.parse(sessionStorage.getItem('User'));
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
-    this.userType=this.Dbsecurity.Decrypt( item.UserType);
+    this.userType=this.Dbsecurity.Decrypt(item.UserType);
     this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
-    if(this.userType !=1)
+    debugger;
+    if(this.userType ==1)
     {
-      this.isShowCustomer=true;
+      this.GUserId=item.UserId;
+      this.GAccountNumber=this.accountNumber;   
+    }
+
+   else if(this.userType ==3)
+    {
+      this.GUserId=item.UserId;
+      this.GAccountNumber="0";
+      this.BindEmployee();
+     
+    }
+    else if(this.userType ==2)
+    {
+     // this.isShowCustomer=true;
+     this.GUserId=item.UserId;
+     this.GAccountNumber="1";
       this.BindCustomer();
     }
     else{
+      this.GUserId=item.UserId;
+      this.GAccountNumber="0";
       this.isShowCustomer=false;
+      this.isShowsEmployee=false;
+    }
+    debugger;
+     if (this.StatementOfExpenseForm.controls["UserId"].value==0 && this.StatementOfExpenseForm.controls["FromDate"].value==""  && this.StatementOfExpenseForm.controls["ToDate"].value=="") 
+    {
+      this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+    }
+
+    
+    
+  }
+  BindDefaultLast(GAccountNumber,UserId)
+  {
+    this._statementexpensesService.BindDefaultData(GAccountNumber,UserId).
+    subscribe((data) => {
+      //this.statementOfExpenses_Default=data.Table;
+     // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+      this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+      this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+    this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
+    });
+    
+  }
+  PreviousClick()
+  {
+    this.EvenOdd-=1;
+    //this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd);
+    if(this.EvenOdd % 2 !=0)
+    {
+
+      this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
+      subscribe((data) => {
+      //this.statementOfExpenses_Default=data.Table;
+     // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+        if(data.Table.length!=0)
+        {
+          // this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+          // this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+          // this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+          // this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
+          this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd);
+        }
+        
+      });
+    }
+    else
+    {
+      this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd-1);
     }
     
   }
+  NextClick()
+  {
+    debugger;
+    this.EvenOdd+=1;
+    if(this.EvenOdd % 2 !=0)
+    {
 
-
+      this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
+      subscribe((data) => {
+      //this.statementOfExpenses_Default=data.Table;
+     // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+        if(data.Table.length!=0)
+        {
+          // this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+          // this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+          // this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+          // this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
+          this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd);
+        }
+        
+      });
+    }
+    else
+    {
+      this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd-1);
+    }
+    
+    
+  }
   PreviousDayFun(){
     var date = new Date();
     var currentDate = date.toISOString().slice(0,10);
@@ -106,26 +215,76 @@ export class StatementOfExpensesComponent implements OnInit {
     var yesterday = date.toISOString().slice(0,10);
     this.StatementOfExpenseForm.controls['FromDate'].setValue(yesterday);
   }
+  BindEmployee(){
+   // this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+   // let  Data = new Commonfields();
+    //Data.UserId = Sessionvalue.UserId;
+    this._statementexpensesService.BindEmployee(Sessionvalue.UserId).subscribe(
+      (data) => {
+        debugger;
+           this.BindemployeesList = data.Table;
+           this.isShowsEmployee=true;
+          // this.loader1=false;this.loader2=false;
+      });
+  }
+  // BindCustomersOnChange(EmployeeId){
+  //   this.loader1=true;this.loader2=true;
+  //   let  Data = new Commonfields();
+  //   Data.UserId = EmployeeId ;
+  //   this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
+  //     (data) => {
+  //          this.BindcustomerallfieldsList = data.Table;
+  //          this.loader1=false;this.loader2=false;
+  //     });
+
+  // }
+  BindCustomerOnChange(EmployeeId) {
+    this.loading = true;
+    var currentContext = this;
+    this._statementexpensesService.BindCustomer(EmployeeId).
+        subscribe((data) => {
+            currentContext.customer = data.Table;
+            this.isShowCustomer=true;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+    this.loading = false;
+  }
   BindCustomer() {
     this.loading = true;
     var currentContext = this;
-    this._statementexpensesService.BindCustomer().
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this._statementexpensesService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
         subscribe((data) => {
             currentContext.customer = data.Table;
+            this.isShowCustomer=true;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
   }
 
-  BindStatementOfExpReport(CustomerAccount,FromDate,ToDate) {
+  BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,SeqNo) {
     debugger;
     this.loading = true;
     var currentContext = this;
-    this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate).
+    this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
         subscribe((data) => {
-            currentContext.statementOfExpenses = data.Table;
-            currentContext.statementOfExpenses1 = data.Table1;
-            currentContext.statementOfExpenses2 = data.Table2
+            // currentContext.statementOfExpenses = data.Table2;
+            // currentContext.statementOfExpenses1 = data.Table1;
+            // currentContext.statementOfExpenses2 = data.Table2
+            currentContext.statementOfExpenses3 = data.Table;
+            if(this.EvenOdd % 2 !=0)
+            {
+              this.isShowstatementOfExpenses4=true;
+              this.isShowstatementOfExpenses5=false;
+              currentContext.statementOfExpenses4 = data.Table1;
+            }
+            else
+            {
+              this.isShowstatementOfExpenses4=false;
+              this.isShowstatementOfExpenses5=true;
+              currentContext.statementOfExpenses5 = data.Table2;
+            }
             
             // currentContext.statementOfExpenses2 = data.Table2;
             
@@ -147,7 +306,8 @@ export class StatementOfExpensesComponent implements OnInit {
        // var CustomerAccount:
         if(datat.UserId=="0")
         {
-         this.CustomerAccount=this.accountNumber
+         //this.CustomerAccount=this.accountNumber
+          this.CustomerAccount=datat.UserId; //change to discuss with vipul
         }
         else{
          this.CustomerAccount=datat.UserId;
@@ -160,7 +320,7 @@ export class StatementOfExpensesComponent implements OnInit {
         
         var FromDate=datat.FromDate;
         var ToDate=datat.ToDate;
-        this.BindStatementOfExpReport(this.CustomerAccount,FromDate,ToDate);
+        this.BindStatementOfExpReport(this.CustomerAccount,FromDate,ToDate,this.EvenOdd);
     } 
   }
   
@@ -269,40 +429,69 @@ export class StatementOfExpensesComponent implements OnInit {
 }
 downloadCSVFile() {
   debugger;
-    var csvData = this.ConvertToCSV(JSON.stringify(this.statementOfExpenses2));
+  var csvData;
+    if(this.EvenOdd % 2 !=0)
+    {
+      csvData = this.ConvertToCSV(JSON.stringify(this.statementOfExpenses4));
+      a.download = 'StatementOfExpenses.csv';/* your file name*/
+    }
+    else
+    {
+      csvData = this.ConvertToCSV(JSON.stringify(this.statementOfExpenses5));
+      a.download = 'StatementOfExpenses_Summary.csv';/* your file name*/
+    }
     var a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
     var blob = new Blob([csvData], { type: 'text/csv' });
     var url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'StatementOfExpenses.csv';/* your file name*/
+   
   
     a.click();
     return 'success';
 }
-downloadPDFFile(){
+// downloadPDFFile(){
    
-  debugger;  
-  var doc = new jsPDF();  
+//   debugger;  
+//   var doc = new jsPDF();  
  
-  doc.setFontSize(11);
-  doc.setTextColor(100);
+//   doc.setFontSize(11);
+//   doc.setTextColor(100);
 
-
-  (doc as any).autoTable({
-    head: this.head,
-    body: this.statementOfExpenses2,
-    theme: 'plain',
-    didDrawCell: data => {
-      console.log(data.column.index)
-    }
-  })
-      // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
+//   if(this.EvenOdd % 2 !=0)
+//   {
+//     (doc as any).autoTable({
+//       head: this.head,
+//       body: this.statementOfExpenses4,
+//       theme: 'plain',
+//       didDrawCell: data => {
+//         console.log(data.column.index)
+//       }
+//     })
+//       // Open PDF document in new tab
+//     doc.output('dataurlnewwindow')
   
-    // Download PDF document  
-    doc.save('StatementOfExpenses.pdf');
+//     // Download PDF document  
+//     doc.save('StatementOfExpenses.pdf');
+//   }
+//   else
+//   {
+//     (doc as any).autoTable({
+//       head: this.head,
+//       body: this.statementOfExpenses5,
+//       theme: 'plain',
+//       didDrawCell: data => {
+//         console.log(data.column.index)
+//       }
+//     })
+//       // Open PDF document in new tab
+//     doc.output('dataurlnewwindow')
+  
+//     // Download PDF document  
+//     doc.save('StatementOfExpenses_Summary.pdf');
+//   }
+  
 
-}
+// }
 }

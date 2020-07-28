@@ -16,7 +16,9 @@
     .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
 table tbody tr td table tbody {
 overflow:hidden}*/
-
+.warningPopup .modal-dialog, .successPopup .modal-dialog {
+    margin-top: 83px !important;
+}
 table{display: block;}
 
 .secgrid{position: absolute;
@@ -43,7 +45,7 @@ table{display: block;}
 .holdingreportGrid tbody {
    
     display: block;
-    max-height: 25vh;
+    max-height: 19vh;
 }
 
 .holdingreportGrid tbody tr {

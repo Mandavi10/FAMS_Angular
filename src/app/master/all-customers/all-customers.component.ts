@@ -74,7 +74,7 @@ hideupdatepopup() {
 
   ngOnInit(): void {
     this.AllCustomersForm = this.formBuilder.group({  
-      CustomerAccount : [''], CustomerUsername :[''], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      CustomerAccount : [''], CustomerUsername :['',Validators.required], CustomerEmailID : ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       EmployeeCode: ['',Validators.required]
   });
  this.BindGrid();
@@ -181,10 +181,11 @@ SaveData(){
   this.SaveallfieldsList = this.AllCustomersForm.value;
   console.log('savedata')
   console.log(this.AllCustomersForm.value)
+  alert('all component')
   this.AllCustomerService.SaveData(JSON.stringify(this.SaveallfieldsList)).subscribe(
 
     (data) => {
-    
+      alert('all in component')
       this.CustomerResponse = data;
       if (data[0].value == "1") {
         this.onClicksavepopup();
