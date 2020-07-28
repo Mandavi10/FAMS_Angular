@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 import{CapitalStatementModel,pagination} from '../../../Models/CapitalStatement/capitalStatement';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -383,56 +383,58 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
    // });
   }
 
-  downloadPDFFile(){
+  // downloadPDFFile(){
    
-    debugger;  
-    var doc = new jsPDF();  
+  //   debugger;  
+  //   var doc = new jsPDF();  
    
-    doc.setFontSize(11);
-    doc.setTextColor(100);
+  //   doc.setFontSize(11);
+  //   doc.setTextColor(100);
   
-    (doc as any).autoTable({
-      head: this.head,
-      body: this.bindgrid,
-      theme: 'plain',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    })
-        // Open PDF document in new tab
-      doc.output('dataurlnewwindow')
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.bindgrid,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //       // Open PDF document in new tab
+  //     doc.output('dataurlnewwindow')
     
-      // Download PDF document  
-      doc.save('StatementOfExpenses.pdf');
+  //     // Download PDF document  
+  //     doc.save('StatementOfExpenses.pdf');
   
+
   }
 
 
 
-  downloadPDF(){
-    this.showhead=false;
-    // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
-    // //const pdf = new jsPDF('p', 'pt', 'a4');
-    // const pdf = new jsPDF();
-    // pdf.addHTML(elementToPrint, () => {
-    //     pdf.save('web.pdf');
-    // });  
-    var doc = new jsPDF('legal', 'pt','a3' );
-    // doc.text("From HTML", 40, 50);legal
-     //doc.text( 40, 50);
-     var res = doc.autoTableHtmlToJson(document.getElementById("gridmain"));
-     console.log('downloadpdf')
-     console.log(res)
-   console.log(res.data)
-   console.log(res.data[0])
-     doc.autoTable(res.columns, res.data, {
-       startY: 90
-     });
+
+  // downloadPDF(){
+  //   this.showhead=false;
+  //   // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+  //   // //const pdf = new jsPDF('p', 'pt', 'a4');
+  //   // const pdf = new jsPDF();
+  //   // pdf.addHTML(elementToPrint, () => {
+  //   //     pdf.save('web.pdf');
+  //   // });  
+  //   var doc = new jsPDF('legal', 'pt','a3' );
+  //   // doc.text("From HTML", 40, 50);legal
+  //    //doc.text( 40, 50);
+  //    var res = doc.autoTableHtmlToJson(document.getElementById("gridmain"));
+  //    console.log('downloadpdf')
+  //    console.log(res)
+  //  console.log(res.data)
+  //  console.log(res.data[0])
+  //    doc.autoTable(res.columns, res.data, {
+  //      startY: 90
+  //    });
     
-     doc.save();
+  //    doc.save();
      
-  }
+  // }
 
 
   
-}
+

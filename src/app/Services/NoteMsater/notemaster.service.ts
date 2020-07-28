@@ -21,6 +21,22 @@ export class NotemasterService {
       headers 
   });
 }
+
+BindSearchGrid(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindGrid1', body, {
+    headers 
+});
+}
+
+BindEmaildata(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/NoteMaster/BindEmail', body, {
+    headers 
+});
+}
 SaveData(em:any): Observable<any> { 
   const body = em; 
   const headers = new HttpHeaders().set('content-type', 'application/json');

@@ -4,11 +4,11 @@ import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {Currentportfolio} from '../../../Models/CurrentPortfolio/currentportfolio';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
-import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
+//import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
 
 
@@ -22,7 +22,7 @@ export class CurrentPortfolioComponent implements OnInit {
   divMainGrid :boolean=false;
   isShowLoader:boolean=false;CurrentPortfolioForm : FormGroup;loading: boolean = false;
   CurrentportfolioList : Currentportfolio;
-  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
   CurrentDate = new Date();
   STSumGL:number;
   STSumIncome:number;
@@ -49,7 +49,7 @@ export class CurrentPortfolioComponent implements OnInit {
       CustomerAccount:['',Validators.required] 
   });
   this.Showcustdropdown();
-  this.BindCustomers();
+  //this.BindCustomers();
   }
 
   get f() {
@@ -70,15 +70,15 @@ export class CurrentPortfolioComponent implements OnInit {
   }
 
 
-  BindCustomers(){
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    let  Data = new Commonfields();
-    Data.UserId = Sessionvalue.UserId;
-    this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
-      (data) => {
-           this.BindcustomerallfieldsList = data.Table;
-      });
-  }
+  // BindCustomers(){
+  //   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  //   let  Data = new Commonfields();
+  //   Data.UserId = Sessionvalue.UserId;
+  //   this.SRService.BindCustomers(JSON.stringify(Data)).subscribe(
+  //     (data) => {
+  //          this.BindcustomerallfieldsList = data.Table;
+  //     });
+  // }
   
 
   BindCurrentPortFolioReport(FromDate,ToDate) {
@@ -106,10 +106,10 @@ debugger;
     }
 
     this.submitted = true;
-    if (this.CurrentPortfolioForm.invalid) {
-      return;
-    }
-    else{
+    // if (this.CurrentPortfolioForm.invalid) {
+    //   return;
+    // }
+    // else{
     
     this.loading = true;
     var currentContext = this;
@@ -176,28 +176,28 @@ debugger;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
-  }
+  //}
 }
 
-downloadPDF(){
-  // this.showhead=false;
+// downloadPDF(){
+//   // this.showhead=false;
  
-  var doc = new jsPDF('legal', 'pt','a3' );
-  // doc.text("From HTML", 40, 50);legal
-   //doc.text( 40, 50);
-   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
-   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
-   console.log('downloadpdf')
-   console.log(res)
- console.log(res.data)
- console.log(res.data[0])
-   doc.autoTable(res.columns, res1.data, {
-     startY: 90
-   });
+//   var doc = new jsPDF('legal', 'pt','a3' );
+//   // doc.text("From HTML", 40, 50);legal
+//    //doc.text( 40, 50);
+//    var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+//    var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+//    console.log('downloadpdf')
+//    console.log(res)
+//  console.log(res.data)
+//  console.log(res.data[0])
+//    doc.autoTable(res.columns, res1.data, {
+//      startY: 90
+//    });
   
-   doc.save();
+//    doc.save();
    
-}
+// }
 
 
 }

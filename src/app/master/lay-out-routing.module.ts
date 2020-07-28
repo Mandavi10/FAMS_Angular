@@ -56,15 +56,18 @@ const routes: Routes = [
 {path: 'CapitalStatement', loadChildren: './capital-statement/capital-statement.module#CapitalStatementModule'},
 
 
+{path: 'PortfolioAppraisals', loadChildren: './portfolio-appraisals/portfolio-appraisals.module#PortfolioAppraisalsModule'},
 
-
-
+{path: 'PortfolioFact', loadChildren: './portfolio-fact/portfolio-fact.module#PortfolioFactModule'},
 {path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
 
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
  {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},
-        ]
+ {path: 'FileUpload', loadChildren: './file-upload/file-upload.module#FileUploadModule'},
+ {path: 'PortfolioSummary', loadChildren: './portfolio-summary/portfolio-summary.module#PortfolioSummaryModule'},  
+
+ ]
       }
 
 ];

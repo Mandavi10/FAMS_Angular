@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{StatementDividentService} from '../../Services/StatementDividend/statement-divident.service';
 import{statementDividend,pagination,DividendModel} from '../../../Models/StatementDividend/StatementDividend';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+// import * as jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
@@ -333,30 +333,30 @@ downloadMainGrid() {   //real downlad grid
  // });
 }
 
-downloadPDF(){
-  // this.showhead=false;
-  // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
-  // //const pdf = new jsPDF('p', 'pt', 'a4');
-  // const pdf = new jsPDF();
-  // pdf.addHTML(elementToPrint, () => {
-  //     pdf.save('web.pdf');
-  // });  
-  var doc = new jsPDF('legal', 'pt','a3' );
-  // doc.text("From HTML", 40, 50);legal
-   //doc.text( 40, 50);
-   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
-   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+// downloadPDF(){
+//   // this.showhead=false;
+//   // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+//   // //const pdf = new jsPDF('p', 'pt', 'a4');
+//   // const pdf = new jsPDF();
+//   // pdf.addHTML(elementToPrint, () => {
+//   //     pdf.save('web.pdf');
+//   // });  
+//   var doc = new jsPDF('legal', 'pt','a3' );
+//   // doc.text("From HTML", 40, 50);legal
+//    //doc.text( 40, 50);
+//    var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+//    var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
 
-   console.log(res)
-   console.log(res.data)
-   console.log(res.data[0])
-   doc.autoTable(res.columns, res1.data, {
-     startY: 90
-   });
+//    console.log(res)
+//    console.log(res.data)
+//    console.log(res.data[0])
+//    doc.autoTable(res.columns, res1.data, {
+//      startY: 90
+//    });
   
-   doc.save();
+//    doc.save();
    
-}
+// }
 
 
 

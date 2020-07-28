@@ -3,4 +3,6 @@ export class Bindgridfields {
     NMId : string;
     subject : string;
     dateofsubmission : string;
+    FontSize:string;
+    EmailType:string;
 }
