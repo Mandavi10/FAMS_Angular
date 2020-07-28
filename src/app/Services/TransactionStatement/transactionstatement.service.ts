@@ -38,7 +38,6 @@ export class TransactionstatementService {
   NextRecordBind(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/NextRecordBind/'+CustomerAccount+ '/' +FromDate +'/' + ToDate +'/' + SeqNo );
   }
-
   GetSummary(AccountNumber): Observable<any> {
     return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/GetSummary/' +AccountNumber );
   }

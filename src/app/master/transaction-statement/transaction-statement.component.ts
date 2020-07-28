@@ -682,7 +682,6 @@ downloadPDFFile(){
       pdf.save('Transaction_Statement.pdf'); // Generated PDF   
     });    
   
-
 }
 
 }
