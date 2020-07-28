@@ -23,5 +23,20 @@ export class StatementDividentService {
       headers 
   });
 }
+
+BindDefaultData(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/StatementDividend/BindDefaultData', body, {
+    headers 
+});
+}
+BindNextData(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/StatementDividend/BindNextData', body, {
+    headers 
+});
+}
   
 }

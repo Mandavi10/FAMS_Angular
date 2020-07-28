@@ -23,9 +23,49 @@ export class CapitalSatementService {
   });
 }
 
+
+BindDefaultData(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/CapitalStatement/BindDefaultData', body, {
+    headers 
+});
+}
+
+BindEmployee(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/CapitalStatement/BindEmployees' , body, {
+     headers 
+  });
+}
+//BindCustomers
+
+// BindCustomers(em:any){
+//   const body = em;
+//   const headers = new HttpHeaders().set('content-type', 'application/json');
+//   return this._http.post<any>(this.baseUrl + 'api/CapitalStatement/BindCustomers' , body, {
+//      headers 
+//   });
+// }
+
+BindCustomers(UserId){
+
+  return this._http.get<any>(this.baseUrl + 'api/CapitalStatement/BindCustomers/'+UserId );
+}
+
+
 DownloadExcel(): Observable<any> { 
   
   return this._http.get<any>(this.baseUrl + 'api/CapitalStatement/DownloadExcel/');
+}
+
+BindNextData(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/CapitalStatement/BindNextData', body, {
+    headers 
+});
 }
 
 
