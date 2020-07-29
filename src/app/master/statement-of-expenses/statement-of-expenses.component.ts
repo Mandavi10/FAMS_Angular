@@ -10,9 +10,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 
+import { timer } from 'rxjs';
+
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -24,13 +26,18 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class StatementOfExpensesComponent implements OnInit {
  
+  btnPrev:boolean=true;
+  btnNext:boolean=true;
+  IsShowRecord:boolean;
+  IsShowNoRecord:boolean;
 
   isShowsEmployee:boolean=false;
   isShowstatementOfExpenses4:boolean=false;
   isShowstatementOfExpenses5:boolean=false;
   EvenOdd:number=1;
 
-  isShowLoader:boolean=false;
+  //isShowLoader:boolean=false;
+  isShowLoader:boolean;
   HeaderArray : any =[];
   holdingReport:any=[];
   showModalstatemaster: boolean;
@@ -52,6 +59,7 @@ export class StatementOfExpensesComponent implements OnInit {
   setClickedRow: Function;
   Isdiv1:boolean;
   Isdiv:boolean;
+
  
   constructor(private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
 
@@ -98,7 +106,10 @@ export class StatementOfExpensesComponent implements OnInit {
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
+      this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      this.isShowCustomer=true;
       this.BindEmployee();
+      //this.BindCustomer();
      
     }
     else if(this.userType ==2)
@@ -125,11 +136,29 @@ export class StatementOfExpensesComponent implements OnInit {
   }
   BindDefaultLast(GAccountNumber,UserId)
   {
+    debugger;
     this._statementexpensesService.BindDefaultData(GAccountNumber,UserId).
     subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
      // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+     if(this.userType==3)
+     {
+      if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+      {
+       this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      }
+      else{
+       this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      }
+
+     }
+     else
+     {
       this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+     }
+    
+     //this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+
       this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
       this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
     this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
@@ -170,7 +199,10 @@ export class StatementOfExpensesComponent implements OnInit {
     this.EvenOdd+=1;
     if(this.EvenOdd % 2 !=0)
     {
-
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
       this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
       subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
@@ -268,11 +300,20 @@ export class StatementOfExpensesComponent implements OnInit {
 
   BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,SeqNo) {
     debugger;
-    this.loading = true;
+   // this.loading = true;
     this.isShowLoader=true;
     var currentContext = this;
-    this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
+    // timer(4000).subscribe(x => {
+      this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
         subscribe((data) => {
+
+      if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+      {
+        
+      
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
             // currentContext.statementOfExpenses = data.Table2;
             // currentContext.statementOfExpenses1 = data.Table1;
             // currentContext.statementOfExpenses2 = data.Table2
@@ -291,11 +332,32 @@ export class StatementOfExpensesComponent implements OnInit {
             }
             
             // currentContext.statementOfExpenses2 = data.Table2;
-            
+            this.isShowLoader=false;
+            debugger;
+            if(this.EvenOdd==1)
+            {
+              this.btnPrev=false;
+              // this.btnNext=true;
+            }
+           
+           else if(this.EvenOdd !=1)
+            {
+              this.btnPrev=true;
+              // this.btnNext=true;
+            }
+          }
+          else{
+            this.isShowLoader=false;
+          this.IsShowRecord=false;
+          this.IsShowNoRecord=true;
+          this.btnPrev=true;
+          }
         });
+        
+      // });
     // console.log(sessionStorage.getItem('ID'));
-    this.loading = false;
-    this.isShowLoader=false;
+    //this.loading = false;
+     
   }
   onSubmit() {
     this.EvenOdd=1;
@@ -499,19 +561,19 @@ downloadPDFFile(){
   // }
 
   var data = document.getElementById('bankmastertable');  
-    // html2canvas(data).then(canvas => {  
-     
-    //   var imgWidth = 208;   
-    //   var pageHeight = 295;    
-    //   var imgHeight = canvas.height * imgWidth / canvas.width;  
-    //   var heightLeft = imgHeight;  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
   
-    //   const contentDataURL = canvas.toDataURL('image/png')  
-    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-    //   var position = 0;  
-    //   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-    //   pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
-    // });    
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
+    });    
   
 
 }

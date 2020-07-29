@@ -5,9 +5,9 @@
         </div>
     <div class="content">
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
-            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                 <span class="legal"></span>
-            </div>
+            <div class="col-sm-6 col-md-6 col-xs-3">
+                <span class="legal">Capital Statement</span>
+                </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
@@ -19,7 +19,7 @@
                             </label>
                         </li>
                          
-                         <li (click)="downloadPDF()">
+                         <li (click)="downloadPDFFile()">
                                  <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                                  <label>
                                     Export to PDF
@@ -34,6 +34,21 @@
         <div class="row">
             
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="divEmployee">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                           Employee :
+                        </label>
+                        <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Employee1" (change)="BindCustomers()" [ngClass]="{ 'validate': submitted && f.Employee1.errors }">
+        
+                                <option value="">Select</option>
+                                <option *ngFor="let Data of BindemployeesList " value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                            </select>
+                          
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="CustNameDive">
                     <div class="form-group">
                         <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
@@ -43,12 +58,14 @@
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
         
                                 <option value="">Select</option>
-                                <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                                <option value="0" selected>All Customer</option>
+                                <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustomerAccountNo}} text={{Data.UserName}}>                       
                             </select>
                           
                         </div>
                     </div>
                 </div>
+              
                 <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group">
                             <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
@@ -73,7 +90,7 @@
                 
                     
                     <div class="col-md-1 col-sm-1 col-xs-12 mt-2  ">
-                        <button type="button" class="btn btn-success btnasearch" (click)="bindGrid()">Search</button>
+                        <button type="button" class="btn btn-success btnasearch" (click)="bindGrid(0,0,0,0)">Search</button>
                         </div>
                    
             </div>
@@ -112,18 +129,22 @@
             </div>
         </div>   
        
+        
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div id="capitalStatementGrid">
-                <table class="bankmasterTable" id="gridmain">
-                    <thead>
-                        <!-- <tr >
+            <div id="capitalStatementGrid" *ngIf="showGrid">
+                <table style="background-color:#ffffff !important;">
+                    <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" >
+                        <tr *ngFor="let data of data1">
+                      <td colspan="13" class="text-center" *ngIf="IsshowHeading">{{data.Data}}</td>
+                   </tr>
+                   <tr >
 
                             <th style="width: 250px"></th>
                             <th style="width: 410px; text-align: center;" colspan="4">Sale</th>
                             <th style="width: 710px; text-align: center" colspan="6">Purchase</th>
                             <th style="width: 360px; text-align: center" colspan="3">Realized Gain/Loss</th>
 
-                        </tr> -->
+                        </tr>
                         <tr>
 
                             <th style="width: 250px">Security</th>
@@ -143,8 +164,42 @@
                             <th class="text-center" style="width: 100px">LT</th>
                             <th class="text-center" style="width: 160px">After Index - LT</th>
                         </tr>
+                </thead>
+                </table>
+                <table class="bankmasterTable" id="gridmain12">
+                    <thead>
+                        <!-- <tr *ngFor="let data of data1">
+                            <td colspan="12" class="text-center">{{data.Data}}</td>
+                        </tr> -->
+                        <!-- <tr >
+
+                            <th style="width: 250px"></th>
+                            <th style="width: 410px; text-align: center;" colspan="4">Sale</th>
+                            <th style="width: 710px; text-align: center" colspan="6">Purchase</th>
+                            <th style="width: 360px; text-align: center" colspan="3">Realized Gain/Loss</th>
+
+                        </tr> -->
+                        <!-- <tr>
+
+                            <th style="width: 250px">Security</th>
+                            <th style="width: 100px">Sale Date</th>
+                            <th style="width: 100px">Sale Qty</th>
+                            <th class="text-right" style="width: 106px">Sale Rate</th>
+                            <th class="text-right" style="width: 110px">Sale Amount</th>
+
+                            <th style="width: 120px">Purchase Date</th>
+                            <th class="text-right" style="width: 120px">Purchase Rate</th>
+                            <th class="text-right" style="width: 100px">Price</th>
+                            <th class="text-right" style="width: 160px">Purchase Amount</th>
+                            <th class="text-right" style="width: 120px">Indexed Cost</th>
+                            <th style="width: 100px">Days Held</th>
+
+                            <th class="text-center" style="width: 100px">ST</th>
+                            <th class="text-center" style="width: 100px">LT</th>
+                            <th class="text-center" style="width: 160px">After Index - LT</th>
+                        </tr> -->
                     </thead>
-                    <tbody class="scrollbar">
+                    <tbody class="scrollbar" *ngIf="ISMaingrid"  style="border:none;">
                        
                         <tr *ngFor="let data of bindgrid">
 
@@ -261,15 +316,15 @@
                             <td class="text-right loss" style="width: 160px">-109,771.82</td>
                         </tr> -->
                     </tbody>
-                    <tfoot >
-                       
+                    <tfoot *ngIf="ISMaingrid" >
+                      
                         <tr>
 
                             <td style="width:237px">Total</td>
                             <td style="width: 95px"></td>
                             <td style="width:96px"></td>
                             <td class="text-right" style="width: 93px"></td>
-                            <td class="text-right" style="width: 118px">{{SumSaleAmount}}</td>
+                            <td class="text-right" style="width: 103px">{{SumSaleAmount}}</td>
 
                             <td style="width: 155px"></td>
                             <td class="text-right" style="width: 120px"></td>
@@ -278,9 +333,83 @@
                             <td class="text-right" style="width: 114px">{{SumIndexedCost}}</td>
                             <td class="text-center" style="width: 59px"></td>
 
-                            <td class="text-right" style="width: 100px">{{SumST}} </td>
-                            <td class="text-right loss" style="width: 75px">{{SumLT}}</td>
-                            <td class="text-right loss" style="width: 145px">{{SumAfterIndex_LT}}</td>
+                            <td class="text-right" style="width: 95px">{{SumST}} </td>
+                            <td class="text-right loss" style="width: 84px">{{SumLT}}</td>
+                            <td class="text-right loss" style="width: 160px">{{SumAfterIndex_LT}}</td>
+                        </tr>
+
+                    </tfoot>
+                   
+               
+
+                    <tfoot *ngIf="ISSummary" >
+                       
+                           
+                        <tr>
+
+                            <td style="width:237px">LT Gain/Loss</td>
+                            <td style="width: 95px"></td>
+                            <td style="width:96px">{{SumLT}}</td>
+                            <td class="text-right" style="width: 93px"></td>
+                            <td class="text-right" style="width: 103px">00.00</td>
+
+                            <td style="width: 155px"></td>
+                            <td class="text-right" style="width: 120px">00.00</td>
+                            <td class="text-right" style="width: 137px"></td>
+                            <td class="text-right" style="width: 100px">00.00</td>
+                            <td class="text-right" style="width: 114px"></td>
+                            <td class="text-center" style="width: 59px">00.00</td>
+
+                            <td class="text-right" style="width: 95px"> </td>
+                            <td class="text-right loss" style="width: 84px">{{SumLT}}</td>
+                            <td class="text-right loss" style="width: 160px"></td>
+                        </tr>
+
+                    </tfoot>
+
+                    <tfoot *ngIf="ISSummary" style="border:none;">
+                       
+                        <tr >
+                            <td colspan="14"style="color: #34628a;font-size: 12px;" class="text-center">Capital Gain/Loss Summary (Based on Effective Gain / Indexation)</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #ddd; color: #34628a">
+
+                                <td style="width:237px"></td>
+                                <td style="width: 95px"></td>
+                                <td style="width:96px">01/04-15/06</td>
+                                <td class="text-right" style="width: 93px"></td>
+                                <td class="text-right" style="width: 103px">16/06-15/09</td>
+    
+                                <td style="width: 155px"></td>
+                                <td class="text-right" style="width: 120px">16/09-15/12</td>
+                                <td class="text-right" style="width: 137px"></td>
+                                <td class="text-right" style="width: 100px">16/12-15/03</td>
+                                <td class="text-right" style="width: 114px"></td>
+                                <td class="text-center" style="width: 114px">16/02-31/03</td>
+    
+                                <td class="text-right" style="width: 95px"> </td>
+                                <td class="text-right " style="width: 84px">Total</td>
+                                <td class="text-right " style="width: 160px"></td>
+                            </tr>  
+
+                        <tr>
+
+                            <td style="width:237px">ST Gain/Loss</td>
+                            <td style="width: 95px"></td>
+                            <td style="width:96px">{{SumST}}</td>
+                            <td class="text-right" style="width: 93px"></td>
+                            <td class="text-right" style="width: 103px">00.00</td>
+
+                            <td style="width: 155px"></td>
+                            <td class="text-right" style="width: 120px">00.00</td>
+                            <td class="text-right" style="width: 137px"></td>
+                            <td class="text-right" style="width: 100px">00.00</td>
+                            <td class="text-right" style="width: 114px"></td>
+                            <td class="text-center" style="width: 59px">00.00</td>
+
+                            <td class="text-right" style="width: 95px"> </td>
+                            <td class="text-right loss" style="width: 84px">00.00</td>
+                            <td class="text-right loss" style="width: 160px"></td>
                         </tr>
 
                     </tfoot>
@@ -290,9 +419,11 @@
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="paginationDiv">
-                    <span class="previousBtn"(click)="prevClick()" *ngIf="btnPrev">Previous</span>
+                    <!-- <span class="previousBtn"(click)="BindNextData(0)" *ngIf="btnPrev">Previous</span> -->
+                    <span class="previousBtn"(click)="BindNextData(0)" *ngIf="btnPrev" >Previous</span>
                     <span class="paginationCount">{{data}}</span>
-                    <span class="nextBtn"(click)="nextClick()" *ngIf="btnNext">Next</span>
+                    <!-- <span class="nextBtn"(click)="BindNextData(1)" *ngIf="btnNext">Next</span> -->
+                    <span class="nextBtn"(click)="BindNextData(1)" *ngIf="btnNext" >Next</span>
                 </div>
        </div>
         </div>
