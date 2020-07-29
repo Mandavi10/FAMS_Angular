@@ -26,6 +26,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class StatementOfExpensesComponent implements OnInit {
  
+  btnPrev:boolean=true;
+  btnNext:boolean=true;
+  IsShowRecord:boolean;
+  IsShowNoRecord:boolean;
 
   isShowsEmployee:boolean=false;
   isShowstatementOfExpenses4:boolean=false;
@@ -55,8 +59,7 @@ export class StatementOfExpensesComponent implements OnInit {
   setClickedRow: Function;
   Isdiv1:boolean;
   Isdiv:boolean;
-  btnPrev:boolean=true;
-  btnNext:boolean=true;
+
  
   constructor(private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
 
@@ -300,6 +303,14 @@ export class StatementOfExpensesComponent implements OnInit {
     // timer(4000).subscribe(x => {
       this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
         subscribe((data) => {
+
+      if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+      {
+        
+      
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
             // currentContext.statementOfExpenses = data.Table2;
             // currentContext.statementOfExpenses1 = data.Table1;
             // currentContext.statementOfExpenses2 = data.Table2
@@ -331,6 +342,13 @@ export class StatementOfExpensesComponent implements OnInit {
               this.btnPrev=true;
               // this.btnNext=true;
             }
+          }
+          else{
+            this.isShowLoader=false;
+          this.IsShowRecord=false;
+          this.IsShowNoRecord=true;
+          this.btnPrev=true;
+          }
         });
         
       // });

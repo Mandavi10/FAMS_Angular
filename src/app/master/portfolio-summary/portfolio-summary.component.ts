@@ -30,6 +30,8 @@ export class PortfolioSummaryComponent implements OnInit {
   btnPrev:boolean=true;
   btnNext:boolean=true;; 
 
+  IsShowRecord:boolean;
+  IsShowNoRecord:boolean;
 
 
 
@@ -231,6 +233,13 @@ BindGrid(CustomerAccount,AsOnDate,SeqNo){
     (data) => {
 
       debugger;
+
+      if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0)  && (data.Table4.length !=0))
+      {
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
+     
       // this.isShowbindmaingridDetails=true;
        currentContext.bindmaingridHeader = data.Table;
        currentContext.bindPortfolioAllocation = data.Table1;  
@@ -241,6 +250,14 @@ BindGrid(CustomerAccount,AsOnDate,SeqNo){
        // this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
       // this.isShowbindmaingridDetails=true;
       // this.isShowmaingridDetailsSummary=false;
+      }
+      else
+      {
+        this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnPrev=true;
+      }
       });
       debugger;
       if(this.SeqNo==1)
@@ -283,6 +300,9 @@ else{
     //     this.btnNext=true;
     //   }
     }
+
+  
+  
 }
 onSubmit() {
   this.SeqNo=1;
