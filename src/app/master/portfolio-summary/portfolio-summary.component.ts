@@ -27,6 +27,11 @@ import html2canvas from 'html2canvas';
 })
 export class PortfolioSummaryComponent implements OnInit {
 
+  btnPrev:boolean=true;
+  btnNext:boolean=true;; 
+
+
+
 
   RunningNoOfPage:number;
   NoOfPage:number;
@@ -153,6 +158,8 @@ BindDefaultLast(GAccountNumber,UserId)
   this.PortfolioSummaryForm.controls["AsOnDate"].setValue(data.Table[0].AsOnDate);
   this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].AsOnDate,this.SeqNo) ;
   //this.BindGrid("6010001","2020-06-30",this.SeqNo) ;
+  
+  
   });
   
 }
@@ -218,6 +225,7 @@ BindGrid(CustomerAccount,AsOnDate,SeqNo){
     "CustomerAccount" : CustomerAccount,
     "SeqNo":SeqNo
   }
+  this.isShowLoader=true;
   var currentContext = this;
   this.TSService.BindGrid(JsonData).subscribe(
     (data) => {
@@ -229,10 +237,52 @@ BindGrid(CustomerAccount,AsOnDate,SeqNo){
        currentContext.bindPortfolioSummary = data.Table2; 
        currentContext.bindPortfolioPerformance = data.Table3;
        currentContext.bindPortfolioAllocation_Total=data.Table4 
+       this.isShowLoader=false;
        // this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
       // this.isShowbindmaingridDetails=true;
       // this.isShowmaingridDetailsSummary=false;
       });
+      debugger;
+      if(this.SeqNo==1)
+      {
+        this.btnPrev=false;
+        // this.btnNext=true;
+      }
+     
+     else if(this.SeqNo !=1)
+      {
+        this.btnPrev=true;
+        // this.btnNext=true;
+      }
+
+      debugger;
+if(this.PortfolioSummaryForm.controls["UserId"].value!="0")
+{
+//   if(this.SeqNo==1)
+//   {
+//     // this.btnPrev=true;
+//     this.btnNext=false;
+//   }
+ 
+//  else if(this.SeqNo !=1)
+//   {
+//     // this.btnPrev=true;
+//     this.btnNext=true;
+//   }
+}
+else{
+    //   if(this.SeqNo==1)
+    //   {
+    //     // this.btnPrev=true;
+    //     this.btnNext=false;
+    //   }
+     
+    //  else if(this.SeqNo !=1)
+    //   {
+    //     // this.btnPrev=true;
+    //     this.btnNext=true;
+    //   }
+    }
 }
 onSubmit() {
   this.SeqNo=1;

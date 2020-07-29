@@ -48,12 +48,16 @@
              </div>
         </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div>
         </div>
-        
+         -->
+
+         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
         <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
         <form [formGroup]="PortfolioSummaryForm" autocomplete="off" appNorightclick>
@@ -312,9 +316,9 @@
 
         </div>
         <div class="paginationDiv">
-            <span class="previousBtn" (click)="PreviousClick()">Previous</span>
+            <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
             <span class="paginationCount"  id="lblcount"></span>
-            <span class="nextBtn" (click)="NextClick()" >Next</span>
+            <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
         </div>
         
             

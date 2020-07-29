@@ -35,16 +35,16 @@ table thead tr th {
 }
 
 .loaderposition {
-  position: absolute;
-  z-index: 9999 !important;
-  text-align: center;
-  /* top: 37%; */
-}
-.loaderimagepage {
-  margin-left: 2%;
-  margin-top: 0%;
-  width: 8%;
-}
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    /* top: 37%; */
+  }
+  .loaderimagepage {
+    margin-left: -12%;
+    margin-top: 2%;
+    width: 8%;
+  }
 
  #portfolioPerformance { overflow:auto;}
 strong {
