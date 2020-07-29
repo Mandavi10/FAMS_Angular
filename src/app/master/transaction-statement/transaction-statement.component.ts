@@ -13,7 +13,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 @Component({
   selector: 'app-transaction-statement',
@@ -21,6 +21,8 @@ import { timer } from 'rxjs';
   styleUrls: ['./transaction-statement.component.css']
 })
 export class TransactionStatementComponent implements OnInit {
+  btnPrev:boolean=true;
+  btnNext:boolean=true;
   RunningNoOfPage:number;
   NoOfPage:number;
   Default_NoOfPage:number=1;
@@ -442,6 +444,7 @@ var currentContext=this;
     // this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     // this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     // this.divMainGrid=true;
+    
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
     // if(UserId=="30007" || UserId=="30008"){
@@ -451,7 +454,7 @@ var currentContext=this;
     //   CustomerAccount = this.TransactionStatementForm.controls['CustomerAccount'].value;
     // }
 
-    
+    this.isShowLoader=true;
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
@@ -538,6 +541,20 @@ var currentContext=this;
         this.isShowbindmaingridDetails=true;
         this.isShowmaingridDetailsSummary=false;
         currentContext.bindmaingridDetails = data.Table1;  
+
+        this.isShowLoader=false;
+        debugger;
+        if(this.SeqNo==1)
+        {
+          this.btnPrev=false;
+          // this.btnNext=true;
+        }
+       
+       else if(this.SeqNo !=1)
+        {
+          this.btnPrev=true;
+          // this.btnNext=true;
+        }
        // currentContext.bindmaingridDetailsSummary = data.Table2;  
         });
   }
@@ -667,7 +684,6 @@ downloadPDFFile(){
 
 
 
-
   var data = document.getElementById('bankmasterTable');  
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
@@ -675,22 +691,13 @@ downloadPDFFile(){
       var pageHeight = 295;    
       var imgHeight = canvas.height * imgWidth / canvas.width;  
       var heightLeft = imgHeight;  
-
-  // var data = document.getElementById('bankmastertable');  
-  //   html2canvas(data).then(canvas => {  
-  //     // Few necessary setting options  
-  //     var imgWidth = 208;   
-  //     var pageHeight = 295;    
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
-  //     var heightLeft = imgHeight;  
-
   
-  //     const contentDataURL = canvas.toDataURL('image/png')  
-  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-  //     var position = 0;  
-  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-  //     pdf.save('Transaction_Statement.pdf'); // Generated PDF   
-  //   });    
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('Transaction_Statement.pdf'); // Generated PDF   
+    });    
   
 }
 
