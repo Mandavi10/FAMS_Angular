@@ -6,6 +6,11 @@ table thead tr th {
     font-size: 12px !important;
     font-weight: 600;
 }
+.paginationDiv {
+    position: fixed;
+    right: 0px;
+    bottom: 10px;
+}
 #portfolioAllocation .bankmasterTable{display:inline-block}
 #portfolioAllocation .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioAllocation .bankmasterTable tbody {
