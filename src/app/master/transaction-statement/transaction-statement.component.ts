@@ -667,7 +667,7 @@ downloadPDFFile(){
 
 
 
-  var data = document.getElementById('bankmastertable');  
+  var data = document.getElementById('bankmasterTable');  
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
       var imgWidth = 208;   

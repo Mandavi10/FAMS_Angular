@@ -4,78 +4,110 @@
             <div class="col-sm-6 col-md-6 col-xs-3">
                  <span class="legal"> Portfolio Summary</span>
             </div>
+            <!-- <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <li (click)="downloadCSVFile()">
+                        <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                        <label>
+                            Export to CSV
+                        </label>
+                    </li>
+                    <li (click)="downloadPDFFile()">
+                     <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                        <label>
+                        Export to PDF
+                        </label>
+                     </li>
+                </div>
+            </div> -->
             <div class="rightmenu">
                 <div class="toolbar pull-right">
-                    <ul class="toolbar-content">
-                       
-                         <li (click)="downloadCSVFile()">
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
-                            <label>
-                                Export to CSV
-                            </label>
-                        </li>
-                    
-                            <li> 
-                                 <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
-                                 <label>
-                                    Export to PDF
-                                 </label>
-                             </li>
-                            
-                     </ul>
+                   <ul class="toolbar-content">
+                      <li (click)="downloadCSVFile()">
+                         <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
+                         <label>
+                            <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
+                            Export to CSV
+                         </label>
+                         <!-- <a href="../../../assets/ExcelReports/HoldingReport.csv"> <button type="button" id="btnExport" class="btn  pdfbtns" title="Export">
+                            <i class="fa fa-file-excel-o"></i>
+                            </button></a> --> 
+                      </li>
+                      <li (click)="downloadPDFFile()">
+                         <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
+                         <label>
+                         <!-- <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                         Export to PDF
+                         </label>
+                         <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                            <i class="fa fa-file-pdf-o"></i>
+                            </button></a> -->
+                      </li>
+                   </ul>
                 </div>
-            </div>
+             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
-            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
         </div>
         
         <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-                    <form [formGroup]="SummaryReportForm" autocomplete="off" appNorightclick>
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="form-group">
-                <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                   Customer Name :
-                </label>
-                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                        <option value="0">Select</option>
-                        <option value="1"> Customer 1 </option>                     
-                    </select>
-                  
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <form [formGroup]="PortfolioSummaryForm" autocomplete="off" appNorightclick>
+            <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
+                <div class="form-group">
+                  <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                    Employee Name :
+                  </label>
+                  <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                      <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+          
+                          <option value="0">All Employee</option>
+                          <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                      </select>
+                  </div>
+              </div>
+             </div>
+            <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="isShowCustomer" >
+                <div class="form-group" >
+                    <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                       Customer Name :
+                    </label>
+                    <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
+                        <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                            <option value="0" selected>All Customer</option>
+                            <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                {{data.UserName}}
+                            </option>
+                         </select>
+                      
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-12">
+                    
+            </div>  
+            <div class="col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                       From Date :
+                       As Of :
                     </label>
                     <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                        <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Fromdate" >
+                        <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="AsOnDate" >
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-12 ">
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                         To Date :
-                        </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
-                    <button type="button" class="btn btn-success btnasearch">Search</button>
-                    </div>
-                    </form>
+            <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
+                    <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
+                    <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
+            </div>
+            </form>
            
     </div>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0 mt-3" id="tbldiv" style="display:block">
-        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                  
             </div>
@@ -105,46 +137,27 @@
                      </ul>
                 </div>
             </div>
-        </div>  
+        </div>   -->
      
-        <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
+        <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid" id="portfolioSummaryGridPdf">
 
-          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-12 col-sm-12 col-xs-12 p-0">
             <div id="portfolioSummaryGrid">
-                <table class="bankmasterTable">
+                <table class="bankmasterTable" id="bankmastertable">
                     <thead style="border-bottom:0px">
                         <tr>
                             <th>
                                 <table>
-                                    <tr>
-                                        <td class="text-center">ADROIT PMS SERVICES PVT LTD</td>
-                                    </tr>
-                                    <tr>
+                                    <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                                        <td class="text-center">{{data.Date }}</td>
+                                     </tr>
+                                    <!-- <tr>
                                         <td class="text-center">MUMBAI</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="text-center" style="font-weight: bold; font-size: 13px !important;">PORTFOLIO SUMMARY</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">As Of 30/06/2020
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><span>Account : 6010001</span>     <span>RUBY DECOSTA - ADT001	</span>			
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">ADROITPMS1
-                                        </td>
-                                    </tr>
-                                </table></th>
+                                    </tr> -->
+                                </table>
+                            </th>
                         </tr> 
-                        
-                       
-                    </thead>
-                   
+                    </thead>                   
                 </table>
                 <div class="col-sm-6 col-md-6 col-xs-6 pl-0" id="portfolioAllocation">
                <div class="col-sm-12 col-md-12 col-xs-12 pl-0">
@@ -153,15 +166,19 @@
                 <table class="bankmasterTable" id="allocation" style="width:93%">
                     <thead>
                        <tr>
-
-                            <th style="width: 360px">Description </th>
-                            <th style="width: 100px" class="price">Market Value</th>
-                            <th style="width: 100px">%Assets</th>
+                            <th style="width: 278px">Description </th>
+                            <th style="width: 149px" class="price" >Market Value</th>
+                            <th style="width: 86px">%Assets</th>
                         </tr>
                     </thead>
                     <tbody class="scrollbar">
-                       
-                        <tr>
+                        <tr *ngFor="let data of bindPortfolioAllocation ; index as i"  >
+                            <td style="width: 278px">{{data.Description }}</td>
+                            <td style="width: 149px" class="price" >{{data.MarketValue }}</td>  
+                            <td style="width:86px" >{{data.PerAsstes }}%</td>
+                            
+                         </tr>
+                        <!-- <tr>
                             <td style="width: 360px">Equity </td>
                             <td style="width: 100px" class="price">1,669,414.50</td>
                             <td style="width: 100px" class="profit">112.75 %</td>
@@ -170,15 +187,24 @@
                             <td style="width: 360px">Cash and Equivalent  </td>
                             <td style="width: 100px" class="price">(188,782.16)</td>
                             <td style="width: 100px" class="loss">-12.75 %</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                     <tfoot >
                        
-                        <tr>
+                        <!-- <tr>
                             <td style="width:360px">Total</td>
                             <td style="width: 100px" class="price">1,480,632.34</td>
                             <td style="width: 100px">100.00 %</td>
-                        </tr>
+                        </tr> -->
+
+                        <tr *ngFor="let data of bindPortfolioAllocation_Total ; index as i"  >
+                            <td style="width: 278px">{{data.Total }}</td>
+                            <td style="width: 149px" class="price" >{{data.MarketValue }}</td>  
+                            <td style="width: 86px">{{data.PerAsstes }}%</td>
+                            
+                         </tr>
+
+
 
                     </tfoot>
                 </table>
@@ -189,8 +215,11 @@
             </div>
                  <table class="bankmasterTable" id="summary">
                       <tbody class="scrollbar">
-                        
-                         <tr>
+                        <tr *ngFor="let data of bindPortfolioSummary ; index as i"  >
+                            <td style="width: 250px">{{data.Heading }}</td>
+                            <td style="width: 100px">{{data.Data }}</td>
+                         </tr>
+                         <!-- <tr>
                              <td style="width: 250px">Portfolio Inception Date</td>
                              <td style="width: 100px">1/1/2020 </td>
                          </tr>
@@ -205,7 +234,7 @@
                         <tr>
                             <td style="width: 250px">Unrealized Gain </td>
                             <td style="width: 100px" class="loss">-631,351.29</td>
-                        </tr>
+                        </tr> -->
                      </tbody>
                     
                  </table>
@@ -218,7 +247,6 @@
                  <table class="bankmasterTable" id="performance">
                      <thead>
                         <tr>
- 
                              <th style="width: 250px">Period </th>
                              <th style="width: 100px">Portfolio</th>
                              <th style="width: 100px">NIFTY</th>
@@ -226,9 +254,13 @@
                          </tr>
                      </thead>
                      <tbody class="scrollbar">
-                        
-                         
-                        <tr>
+                        <tr *ngFor="let data of bindPortfolioPerformance ; index as i"  >
+                            <td style="width: 250px">{{data.Period }}%</td>
+                            <td style="width: 100px">{{data.Portfolio }}%</td>
+                            <td style="width: 100px">{{data.NIFTY }}%</td>  
+                            <td style="width: 100px">{{data.BSE500 }}%</td>  
+                         </tr>
+                        <!-- <tr>
                             <td style="width: 250px">1 Month </td>
                             <td style="width: 100px" class="loss">-6.08 %</td>
                             <td style="width: 100px" class="profit">7.53 %</td>
@@ -251,15 +283,15 @@
                             <td style="width: 100px" class="loss">-6.08 %</td>
                             <td style="width: 100px" class="profit">7.53 %</td>
                             <td style="width: 100px" class="profit">8.24%</td>
-                        </tr>
+                        </tr> -->
                      </tbody>
                      
                  </table>
              </div>
-</div>
+            </div>
             
         </div>
-        <div class="col-sm-12 col-md-12 col-xs-12">
+        <div class="col-sm-12 col-md-12 col-xs-12 p-0">
             <div class="col-sm-12 col-md-12 col-xs-12 p-0">
              <span class="legal subHeading">Report Disclosure Statement</span>
              <p style="font-size:10px"><strong>Method :</strong> &nbsp;
@@ -278,9 +310,15 @@
         </div>
 </div> -->
 
-</div>
-            
         </div>
+        <div class="paginationDiv">
+            <span class="previousBtn" (click)="PreviousClick()">Previous</span>
+            <span class="paginationCount"  id="lblcount"></span>
+            <span class="nextBtn" (click)="NextClick()" >Next</span>
+        </div>
+        
+            
+    </div>
       
 
     </div>
