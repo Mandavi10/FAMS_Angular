@@ -1,3 +1,8 @@
+#capitalStatementGrid .bankmasterTable tbody {
+  max-height:21vh !important;
+  display: inline-block;
+  width: 100%;
+}
 table thead tr th {
     color: #003974 !important;
     height: 30px;
@@ -6,11 +11,7 @@ table thead tr th {
 }
 #capitalStatementGrid .bankmasterTable{display:inline-block}
 #capitalStatementGrid .bankmasterTable thead{ display: inline-block; width:100%}
-#capitalStatementGrid .bankmasterTable tbody {
-    max-height: 54vh !important;
-    display: inline-block;
-    width:100%
-}
+
 
 .loaderposition {
   position: absolute;
@@ -43,11 +44,7 @@ text-align:right !important}
     overflow:hidden !important}
     @media only screen and (max-device-width : 1400px) { .divinlineblock{display:inline-block;} 
  
-    #capitalStatementGrid .bankmasterTable tbody {
-        max-height: 54vh !important;
-        display: inline-block;
-        width: 100%;
-    }
+   
 }
     @media only screen and (max-device-width : 1330px) { #divform{   overflow-y: scroll!important;
       height: 421px !important; } 

@@ -54,7 +54,7 @@ const routes: Routes = [
 
 
 {path: 'CapitalStatement', loadChildren: './capital-statement/capital-statement.module#CapitalStatementModule'},
-
+{path: 'TestPage', loadChildren: './test-page/test-page.module#TestPageModule'},
 
 {path: 'PortfolioAppraisals', loadChildren: './portfolio-appraisals/portfolio-appraisals.module#PortfolioAppraisalsModule'},
 
