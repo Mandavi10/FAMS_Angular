@@ -74,6 +74,12 @@ export class PortfolioFactComponent implements OnInit {
   FromDate:string;
   ToDate:string;
   summary={};
+  showperformance:boolean;
+  showsummary:boolean;
+  showholding:boolean;
+  showsector:boolean;
+  showmainheading:boolean;
+  showGrid:boolean;
 
   constructor(private _porfolioFactService:PortfolioFactService,private formbuilder:FormBuilder, private _capitalStateService:CapitalSatementService,private Dbsecurity: DbsecurityService) { }
 
@@ -306,7 +312,7 @@ else if(value == 0){
   this._porfolioFactService.BindNextData(JsonData).subscribe(
     (data) => {
 
-      if(data.Table.length!=0){
+      if(data.Table.length > 0){
       this.FromDate = data.Table[0]["AsOnDate"];
       this.ToDate = data.Table[0]["AsOnDate"];
       // this.CustomerAccount = "";
@@ -345,6 +351,7 @@ else if(value == 0){
         "PageCount" :temppgcount//pagecount
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._porfolioFactService.BindGrid(JsonData).subscribe((res)=>{
         console.log('portgoliofactgird');
       console.log(res);
@@ -432,7 +439,7 @@ this.performance15=res.Table5[3].Data4
       
      
       
-      
+      this.showGrid=true;
       this.ShowLoaderp=false;
       
       
@@ -478,7 +485,9 @@ this.performance15=res.Table5[3].Data4
           "PageCount" : this.PageCount       
         } 
         this.ShowLoaderp=true;
+        this.showGrid=false;
         this._porfolioFactService.BindGrid(JsonData).subscribe((res)=>{
+          if(res.Table.length >0 && res.Table2.length >0 &&res.Table4.length >0  && res.Table5.length >0 ){
           console.log('portgoliofactgird');
         console.log(res);
         this.sectorAllocation=res.Table;
@@ -532,6 +541,12 @@ this.performance15=res.Table5[3].Data4
         this.SumPerAssets=res.Table3[0].SumPerAssets;
       
         this.data1=res.Table6;
+        this.showmainheading=true;
+
+        this. showperformance=true;
+        this.showsummary=true;
+        this.showholding=true;
+        this.showsector=true;
         
         // if(res.Table.length!=0 && this.PortFolioForm.controls['CustomerAccount'].value == 0){
         //   this.btnPrev=false;
@@ -562,9 +577,19 @@ this.performance15=res.Table5[3].Data4
         // this.totalpagecount=res.Table1[0].Total
         
        
-        
+          }
+          else{
+            this. showperformance=false;
+             this.showsummary=false;
+             this.showholding=false;
+             this.showsector=false;
+             this.btnPrev=false;
+             this.btnNext=false;
+             this.showmainheading=false;
+           }
         
         this.ShowLoaderp=false;
+        this.showGrid=true;
         
         
         }) 
@@ -657,7 +682,10 @@ this.performance15=res.Table5[3].Data4
    
   }
   this.ShowLoaderp=true;
+  this.showGrid=false;
   this._porfolioFactService.BindGrid(jasondata).subscribe((res)=>{
+
+    if(res.Table.length >0 && res.Table2.length >0 &&res.Table4.length >0  && res.Table5.length >0 ){
     console.log('portgoliofactgird');
   console.log(res);
   this.sectorAllocation=res.Table;
@@ -740,6 +768,11 @@ console.log(this.summary);
     this.btnNext=true; 
   
   }
+  this. showperformance=true;
+  this.showsummary=true;
+  this.showholding=true;
+  this.showsector=true;
+  this.showmainheading=true;
   
   
   // for(var i=0;i<res.Table.length;i++){
@@ -763,10 +796,21 @@ console.log(this.summary);
   // this.data=' ';
   // this.totalpagecount=res.Table1[0].Total
   
- 
+}
+else{
+ this. showperformance=false;
+  this.showsummary=false;
+  this.showholding=false;
+  this.showsector=false;
+  this.btnPrev=false;
+  this.btnNext=false;
+  this.showmainheading=false;
+}
+
   
   
   this.ShowLoaderp=false;
+  this.showGrid=true;
   
   
   })

@@ -56,6 +56,8 @@ export class StatementDividendComponent implements OnInit {
   showModalsavepopup:boolean;
   totalpagecount:number;
   totalcustomer:number;
+  IsshowHeading:boolean;
+  showGrid:boolean;
   
 
 
@@ -369,6 +371,7 @@ this.data=' ';
         "PageCount" :pagecount
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._StatementDividendService.BindGrid(JsonData).subscribe((res)=>{
       console.log(res);
       this.bindgrid=res.Table;
@@ -403,12 +406,13 @@ this.data=' ';
       this.SumNetAmount=res.Table1[0].SumNetAmount;
       this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
       
-      
+      this.IsshowHeading=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
       
       this.ShowLoaderp=false;
+      this.showGrid=true;
       
       })
         }
@@ -497,8 +501,10 @@ BindDefaultData(){
         "PageCount" : this.PageCount       
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._StatementDividendService.BindGrid(JsonData).subscribe((res)=>{
       console.log(res);
+      if(res.Table.length > 0){
       this.bindgrid=res.Table;
       this.bindgridDivident=res.Table1;
       // this.pagination=res.Table1;
@@ -535,11 +541,24 @@ BindDefaultData(){
       // }
       //  this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
        this.data=' ';
-      
+       this.IsshowHeading=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
+      }
+      else
+{
+  this.ISSummary=false;
+  this.ISMaingrid=false;
+  this.IsshowHeading=false;
+  this.btnNext=false;
+  this.btnPrev=false;
+  
+}
+
       this.ShowLoaderp=false;
+      
+      this.showGrid=true;
       
       })   
     });
@@ -621,8 +640,10 @@ bindGrid(){
  
 }
 this.ShowLoaderp=true;
+this.showGrid=false;
 this._StatementDividendService.BindGrid(jasondata).subscribe((res)=>{
 console.log(res);
+if(res.Table.length >0){
 this.bindgrid=res.Table;
 this.bindgridDivident=res.Table1;
 // this.pagination=res.Table1;
@@ -662,7 +683,7 @@ this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
 // this.SumOutstanding_Divident=res.Table3[0].SumOutstanding_Divident;
 // this.SumTotal_Amount=res.Table3[0].SumTotal_Amount;
 // this.SumTDS_Amount=res.Table3[0].SumTDS_Amount; Total
-
+this.IsshowHeading=true;
 this.data1=res.Table2
 console.log(this.bindgrid)
 console.log(this.pagination)
@@ -680,9 +701,20 @@ this.totalpagecount=res.Table1[0].Total
 //   this.btnPrev=true;
 //  this.btnNext==true;
 //   }
+} 
+else
+{
+  this.ISSummary=false;
+  this.ISMaingrid=false;
+  this.IsshowHeading=false;
+  this.btnNext=false;
+  this.btnPrev=false;
+  
+}
 
 
 this.ShowLoaderp=false;
+this.showGrid=true;
 
 
 })
