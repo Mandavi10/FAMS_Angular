@@ -21,6 +21,10 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./transaction-statement.component.css']
 })
 export class TransactionStatementComponent implements OnInit {
+
+  IsShowRecord:boolean;
+  IsShowNoRecord:boolean;
+
   btnPrev:boolean=true;
   btnNext:boolean=true;
   RunningNoOfPage:number;
@@ -468,75 +472,17 @@ var currentContext=this;
       (data) => {
 
         debugger;
+
+     if((data.Table.length !=0) && (data.Table1.length !=0) )
+      {
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;   
         // this.isShowbindmaingridDetails=true;
         currentContext.bindmaingridHeader = data.Table;
 
         // this.NoOfPage = data.Table1[4].NoOfPage;
           this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
-
-        //  if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && this.SeqNo==3)
-        //  {
-        //        // this.SeqNo -=1;
-        //        this.isShowbindmaingridDetails=false;
-        //        this.isShowmaingridDetailsSummary=true;
-        //        this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-        //  else if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && (this.SeqNo==1 || this.SeqNo==2))
-        //  {
-        //     this.isShowbindmaingridDetails=true;
-        //     this.isShowmaingridDetailsSummary=false;
-        //     this.bindmaingridDetails = data.Table1;
-        //     this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-
-        //  if((this.CustomerAccountNo=="6010002" || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && this.SeqNo==4)
-        //  {
-        //     // this.SeqNo -=1;
-        //     this.isShowbindmaingridDetails=false;
-        //     this.isShowmaingridDetailsSummary=true;
-        //     this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-        //  else if((this.CustomerAccountNo=="6010002"  || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && (this.SeqNo==1 || this.SeqNo==2 || this.SeqNo==3))
-        //  {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   this.bindmaingridDetails = data.Table1;
-        //   this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-
-
-
-
-
-        // if(this.NoOfPage >=this.SeqNo && this.CustomerAccountNo == data.Table1[4].CustomerAccountNo)
-        // {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   currentContext.bindmaingridDetails = data.Table1;
-        // }
-        // else
-        // {
-        //   this.SeqNo -=1;
-        //   this.isShowbindmaingridDetails=false;
-        //   this.isShowmaingridDetailsSummary=true;
-        //   currentContext.bindmaingridDetailsSummary = data.Table2;
-        // }
-        // if(this.UniqueSeqNo <= data.Table1[0].NoOfPage)
-        // {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   currentContext.bindmaingridDetails = data.Table1;
-        // }
-        // else
-        // {
-        //   this.isShowbindmaingridDetails=false;
-        //   this.isShowmaingridDetailsSummary=true;
-        //   currentContext.bindmaingridDetailsSummary = data.Table2;
-        // }
-
-
-
-
 
         this.isShowbindmaingridDetails=true;
         this.isShowmaingridDetailsSummary=false;
@@ -555,6 +501,14 @@ var currentContext=this;
           this.btnPrev=true;
           // this.btnNext=true;
         }
+      }
+      else
+      {
+        this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnPrev=true;
+      }
        // currentContext.bindmaingridDetailsSummary = data.Table2;  
         });
   }

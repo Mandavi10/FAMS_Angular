@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>   -->
-     
+        <div id="Record" *ngIf="IsShowRecord" >
         <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid" id="portfolioSummaryGridPdf">
 
           <div class="col-md-12 col-sm-12 col-xs-12 p-0">
@@ -182,6 +182,7 @@
                             <td style="width:86px" >{{data.PerAsstes }}%</td>
                             
                          </tr>
+                         
                         <!-- <tr>
                             <td style="width: 360px">Equity </td>
                             <td style="width: 100px" class="price">1,669,414.50</td>
@@ -319,6 +320,13 @@
             <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
             <span class="paginationCount"  id="lblcount"></span>
             <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
+        </div>
+        </div>
+
+        <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+            <div class="text" style="text-align: center;">
+               <p>No Record Found</p>
+            </div>
         </div>
         
             
