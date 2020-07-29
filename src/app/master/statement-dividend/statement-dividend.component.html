@@ -158,19 +158,42 @@
       </div>   
      
       <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable1" *ngIf="ISMaingrid">
+          <div class="holdingreportGrid" *ngIf="showGrid"> 
+                <table style="background-color:#ffffff !important;" *ngIf="ISMaingrid">
+            <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" ><tr *ngFor="let data of data1">
+              <td colspan="12" *ngIf="IsshowHeading"class="text-center">{{data.Data}}</td>
+           </tr>
+          
+           
+           <tr>
+
+            <th style="width: 153px">Ex Date</th>
+            <th style="width: 145px">Received Date</th>
+            <th style="width: 152px">Security</th>
+            <th style="width: 123px">Quantity</th>
+            <th style="width: 123px">Rate</th>
+            
+            <th style="width: 187px" class="text-right">Receivable Amount</th>
+            <th style="width: 151px" class="text-right">Received Amount</th>
+           <th style="width: 123px" class="text-right">TDS Amount</th> 
+            <th style="width: 132px" class="text-right">Net Amount</th>
+            <th style="width: 145px" class="text-right">Balance Amount</th>
+           
+        </tr>
+                
+        </thead>
+        </table>
+
+          <table class="bankmasterTable" id="bankmastertable1" >
               <thead>
-                <!-- <tr *ngFor="let data of data1">
-                    <td>{{data.Data}}</td>
-                </tr > -->
-                <tr *ngFor="let Data of data1">
+                
+                <!-- <tr *ngFor="let Data of data1">
                     <td colspan="9" class="text-center">{{Data.Data}}</td>
                  </tr>
-                <tr>
+                <tr> -->
 
                     
-
+<!-- 
                   <tr>
 
                       <th style="width: 153px">Ex Date</th>
@@ -178,14 +201,14 @@
                       <th style="width: 152px">Security</th>
                       <th style="width: 123px">Quantity</th>
                       <th style="width: 123px">Rate</th>
-                      <!-- <th style="width: 54px" class="text-right">Amount</th> -->
+                      
                       <th style="width: 187px" class="text-right">Receivable Amount</th>
                       <th style="width: 151px" class="text-right">Received Amount</th>
                      <th style="width: 123px" class="text-right">TDS Amount</th> 
                       <th style="width: 132px" class="text-right">Net Amount</th>
                       <th style="width: 145px" class="text-right">Balance Amount</th>
                      
-                  </tr>
+                  </tr> -->
               </thead>
               <tbody class="scrollbar">
                   <tr>

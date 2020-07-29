@@ -199,7 +199,10 @@ export class StatementOfExpensesComponent implements OnInit {
     this.EvenOdd+=1;
     if(this.EvenOdd % 2 !=0)
     {
-
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
       this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
       subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;

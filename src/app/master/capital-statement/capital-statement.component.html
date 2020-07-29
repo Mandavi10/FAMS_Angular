@@ -129,13 +129,15 @@
             </div>
         </div>   
        
+        
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div id="capitalStatementGrid">
-                <table class="bankmasterTable" id="gridmain">
-                    <thead>
+            <div id="capitalStatementGrid" *ngIf="showGrid">
+                <table style="background-color:#ffffff !important;">
+                    <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" >
                         <tr *ngFor="let data of data1">
-                            <td colspan="12" class="text-center">{{data.Data}}</td>
-                        <tr >
+                      <td colspan="13" class="text-center" *ngIf="IsshowHeading">{{data.Data}}</td>
+                   </tr>
+                   <tr >
 
                             <th style="width: 250px"></th>
                             <th style="width: 410px; text-align: center;" colspan="4">Sale</th>
@@ -153,8 +155,8 @@
 
                             <th style="width: 120px">Purchase Date</th>
                             <th class="text-right" style="width: 120px">Purchase Rate</th>
-                            <th class="text-right" style="width: 72px">Price</th>
-                            <th class="text-right" style="width: 174px">Purchase Amount</th>
+                            <th class="text-right" style="width: 100px">Price</th>
+                            <th class="text-right" style="width: 160px">Purchase Amount</th>
                             <th class="text-right" style="width: 120px">Indexed Cost</th>
                             <th style="width: 100px">Days Held</th>
 
@@ -162,12 +164,46 @@
                             <th class="text-center" style="width: 100px">LT</th>
                             <th class="text-center" style="width: 160px">After Index - LT</th>
                         </tr>
+                </thead>
+                </table>
+                <table class="bankmasterTable" id="gridmain12">
+                    <thead>
+                        <!-- <tr *ngFor="let data of data1">
+                            <td colspan="12" class="text-center">{{data.Data}}</td>
+                        </tr> -->
+                        <!-- <tr >
+
+                            <th style="width: 250px"></th>
+                            <th style="width: 410px; text-align: center;" colspan="4">Sale</th>
+                            <th style="width: 710px; text-align: center" colspan="6">Purchase</th>
+                            <th style="width: 360px; text-align: center" colspan="3">Realized Gain/Loss</th>
+
+                        </tr> -->
+                        <!-- <tr>
+
+                            <th style="width: 250px">Security</th>
+                            <th style="width: 100px">Sale Date</th>
+                            <th style="width: 100px">Sale Qty</th>
+                            <th class="text-right" style="width: 106px">Sale Rate</th>
+                            <th class="text-right" style="width: 110px">Sale Amount</th>
+
+                            <th style="width: 120px">Purchase Date</th>
+                            <th class="text-right" style="width: 120px">Purchase Rate</th>
+                            <th class="text-right" style="width: 100px">Price</th>
+                            <th class="text-right" style="width: 160px">Purchase Amount</th>
+                            <th class="text-right" style="width: 120px">Indexed Cost</th>
+                            <th style="width: 100px">Days Held</th>
+
+                            <th class="text-center" style="width: 100px">ST</th>
+                            <th class="text-center" style="width: 100px">LT</th>
+                            <th class="text-center" style="width: 160px">After Index - LT</th>
+                        </tr> -->
                     </thead>
-                    <tbody class="scrollbar" *ngIf="ISMaingrid">
+                    <tbody class="scrollbar" *ngIf="ISMaingrid"  style="border:none;">
                        
                         <tr *ngFor="let data of bindgrid">
 
-                            <td style="width: 293px">{{data.Security}}</td>
+                            <td style="width: 237px">{{data.Security}}</td>
                             <td style="width: 145px">{{data.SaleDate}}</td>
                             <td style="width: 96px">{{data.SaleQty}}</td>
                             <td class="text-right" style="width: 87px">{{data.SaleRate}}</td>
@@ -176,12 +212,12 @@
                             <td style="width: 231px">{{data.PurchaseDate}}</td>
                             <td class="text-right" style="width: 120px">{{data.PurchaseRate}}</td>
                             <td class="text-right" style="width: 137px">{{data.Price}}</td>
-                            <td class="text-right" style="width: 233px">{{data.PurchaseAmount}}</td>
-                            <td class="text-right" style="width: 191px">{{data.IndexedCost}}</td>
-                            <td class="text-center" style="width: 143px">{{data.DaysHeld}}</td>
+                            <td class="text-right" style="width: 181px">{{data.PurchaseAmount}}</td>
+                            <td class="text-right" style="width: 160px">{{data.IndexedCost}}</td>
+                            <td class="text-center" style="width: 120px">{{data.DaysHeld}}</td>
 
                             <td class="text-right" style="width: 100px">{{data.ST}} </td>
-                            <td class="text-right loss" style="width: 120px">{{data.LT}}</td>
+                            <td class="text-right loss" style="width: 100px">{{data.LT}}</td>
                             <td class="text-right loss" style="width: 224px">{{data.AfterIndex_LT}}</td>
                         </tr>
                         <!-- <tr>
@@ -280,11 +316,11 @@
                             <td class="text-right loss" style="width: 160px">-109,771.82</td>
                         </tr> -->
                     </tbody>
-                    <tfoot *ngIf="ISMaingrid">
+                    <tfoot *ngIf="ISMaingrid" >
                       
                         <tr>
 
-                            <td style="width:245px">Total</td>
+                            <td style="width:237px">Total</td>
                             <td style="width: 95px"></td>
                             <td style="width:96px"></td>
                             <td class="text-right" style="width: 93px"></td>
@@ -292,8 +328,8 @@
 
                             <td style="width: 155px"></td>
                             <td class="text-right" style="width: 120px"></td>
-                            <td class="text-right" style="width: 125px"></td>
-                            <td class="text-right" style="width: 126px">{{SumPurchaseAmount}}</td>
+                            <td class="text-right" style="width: 137px"></td>
+                            <td class="text-right" style="width: 100px">{{SumPurchaseAmount}}</td>
                             <td class="text-right" style="width: 114px">{{SumIndexedCost}}</td>
                             <td class="text-center" style="width: 59px"></td>
 
@@ -331,9 +367,9 @@
 
                     </tfoot>
 
-                    <tfoot *ngIf="ISSummary">
+                    <tfoot *ngIf="ISSummary" style="border:none;">
                        
-                        <tr style="border-bottom:1px solid #ddd; ">
+                        <tr >
                             <td colspan="14"style="color: #34628a;font-size: 12px;" class="text-center">Capital Gain/Loss Summary (Based on Effective Gain / Indexation)</td>
                             </tr>
                             <tr style="border-bottom:1px solid #ddd; color: #34628a">
@@ -353,7 +389,7 @@
     
                                 <td class="text-right" style="width: 95px"> </td>
                                 <td class="text-right " style="width: 84px">Total</td>
-                                <td class="text-right " style="width: 180px"></td>
+                                <td class="text-right " style="width: 160px"></td>
                             </tr>  
 
                         <tr>
@@ -373,7 +409,7 @@
 
                             <td class="text-right" style="width: 95px"> </td>
                             <td class="text-right loss" style="width: 84px">00.00</td>
-                            <td class="text-right loss" style="width: 180px"></td>
+                            <td class="text-right loss" style="width: 160px"></td>
                         </tr>
 
                     </tfoot>

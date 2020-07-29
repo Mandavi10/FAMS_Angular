@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-      <div class="col-md-3 col-sm-3 col-xs-12 p-0" *ngIf="CustNameDive">
+      <div class="col-md-3 col-sm-3 col-xs-12 " *ngIf="CustNameDive">
           <div class="form-group">
               <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                  Customer Name:
@@ -127,7 +127,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
 
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <div id="portfolioSummaryGrid">
+          <div id="portfolioSummaryGrid" *ngIf="showGrid">
               <table class="bankmasterTable">
                   <thead style="border-bottom:0px">
                       <tr>
@@ -159,7 +159,7 @@
                                   </tr> -->
 
                                   <tr *ngFor="let Data of data1">
-                                    <td colspan="9" class="text-center">{{Data.Data}}</td>
+                                    <td *ngIf="showmainheading"colspan="9" class="text-center">{{Data.Data}}</td>
                                  </tr>
                                 
                               </table></th>
@@ -173,7 +173,7 @@
              <div class="col-sm-12 col-md-12 col-xs-12 pl-0">
               <span class="legal subHeading">Sector Allocation</span>
          </div>
-              <table class="bankmasterTable" id="allocation" style="width:99%">
+              <table class="bankmasterTable" id="allocation" style="width:99%" *ngIf="showsector">
                   <thead>
                      <tr>
 
@@ -236,7 +236,7 @@
                <span class="legal subHeading">Portfolio Holdings</span>
           </div>
               
-                <table class="bankmasterTable" id="summary" style="width:93%">
+                <table class="bankmasterTable" id="summary" style="width:93%" *ngIf="showholding">
                   <thead>
                      <tr>
 
@@ -312,7 +312,7 @@
               <div class="col-sm-12 col-md-12 col-xs-12 p-0">
                <span class="legal subHeading">Portfolio Summary</span>
           
-               <table class="bankmasterTable" id="performance" style="width:97%;">
+               <table class="bankmasterTable" id="performance" style="width:97%;" *ngIf="showsummary">
                    <thead>
                       <tr>
 
@@ -367,7 +367,7 @@
              <span class="legal subHeading">Performance(TWRR)</span>
         </div>
             
-              <table class="bankmasterTable" id="summary" style="width:93%">
+              <table class="bankmasterTable" id="summary" style="width:93%" *ngIf="showperformance">
                 <thead>
                    <tr>
 
