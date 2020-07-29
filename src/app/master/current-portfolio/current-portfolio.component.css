@@ -19,10 +19,18 @@ overflow:hidden}*/
 
 table{display: block;}
 
+.loaderposition {
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    top: 37%;
+    margin-left: -10% !important;
+}
+
 .holdingreportGrid tbody {
    
     display: block;
-    max-height: 68vh;
+    /* max-height: 0vh; */
 }
 
 .holdingreportGrid tbody tr {

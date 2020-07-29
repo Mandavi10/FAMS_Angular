@@ -6,15 +6,14 @@ import { Bindgrid } from '../../../Models/BankBook/bindgrid';
 import { Totalsumgrid } from '../../../Models/BankBook/totalsumgrid';
 import { Header } from '../../../Models/BankBook/header';
 import { Bindemployee } from '../../../Models/BankBook/bindemployee'
-import { Bindemployees } from '../../../Models/BankBook/bindemployees';
+import { Allcustomers } from '../../../Models/BankBook/Allcustomers';
 import { DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Commonfields } from '../../../Models/commonfields';
-import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 
 @Component({
@@ -25,11 +24,11 @@ import 'jspdf-autotable';
 export class BankBookComponent implements OnInit {
   BindgridList:Bindgrid;BankBookForm:FormGroup;TotalsumgridData:Totalsumgrid;Buy_SellAmount:any;Income:any;
   Expenses:any;Dep_with:any;Balance:any;griddiv:boolean=false;HeaderArray:any=[];StaticArray:any=[];
-  FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];BindcustomerallfieldsList:Bindcustomerallfields;
+  FromDate:any;ToDate:any;Head=[];StaticArray1:any=[];StaticArray2:any=[];BindCustomersList:Allcustomers;
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
-  NoRecord:boolean=false;
+  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -38,7 +37,7 @@ export class BankBookComponent implements OnInit {
    
     this.loader1 = true; this.loader2 = true;
     this.BankBookForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : [''],CustomerAccount : [''] , EmployeeId : ['']
+      FromDate :[''], ToDate : [''],CustomerAccount : ['',] , EmployeeId : ['']
   });
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType);
@@ -159,6 +158,7 @@ else{ this.PageCount = 1;}
         this.Expenses=this.TotalsumgridData[0].Expenses;
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
+        this.NoRecord = false;
         });
       this.loader1=false;this.loader2=false;
   }
@@ -169,7 +169,7 @@ else{ this.PageCount = 1;}
     Data.UserId = EmployeeId ;
     this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
-           this.BindcustomerallfieldsList = data.Table;
+           this.BindCustomersList = data.Table;
            this.loader1=false;this.loader2=false;
       });
 
@@ -194,10 +194,10 @@ else{ this.PageCount = 1;}
     this.loader1=true;this.loader2=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
-    Data.UserId = Sessionvalue.UserId;
-    this.BSService.BindEmployee(JSON.stringify(Data)).subscribe(
+    Data.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
+    this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
-           this.BindemployeesList = data.Table;
+           this.BindCustomersList = data.Table;
            this.loader1=false;this.loader2=false;
       });
   }
@@ -250,6 +250,18 @@ else{ this.PageCount = 1;}
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.TotalRecord=this.TotalsumgridData[0].Total;
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+          {
+            this.btnNext=true;
+            this.NoRecord = false;
+          }
+          else{
+            this.btnNext = false;
+            this.btnPrev=true;
+            this.NoRecord = true;
+            }
+           
+
         // if(data.Table.lenght == 0  && data.Table2.lenght == 0 ){ 
         //   this.NoRecord = true;
         //   this.PageCount = this.PageCount + 1;
@@ -358,8 +370,12 @@ var row = "";
     }
     line = '';
     for (var index in array[i]) {
+      if(index != "FinalSecNo"){
+        if(index != "NoOfPage"){
         if (line != '') line += ','
         line += (<string>array[i][index]);
+        }
+      }
     }
     str += line + '\r\n';
 }
@@ -370,9 +386,9 @@ var line = "";
   }  
   str += line + '\r\n';
   var line = "";
-  for (var index in this.StaticArray2) {
+  for (var index in this.StaticArray2) {  
       if (line != '') line += ','
-      line += this.StaticArray2[index];
+      line += this.StaticArray2[index];   
   }  
   str += line + '\r\n';
 return str;
@@ -390,7 +406,7 @@ downloadCSVFile() {
   return 'success';
 }
 
-// downloadPDFFile(){
+ downloadPDFFile(){
    
 //   debugger;  
 //   // var doc = new jsPDF();  
@@ -431,21 +447,21 @@ downloadCSVFile() {
 //   //   doc.save('StatementOfExpenses_Summary.pdf');
 //   // }
 
-//   var data = document.getElementById('bankmastertable');  
-//     html2canvas(data).then(canvas => {  
-//       // Few necessary setting options  
-//       var imgWidth = 208;   
-//       var pageHeight = 295;    
-//       var imgHeight = canvas.height * imgWidth / canvas.width;  
-//       var heightLeft = imgHeight;  
+  var data = document.getElementById('bankmastertable');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
   
-//       const contentDataURL = canvas.toDataURL('image/png')  
-//       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-//       var position = 0;  
-//       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-//       pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
-//     });    
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('BankBook.pdf'); // Generated PDF   
+    });    
   
 
-// }
+}
 }
