@@ -21,6 +21,12 @@ import { timer } from 'rxjs';
   styleUrls: ['./transaction-statement.component.css']
 })
 export class TransactionStatementComponent implements OnInit {
+
+  IsShowRecord:boolean;
+  IsShowNoRecord:boolean;
+
+  btnPrev:boolean=true;
+  btnNext:boolean=true;
   RunningNoOfPage:number;
   NoOfPage:number;
   Default_NoOfPage:number=1;
@@ -124,7 +130,11 @@ rowData = [
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
+      this.TransactionStatementForm.controls["UserId"].setValue(0);
+      this.isShowCustomer=true;
       this.BindEmployee();
+      //this.BindCustomers();
+
      
     }
     else if(this.userType ==2)
@@ -187,7 +197,27 @@ var currentContext=this;
     subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
      // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
+      // this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+
+      if(this.userType==3)
+     {
+      if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+      {
+       this.TransactionStatementForm.controls["UserId"].setValue(0);
+      }
+      else{
+       this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      }
+
+     }
+     else
+     {
       this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+     }
+    
+
+    //this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+    
       this.TransactionStatementForm.controls["FromDate"].setValue(data.Table[0].FromDate);
       this.TransactionStatementForm.controls["ToDate"].setValue(data.Table[0].ToDate);
     this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.SeqNo,this.Summary_SeqNo) ;
@@ -418,6 +448,7 @@ var currentContext=this;
     // this.FromDate = this.datepipe.transform(FromDate, 'dd-MM-yyyy');
     // this.ToDate = this.datepipe.transform(ToDate, 'dd-MM-yyyy');
     // this.divMainGrid=true;
+    
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
     // if(UserId=="30007" || UserId=="30008"){
@@ -427,7 +458,7 @@ var currentContext=this;
     //   CustomerAccount = this.TransactionStatementForm.controls['CustomerAccount'].value;
     // }
 
-    
+    this.isShowLoader=true;
     var JsonData ={
       "UserId" : UserId,
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
@@ -441,79 +472,43 @@ var currentContext=this;
       (data) => {
 
         debugger;
+
+     if((data.Table.length !=0) && (data.Table1.length !=0) )
+      {
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;   
         // this.isShowbindmaingridDetails=true;
         currentContext.bindmaingridHeader = data.Table;
 
         // this.NoOfPage = data.Table1[4].NoOfPage;
           this.CustomerAccountNo = data.Table1[4].CustomerAccountNo;
 
-        //  if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && this.SeqNo==3)
-        //  {
-        //        // this.SeqNo -=1;
-        //        this.isShowbindmaingridDetails=false;
-        //        this.isShowmaingridDetailsSummary=true;
-        //        this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-        //  else if((this.CustomerAccountNo=="6010001" || this.CustomerAccountNo=="6010003") && (this.SeqNo==1 || this.SeqNo==2))
-        //  {
-        //     this.isShowbindmaingridDetails=true;
-        //     this.isShowmaingridDetailsSummary=false;
-        //     this.bindmaingridDetails = data.Table1;
-        //     this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-
-        //  if((this.CustomerAccountNo=="6010002" || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && this.SeqNo==4)
-        //  {
-        //     // this.SeqNo -=1;
-        //     this.isShowbindmaingridDetails=false;
-        //     this.isShowmaingridDetailsSummary=true;
-        //     this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-        //  else if((this.CustomerAccountNo=="6010002"  || this.CustomerAccountNo=="6010003" || this.CustomerAccountNo=="6010004" || this.CustomerAccountNo=="6010005") && (this.SeqNo==1 || this.SeqNo==2 || this.SeqNo==3))
-        //  {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   this.bindmaingridDetails = data.Table1;
-        //   this.bindmaingridDetailsSummary = data.Table2;
-        //  }
-
-
-
-
-
-        // if(this.NoOfPage >=this.SeqNo && this.CustomerAccountNo == data.Table1[4].CustomerAccountNo)
-        // {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   currentContext.bindmaingridDetails = data.Table1;
-        // }
-        // else
-        // {
-        //   this.SeqNo -=1;
-        //   this.isShowbindmaingridDetails=false;
-        //   this.isShowmaingridDetailsSummary=true;
-        //   currentContext.bindmaingridDetailsSummary = data.Table2;
-        // }
-        // if(this.UniqueSeqNo <= data.Table1[0].NoOfPage)
-        // {
-        //   this.isShowbindmaingridDetails=true;
-        //   this.isShowmaingridDetailsSummary=false;
-        //   currentContext.bindmaingridDetails = data.Table1;
-        // }
-        // else
-        // {
-        //   this.isShowbindmaingridDetails=false;
-        //   this.isShowmaingridDetailsSummary=true;
-        //   currentContext.bindmaingridDetailsSummary = data.Table2;
-        // }
-
-
-
-
-
         this.isShowbindmaingridDetails=true;
         this.isShowmaingridDetailsSummary=false;
         currentContext.bindmaingridDetails = data.Table1;  
+
+        this.isShowLoader=false;
+        debugger;
+        if(this.SeqNo==1)
+        {
+          this.btnPrev=false;
+          // this.btnNext=true;
+        }
+       
+       else if(this.SeqNo !=1)
+        {
+          this.btnPrev=true;
+          // this.btnNext=true;
+        }
+      }
+      else
+      {
+        this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnPrev=true;
+      }
        // currentContext.bindmaingridDetailsSummary = data.Table2;  
         });
   }
@@ -643,8 +638,14 @@ downloadPDFFile(){
 
 
 
-  // var data = document.getElementById('bankmastertable');  
-  //   html2canvas(data).then(canvas => {  
+  var data = document.getElementById('bankmasterTable');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+
   
   //     var imgWidth = 208;   
   //     var pageHeight = 295;    
@@ -658,7 +659,6 @@ downloadPDFFile(){
   //     pdf.save('Transaction_Statement.pdf'); // Generated PDF   
   //   });    
   
-
 }
 
 }

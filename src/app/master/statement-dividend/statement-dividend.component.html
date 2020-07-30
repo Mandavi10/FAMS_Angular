@@ -8,9 +8,9 @@
 
       <form [formGroup]="StatementDividendForm" class="form">
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-               <span class="legal"></span>
-          </div>
+        <div class="col-sm-6 col-md-6 col-xs-3">
+            <span class="legal">Statement Dividend</span>
+            </div>
           <div class="rightmenu">
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
@@ -29,7 +29,7 @@
                           </button></a> --> 
                       </li>
                        
-                       <li (click)=downloadPDF()>
+                       <li (click)=downloadPDFFile()>
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
                                   <!-- <a target="_blank" href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
@@ -42,6 +42,19 @@
                                   <i class="fa fa-file-pdf-o"></i>
                               </button></a> -->
                            </li>
+                           <li (click)=onClicksavepopup() >
+                            <i class="fa fa-file" aria-hidden="true" title="Summary"></i>
+                            <label>
+                               <!-- <a target="_blank" href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
+                               <label>
+                                Summary
+                              </label>
+                              
+                            </label>
+                            <!-- <a href="../../../assets/ExcelReports/HoldingReport.pdf"><button type="button" id="btnPdf" class="btn  pdfbtns" title="PDF">
+                               <i class="fa fa-file-pdf-o"></i>
+                           </button></a> -->
+                        </li>
                    </ul>
               </div>
           </div>
@@ -49,6 +62,21 @@
      
       <div class="row">
      <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="divEmployee">
+            <div class="form-group">
+                <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                   Employee :
+                </label>
+                <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Employee1" (change)="BindCustomers()" [ngClass]="{ 'validate': submitted && f.Employee1.errors }">
+
+                        <option value="">Select</option>
+                        <option *ngFor="let Data of BindemployeesList " value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                    </select>
+                  
+                </div>
+            </div>
+        </div>
         <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="CustNameDive">
             <div class="form-group">
                 <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
@@ -58,7 +86,8 @@
                     <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
 
                         <option value="">Select</option>
-                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                        <option value="0" selected>All Customer</option>
+                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustomerAccountNo}} text={{Data.UserName}}>                       
                     </select>
                   
                 </div>
@@ -99,9 +128,7 @@
   </div>
   <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-          <div class="col-sm-6 col-md-6 col-xs-3">
-              <span class="legal"> Statement Of Dividend</span>
-          </div>
+         
           <div class="rightmenu">
               <div class="toolbar pull-right">
                   <ul class="toolbar-content btnCon">
@@ -131,10 +158,42 @@
       </div>   
      
       <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable1">
-              <thead>
+          <div class="holdingreportGrid" id="Statementdiv" *ngIf="showGrid"> 
+                <table style="background-color:#ffffff !important;" *ngIf="ISMaingrid">
+            <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" ><tr *ngFor="let data of data1">
+              <td colspan="12" *ngIf="IsshowHeading"class="text-center">{{data.Data}}</td>
+           </tr>
+          
+           
+           <tr>
 
+            <th style="width: 153px">Ex Date</th>
+            <th style="width: 145px">Received Date</th>
+            <th style="width: 152px">Security</th>
+            <th style="width: 123px">Quantity</th>
+            <th style="width: 123px">Rate</th>
+            
+            <th style="width: 187px" class="text-right">Receivable Amount</th>
+            <th style="width: 151px" class="text-right">Received Amount</th>
+           <th style="width: 123px" class="text-right">TDS Amount</th> 
+            <th style="width: 132px" class="text-right">Net Amount</th>
+            <th style="width: 145px" class="text-right">Balance Amount</th>
+           
+        </tr>
+                
+        </thead>
+        </table>
+
+          <table class="bankmasterTable" id="bankmastertable1" >
+              <thead>
+                
+                <!-- <tr *ngFor="let Data of data1">
+                    <td colspan="9" class="text-center">{{Data.Data}}</td>
+                 </tr>
+                <tr> -->
+
+                    
+<!-- 
                   <tr>
 
                       <th style="width: 153px">Ex Date</th>
@@ -142,14 +201,14 @@
                       <th style="width: 152px">Security</th>
                       <th style="width: 123px">Quantity</th>
                       <th style="width: 123px">Rate</th>
-                      <!-- <th style="width: 54px" class="text-right">Amount</th> -->
+                      
                       <th style="width: 187px" class="text-right">Receivable Amount</th>
                       <th style="width: 151px" class="text-right">Received Amount</th>
                      <th style="width: 123px" class="text-right">TDS Amount</th> 
                       <th style="width: 132px" class="text-right">Net Amount</th>
                       <th style="width: 145px" class="text-right">Balance Amount</th>
                      
-                  </tr>
+                  </tr> -->
               </thead>
               <tbody class="scrollbar">
                   <tr>
@@ -158,36 +217,36 @@
                               <tbody>
                                   <tr *ngFor="let data of bindgrid" >
                                      
-                                          <td style="width:94px">{{data.ExDate}}</td>
-                                          <td style="width: 121px">{{data.ReceivedDate}}</td>
-                                          <td style="width: 147px" >{{data.Security}}</td>
+                                          <td style="width:95px">{{data.ExDate}}</td>
+                                          <td style="width: 109px">{{data.ReceivedDate}}</td>
+                                          <td style="width: 132px" >{{data.Security}}</td>
                                           <td style="width: 80px">{{data.Quantity}}</td>
                                           <td style="width: 187px">{{data.Rate}}</td>
                                           <!-- <td style="width: 116px" class="text-right">{{data.Amount}}</td> -->
                                           <td style="width: 26px" class="text-right">{{data.ReceivableAmount}}</td>
-                                          <td style="width: 119px" class="text-right">{{data.ReceivedAmount}}</td>
-                                           <td style="width: 103px" class="text-right">{{data.TDSAmount}}</td>
-                                          <td style="width: 107px" class="text-right">{{data.NetAmount}}</td>
-                                          <td style="width: 100px" class="text-right">{{data.BalanceAmount}}</td>
-                                        
+                                          <td style="width: 114px" class="text-right">{{data.ReceivedAmount}}</td>
+                                           <td style="width: 97px" class="text-right">{{data.TDSAmount}}</td>
+                                          <td style="width: 108px" class="text-right">{{data.NetAmount}}</td>
+                                          <!-- <td style="width: 100px" class="text-right">{{data.BalanceAmount}}</td> -->
+                                          <td style="width: 108px" class="text-right">{{data.BalanceAmount}}</td>
                                       </tr>
                                 
                               </tbody>
                           <tfoot>
                            
-                              <tr>
-                                      <td style="width:95px"></td>
-                                      <td style="width: 90px"></td>
-                                      <td style="width:96px"></td>
-                                      <td style="width: 112px" ></td>
-                                      <td style="width: 131px" ></td>
-                                      <td style="width: 161px" class="text-right">{{SumReceivableAmount}}</td>
-                                      <td style="width: 122px" class="text-right">{{SumReceivedAmount}}</td>
-                                      <td style="width: 111px" class="text-right">{{SumTDSAmount}}</td>
-                                      <td style="width: 112px" class="text-right">{{SumNetAmount}}</td>
-                                      <td style="width: 102px" class="text-right">{{SumBalanceAmount}}</td>
-                                     
-                              </tr>
+                            <tr>
+                                <td style="width:95px"></td>
+                                <td style="width: 110px"></td>
+                                <td style="width:154px"></td>
+                                <td style="width: 91px" ></td>
+                                <td style="width: 131px" ></td>
+                                <td style="width: 118px" class="text-right">{{SumReceivableAmount}}</td>
+                                <td style="width: 122px" class="text-right">{{SumReceivedAmount}}</td>
+                                <td style="width: 107px" class="text-right">{{SumTDSAmount}}</td>
+                                <td style="width: 116px" class="text-right">{{SumNetAmount}}</td>
+                                <td style="width: 121px" class="text-right">{{SumNetAmount}}</td>
+                                
+                        </tr> 
 
                           </tfoot>
           </table>
@@ -201,16 +260,16 @@
                               <tbody>
                                  <tr>
                                     <td style="width:95px"></td>
-                                    <td style="width: 90px"></td>
-                                    <td style="width:96px"></td>
-                                    <td style="width: 112px" ></td>
+                                    <td style="width: 110px"></td>
+                                    <td style="width:154px"></td>
+                                    <td style="width: 91px" ></td>
                                     <td style="width: 131px" ></td>
-                                    <td style="width: 161px" class="text-right">{{SumReceivableAmount}}</td>
+                                    <td style="width: 118px" class="text-right">{{SumReceivableAmount}}</td>
                                     <td style="width: 122px" class="text-right">{{SumReceivedAmount}}</td>
-                                    <td style="width: 111px" class="text-right">{{SumTDSAmount}}</td>
-                                    <td style="width: 112px" class="text-right">{{SumNetAmount}}</td>
-                                    <td style="width: 102px" class="text-right">{{SumBalanceAmount}}</td>
-                                   
+                                    <td style="width: 107px" class="text-right">{{SumTDSAmount}}</td>
+                                    <td style="width: 116px" class="text-right">{{SumNetAmount}}</td>
+                                    <td style="width: 121px" class="text-right">{{SumNetAmount}}</td>
+                                    
                             </tr> 
                                   
                               </tbody>
@@ -225,15 +284,15 @@
           </table>
 
       </div>
-</div>
+</div> 
           
-      </div>
+       </div>
 
 
 
 
-      <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
+      <!-- <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block" *ngIf="ISSummary">
+     <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3">
                 <span class="legal">Dividend Summary</span>
             </div>
@@ -263,12 +322,15 @@
                      </ul>
                 </div>
             </div>
-        </div>   
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        </div>    
+         <div class="col-md-12 col-sm-12 col-xs-12" > 
             <div class="holdingreportGrid">
-            <table class="bankmasterTable" id="bankmastertable">
+            <table class="bankmasterTable" id="bankmastertable" *ngIf="ISSummary">
                 <thead>
-  
+                    <tr *ngFor="let Data of data1">
+                        <td colspan="9" class="text-center">{{Data.Data}}</td>
+                     </tr>
+
                     <tr>
   
                         <th style="width: 492px">Transaction Description</th>
@@ -285,13 +347,13 @@
                         <td colspan="9">
                             <table>
                                 <tbody>
-                                    <tr *ngFor="let data of bindgridDivident">
+                                    <tr >
                                        
-                                            <td style="width: 624px" >{{data.Trans_desc}}</td>
-                                            <td style="width: 164px" >{{data.Total_Dividend_Received}}</td>
-                                            <td style="width: 225px" >{{data.Outstanding_Divident}}</td>
-                                            <td style="width: 54px" class="secgrid">{{data.Total_Amount}}</td>
-                                            <td style="width: 99px" class="text-right">{{data.TDS_Amount}}</td>
+                                            <td style="width: 320px" >Dividend</td>
+                                            <td style="width: 163px" >0.00</td>
+                                            <td style="width: 103px" >{{SumNetAmount}}</td>
+                                            <td style="width: 54px" >0.00</td>
+                                            <td style="width: 99px" class="text-right">0.00</td>
                                           
                                           
                                         </tr>
@@ -300,11 +362,11 @@
                             <tfoot>
                              
                                 <tr>
-                                    <td style="width: 624px"> Total</td>
-                                        <td style="width: 164px" >{{SumTotal_Dividend_Received}}</td>
-                                        <td style="width: 225px" >{{SumOutstanding_Divident}}</td>
-                                        <td style="width: 54px" class="secgrid1">{{SumTotal_Amount}}</td>
-                                        <td style="width: 99px" class="text-right">{{SumTDS_Amount}}</td>
+                                    <td style="width: 320px"> Total</td>
+                                        <td style="width: 163px" >0.00</td>
+                                        <td style="width: 103px" >{{SumNetAmount}}</td>
+                                        <td style="width: 54px" >0.00</td>
+                                        <td style="width: 99px" class="text-right">0.00</td>
                                         
                                       
                                        
@@ -323,13 +385,114 @@
             </table>
   
         </div>
-  </div>
+      
+  </div> -->
 
-        </div>
+        <!-- </div> -->
 
-
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="paginationDiv">
+                    <!-- <span class="previousBtn"(click)="BindNextData(0)" *ngIf="btnPrev">Previous</span> -->
+                    <span class="previousBtn"(click)="NextData(0)"*ngIf="btnPrev" >Previous</span>
+                    <span class="paginationCount">{{data}}</span>
+                    <!-- <span class="nextBtn"(click)="BindNextData(1)" *ngIf="btnNext">Next</span> -->
+                    <span class="nextBtn"(click)="NextData(1)" *ngIf="btnNext">Next</span>
+                </div>
+       </div>
     
       </form>
+
+
+      <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       <p style=" margin-top: 8px;">Summary Details</p>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="col-md-12 col-sm-12 col-xs-12" >
+                <div class="holdingreportGrid">
+                <table class="bankmasterTable" id="bankmastertable" >
+                    <thead>
+                        <tr *ngFor="let Data of data1">
+                            <td colspan="9" class="text-center">{{Data.Data}}</td>
+                         </tr>
+    
+                        <tr>
+      
+                            <th style="width: 492px">Transaction Description</th>
+                            <th style="width: 289px" class="text-right">Total Dividend Received</th>
+                            <th style="width: 253px" class="text-right">Outstanding Dividend</th>
+                            <th style="width: 170px" class="text-right">Total Amount</th>
+                            <th style="width: 170px" class="text-right">TDS Amount</th>
+                            
+                           
+                        </tr>
+                    </thead>
+                    <tbody class="scrollbar">
+                        <tr>
+                            <td colspan="9">
+                                <table>
+                                    <tbody>
+                                        <tr >
+                                           
+                                                <td style="width: 320px" >Dividend</td>
+                                                <td style="width: 163px" >0.00</td>
+                                                <td style="width: 103px" >{{SumNetAmount}}</td>
+                                                <td style="width: 54px" class="text-right">{{SumNetAmount}}</td>
+                                                <td style="width: 99px" class="text-right">0.00</td>
+                                              
+                                              
+                                            </tr>
+                                      
+                                    </tbody>
+                                <tfoot>
+                                 
+                                    <tr>
+                                        <td style="width: 320px"> Total</td>
+                                            <td style="width: 163px" >0.00</td>
+                                            <td style="width: 103px" >{{SumNetAmount}}</td>
+                                            <td style="width: 54px" class="text-right">{{SumNetAmount}}</td>
+                                            <td style="width: 99px" class="text-right">0.00</td>
+                                            
+                                          
+                                           
+                                    </tr>
+      
+                                </tfoot>
+                </table>
+                </td>
+                           
+                        </tr>
+                   
+                       
+                        
+                    </tbody>
+                    
+                </table>
+      
+            </div>
+          
+      </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+     </div>
+        
+        </div>
+        </div>
+        </div>
+
   </div>
 
 </div>

@@ -45,5 +45,4 @@ BindDefaultData(GAccountNumber,UserId): Observable<any> {
 NextRecordBind(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
   return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/NextRecordBind/'+CustomerAccount+ '/' +FromDate +'/' + ToDate +'/' + SeqNo );
 }
-
 }

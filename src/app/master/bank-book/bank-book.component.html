@@ -53,9 +53,9 @@
                 Employee Name :
               </label>
               <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomers(EmployeeId.value)">
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomersOnChange(EmployeeId.value)">
       
-                      <option value="">Select</option>
+                      <option value="" selected>Select</option>
                       <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
                   </select>
                                 
@@ -73,7 +73,7 @@
       
                       <option value="" selected>Select</option>
                       <option value="">All Customers</option>
-                      <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
+                      <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                   </select>
                 
               </div>
@@ -152,8 +152,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="griddiv" style="overflow-y: scroll;
     height: 453px;">
         <div class="holdingreportGrid">
-        <table class="bankmasterTable" id="bankmastertable">
-            <thead style="background-color:#fff">
+        <table class="bankmasterTable" id="bankmastertable" style="background-color:#ffffff !important;">
+            <thead >
                 <tr *ngFor="let Data of HeaderList">
                     <td colspan="8" class="text-center">{{Data.Date}}</td>
                  </tr>
@@ -180,13 +180,16 @@
                    
                 </tr>
             </thead>
-            <tbody class="scrollbar">
+            <tbody class="">
                 <tr>
                     <td colspan="9"><strong >Cash- Received/Paid
                     </strong>
                    
                         <table>
                             <tbody>
+                                <tr *ngIf="NoRecord">
+                                    <p>No Record Found</p>
+                                </tr>
 
                                 <tr *ngFor="let Data of BindgridList">
                                    
@@ -202,9 +205,9 @@
                                        
                                     </tr>
 
-                                    <tr *ngIf="NoRecord">
+                                    <!-- <tr *ngIf="NoRecord">
                                         <p>Record Not Found</p>
-                                    </tr>
+                                    </tr> -->
                                     <!-- <tr >
                                    
                                         <td style="width: 176px">31/05/2020</td>
@@ -316,11 +319,12 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="paginationDiv">
-                <span class="previousBtn" (click)="BindNextData(0)">Previous</span>
+                <span class="previousBtn" *ngIf="btnPrev" (click)="BindNextData(0)">Previous</span>
                 <span class="paginationCount" [innerHTML]="PaginationCount"></span>
-                <span class="nextBtn" (click)="BindNextData(1)">Next</span>
+                <span class="nextBtn" *ngIf="btnNext" (click)="BindNextData(1)">Next</span>
             </div>
     </div> 
+    
             </form>
    
   

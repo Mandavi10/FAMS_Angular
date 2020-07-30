@@ -9,7 +9,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TransactionstatementService {
+export class PortfoliosummaryService {
   baseUrl: string = ""; 
   constructor(private Dbsecurity: DbsecurityService,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {   
       this.baseUrl = AppSettings.Login_URL;
@@ -17,7 +17,7 @@ export class TransactionstatementService {
   BindGrid(em:any): Observable<any> { 
     const body = em; 
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this._http.post<any>(this.baseUrl + 'api/TransactionStatement/BindGrid', body, {
+    return this._http.post<any>(this.baseUrl + 'api/PortfolioSummary/BindGrid', body, {
       headers 
   });
   }
@@ -33,12 +33,10 @@ export class TransactionstatementService {
   }
 
   BindDefaultData(GAccountNumber,UserId): Observable<any> {
-    return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/BindDefaultData/' +GAccountNumber+ '/' +UserId   );
+    return this._http.get<any>(this.baseUrl + 'api/PortfolioSummary/BindDefaultData/' +GAccountNumber+ '/' +UserId   );
   }
   NextRecordBind(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
-    return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/NextRecordBind/'+CustomerAccount+ '/' +FromDate +'/' + ToDate +'/' + SeqNo );
+    return this._http.get<any>(this.baseUrl + 'api/PortfolioSummary/NextRecordBind/'+CustomerAccount+ '/' +FromDate +'/' + ToDate +'/' + SeqNo );
   }
-  GetSummary(AccountNumber): Observable<any> {
-    return this._http.get<any>(this.baseUrl + 'api/TransactionStatement/GetSummary/' +AccountNumber );
-  }
+  
 }
