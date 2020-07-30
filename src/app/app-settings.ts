@@ -15,7 +15,10 @@ export class AppSettings {
    public static AccountValidate_URL='http://localhost:55073/';
 
    //public static CapitalStatement ='http://localhost:55073/';
+
+
   // public static CapitalStatement ='http://localhost:55073/';
+
    public static CapitalStatement ='http://219.90.65.215:9003/';
 
    

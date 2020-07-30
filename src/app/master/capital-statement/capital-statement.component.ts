@@ -55,6 +55,8 @@ export class CapitalStatementComponent implements OnInit {
   totalpagecount:number;
   IsshowHeading:boolean;
   showGrid:boolean;
+  customerlength:number;
+  temppagecount:number;
   
 
 
@@ -236,6 +238,8 @@ BindCustomers(){
   this._capitalStateService.BindCustomers(UserId).subscribe(
     (data) => {
          this.BindcustomerallfieldsList = data.Table;
+         this.customerlength=data.Table.length;
+         
     });
 }
 
@@ -340,6 +344,30 @@ BindNextData(value){
   //  this.NextData();
 
   // this.bindGrid();
+  
+
+  if(this.capitalStatForm.controls['CustomerAccount'].value == 0 && Usertype == 3){
+        
+    // if(this.PageCount ==10){
+      if(this.PageCount == (this.customerlength *2)){ 
+        this.btnNext=false; 
+
+      }
+
+   }
+
+   if(this.capitalStatForm.controls['CustomerAccount'].value == 0 && Usertype == 2){
+    
+    
+    if(this.PageCount == (this.customerlength *2)){ 
+      this.btnNext=false;
+  
+    }
+    if(this.PageCount <(this.customerlength *2)){ 
+      this.btnNext=true;
+
+    }
+  }
 
 
 }
@@ -378,6 +406,9 @@ if(pagecountn < 1)
 //   this.btnNext=false;
 
 // }
+//var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+
   var JsonData ={
     "UserId" : item.UserId,
     "CustomerAccountNo" :this.capitalStatForm.controls['CustomerAccount'].value,
@@ -413,6 +444,10 @@ if(pagecountn < 1)
        }
 
        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
       
        if(Usertype == 2){
         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
