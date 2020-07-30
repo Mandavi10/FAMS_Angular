@@ -34,19 +34,19 @@
                                 
                                     <div (click)="ClickAll()" class="col-md-1 col-sm-4 col-xs-2 p-0">
                                         <div id="myDIV" class="msgall pull-left">
-                                            <label>All({{lblall}})</label>
+                                            <label>All ({{lblall}})</label>
                                         </div>
                                       
                                     </div>
                                     <div (click)="ClickRead()" class="col-md-7 col-sm-4 col-xs-4 " > 
                                         <div id="myDIV1" class="unreadall pull-left">
-                                            <label>Unread({{lblunreadall}})</label>
+                                            <label>Unread ({{lblunreadall}})</label>
                                         </div>
                                       
                                     </div>
                                     <div (click)="ClickTodayNotification()" class="col-md-7 col-sm-4 col-xs-4 p-0" > 
                                         <div id="myDIV2" class="unreadall pull-left">
-                                            <label>Today's Notification({{lbltodayall}})</label>
+                                            <label>Today's Notification ({{lbltodayall}})</label>
                                         </div>
                                       
                                     </div>
@@ -66,11 +66,11 @@
                                 </div> -->
                                 
                                 <div class="col-md-12 col-sm-12 col-xs-12 " *ngFor="let Notify of BindallNotificationdata;index as i" >
-                                    <div id="{{ 'Dynamicdiv' + Notify.NMId }}" [ngClass]="{'notificationboxactive': Notify.IsRead == 0}" (click)="divClickRead(Notify.NMId)" class="col-md-12 col-sm-12 col-xs-12 " >
+                                    <div id="{{ 'Dynamicdiv' + Notify.NMId }}" [ngClass]="{'notificationboxactive': Notify.IsRead == 0}" (click)="divClickRead(Notify.NMId)" class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive" >
                                         <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
                                             <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
                                                <span >{{Notify.Subject }}{{Notify.sublength ==0 ? '' : '....'}}</span>
-                                               
+                                               element.classList.add("notificationboxactive");
                                             </div>
                                             <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
                                                

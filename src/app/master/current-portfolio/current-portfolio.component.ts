@@ -74,7 +74,8 @@ export class CurrentPortfolioComponent implements OnInit {
      else{
       this.CustNameDive=false;this.EmployeeDiv=false;
       this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-      this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+      // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+      this.CustomerAccount = item.AccountNo;
      }
     this.BindDefaultData();
     //this.BindCustomers();

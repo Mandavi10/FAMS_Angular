@@ -94,7 +94,8 @@ export class StatementOfExpensesComponent implements OnInit {
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
-    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    this.accountNumber=item.AccountNo;
     debugger;
     if(this.userType ==1)
     {
