@@ -1,5 +1,8 @@
 <div class="main-content maincontainer">
     <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3">
                 <span class="legal">Transaction Statement</span>
@@ -32,11 +35,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
-            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-            </div>
-        </div>
+      
        
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
@@ -103,135 +102,150 @@
                 </form>        
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-4 p-0" id="tbldiv">
-            <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
-                <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                    
-                </div>
-                <div class="rightmenu">
-                <div class="toolbar pull-right">
-                    <ul class="toolbar-content btnCon">
-                        <li (click)="PreviousDayFun()">
-                           <label>
-                              Previous Day
-                           </label>
-                       </li>
-                       <li>
-                           <label (click)="LastOneWeekFun()">
-                              Last One Week
-                           </label>
-                       </li>
-                        <li (click)="LastOneMonthFun()">
-                                <label>
-                                  Last One Month
-                                </label>
-                            </li>
-                      </ul>
-                </div>
-                </div>
-            </div>   
-            <!-- <div class="col-md-12 col-sm-12 col-xs-12 " *ngIf="divMainGrid">
-                <ag-grid-angular
-                style="width: 100%; height: 460px;"
-                class="ag-theme-alpine"
-                [rowData]="BindmaingridList"
-                [columnDefs]="columnDefs"
-                [enableFilter]="false"
-                [enableSorting]="true"
-                [showToolPanel]="true"
-                [pagination]="true" 
-        [paginationAutoPageSize]="true">
-            </ag-grid-angular>
-                <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
-                    <div class="paginationDiv">
-                            <span class="previousBtn">Previous</span>
-                            <span class="paginationCount">50 out of 200</span>
-                            <span class="nextBtn">Next</span>
+
+        
+            <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-4 p-0" id="tbldiv">
+                <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
+                    <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                        
                     </div>
-                </div> 
-            </div> -->
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="holdingreportGrid">
-                   <table class="bankmasterTable" id="bankmastertable">
-                      <thead>
-                        <!-- <tr *ngFor="let data of bindmaingridHeader ; index as i">
-                            <td colspan="6" class="text-center; ">{{data.Date }}</td>
-                         </tr> -->
-                         <!-- <tr>
-                            <th style="width: 182px">Date</th>
-                            <th style="width: 222px">Settlement Date</th>
-                            <th style="width: 233px">Tran Ref.</th>
-                            <th style="width: 204px">Detail</th>
-                            <th style="width: 205px">Desc/Notes</th>
-                            <th style="width: 124px">Amount</th>
-                         </tr> -->
-                      </thead>
-                      <tbody class="scrollbar">
-                         <tr>
-                            <td colspan="9">
-                               <!-- <strong >Expenses-Paid
-                               </strong> -->
-                               <table>
-                                  <tbody>
-                                     <tr *ngFor="let data of bindmaingridHeader ; index as i">
-                                        <td colspan="6" class="text-center">{{data.Date }}</td>
-                                     </tr>
-                                     <div *ngIf="isShowbindmaingridDetails" >
-                                    
-                                     <tr *ngFor="let data of bindmaingridDetails ; index as i"  >
-                                        <td style="width: 235px">{{data.TransactionDesc }}</td>
-                                        <td style="width: 100px">{{data.TransactionDate }}</td>
-                                        <td style="width: 100px">{{data.SettlementDate }}</td>
-                                        
-                                        <td style="width: 170px">{{data.Security }}</td>
-                                        <td style="width: 110px">{{data.Exchange }}</td>
-
-
-                                        <td style="width: 90px">{{data.Quantity }}</td>
-                                        <td style="width: 90px">{{data.UnitPrice }}</td>
-
-                                        <td style="width: 80px">{{data.Brkg }}</td>
-                                        <td style="width: 80px">{{data.STT }}</td>
-                                        <td style="width: 120px">{{data.SettlementAmount }}</td>
-                                     </tr>
-                                     </div>
-                                     <!-- <div *ngIf="isShowmaingridDetailsSummary" >
-                                        <tr *ngFor="let data of bindmaingridDetailsSummary ; index as i" >
-                                        <td style="width: 182px">{{data.TransactionDesc }}</td>
-                                        <td style="width: 222px">{{data.PreviousPeriodTranNotSettle }}</td>
-                                        <td style="width: 233px">{{data.PreviousPeriodTranSettledCurrentPeriod }}</td>
-                                        <td style="width: 204px">{{data.CurrentPeriodTranSettledDuringPeriod }}</td>
-
-                                        <td style="width: 222px">{{data.CurrentPeriodTranNotSettled }}</td>
-                                        <td style="width: 233px">{{data.TotalCurrentPeriodTran }}</td>
-                                        <td style="width: 204px">{{data.TotalCurrentPeriodSettled }}</td>
+                    <div class="rightmenu">
+                    <div class="toolbar pull-right">
+                        <ul class="toolbar-content btnCon">
+                            <li (click)="PreviousDayFun()">
+                            <label>
+                                Previous Day
+                            </label>
+                        </li>
+                        <li>
+                            <label (click)="LastOneWeekFun()">
+                                Last One Week
+                            </label>
+                        </li>
+                            <li (click)="LastOneMonthFun()">
+                                    <label>
+                                    Last One Month
+                                    </label>
+                                </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>   
+                <!-- <div class="col-md-12 col-sm-12 col-xs-12 " *ngIf="divMainGrid">
+                    <ag-grid-angular
+                    style="width: 100%; height: 460px;"
+                    class="ag-theme-alpine"
+                    [rowData]="BindmaingridList"
+                    [columnDefs]="columnDefs"
+                    [enableFilter]="false"
+                    [enableSorting]="true"
+                    [showToolPanel]="true"
+                    [pagination]="true" 
+            [paginationAutoPageSize]="true">
+                </ag-grid-angular>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                        <div class="paginationDiv">
+                                <span class="previousBtn">Previous</span>
+                                <span class="paginationCount">50 out of 200</span>
+                                <span class="nextBtn">Next</span>
+                        </div>
+                    </div> 
+                </div> -->
+            </div>
+            <div id="Record" *ngIf="IsShowRecord" >
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="holdingreportGrid">
+                    <table class="bankmasterTable" id="bankmastertable">
+                        <thead>
+                            <!-- <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                                <td colspan="6" class="text-center; ">{{data.Date }}</td>
+                            </tr> -->
+                            <!-- <tr>
+                                <th style="width: 182px">Date</th>
+                                <th style="width: 222px">Settlement Date</th>
+                                <th style="width: 233px">Tran Ref.</th>
+                                <th style="width: 204px">Detail</th>
+                                <th style="width: 205px">Desc/Notes</th>
+                                <th style="width: 124px">Amount</th>
+                            </tr> -->
+                        </thead>
+                        <tbody class="scrollbar">
+                            <tr>
+                                <td colspan="9">
+                                <!-- <strong >Expenses-Paid
+                                </strong> -->
+                                <table>
+                                    <tbody>
+                                        <tr *ngFor="let data of bindmaingridHeader ; index as i">
+                                            <td colspan="6" class="text-center">{{data.Date }}</td>
                                         </tr>
-                                     </div> -->
-                                  </tbody>
-                                 
-                               </table>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td colspan="9">
-                               <table>
-                                  <tbody>
-                                  </tbody>
-                               </table>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </div>
-             </div>
+                                        <div *ngIf="isShowbindmaingridDetails" >
+                                        
+                                        <tr *ngFor="let data of bindmaingridDetails ; index as i"  >
+                                            <td style="width: 235px">{{data.TransactionDesc }}</td>
+                                            <td style="width: 100px">{{data.TransactionDate }}</td>
+                                            <td style="width: 100px">{{data.SettlementDate }}</td>
+                                            
+                                            <td style="width: 170px">{{data.Security }}</td>
+                                            <td style="width: 110px">{{data.Exchange }}</td>
 
-            <div class="paginationDiv">
-                <span class="previousBtn" (click)="PreviousClick()">Previous</span>
-               <span class="paginationCount"  id="lblcount"></span>
-               <span class="nextBtn" (click)="NextClick()" >Next</span>
-           </div>
-        </div>
+
+                                            <td style="width: 90px">{{data.Quantity }}</td>
+                                            <td style="width: 90px">{{data.UnitPrice }}</td>
+
+                                            <td style="width: 80px">{{data.Brkg }}</td>
+                                            <td style="width: 80px">{{data.STT }}</td>
+                                            <td style="width: 120px">{{data.SettlementAmount }}</td>
+                                        </tr>
+                                        </div>
+                                        <!-- <div *ngIf="isShowmaingridDetailsSummary" >
+                                            <tr *ngFor="let data of bindmaingridDetailsSummary ; index as i" >
+                                            <td style="width: 182px">{{data.TransactionDesc }}</td>
+                                            <td style="width: 222px">{{data.PreviousPeriodTranNotSettle }}</td>
+                                            <td style="width: 233px">{{data.PreviousPeriodTranSettledCurrentPeriod }}</td>
+                                            <td style="width: 204px">{{data.CurrentPeriodTranSettledDuringPeriod }}</td>
+
+                                            <td style="width: 222px">{{data.CurrentPeriodTranNotSettled }}</td>
+                                            <td style="width: 233px">{{data.TotalCurrentPeriodTran }}</td>
+                                            <td style="width: 204px">{{data.TotalCurrentPeriodSettled }}</td>
+                                            </tr>
+                                        </div> -->
+                                    </tbody>
+                                    
+                                </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9">
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <!-- <div class="paginationDiv">
+                    <span class="previousBtn" (click)="PreviousClick()">Previous</span>
+                <span class="paginationCount"  id="lblcount"></span>
+                <span class="nextBtn" (click)="NextClick()" >Next</span>
+                </div> -->
+                <div class="paginationDiv">
+                    <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
+                    <span class="paginationCount"  id="lblcount"></span>
+                    <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
+                </div>
+            </div>
+       
+
+        <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+            <div class="text" style="text-align: center;">
+               <p>No Record Found</p>
+            </div>
+         </div>
 
         <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
             <div class="modal-dialog modal-lg">

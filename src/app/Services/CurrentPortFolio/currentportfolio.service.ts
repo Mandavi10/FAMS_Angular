@@ -14,10 +14,34 @@ export class CurrentportfolioService {
     this.baseUrl = AppSettings.Login_URL;
    }
    BindGridAllFields(em: any): Observable<any> {
-  const body = em;
-  const headers = new HttpHeaders().set('content-type', 'application/json');
+    const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
     return this._http.post<any>(this.baseUrl + 'api/CurrentPortfolio/BindGrid/', body,{
       headers
     });
+  }
+
+  BindDefaultData(em:any): Observable<any> { 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/CurrentPortfolio/BindDefaultData', body, {
+      headers 
+  });
+  }
+
+  BindEmployee(em:any){
+    const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindEmployees' , body, {
+       headers 
+    });
+  }
+
+  BindCustomers(em:any){
+    const body = em;
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+   return this._http.post<any>(this.baseUrl + 'api/BankBook/BindCustomers' , body, {
+       headers 
+   });
   }
 }

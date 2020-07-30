@@ -1,11 +1,10 @@
 <div class="main-content maincontainer">
     <div class="content">
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
-         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-             <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-         </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+         <img src="../../assets/images/loader.gif" class="loaderimagepage" />
      </div>
        <form [formGroup]="StatementOfExpenseForm" autocomplete="off" appNorightclick>
+         
           <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
              <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                 <span class="legal"></span>
@@ -102,7 +101,7 @@
                 <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
                    <!-- <button type="button" class="btn btn-success">Search</button> -->
                    
-                   <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
+                   <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
                 </div>
              </div>
           </div>
@@ -137,6 +136,8 @@
                    </div>
                 </div>
              </div>
+
+       <div id="Record" *ngIf="IsShowRecord" >
              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="holdingreportGrid">
                    <table class="bankmasterTable" id="bankmastertable">
@@ -223,11 +224,23 @@
                 </div>
              </div>
 
-            <div class="paginationDiv">
+            <!-- <div class="paginationDiv">
                <span class="previousBtn" (click)="PreviousClick()">Previous</span>
                <span class="paginationCount"  id="lblcount"></span>
                <span class="nextBtn" (click)="NextClick()" >Next</span>
-           </div>
+           </div> -->
+           <div class="paginationDiv">
+               <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
+               <span class="paginationCount"  id="lblcount"></span>
+               <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
+             </div>
+       </div>
+
+        <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+        <div class="text" style="text-align: center;">
+           <p>No Record Found</p>
+        </div>
+        </div>
            
           </div>
           <!-- <div class="col-md-12 col-sm-12 col-xs-12 tableDiv1 p-0"  style="display:block">

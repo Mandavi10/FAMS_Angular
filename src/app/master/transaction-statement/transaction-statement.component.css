@@ -9,11 +9,27 @@
   /* display: block;
   max-height: 40vh; */
 }
+.text{    font-size: 14px;
+  text-align: center;
+  color: #003974;
+  margin-top: 12%;
+}
 
 .holdingreportGrid tbody tr {
   width: 97%;
   display: table;
   table-layout: fixed;
+}
+.loaderposition {
+  position: absolute;
+  z-index: 9999 !important;
+  text-align: center;
+  /* top: 37%; */
+}
+.loaderimagepage {
+  margin-left: -12%;
+  margin-top: 2%;
+  width: 8%;
 }
  .popscrollbar{overflow:scroll;
 max-height:500px;
