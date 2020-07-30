@@ -28,7 +28,7 @@ export class CurrentPortfolioComponent implements OnInit {
   CurrentportfolioList : Currentportfolio;loader1:boolean=false;loader2:boolean=false;
   FromDate:any;ToDate:any;ReportDate:any;HeaderList:Header;EmployeeDiv:boolean=false;
   AllEmployeesList:Bindemployee;BindCustomersList:BindCustomers;btnNext:boolean=true;btnPrev:boolean=true;
-  NoRecord:boolean=true;
+  NoRecord:boolean=true;liExport:boolean=false;
   constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
   CurrentDate = new Date(); 
   STSumGL:number;
@@ -74,7 +74,8 @@ export class CurrentPortfolioComponent implements OnInit {
      else{
       this.CustNameDive=false;this.EmployeeDiv=false;
       this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-      this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+      // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+      this.CustomerAccount = item.AccountNo;
      }
     this.BindDefaultData();
     //this.BindCustomers();

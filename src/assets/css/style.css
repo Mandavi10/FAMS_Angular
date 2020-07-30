@@ -9,6 +9,13 @@
     .loss {
         color: #f31313
     }
+
+    .notelabel{color: #f31313;
+        font-style: italic;
+        position: absolute;
+        right: 9px;
+        top: 2px;}
+        
     .fullmaincontainer{position: relative;
         float: left;
         width: 100%}

@@ -96,12 +96,16 @@ debugger;
   // alert(item.UserId);
   //   console.log(item.UserId);
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
    
    // let ActivityId=this.Dbsecurity.Decrypt(this.router1.snapshot.queryParamMap.get('ActivityId').replace(/ /g, '+'));
     //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
     this.accountNumber=item.AccountNo;
     // alert(item.UserId.replace('+',/ /g));
     // console.log(item.UserId.replace('+',/ /g));
+
+    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+
     debugger;
     if(this.userType ==1)
     {

@@ -19,6 +19,13 @@ overflow:hidden}*/
 
 table{display: block;}
 
+
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 9px;
+    top: 2px;}
+
 .loaderposition {
     position: absolute;
     z-index: 9999 !important;

@@ -28,7 +28,7 @@ export class BankBookComponent implements OnInit {
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
-  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;
+  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -59,7 +59,8 @@ if(this.userType == 3){
 
   else{
     this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-    this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    this.CustomerAccount = item.AccountNo;
   }
   this.PageCount = 1;
   this.BindDefaultData();
@@ -224,7 +225,8 @@ else{ this.PageCount = 1;}
     var CustomerAccount="";
     if(UserId=="30007" ||
     UserId=="30008"){
-      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+      // CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo);
+      this.CustomerAccount = Sessionvalue.AccountNo;
     }
     else{
       CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
