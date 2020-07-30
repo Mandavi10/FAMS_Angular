@@ -1,5 +1,6 @@
 <div class="main-content maincontainer">
   <div class="content">
+    
       <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper p-0">
           <div class="col-sm-6 col-md-6 col-xs-3">
                <span class="legal">PortfolioFact</span>
@@ -15,7 +16,7 @@
                           </label>
                       </li>
                   
-                          <li> 
+                          <li (click)="downloadPDFFile()"> 
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
                                   Export to PDF
@@ -26,22 +27,38 @@
               </div>
           </div>
       </div>
-      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
-          <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition"*ngIf="ShowLoaderp" >
+        <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+    </div>
       
       <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-                  <form>
-      <div class="col-md-4 col-sm-4 col-xs-12">
+                  <form [formGroup]="PortFolioForm">
+                    <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="divEmployee">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                               Employee :
+                            </label>
+                            <div class="col-sm-7 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                                <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Employee1" (change)="BindCustomers()" [ngClass]="{ 'validate': submitted && f.Employee1.errors }">
+            
+                                    <option value="">Select</option>
+                                    <option *ngFor="let Data of BindemployeesList " value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                                </select>
+                              
+                            </div>
+                        </div>
+                    </div>
+      <div class="col-md-3 col-sm-3 col-xs-12 " *ngIf="CustNameDive">
           <div class="form-group">
               <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                 Customer Name :
+                 Customer Name:
               </label>
               <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                  <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                      <option value="0">Select</option>
-                      <option value="1"> Customer 1 </option>                     
+                  <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+                    <option value="">Select</option>
+                    <option value="0" selected>All Customer</option>
+                    <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustomerAccountNo}} text={{Data.UserName}}>                                         
                   </select>
                 
               </div>
@@ -53,7 +70,7 @@
                      From Date :
                   </label>
                   <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                      <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Fromdate" >
+                      <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }" >
                   </div>
               </div>
           </div>
@@ -63,12 +80,12 @@
                        To Date :
                       </label>
                       <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                          <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate">
+                          <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate" [ngClass]="{ 'validate': submitted && f.Todate.errors }">
                       </div>
                   </div>
               </div>
-              <div class="col-md-2 col-sm-2 col-xs-12 mt-2">
-                  <button type="button" class="btn btn-success btnasearch">Search</button>
+              <div class="col-md-1 col-sm-1 col-xs-12 mt-2  pull-right">
+                  <button type="button" (click)="bindGrid()" class="btn btn-success btnasearch pull-right mr-3">Search</button>
                   </div>
                   </form>
          
@@ -110,13 +127,14 @@
       <div class="col-md-12 col-sm-12 col-xs-12 summaryGrid">
 
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <div id="portfolioSummaryGrid">
+          <div id="portfolioSummaryGrid" *ngIf="showGrid">
               <table class="bankmasterTable">
                   <thead style="border-bottom:0px">
                       <tr>
                           <th>
                               <table>
-                                  <tr>
+                                  <!-- <tr>
+
                                       <td class="text-center">ADROIT PMS SERVICES PVT LTD</td>
                                   </tr>
                                   <tr>
@@ -138,7 +156,12 @@
                                   <tr>
                                       <td class="text-center">ADROITPMS1
                                       </td>
-                                  </tr>
+                                  </tr> -->
+
+                                  <tr *ngFor="let Data of data1">
+                                    <td *ngIf="showmainheading"colspan="9" class="text-center">{{Data.Data}}</td>
+                                 </tr>
+                                
                               </table></th>
                       </tr> 
                       
@@ -150,7 +173,7 @@
              <div class="col-sm-12 col-md-12 col-xs-12 pl-0">
               <span class="legal subHeading">Sector Allocation</span>
          </div>
-              <table class="bankmasterTable" id="allocation" style="width:99%">
+              <table class="bankmasterTable" id="allocation" style="width:99%" *ngIf="showsector">
                   <thead>
                      <tr>
 
@@ -161,12 +184,12 @@
                   </thead>
                   <tbody class="scrollbar">
                      
-                      <tr>
-                          <td style="width: 60px">1</td>
-                          <td style="width: 350px">Banks</td>
-                          <td style="width: 100px">4.0%</td>
+                      <tr *ngFor="let Data of sectorAllocation">
+                          <td style="width: 60px">{{Data.SeqNum1}}</td>
+                          <td style="width: 350px">{{Data.Sector}}</td>
+                          <td style="width: 100px">{{Data.Asstes}}</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                           <td style="width: 60px">2</td>
                           <td style="width: 350px">Other</td>
                           <td style="width: 100px">2.75 %</td>
@@ -195,14 +218,14 @@
                 <td style="width: 60px">7</td>
                 <td style="width: 100px">Other</td>
                 <td style="width: 100px">2.75 %</td>
-            </tr>
+            </tr> -->
                   </tbody>
                   <tfoot >
                      
                       <tr>
                           <td style="width:60px"></td>
                           <td style="width: 350px">Total</td>
-                          <td style="width: 100px">6.75 %</td>
+                          <td style="width: 100px">{{SumAsstes}}</td>
                       </tr>
 
                   </tfoot>
@@ -213,7 +236,7 @@
                <span class="legal subHeading">Portfolio Holdings</span>
           </div>
               
-                <table class="bankmasterTable" id="summary" style="width:93%">
+                <table class="bankmasterTable" id="summary" style="width:93%" *ngIf="showholding">
                   <thead>
                      <tr>
 
@@ -226,14 +249,14 @@
                   </thead>
                   <tbody class="scrollbar">
                      
-                      <tr>
-                          <td style="width: 60px">1</td>
-                          <td style="width: 100px">Cash</td>
-                          <td style="width: 100px">Cash</td>
-                          <td style="width: 100px">Banks</td>
-                          <td style="width: 100px">4.0%</td>
+                      <tr *ngFor="let Data of portfolioHolding">
+                          <td style="width: 60px">{{Data.SeqNum1}}</td>
+                          <td style="width: 100px">{{Data.Security}}</td>
+                          <td style="width: 100px">{{Data.Sector}}</td>
+                          <td style="width: 100px">{{Data.MktValue}}</td>
+                          <td style="width: 100px">{{Data.PerAssets}}</td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                           <td style="width: 60px">2</td>
                           <td style="width: 100px">Cash</td>
                           <td style="width: 100px">cash</td>
@@ -267,7 +290,7 @@
                   <td style="width: 100px">cash</td>
                   <td style="width: 100px">4</td>
                   <td style="width: 100px">4%</td>
-              </tr>
+              </tr> -->
                   </tbody>
                   <tfoot >
                      
@@ -275,8 +298,8 @@
                           <td style="width:60px"></td>
                           <td style="width:140px">Total</td>
                           <td style="width:60px"></td>
-                          <td style="width: 100px">4</td>
-                          <td style="width: 100px">4%</td>
+                          <td style="width: 109px">{{SumMktValue}}</td>
+                          <td style="width: 108px">{{SumPerAssets}}</td>
                       </tr>
 
                   </tfoot>
@@ -289,48 +312,52 @@
               <div class="col-sm-12 col-md-12 col-xs-12 p-0">
                <span class="legal subHeading">Portfolio Summary</span>
           
-               <table class="bankmasterTable" id="performance" style="width:97%;">
+               <table class="bankmasterTable" id="performance" style="width:97%;" *ngIf="showsummary">
                    <thead>
                       <tr>
 
-                           <th style="width: 250px">Since 27/07/2020 </th>
-                           <th style="width: 100px">Amount</th>
+
+                           <th style="width: 250px">{{sumarryheading1}} </th>
+                           <th style="width: 100px">{{sumarryheading2}}</th>
+
                            
                        </tr>
                    </thead>
                    <tbody class="scrollbar">
                       
                        
-                      <tr>
-                          <td style="width: 250px">Profit/Loss</td>
-                          <td style="width: 100px">54</td>
+
+                      <!-- <tr *ngFor="let Data of portfolioSummary">
+                          <td style="width: 250px">{{Data.Heading}}</td>
+                          <td style="width: 100px">{{Data.Data}}</td>
                       
-                      </tr>
-                      <tr>
-                          <td style="width: 250px">Profit/Loss</td>
-                          <td style="width: 100px">54</td>
+                      </tr> -->
+                       <tr>
+                          <td style="width: 250px">{{sumarry1}}</td>
+                          <td style="width: 100px">{{sumarry2}}</td>
                         
                       </tr>
                       <tr>
-                        <td style="width: 250px">Profit/Loss</td>
-                        <td style="width: 100px">54</td>
+                        <td style="width: 250px">{{sumarry3}}</td>
+                        <td style="width: 100px">{{sumarry4}}</td>
                       
                     </tr>
                     <tr>
-                      <td style="width: 250px">Profit/Loss</td>
-                      <td style="width: 100px">54</td>
+                      <td style="width: 250px">{{sumarry5}}</td>
+                      <td style="width: 100px">{{sumarry6}}</td>
                     
                   </tr>
-                  <tr>
-                    <td style="width: 250px">Profit/Loss</td>
-                    <td style="width: 100px">54</td>
+                   <tr>
+                    <td style="width: 250px">{{sumarry7}}</td>
+                    <td style="width: 100px">{{sumarry8}}</td>
+
                   
                 </tr>
-                <tr>
+            <!--    <tr>
                   <td style="width: 250px">Profit/Loss</td>
-                  <td style="width: 100px">54</td>
+                  <td style="width: 100px" class="price">54</td>
                 
-              </tr>
+              </tr> -->
                      
                    </tbody>
                    
@@ -342,55 +369,57 @@
              <span class="legal subHeading">Performance(TWRR)</span>
         </div>
             
-              <table class="bankmasterTable" id="summary" style="width:93%">
+              <table class="bankmasterTable" id="summary" style="width:93%" *ngIf="showperformance">
                 <thead>
                    <tr>
 
                         <th style="width: 60px"></th>
-                        <th style="width: 100px">MTD</th>
-                        <th style="width: 100px">QTD</th>
-                        <th style="width: 100px">YTD</th>
-                        <th style="width: 100px">Since</th>
+                        <th style="width: 100px">{{performanceheading2}}</th>
+                        <th style="width: 100px">{{performanceheading3}}</th>
+                        <th style="width: 100px">{{performanceheading4}}</th>
+                        <th style="width: 100px">{{performanceheading5}}</th>
                     </tr>
                 </thead>
                 <tbody class="scrollbar">
                    
+                    <!-- <tr *ngFor="let Data of PortfolioPerformance">
+                        
+                        <td style="width: 60px">{{Data.Heading}}</td>
+                    
+                        <td style="width: 100px">{{Data.Data1}}</td>
+                        <td style="width: 100px">{{Data.Data2}}</td>
+                        <td style="width: 100px">{{Data.Data3}}</td>
+                        <td style="width: 100px">{{Data.Data4}}</td>
+                     </tr> -->
                     <tr>
-                        <td style="width: 60px">NIFTY</td>
-                        <td style="width: 100px">4%</td>
-                        <td style="width: 100px">4%</td>
-                        <td style="width: 100px">4%</td>
-                        <td style="width: 100px">4%</td>
-                    </tr>
-                    <tr>
-                      <td style="width: 60px">NIFTY</td>
-                      <td style="width: 100px">4%</td>
-                      <td style="width: 100px">4%</td>
-                      <td style="width: 100px">4%</td>
-                      <td style="width: 100px">4%</td>
+                      <td style="width: 60px">{{performance1}}</td>
+                      <td style="width: 100px">{{performance2}}</td>
+                      <td style="width: 100px">{{performance3}}</td>
+                      <td style="width: 100px">{{performance4}}</td>
+                      <td style="width: 100px">{{performance5}}</td>
                   </tr>
                   <tr>
-                    <td style="width: 60px">NIFTY</td>
-                    <td style="width: 100px">4%</td>
-                    <td style="width: 100px">4%</td>
-                    <td style="width: 100px">4%</td>
-                    <td style="width: 100px">4%</td>
+                    <td style="width: 60px">{{performance6}}</td>
+                    <td style="width: 100px">{{performance7}}</td>
+                    <td style="width: 100px">{{performance8}}</td>
+                    <td style="width: 100px">{{performance9}}</td>
+                    <td style="width: 100px">{{performance10}}</td>
                 </tr>
                 <tr>
-                  <td style="width: 60px">NIFTY</td>
-                  <td style="width: 100px">4%</td>
-                  <td style="width: 100px">4%</td>
-                  <td style="width: 100px">4%</td>
-                  <td style="width: 100px">4%</td>
+                  <td style="width: 60px">{{performance11}}</td>
+                  <td style="width: 100px">{{performance12}}</td>
+                  <td style="width: 100px">{{performance13}}</td>
+                  <td style="width: 100px">{{performance14}}</td>
+                  <td style="width: 100px">{{performance15}}</td>
               </tr>
-              <tr>
-                <td style="width: 60px">NIFTY</td>
-                <td style="width: 100px">4%</td>
-                <td style="width: 100px">4%</td>
-                <td style="width: 100px">4%</td>
-                <td style="width: 100px">4%</td>
-            </tr>
-            <tr>
+              <!-- <tr>
+                <td style="width: 60px">{{performance16}}</td>
+                <td style="width: 100px">{{performance17}}</td>
+                <td style="width: 100px">{{performance18}}</td>
+                <td style="width: 100px">{{performance19}}</td>
+                <td style="width: 100px">{{performance20}}</td>
+            </tr> -->
+           <!-- <tr>
               <td style="width: 60px">NIFTY</td>
               <td style="width: 100px">4%</td>
               <td style="width: 100px">4%</td>
@@ -403,7 +432,7 @@
                       <td style="width: 100px">4%</td>
                       <td style="width: 100px">4%</td>
                       <td style="width: 100px">4%</td>
-                  </tr>
+                  </tr>  -->
                 </tbody>
               
             </table>
@@ -414,13 +443,17 @@
           
       </div>
       
-<!-- <div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="paginationDiv">
-          <span class="previousBtn">Previous</span>
-          <span class="paginationCount">50 out of 200</span>
-          <span class="nextBtn">Next</span>
-      </div>
-</div> -->
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <!-- <span class="previousBtn"(click)="BindNextData(0)" *ngIf="btnPrev">Previous</span> -->
+            <span class="previousBtn"(click)="NextData(0)"*ngIf="btnPrev" >Previous</span>
+            <span class="paginationCount">{{data}}</span>
+            <!-- <span class="nextBtn"(click)="BindNextData(1)" *ngIf="btnNext">Next</span> -->
+            <span class="nextBtn"(click)="NextData(1)" *ngIf="btnNext">Next</span>
+        </div>
+</div>
 
 </div>
           

@@ -199,7 +199,10 @@ export class StatementOfExpensesComponent implements OnInit {
     this.EvenOdd+=1;
     if(this.EvenOdd % 2 !=0)
     {
-
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+console.log(this.StatementOfExpenseForm.controls["UserId"].value)
       this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
       subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
@@ -557,6 +560,7 @@ downloadPDFFile(){
   //   doc.save('StatementOfExpenses_Summary.pdf');
   // }
 
+
   var data = document.getElementById('bankmastertable');  
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
@@ -571,6 +575,7 @@ downloadPDFFile(){
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
       pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
     });    
+
   
 
 }

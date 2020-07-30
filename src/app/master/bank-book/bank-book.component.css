@@ -39,6 +39,25 @@ thead{display: block;}
     width: 100%;
     
     table-layout: fixed;
-}      
+} 
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
+
+
+.loaderposition {
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    top: 37%;
+    margin-left: -10% !important;
+}
+
+table thead {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #cdcdcd;
+}
   
 

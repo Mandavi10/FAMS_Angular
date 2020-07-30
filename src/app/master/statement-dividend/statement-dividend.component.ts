@@ -10,7 +10,7 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
-
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-statement-dividend',
@@ -56,6 +56,8 @@ export class StatementDividendComponent implements OnInit {
   showModalsavepopup:boolean;
   totalpagecount:number;
   totalcustomer:number;
+  IsshowHeading:boolean;
+  showGrid:boolean;
   
 
 
@@ -350,8 +352,11 @@ this.data=' ';
          
        }
 
+       
+
        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
-      
+     
+
        if(Usertype == 2){
         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
       }
@@ -369,6 +374,7 @@ this.data=' ';
         "PageCount" :pagecount
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._StatementDividendService.BindGrid(JsonData).subscribe((res)=>{
       console.log(res);
       this.bindgrid=res.Table;
@@ -403,12 +409,13 @@ this.data=' ';
       this.SumNetAmount=res.Table1[0].SumNetAmount;
       this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
       
-      
+      this.IsshowHeading=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
       
       this.ShowLoaderp=false;
+      this.showGrid=true;
       
       })
         }
@@ -497,8 +504,10 @@ BindDefaultData(){
         "PageCount" : this.PageCount       
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._StatementDividendService.BindGrid(JsonData).subscribe((res)=>{
       console.log(res);
+      if(res.Table.length > 0){
       this.bindgrid=res.Table;
       this.bindgridDivident=res.Table1;
       // this.pagination=res.Table1;
@@ -535,11 +544,24 @@ BindDefaultData(){
       // }
       //  this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
        this.data=' ';
-      
+       this.IsshowHeading=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
+      }
+      else
+{
+  this.ISSummary=false;
+  this.ISMaingrid=false;
+  this.IsshowHeading=false;
+  this.btnNext=false;
+  this.btnPrev=false;
+  
+}
+
       this.ShowLoaderp=false;
+      
+      this.showGrid=true;
       
       })   
     });
@@ -621,8 +643,10 @@ bindGrid(){
  
 }
 this.ShowLoaderp=true;
+this.showGrid=false;
 this._StatementDividendService.BindGrid(jasondata).subscribe((res)=>{
 console.log(res);
+if(res.Table.length >0){
 this.bindgrid=res.Table;
 this.bindgridDivident=res.Table1;
 // this.pagination=res.Table1;
@@ -662,7 +686,7 @@ this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
 // this.SumOutstanding_Divident=res.Table3[0].SumOutstanding_Divident;
 // this.SumTotal_Amount=res.Table3[0].SumTotal_Amount;
 // this.SumTDS_Amount=res.Table3[0].SumTDS_Amount; Total
-
+this.IsshowHeading=true;
 this.data1=res.Table2
 console.log(this.bindgrid)
 console.log(this.pagination)
@@ -680,9 +704,20 @@ this.totalpagecount=res.Table1[0].Total
 //   this.btnPrev=true;
 //  this.btnNext==true;
 //   }
+} 
+else
+{
+  this.ISSummary=false;
+  this.ISMaingrid=false;
+  this.IsshowHeading=false;
+  this.btnNext=false;
+  this.btnPrev=false;
+  
+}
 
 
 this.ShowLoaderp=false;
+this.showGrid=true;
 
 
 })
@@ -770,48 +805,103 @@ this.StaticArray1={value:"Total",value1:"",value2:"",value3:"",value4:"",value5:
   return str;
 }
 
-downloadMainGrid() {   //real downlad grid
+// downloadMainGrid() {   //real downlad grid
   
-      var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
-       var a = document.createElement("a");
-        a.setAttribute('style', 'display:none;');
-        document.body.appendChild(a);
-        var blob = new Blob([csvData], { type: 'text/csv' });
-        var url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = 'CapitalStatement.csv';/* your file name*/
-         a.click();
-         return 'success';
- // });
-}
+//       var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
+//        var a = document.createElement("a");
+//         a.setAttribute('style', 'display:none;');
+//         document.body.appendChild(a);
+//         var blob = new Blob([csvData], { type: 'text/csv' });
+//         var url = window.URL.createObjectURL(blob);
+//         a.href = url;
+//         a.download = 'CapitalStatement.csv';/* your file name*/
+//          a.click();
+//          return 'success';
+//  // });
+// }
 
-downloadPDF(){
-  // this.showhead=false;
-  // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
-  // //const pdf = new jsPDF('p', 'pt', 'a4');
-  // const pdf = new jsPDF();
-  // pdf.addHTML(elementToPrint, () => {
-  //     pdf.save('web.pdf');
-  // });  
-  var doc = new jsPDF('legal', 'pt','a3' );
-  // doc.text("From HTML", 40, 50);legal
-   //doc.text( 40, 50);
-   var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
-   var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
+// downloadPDF(){
+//   // this.showhead=false;
+//   // const elementToPrint = document.getElementById('tbldiv'); //The html element to become a pdf
+//   // //const pdf = new jsPDF('p', 'pt', 'a4');
+//   // const pdf = new jsPDF();
+//   // pdf.addHTML(elementToPrint, () => {
+//   //     pdf.save('web.pdf');
+//   // });  
+//   var doc = new jsPDF('legal', 'pt','a3' );
+//   // doc.text("From HTML", 40, 50);legal
+//    //doc.text( 40, 50);
+//    var res = doc.autoTableHtmlToJson(document.getElementById("bankmastertable1"));
+//    var res1 = doc.autoTableHtmlToJson(document.getElementById("bankmastertable2"));
 
-   console.log(res)
-   console.log(res.data)
-   console.log(res.data[0])
-   doc.autoTable(res.columns, res1.data, {
-     startY: 90
-   });
+//    console.log(res)
+//    console.log(res.data)
+//    console.log(res.data[0])
+//    doc.autoTable(res.columns, res1.data, {
+//      startY: 90
+//    });
   
-   doc.save();
+//    doc.save();
    
+// }
+
+
+downloadPDFFile(){
+    
+  // var doc = new jsPDF();  
+ 
+  // doc.setFontSize(11);    // doc.setTextColor(100);
+
+  // if(this.EvenOdd % 2 !=0)
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses4,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
+  
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses.pdf');
+  // }
+  // else
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses5,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
+  
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses_Summary.pdf');
+  // }
+
+  var data = document.getElementById('Statementdiv');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('StatementDividend_Html.pdf'); // Generated PDF   
+    });    
+  
+
 }
-
-
-
 
 }
 
