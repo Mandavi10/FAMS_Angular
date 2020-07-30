@@ -13,7 +13,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 @Component({
   selector: 'app-transaction-statement',

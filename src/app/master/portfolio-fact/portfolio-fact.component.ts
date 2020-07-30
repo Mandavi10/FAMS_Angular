@@ -8,7 +8,7 @@ import{PortfolioFactService} from '../../Services/PortfolioFact/portfolio-fact.s
 import{SectorAllocation,portfolioSummary,PortfolioHolding,PortfolioPerformance} from '../../../Models/PortfolioFact/portfolioFact';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import { ReactiveFormsModule } from '@angular/forms'
-// import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 @Component({
@@ -823,10 +823,12 @@ else{
   }
 
   downloadPDFFile(){
-    
+   
+    debugger;  
     // var doc = new jsPDF();  
    
-    // doc.setFontSize(11);    // doc.setTextColor(100);
+    // doc.setFontSize(11);
+    // doc.setTextColor(100);
   
     // if(this.EvenOdd % 2 !=0)
     // {
@@ -861,20 +863,35 @@ else{
     //   doc.save('StatementOfExpenses_Summary.pdf');
     // }
   
-    // var data = document.getElementById('portfolioSummaryGrid');  
-    //   html2canvas(data).then(canvas => {  
-    //     // Few necessary setting options  
+    var data = document.getElementById('portfolioSummaryGrid');  
+      html2canvas(data).then(canvas => {  
+        // Few necessary setting options  
+        var imgWidth = 208;   
+        var pageHeight = 295;    
+        var imgHeight = canvas.height * imgWidth / canvas.width;  
+        var heightLeft = imgHeight;  
+  
+    
     //     var imgWidth = 208;   
     //     var pageHeight = 295;    
     //     var imgHeight = canvas.height * imgWidth / canvas.width;  
     //     var heightLeft = imgHeight;  
     
+  
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        var position = 0;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('PortfolioFact.pdf'); // Generated PDF   
+      });    
+  
     //     const contentDataURL = canvas.toDataURL('image/png')  
     //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
     //     var position = 0;  
     //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-    //     pdf.save('PortfolioFact_Html.pdf'); // Generated PDF   
+    //     pdf.save('Transaction_Statement.pdf'); // Generated PDF   
     //   });    
+  
     
   
   }
