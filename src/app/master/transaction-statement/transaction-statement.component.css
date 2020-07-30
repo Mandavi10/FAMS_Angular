@@ -15,6 +15,12 @@
   margin-top: 12%;
 }
 
+.notelabel{color: #f31313;
+  font-style: italic;
+  position: absolute;
+  right: 26px;
+  top: 2px;}
+
 .holdingreportGrid tbody tr {
   width: 97%;
   display: table;
