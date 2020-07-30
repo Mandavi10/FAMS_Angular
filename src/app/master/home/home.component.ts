@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 // });
 
   ngOnInit(): void {
+    debugger;
     let item1 = JSON.parse(sessionStorage.getItem('User'));
     var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
     this.BindAllPost();
@@ -86,7 +87,9 @@ this.OrderProcessing=false;
     debugger;
     this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    //var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var Email = Sessionvalue.EmailId;
+
     var JsonData ={
       "EmailId":Email,
       "NotiType":this.IsAll,
@@ -192,7 +195,9 @@ this.OrderProcessing=false;
   divClickRead(Lineid)
   {
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    //var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var Email = Sessionvalue.EmailId;
+
     var JsonData ={
       "EmailId":Email,
       "NotiType":Lineid
@@ -217,7 +222,8 @@ this.OrderProcessing=false;
       });
       var dynamicid='Dynamicdiv'+Lineid;
       var element = document.getElementById(dynamicid);
-   element.classList.remove("notificationboxactive");
+      element.classList.remove("notificationboxunactive");
+   element.classList.add("notificationboxactive");
 
       this.isShowLoader = false;
       
@@ -267,7 +273,9 @@ this.OrderProcessing=false;
     debugger;
     this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    //var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var Email = Sessionvalue.EmailId;
+
     var JsonData ={
       "EmailId":Email,
       "NotiType":this.IsAll
@@ -286,7 +294,9 @@ this.OrderProcessing=false;
     debugger;
     this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    //var Email = this.Dbsecurity.Decrypt(Sessionvalue.EmailId);
+    var Email = Sessionvalue.EmailId;
+
     var JsonData ={
       "EmailId":Email
     }

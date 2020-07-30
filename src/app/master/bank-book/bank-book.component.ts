@@ -59,7 +59,8 @@ if(this.userType == 3){
 
   else{
     this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-    this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    this.CustomerAccount = item.AccountNo;
   }
   this.PageCount = 1;
   this.BindDefaultData();
@@ -224,7 +225,8 @@ else{ this.PageCount = 1;}
     var CustomerAccount="";
     if(UserId=="30007" ||
     UserId=="30008"){
-      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+      // CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo);
+      this.CustomerAccount = Sessionvalue.AccountNo;
     }
     else{
       CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
