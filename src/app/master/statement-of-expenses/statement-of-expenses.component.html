@@ -6,13 +6,13 @@
        <form [formGroup]="StatementOfExpenseForm" autocomplete="off" appNorightclick>
          
           <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                <span class="legal"></span>
+             <div class="col-sm-6 col-md-6 col-xs-3">
+                <span class="legal">Statement Of Expenses</span>
              </div>
              <div class="rightmenu">
                 <div class="toolbar pull-right">
                    <ul class="toolbar-content">
-                      <li (click)="downloadCSVFile()">
+                      <li (click)="downloadCSVFile()" style="display: none;">
                          <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                          <label>
                             <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -108,7 +108,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12 tableDiv p-0"  style="display:block">
              <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
                 <div class="col-sm-6 col-md-6 col-xs-3 ">
-                   <span class="legal"> Statement Of Expenses</span>
+                   <span class="legal"> </span>
                 </div>
                 <div class="rightmenu" style="display:block">
                    <div class="toolbar pull-right">
@@ -139,8 +139,10 @@
 
        <div id="Record" *ngIf="IsShowRecord" >
              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="holdingreportGrid">
+                <div class="holdingreportGrid" >
+                  
                    <table class="bankmasterTable" id="bankmastertable">
+                     <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
                       <!-- <thead>
                          <tr>
                             <th style="width: 182px">Date</th>

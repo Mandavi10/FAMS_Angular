@@ -103,6 +103,8 @@ border-right: 1px solid #dfe6e8;
         font-family: unset;
         color:#3c8dbc;
        }
+       .borderbox{border-right: 1px solid #cbdde8;
+        height: 509px;}
        .notificationdate label{font-weight: 400;
         font-size: 11px;
         display: inline-block;}
@@ -111,7 +113,7 @@ border-right: 1px solid #dfe6e8;
         .notificationboxactive{  border: 1px solid #cbdde8;
           padding: 7px 0px 7px 0px;
           font-family: unset;
-          background-color: #81c2e8a6;
+          background-color: #c6d8e2a6;
           
           border-left:3px solid #3c8dbc;
     margin-bottom: 7px;

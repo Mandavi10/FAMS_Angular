@@ -560,6 +560,7 @@ downloadPDFFile(){
   //   doc.save('StatementOfExpenses_Summary.pdf');
   // }
 
+
   var data = document.getElementById('bankmastertable');  
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
@@ -574,6 +575,7 @@ downloadPDFFile(){
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
       pdf.save('StatementOfExpenses.pdf'); // Generated PDF   
     });    
+
   
 
 }
