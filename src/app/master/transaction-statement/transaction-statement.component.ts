@@ -123,13 +123,13 @@ rowData = [
     debugger;
     if(this.userType ==1)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber=this.accountNumber;   
     }
 
    else if(this.userType ==3)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
       this.TransactionStatementForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
@@ -151,13 +151,13 @@ rowData = [
 
 
        this.isShowCustomer=true;    
-       this.GUserId=item.UserId;
+       this.GUserId=item.UserId.replace('+',' ');
        this.GAccountNumber="1";
         this.BindCustomers();
 
     }
     else{
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
@@ -230,7 +230,7 @@ var currentContext=this;
      let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // let  Data = new Commonfields();
      //Data.UserId = Sessionvalue.UserId;
-     this.TSService.BindEmployee(Sessionvalue.UserId).subscribe(
+     this.TSService.BindEmployee(Sessionvalue.UserId.replace('+',' ')).subscribe(
        (data) => {
          debugger;
             this.BindemployeesList = data.Table;
@@ -257,7 +257,7 @@ var currentContext=this;
    // this.loading = true;
     var currentContext = this;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
+    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
         subscribe((data) => {
             currentContext.customer = data.Table;
             this.isShowCustomer=true;

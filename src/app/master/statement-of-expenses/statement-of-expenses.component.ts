@@ -89,23 +89,33 @@ export class StatementOfExpensesComponent implements OnInit {
   
  
   
-
+debugger;
   let item = JSON.parse(sessionStorage.getItem('User'));
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
+  // alert(item.UserId);
+  //   console.log(item.UserId);
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
+   
+   // let ActivityId=this.Dbsecurity.Decrypt(this.router1.snapshot.queryParamMap.get('ActivityId').replace(/ /g, '+'));
     //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
     this.accountNumber=item.AccountNo;
+    // alert(item.UserId.replace('+',/ /g));
+    // console.log(item.UserId.replace('+',/ /g));
+
+    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+
     debugger;
     if(this.userType ==1)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber=this.accountNumber;   
     }
 
    else if(this.userType ==3)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
       this.StatementOfExpenseForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
@@ -116,12 +126,12 @@ export class StatementOfExpensesComponent implements OnInit {
     else if(this.userType ==2)
     {
      // this.isShowCustomer=true;
-     this.GUserId=item.UserId;
+     this.GUserId=item.UserId.replace('+',' ');;
      this.GAccountNumber="1";
       this.BindCustomer();
     }
     else{
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');;
       this.GAccountNumber="0";
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
@@ -200,10 +210,10 @@ export class StatementOfExpensesComponent implements OnInit {
     this.EvenOdd+=1;
     if(this.EvenOdd % 2 !=0)
     {
-console.log(this.StatementOfExpenseForm.controls["UserId"].value)
-console.log(this.StatementOfExpenseForm.controls["UserId"].value)
-console.log(this.StatementOfExpenseForm.controls["UserId"].value)
-console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+// console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+// console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+// console.log(this.StatementOfExpenseForm.controls["UserId"].value)
+// console.log(this.StatementOfExpenseForm.controls["UserId"].value)
       this._statementexpensesService.NextRecordBind(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd).
       subscribe((data) => {
       //this.statementOfExpenses_Default=data.Table;
@@ -255,7 +265,7 @@ console.log(this.StatementOfExpenseForm.controls["UserId"].value)
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
    // let  Data = new Commonfields();
     //Data.UserId = Sessionvalue.UserId;
-    this._statementexpensesService.BindEmployee(Sessionvalue.UserId).subscribe(
+    this._statementexpensesService.BindEmployee(Sessionvalue.UserId.replace('+',' ')).subscribe(
       (data) => {
         debugger;
            this.BindemployeesList = data.Table;
@@ -290,7 +300,7 @@ console.log(this.StatementOfExpenseForm.controls["UserId"].value)
     this.loading = true;
     var currentContext = this;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    this._statementexpensesService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
+    this._statementexpensesService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
         subscribe((data) => {
             currentContext.customer = data.Table;
             this.isShowCustomer=true;
