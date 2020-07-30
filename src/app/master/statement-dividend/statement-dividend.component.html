@@ -29,7 +29,7 @@
                           </button></a> --> 
                       </li>
                        
-                       <li (click)=downloadPDF()>
+                       <li (click)=downloadPDFFile()>
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
                                   <!-- <a target="_blank" href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
@@ -158,7 +158,7 @@
       </div>   
      
       <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="holdingreportGrid" *ngIf="showGrid"> 
+          <div class="holdingreportGrid" id="Statementdiv" *ngIf="showGrid"> 
                 <table style="background-color:#ffffff !important;" *ngIf="ISMaingrid">
             <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" ><tr *ngFor="let data of data1">
               <td colspan="12" *ngIf="IsshowHeading"class="text-center">{{data.Data}}</td>
