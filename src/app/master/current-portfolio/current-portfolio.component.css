@@ -33,6 +33,11 @@ table{display: block;}
     top: 37%;
     margin-left: -10% !important;
 }
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
 
 .holdingreportGrid tbody {
    
