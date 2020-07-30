@@ -149,8 +149,11 @@
             </div>
         </div>
     </div>   
-    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="griddiv" style="overflow-y: scroll;
+    
+ <div id="Record" *ngIf="IsShowRecord" >
+<div class="col-md-12 col-sm-12 col-xs-12"  style="overflow-y: scroll;
     height: 453px;">
+    <!-- *ngIf="griddiv" -->
         <div class="holdingreportGrid" id="bankmastertable">
             <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
         <table class="bankmasterTable"  style="background-color:#ffffff !important;">
@@ -315,6 +318,13 @@
 
     </div>
 </div>
+ </div>
+ <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+    <div class="text" style="text-align: center;">
+       <p>No Record Found</p>
+    </div>
+</div>
+
 
 
         
