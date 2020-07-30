@@ -84,6 +84,9 @@ export class PortfolioFactComponent implements OnInit {
   showmainheading:boolean;
   showGrid:boolean;
   IsshowCSV:boolean=false;
+  customerlength:number;
+
+  showfromdate:boolean=false;
 
   constructor(private _porfolioFactService:PortfolioFactService,private formbuilder:FormBuilder, private _capitalStateService:CapitalSatementService,private Dbsecurity: DbsecurityService) { }
 
@@ -182,6 +185,7 @@ export class PortfolioFactComponent implements OnInit {
       //  this.totalcustomer=data.Table.length;
         
            this.BindcustomerallfieldsList = data.Table;
+           this.customerlength = data.Table.length;
       });
   }
 
@@ -245,6 +249,14 @@ if(value == 1){
  if(this.PageCount >1){
 this.btnPrev=true;
  }
+//customerlength
+
+if(this.PageCount == this.customerlength){
+  this.btnNext=false; 
+
+}
+
+
 //  if(Usertype == 3){
 //  if(this.PageCount == this.totalpagecount){
 //    this.btnNext=false; 
@@ -293,6 +305,11 @@ else if(value == 0){
  
   }
 
+  if(this.PageCount < this.customerlength){
+    this.btnNext=true; 
+  
+  }
+
   // if(this.PageCount%2 != 0){
   //   if(this.StatementDividendForm.controls['CustomerAccount'].value != 0){
   //     this.btnNext=true;
@@ -323,14 +340,14 @@ else if(value == 0){
       // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
 
      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-      
+     this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
       if(this.PortFolioForm.controls['CustomerAccount'].value != 0){
         var pagecount=1; 
-         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+      //   this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
 
        }
        else{
-      this.CustomerAccount=this.Dbsecurity.Encrypt(this.PortFolioForm.controls['CustomerAccount'].value);
+      // this.CustomerAccount=this.Dbsecurity.Encrypt(this.PortFolioForm.controls['CustomerAccount'].value);
         // this.btnNext=true;
          
        }
@@ -350,7 +367,8 @@ else if(value == 0){
       var JsonData ={
         "UserId" : item.UserId,
         "fromdate" : this.FromDate,
-        "todate" :  this.ToDate,
+        // "todate" :  this.ToDate,
+        "todate" :  this.FromDate,
         "CustomerAccountNo" : this.CustomerAccount ,
         "PageCount" :temppgcount//pagecount
       }
@@ -461,13 +479,37 @@ this.performance15=res.Table5[3].Data4
   BindDefaultData(){
     // this.loader1=true;this.loader2=true;
   
-    
+    let item = JSON.parse(sessionStorage.getItem('User'));
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
+    var UserId=Data.UserId;
+     var customeraccount=item.AccountNo
+
+     var Jasondata={
+      "UserId" : UserId,
+      "CustomerAccountNo" : customeraccount
+     }
     
-    this._porfolioFactService.BindDefaultData(JSON.stringify(Data)).subscribe(
+    this._porfolioFactService.BindDefaultData(JSON.stringify(Jasondata)).subscribe(
       (data) => {
+
+
+        let item = JSON.parse(sessionStorage.getItem('User'));
+      
+        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+  
+        //  alert(Usertype)
+        
+        
+        var customeraccountno
+         if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+         customeraccountno=data.Table[0]["CustomerAccountNo"];
+         }
+         else
+         {
+           customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+         }
         this.FromDate = data.Table[0]["AsOnDate"];
         this.ToDate = data.Table[0]["AsOnDate"];
         this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
@@ -480,11 +522,12 @@ this.performance15=res.Table5[3].Data4
         // this.griddiv=true;
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-        var customeraccount1=this.Dbsecurity.Encrypt( this.CustomerAccount)
+        var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
         var JsonData ={
           "UserId" : UserId,
           "fromdate" : this.FromDate,   
-          "todate" :  this.ToDate,
+          // "todate" :  this.ToDate,
+          "todate" :  this.FromDate,
           "CustomerAccountNo" : customeraccount1,
           "PageCount" : this.PageCount       
         } 
@@ -680,7 +723,8 @@ this.performance15=res.Table5[3].Data4
    var jasondata= {
     "fromdate":this.PortFolioForm.controls['Formdate'].value ,
     "PageCount": this.PageCount,
-    "todate":this.PortFolioForm.controls['Todate'].value,
+    // "todate":this.PortFolioForm.controls['Todate'].value,
+    "todate":this.PortFolioForm.controls['Formdate'].value,
     "UserId": userid,
     "CustomerAccountNo": CustomerAccountNo
    
