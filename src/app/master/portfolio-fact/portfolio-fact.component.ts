@@ -8,7 +8,7 @@ import{PortfolioFactService} from '../../Services/PortfolioFact/portfolio-fact.s
 import{SectorAllocation,portfolioSummary,PortfolioHolding,PortfolioPerformance} from '../../../Models/PortfolioFact/portfolioFact';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import { ReactiveFormsModule } from '@angular/forms'
-import html2canvas from 'html2canvas';
+ import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 @Component({
@@ -336,12 +336,10 @@ else if(value == 0){
       if(data.Table.length > 0){
       this.FromDate = data.Table[0]["AsOnDate"];
       this.ToDate = data.Table[0]["AsOnDate"];
-      // this.CustomerAccount = "";
-      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
-
-     // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-     this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-      if(this.PortFolioForm.controls['CustomerAccount'].value != 0){
+      
+    //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+    this.CustomerAccount = (data.Table[0]["CustomerAccountNo"]); 
+    if(this.PortFolioForm.controls['CustomerAccount'].value != 0){
         var pagecount=1; 
       //   this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
 
@@ -355,7 +353,8 @@ else if(value == 0){
        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
       
        if(Usertype == 2){
-        this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        this.CustomerAccount = (data.Table[0]["CustomerAccountNo"]); 
       }
   
       // if(Usertype == 3 && this.capitalStatForm.controls['CustomerAccount'].value == 0){
@@ -486,6 +485,14 @@ this.performance15=res.Table5[3].Data4
     var UserId=Data.UserId;
      var customeraccount=item.AccountNo
 
+
+   var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      if(Usertype == 3 ){
+     customeraccount=("6010005");
+
+     }
+
      var Jasondata={
       "UserId" : UserId,
       "CustomerAccountNo" : customeraccount
@@ -508,7 +515,8 @@ this.performance15=res.Table5[3].Data4
          }
          else
          {
-           customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+          //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+          customeraccountno=(item.AccountNo); 
          }
         this.FromDate = data.Table[0]["AsOnDate"];
         this.ToDate = data.Table[0]["AsOnDate"];
@@ -522,7 +530,9 @@ this.performance15=res.Table5[3].Data4
         // this.griddiv=true;
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-        var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+        // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+        var customeraccount1=(customeraccountno)
+        
         var JsonData ={
           "UserId" : UserId,
           "fromdate" : this.FromDate,   
@@ -657,7 +667,8 @@ this.performance15=res.Table5[3].Data4
      
       const IsCustomerAccount = this.PortFolioForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-      CustomerAccountNo= this.Dbsecurity.Encrypt(this.PortFolioForm.controls['CustomerAccount'].value);
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.PortFolioForm.controls['CustomerAccount'].value);
+      CustomerAccountNo= (this.PortFolioForm.controls['CustomerAccount'].value);
     }
     else{
       const IsCustomerAccount = this.PortFolioForm.get('CustomerAccount');
@@ -867,12 +878,10 @@ else{
   }
 
   downloadPDFFile(){
-   
-    debugger;  
+    
     // var doc = new jsPDF();  
    
-    // doc.setFontSize(11);
-    // doc.setTextColor(100);
+    // doc.setFontSize(11);    // doc.setTextColor(100);
   
     // if(this.EvenOdd % 2 !=0)
     // {
@@ -914,28 +923,13 @@ else{
         var pageHeight = 295;    
         var imgHeight = canvas.height * imgWidth / canvas.width;  
         var heightLeft = imgHeight;  
-  
     
-    //     var imgWidth = 208;   
-    //     var pageHeight = 295;    
-    //     var imgHeight = canvas.height * imgWidth / canvas.width;  
-    //     var heightLeft = imgHeight;  
-    
-  
         const contentDataURL = canvas.toDataURL('image/png')  
         let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
         var position = 0;  
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-        pdf.save('PortfolioFact.pdf'); // Generated PDF   
+        pdf.save('PortfolioFact_Html.pdf'); // Generated PDF   
       });    
-  
-    //     const contentDataURL = canvas.toDataURL('image/png')  
-    //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-    //     var position = 0;  
-    //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-    //     pdf.save('Transaction_Statement.pdf'); // Generated PDF   
-    //   });    
-  
     
   
   }

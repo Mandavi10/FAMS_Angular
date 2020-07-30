@@ -10,7 +10,7 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
-import html2canvas from 'html2canvas';
+ import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -343,11 +343,9 @@ this.data=' ';
       if(data.Table.length!=0){
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
-      // this.CustomerAccount = "";
-      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
-
-     // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-     this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+ 
+    //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
+    this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
       if(this.StatementDividendForm.controls['CustomerAccount'].value != 0){
         var pagecount=1; 
         //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
@@ -365,7 +363,8 @@ this.data=' ';
      
 
        if(Usertype == 2){
-        this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        this.CustomerAccount = data.Table[0]["CustomerAccountNo"]; 
       }
   
       // if(Usertype == 3 && this.capitalStatForm.controls['CustomerAccount'].value == 0){
@@ -506,7 +505,8 @@ BindDefaultData(){
        }
        else
        {
-         customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+        //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+        customeraccountno=(item.AccountNo); 
          
        }
     
@@ -522,7 +522,8 @@ BindDefaultData(){
       // this.griddiv=true;
       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-      var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+      // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+      var customeraccount1=(customeraccountno)
       var JsonData ={
         "UserId" : UserId,
         "fromdate" : this.FromDate,   
@@ -608,7 +609,8 @@ bindGrid(){
    
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-    CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+    // CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+    CustomerAccountNo= (this.StatementDividendForm.controls['CustomerAccount'].value);
   }
   else{
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
