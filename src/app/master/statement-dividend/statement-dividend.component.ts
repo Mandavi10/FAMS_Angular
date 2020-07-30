@@ -10,7 +10,7 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
- import html2canvas from 'html2canvas';
+//  import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -61,6 +61,7 @@ export class StatementDividendComponent implements OnInit {
   showGrid:boolean;
   IsshowCSV:boolean=false;
   customerlength:number;
+  IsShowNoRecord:boolean;
   
 
 
@@ -79,8 +80,46 @@ export class StatementDividendComponent implements OnInit {
       Employee1:['',Validators.required]
       //CustomerAccount
     })
-    // this.BindCustomers();
-    this.BindDefaultData();
+    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+      var userType=this.Dbsecurity.Decrypt(item.UserType);
+      
+      var accountNumber=item.AccountNo;
+      var GAccountNumber,GUserId;
+      
+      if(userType ==1)
+      {
+        GUserId=item.UserId;
+        GAccountNumber=accountNumber;   
+      }
+  
+     else if(userType ==3)
+      {
+        // this.GUserId=item.UserId;
+        GAccountNumber="0";
+        // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      
+      }
+      else if(userType ==2)
+      {
+       
+      //  GUserId=item.UserId;
+       GAccountNumber="1";
+        
+      }
+      else{
+        // this.GUserId=item.UserId;
+        GAccountNumber="0";
+       
+      }
+      
+       if (this.StatementDividendForm.controls["Employee1"].value==0 && this.StatementDividendForm.controls["Formdate"].value==""  && this.StatementDividendForm.controls["Todate"].value=="") 
+      {
+        // alert(GAccountNumber)
+        this.BindDefaultData(GAccountNumber,GUserId)
+      }
+  
+    // this.BindDefaultData();
   }
   onClicksavepopup() {
     this.showModalsavepopup = true;
@@ -481,14 +520,19 @@ BindEmployee(){
     });
 }
 
-BindDefaultData(){
+BindDefaultData(accountno,userid){
   // this.loader1=true;this.loader2=true;
 
   
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   let  Data = new Commonfields();
   Data.UserId = Sessionvalue.UserId;
-  this._StatementDividendService.BindDefaultData(JSON.stringify(Data)).subscribe(
+
+  var jasondata={
+    "UserId" : Data.UserId,
+    "CustomerAccountNo" : accountno,
+  }; 
+  this._StatementDividendService.BindDefaultData(jasondata).subscribe(
     (data) => {
 
 
@@ -572,7 +616,10 @@ BindDefaultData(){
       // }
       //  this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
        this.data=' ';
+       this.IsShowNoRecord=false;
+       this.showGrid=true;
        this.IsshowHeading=true;
+       this.ISMaingrid=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
@@ -584,12 +631,14 @@ BindDefaultData(){
   this.IsshowHeading=false;
   this.btnNext=false;
   this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
   
 }
 
       this.ShowLoaderp=false;
       
-      this.showGrid=true;
+      
       
       })   
     });
@@ -690,6 +739,10 @@ if(res.Table.length!=0 && this.StatementDividendForm.controls['CustomerAccount']
   this.btnNext=true; 
 
 }
+else{
+  this.btnPrev=false;
+  this.btnNext=false; 
+}
 
 
 for(var i=0;i<res.Table.length;i++){
@@ -715,7 +768,11 @@ this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
 // this.SumOutstanding_Divident=res.Table3[0].SumOutstanding_Divident;
 // this.SumTotal_Amount=res.Table3[0].SumTotal_Amount;
 // this.SumTDS_Amount=res.Table3[0].SumTDS_Amount; Total
+this.showGrid=true;
 this.IsshowHeading=true;
+this.IsShowNoRecord=false;
+this.ISMaingrid=true;
+  
 this.data1=res.Table2
 console.log(this.bindgrid)
 console.log(this.pagination)
@@ -741,12 +798,14 @@ else
   this.IsshowHeading=false;
   this.btnNext=false;
   this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
   
 }
 
 
 this.ShowLoaderp=false;
-this.showGrid=true;
+
 
 
 })
@@ -914,20 +973,20 @@ downloadPDFFile(){
   //   doc.save('StatementOfExpenses_Summary.pdf');
   // }
 
-  var data = document.getElementById('Statementdiv');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+  // var data = document.getElementById('Statementdiv');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 208;   
+  //     var pageHeight = 295;    
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+  //     var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('StatementDividend_Html.pdf'); // Generated PDF   
-    });    
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('StatementDividend_Html.pdf'); // Generated PDF   
+  //   });    
   
 
 }

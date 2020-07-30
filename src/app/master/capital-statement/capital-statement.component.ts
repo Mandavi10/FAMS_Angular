@@ -8,7 +8,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
- import html2canvas from 'html2canvas';
+//  import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-capital-statement',
@@ -58,6 +58,7 @@ export class CapitalStatementComponent implements OnInit {
   customerlength:number;
   temppagecount:number;
   IsshowCSV:boolean=false;
+  IsShowNoRecord:boolean;
   
 
 
@@ -75,9 +76,47 @@ export class CapitalStatementComponent implements OnInit {
       Employee1:['',Validators.required]
     })
 
-    this.DownloadExcel();
+    //this.DownloadExcel();
 
-    this.BindDefaultData();
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var userType=this.Dbsecurity.Decrypt(item.UserType);
+    
+    var accountNumber=item.AccountNo;
+    var GAccountNumber,GUserId;
+    
+    if(userType ==1)
+    {
+      GUserId=item.UserId;
+      GAccountNumber=accountNumber;   
+    }
+
+   else if(userType ==3)
+    {
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+      // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+    
+    }
+    else if(userType ==2)
+    {
+     
+    //  GUserId=item.UserId;
+     GAccountNumber="1";
+      
+    }
+    else{
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+     
+    }
+    
+     if (this.capitalStatForm.controls["Employee1"].value==0 && this.capitalStatForm.controls["Formdate"].value==""  && this.capitalStatForm.controls["Todate"].value=="") 
+    {
+      // alert(GAccountNumber)
+      this.BindDefaultData(GAccountNumber,GUserId)
+    }
+
+    //this.BindDefaultData();
 
   }
 
@@ -576,13 +615,18 @@ BindEmployee(){
     });
 }
 
-BindDefaultData(){
+BindDefaultData(accountno,userid){
   // this.loader1=true;this.loader2=true;
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
 
   let  Data = new Commonfields();
   Data.UserId = Sessionvalue.UserId;
-  this._capitalStateService.BindDefaultData(JSON.stringify(Data)).subscribe(
+  var jasondata={
+    "UserId" : Data.UserId,
+    "CustomerAccountNo" : accountno,
+  }; 
+
+  this._capitalStateService.BindDefaultData(jasondata).subscribe(
     (data) => {
       let item = JSON.parse(sessionStorage.getItem('User'));
       
@@ -671,6 +715,8 @@ BindDefaultData(){
 
           this.data1=res.Table2
           this.IsshowHeading=true;
+          this.showGrid=true;
+          this.IsShowNoRecord=false;
           console.log(this.data1)
           // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
           this.data=' ';
@@ -682,10 +728,12 @@ BindDefaultData(){
           this.IsshowHeading=false;
           this.btnNext=false;
           this.btnPrev=false;
-          // this.data1={};
+          this.IsShowNoRecord=true;
+           this.showGrid=false;
+            // this.data1={};
         }
           this.ShowLoaderp=false;
-          this.showGrid=true;
+          
           });
 
     });
@@ -843,10 +891,12 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
   this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
 
   this.data1=res.Table2
+  this.showGrid=true;
   this.IsshowHeading=true;
   console.log(this.data1)
   this.ISSummary=false;
   this.ISMaingrid=true;
+  this.IsShowNoRecord=false;
 //var pagecnt=1
   // if(this.PageCount%2 != 0){
   //   this.ISSummary=false;
@@ -861,7 +911,7 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 this.currentpagecount=res.Table.length;
 this.totalpagecount=res.Table1[0].Total ;
   // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
-  this.data=' ';
+  this.data=' '; 
 
 
   
@@ -873,10 +923,12 @@ else
   this.IsshowHeading=false;
   this.btnNext=false;
   this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
   // this.data1={};
 }
 this.ShowLoaderp=false;
-this.showGrid=true;
+
 })
 }
 
@@ -1204,20 +1256,20 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
     //   doc.save('StatementOfExpenses_Summary.pdf');
     // }
   
-    var data = document.getElementById('capitalStatementGrid');  
-      html2canvas(data).then(canvas => {  
-        // Few necessary setting options  
-        var imgWidth = 208;   
-        var pageHeight = 295;    
-        var imgHeight = canvas.height * imgWidth / canvas.width;  
-        var heightLeft = imgHeight;  
+    // var data = document.getElementById('capitalStatementGrid');  
+    //   html2canvas(data).then(canvas => {  
+    //     // Few necessary setting options  
+    //     var imgWidth = 208;   
+    //     var pageHeight = 295;    
+    //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+    //     var heightLeft = imgHeight;  
     
-        const contentDataURL = canvas.toDataURL('image/png')  
-        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-        var position = 0;  
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-        pdf.save('CapitalStatement Gain/Loss_Html.pdf'); // Generated PDF   
-      });    
+    //     const contentDataURL = canvas.toDataURL('image/png')  
+    //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+    //     var position = 0;  
+    //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+    //     pdf.save('CapitalStatement Gain/Loss_Html.pdf'); // Generated PDF   
+    //   });    
     
   
   }

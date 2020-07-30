@@ -8,7 +8,7 @@ import{PortfolioFactService} from '../../Services/PortfolioFact/portfolio-fact.s
 import{SectorAllocation,portfolioSummary,PortfolioHolding,PortfolioPerformance} from '../../../Models/PortfolioFact/portfolioFact';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import { ReactiveFormsModule } from '@angular/forms'
- import html2canvas from 'html2canvas';
+//  import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 @Component({
@@ -87,6 +87,8 @@ export class PortfolioFactComponent implements OnInit {
   customerlength:number;
 
   showfromdate:boolean=false;
+  IsShowNoRecord:boolean;
+  // showGrid:boolean;
 
   constructor(private _porfolioFactService:PortfolioFactService,private formbuilder:FormBuilder, private _capitalStateService:CapitalSatementService,private Dbsecurity: DbsecurityService) { }
 
@@ -104,7 +106,47 @@ export class PortfolioFactComponent implements OnInit {
     })
 
     this.Showcustdropdown();
-    this.BindDefaultData();
+
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var userType=this.Dbsecurity.Decrypt(item.UserType);
+    
+    var accountNumber=item.AccountNo;
+    var GAccountNumber,GUserId;
+    
+    if(userType ==1)
+    {
+      GUserId=item.UserId;
+      GAccountNumber=accountNumber;   
+    }
+
+   else if(userType ==3)
+    {
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+      // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+    
+    }
+    else if(userType ==2)
+    {
+     
+    //  GUserId=item.UserId;
+     GAccountNumber="1";
+      
+    }
+    else{
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+     
+    }
+    
+     if (this.PortFolioForm.controls["Employee1"].value==0 && this.PortFolioForm.controls["Formdate"].value==""  && this.PortFolioForm.controls["Todate"].value=="") 
+    {
+      // alert(GAccountNumber)
+      this.BindDefaultData(GAccountNumber,GUserId)
+    }
+
+   // this.BindDefaultData();
   }
 
   get f() {
@@ -475,28 +517,33 @@ this.performance15=res.Table5[3].Data4
 }
 
 
-  BindDefaultData(){
+  BindDefaultData(accountno,userid){
     // this.loader1=true;this.loader2=true;
   
     let item = JSON.parse(sessionStorage.getItem('User'));
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
-    var UserId=Data.UserId;
-     var customeraccount=item.AccountNo
+  //   var UserId=Data.UserId;
+  //    var customeraccount=item.AccountNo
 
 
-   var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+  //  var Usertype=this.Dbsecurity.Decrypt(item.UserType);
 
-      if(Usertype == 3 ){
-     customeraccount=("6010005");
+  //     if(Usertype == 3 ){
+  //    customeraccount=("6010005");
 
-     }
+  //    }
 
      var Jasondata={
-      "UserId" : UserId,
-      "CustomerAccountNo" : customeraccount
-     }
+      "UserId" : Data.UserId,
+      "CustomerAccountNo" : accountno,
+    }; 
+          
+    //  var Jasondata={
+    //   "UserId" : UserId,
+    //   "CustomerAccountNo" : customeraccount
+    //  }
     
     this._porfolioFactService.BindDefaultData(JSON.stringify(Jasondata)).subscribe(
       (data) => {
@@ -604,6 +651,8 @@ this.performance15=res.Table5[3].Data4
         this.showsummary=true;
         this.showholding=true;
         this.showsector=true;
+        this.IsShowNoRecord=false;
+  this.showGrid=true;
         
         // if(res.Table.length!=0 && this.PortFolioForm.controls['CustomerAccount'].value == 0){
         //   this.btnPrev=false;
@@ -643,10 +692,12 @@ this.performance15=res.Table5[3].Data4
              this.btnPrev=false;
              this.btnNext=false;
              this.showmainheading=false;
+             this.IsShowNoRecord=true;
+  this.showGrid=false;
            }
         
         this.ShowLoaderp=false;
-        this.showGrid=true;
+        
         
         
         }) 
@@ -827,11 +878,17 @@ console.log(this.summary);
     this.btnNext=true; 
   
   }
+  else{
+    this.btnPrev=false;
+    this.btnNext=false; 
+  }
+  this.showGrid=true;
   this. showperformance=true;
   this.showsummary=true;
   this.showholding=true;
   this.showsector=true;
   this.showmainheading=true;
+
   
   
   // for(var i=0;i<res.Table.length;i++){
@@ -864,12 +921,14 @@ else{
   this.btnPrev=false;
   this.btnNext=false;
   this.showmainheading=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
 }
 
   
   
   this.ShowLoaderp=false;
-  this.showGrid=true;
+  
   
   
   })
@@ -916,20 +975,20 @@ else{
     //   doc.save('StatementOfExpenses_Summary.pdf');
     // }
   
-    var data = document.getElementById('portfolioSummaryGrid');  
-      html2canvas(data).then(canvas => {  
-        // Few necessary setting options  
-        var imgWidth = 208;   
-        var pageHeight = 295;    
-        var imgHeight = canvas.height * imgWidth / canvas.width;  
-        var heightLeft = imgHeight;  
+    // var data = document.getElementById('portfolioSummaryGrid');  
+    //   html2canvas(data).then(canvas => {  
+    //     // Few necessary setting options  
+    //     var imgWidth = 208;   
+    //     var pageHeight = 295;    
+    //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+    //     var heightLeft = imgHeight;  
     
-        const contentDataURL = canvas.toDataURL('image/png')  
-        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-        var position = 0;  
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-        pdf.save('PortfolioFact_Html.pdf'); // Generated PDF   
-      });    
+    //     const contentDataURL = canvas.toDataURL('image/png')  
+    //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+    //     var position = 0;  
+    //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+    //     pdf.save('PortfolioFact_Html.pdf'); // Generated PDF   
+    //   });    
     
   
   }
