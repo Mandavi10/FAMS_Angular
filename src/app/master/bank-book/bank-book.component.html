@@ -14,7 +14,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li (click)="downloadCSVFile()">
+                        <li (click)="downloadCSVFile()" *ngIf="liExport">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -151,9 +151,11 @@
     </div>   
     <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="griddiv" style="overflow-y: scroll;
     height: 453px;">
-        <div class="holdingreportGrid">
-        <table class="bankmasterTable" id="bankmastertable" style="background-color:#ffffff !important;">
+        <div class="holdingreportGrid" id="bankmastertable">
+            <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
+        <table class="bankmasterTable"  style="background-color:#ffffff !important;">
             <thead >
+              
                 <tr *ngFor="let Data of HeaderList">
                     <td colspan="8" class="text-center">{{Data.Date}}</td>
                  </tr>
@@ -188,7 +190,7 @@
                         <table>
                             <tbody>
                                 <tr *ngIf="NoRecord">
-                                    <p>No Record Found</p>
+                                    <p style="  text-align: center;font-size: 13px; color: #003974;font-weight: bold;">No Record Found</p>
                                 </tr>
 
                                 <tr *ngFor="let Data of BindgridList">
