@@ -352,8 +352,11 @@ this.data=' ';
          
        }
 
+       
+
        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
-      
+     
+
        if(Usertype == 2){
         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
       }
