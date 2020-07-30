@@ -9,7 +9,7 @@
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
                      
-                       <li (click)="downloadCSVFile()">
+                       <li (click)="downloadCSVFile()" *ngIf="IsshowCSV">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                           <label>
                               Export to CSV
@@ -128,6 +128,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div id="portfolioSummaryGrid" *ngIf="showGrid">
+            <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
               <table class="bankmasterTable">
                   <thead style="border-bottom:0px">
                       <tr>
@@ -157,7 +158,7 @@
                                       <td class="text-center">ADROITPMS1
                                       </td>
                                   </tr> -->
-
+                                 
                                   <tr *ngFor="let Data of data1">
                                     <td *ngIf="showmainheading"colspan="9" class="text-center">{{Data.Data}}</td>
                                  </tr>
