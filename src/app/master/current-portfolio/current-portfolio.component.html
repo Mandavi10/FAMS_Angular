@@ -15,7 +15,7 @@
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
                      
-                      <li (click)="downloadCSVFile()">
+                      <li (click)="downloadCSVFile()" *ngIf="liExport">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                           <label>
                               <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -144,8 +144,11 @@
       <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="divMainGrid" style="    overflow-y: auto;
       height: 492px;">
           <div class="holdingreportGrid" id="CurrentPortfoliotable">
+              <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
               <table style="background-color:#ffffff !important;">
-                  <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;"><tr *ngFor="let Data of HeaderList">
+                  <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;">
+                    <!-- <tr><td colspan="8" class="text-center" style="color:#f31313; font-style: italic;">**This is sample report. Actual report shall be as per the corporate requirement**</td></tr> -->
+                    <tr *ngFor="let Data of HeaderList">
                     <td colspan="8" class="text-center">{{Data.Data}}</td>
                  </tr></thead>
               </table>
@@ -178,7 +181,7 @@
                           <table id="bankmastertable2">
                               <tbody>
                                   <tr *ngIf="NoRecord">
-                                      <p>No Record Found</p>
+                                    <p style="  text-align: center;font-size: 13px; color: #003974;font-weight: bold;">No Record Found</p>
                                   </tr>
                                   <tr *ngFor="let data of CurrentportfolioList" >
                                      
