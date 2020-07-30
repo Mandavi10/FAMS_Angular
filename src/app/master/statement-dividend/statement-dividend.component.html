@@ -15,7 +15,7 @@
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
                      
-                      <li (click)="downloadMainGrid()">
+                      <li (click)="downloadMainGrid()" *ngIf="IsshowCSV">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                           <label>
                               <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -159,8 +159,11 @@
      
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="holdingreportGrid" id="Statementdiv" *ngIf="showGrid"> 
+            <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
                 <table style="background-color:#ffffff !important;" *ngIf="ISMaingrid">
-            <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" ><tr *ngFor="let data of data1">
+            <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" >
+                
+                <tr *ngFor="let data of data1">
               <td colspan="12" *ngIf="IsshowHeading"class="text-center">{{data.Data}}</td>
            </tr>
           

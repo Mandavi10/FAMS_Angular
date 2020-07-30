@@ -12,7 +12,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li (click)="downloadMainGrid()">
+                        <li (click)="downloadMainGrid()" *ngIf="IsshowCSV">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
@@ -89,8 +89,8 @@
 
                 
                     
-                    <div class="col-md-1 col-sm-1 col-xs-12 mt-2  ">
-                        <button type="button" class="btn btn-success btnasearch" (click)="bindGrid(0,0,0,0)">Search</button>
+                    <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right  ">
+                        <button type="button" class="btn btn-success btnasearch pull-right mr-4" (click)="bindGrid(0,0,0,0)">Search</button>
                         </div>
                    
             </div>
@@ -132,8 +132,12 @@
         
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="capitalStatementGrid" *ngIf="showGrid">
+                <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
+
                 <table style="background-color:#ffffff !important;">
                     <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" >
+                    
+                       
                         <tr *ngFor="let data of data1">
                       <td colspan="13" class="text-center" *ngIf="IsshowHeading">{{data.Data}}</td>
                    </tr>

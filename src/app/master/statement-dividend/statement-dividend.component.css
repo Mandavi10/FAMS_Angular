@@ -19,6 +19,13 @@ overflow:hidden}*/
 .warningPopup .modal-dialog, .successPopup .modal-dialog {
     margin-top: 83px !important;
 }
+
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 9px;
+    top: 2px;}
+
 table{display: block;}
 
 .secgrid{position: absolute;
