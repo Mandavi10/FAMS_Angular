@@ -355,6 +355,11 @@ BindNextData(value){
 
       }
 
+      if(this.PageCount <(this.customerlength *2)){ 
+        this.btnNext=true;
+  
+      }
+
    }
 
    if(this.capitalStatForm.controls['CustomerAccount'].value == 0 && Usertype == 2){
@@ -577,6 +582,21 @@ BindDefaultData(){
   Data.UserId = Sessionvalue.UserId;
   this._capitalStateService.BindDefaultData(JSON.stringify(Data)).subscribe(
     (data) => {
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      
+      var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
+      var customeraccountno
+       if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+       customeraccountno=data.Table[0]["CustomerAccountNo"];
+       }
+       else
+       {
+         customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+       }
      
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
@@ -588,7 +608,7 @@ BindDefaultData(){
       // this.griddiv=true;
       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-      var customeraccount1=this.Dbsecurity.Encrypt( this.CustomerAccount)
+      var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
       var JsonData ={
         "UserId" : UserId,
         "fromdate" : this.FromDate,

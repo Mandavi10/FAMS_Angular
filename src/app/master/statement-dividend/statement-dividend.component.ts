@@ -12,6 +12,7 @@ import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/C
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 // import html2canvas from 'html2canvas';
 
+
 @Component({
   selector: 'app-statement-dividend',
   templateUrl: './statement-dividend.component.html',
@@ -59,6 +60,7 @@ export class StatementDividendComponent implements OnInit {
   IsshowHeading:boolean;
   showGrid:boolean;
   IsshowCSV:boolean=false;
+  customerlength:number;
   
 
 
@@ -303,8 +305,12 @@ else if(value == 0){
       
    
     }
-   }
-  
+   } //this.customerlength
+
+  if(this.PageCount < this.customerlength){
+
+    this.btnNext=true;
+  }
   if(this.PageCount == 1){
     this.btnPrev=false;
     this.btnNext=true;
@@ -341,14 +347,14 @@ this.data=' ';
       // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
 
      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-      
+     this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
       if(this.StatementDividendForm.controls['CustomerAccount'].value != 0){
         var pagecount=1; 
-         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
 
        }
        else{
-      this.CustomerAccount=this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+      // this.CustomerAccount=this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
         // this.btnNext=true;
          
        }
@@ -459,6 +465,7 @@ BindCustomers(){
       this.totalcustomer=data.Table.length;
       
          this.BindcustomerallfieldsList = data.Table;
+         this.customerlength= data.Table.length;
     });
 }
 
@@ -484,6 +491,25 @@ BindDefaultData(){
   Data.UserId = Sessionvalue.UserId;
   this._StatementDividendService.BindDefaultData(JSON.stringify(Data)).subscribe(
     (data) => {
+
+
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      
+      var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
+      var customeraccountno
+       if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+       customeraccountno=data.Table[0]["CustomerAccountNo"];
+       }
+       else
+       {
+         customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+         
+       }
+    
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
       this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
@@ -496,7 +522,7 @@ BindDefaultData(){
       // this.griddiv=true;
       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-      var customeraccount1=this.Dbsecurity.Encrypt( this.CustomerAccount)
+      var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
       var JsonData ={
         "UserId" : UserId,
         "fromdate" : this.FromDate,   
