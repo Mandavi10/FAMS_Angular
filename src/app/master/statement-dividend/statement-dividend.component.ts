@@ -10,7 +10,10 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
+
   import html2canvas from 'html2canvas';
+
+
 
 
 @Component({

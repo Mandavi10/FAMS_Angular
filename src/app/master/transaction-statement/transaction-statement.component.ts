@@ -655,6 +655,7 @@ downloadPDFFile(){
   //   doc.save('StatementOfExpenses_Summary.pdf');
   // }
 
+
   var data = document.getElementById('bankmastertable1');  
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
@@ -663,7 +664,7 @@ downloadPDFFile(){
       var imgHeight = canvas.height * imgWidth / canvas.width;  
       var heightLeft = imgHeight;  
 
-  
+
   //     var imgWidth = 208;   
   //     var pageHeight = 295;    
   //     var imgHeight = canvas.height * imgWidth / canvas.width;  

@@ -8,7 +8,10 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
+
   import html2canvas from 'html2canvas';
+
+
 
 @Component({
   selector: 'app-capital-statement',
