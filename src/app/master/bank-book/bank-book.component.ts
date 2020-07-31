@@ -28,7 +28,8 @@ export class BankBookComponent implements OnInit {
   loader1:boolean=false;loader2:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
-  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;
+  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;
+  IsShowRecord:boolean;  IsShowNoRecord:boolean;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -59,7 +60,8 @@ if(this.userType == 3){
 
   else{
     this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-    this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
+    this.CustomerAccount = item.AccountNo;
   }
   this.PageCount = 1;
   this.BindDefaultData();
@@ -150,6 +152,12 @@ else{ this.PageCount = 1;}
 
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0))
+      {
+        this.loader1=false;this.loader2=false;
+        this.btnNext=true;
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
         this.BindgridList = data.Table; 
         this.TotalsumgridData = data.Table1;
         this.HeaderList = data.Table2;
@@ -159,8 +167,18 @@ else{ this.PageCount = 1;}
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.NoRecord = false;
+      }
+      else
+      {
+        this.loader1=false;this.loader2=false;
+        //this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnNext=false;
+      }
         });
-      this.loader1=false;this.loader2=false;
+      
+      
   }
 
   BindCustomersOnChange(EmployeeId){
@@ -224,7 +242,8 @@ else{ this.PageCount = 1;}
     var CustomerAccount="";
     if(UserId=="30007" ||
     UserId=="30008"){
-      CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo)
+      // CustomerAccount =  this.Dbsecurity.Decrypt( Sessionvalue.AccountNo);
+      this.CustomerAccount = Sessionvalue.AccountNo;
     }
     else{
       CustomerAccount = this.BankBookForm.controls['CustomerAccount'].value;
@@ -240,7 +259,12 @@ else{ this.PageCount = 1;}
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
-        debugger;
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0))
+        {
+          this.loader1=false;this.loader2=false;
+          this.btnNext = true;
+          this.IsShowRecord=true;
+          this.IsShowNoRecord=false;
         this.BindgridList = data.Table; 
         this.TotalsumgridData = data.Table1;
         this.HeaderList = data.Table2;
@@ -250,18 +274,29 @@ else{ this.PageCount = 1;}
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.TotalRecord=this.TotalsumgridData[0].Total;
-        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
-          {
-            this.btnNext=true;
-            this.NoRecord = false;
-          }
-          else{
-            this.btnNext = false;
-            this.btnPrev=true;
-            this.NoRecord = true;
-            }
+        // if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+        //   {
+        //     this.loader1=false;this.loader2=false;
+        //    // this.btnNext=true;
+        //     this.NoRecord = false;
+        //   }
+        //   else{
+        //     this.loader1=false;this.loader2=false;
+        //   //  this.btnNext = false;
+        //     this.btnPrev=true;
+        //     this.NoRecord = true;
+        //     }
            
-
+          }
+          else
+      {
+        this.loader1=false;this.loader2=false;
+        //this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnNext = false;
+        //this.btnPrev=true;
+      }
         // if(data.Table.lenght == 0  && data.Table2.lenght == 0 ){ 
         //   this.NoRecord = true;
         //   this.PageCount = this.PageCount + 1;
@@ -294,7 +329,7 @@ else{ this.PageCount = 1;}
 
 
 
-        this.loader1=false;this.loader2=false;
+       
        // this.PaginationCount = (this.PaginationCount + data.Table1.length) + " Out " + this.TotalRecord;
         });
   }

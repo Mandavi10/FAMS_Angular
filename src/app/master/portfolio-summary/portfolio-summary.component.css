@@ -15,6 +15,11 @@ table thead tr th {
     right: 0px;
     bottom: 10px;
 }
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 26px;
+    top: 2px;}
 #portfolioAllocation .bankmasterTable{display:inline-block}
 #portfolioAllocation .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioAllocation .bankmasterTable tbody {

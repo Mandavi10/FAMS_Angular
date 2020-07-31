@@ -89,17 +89,18 @@ ngOnInit(): void {
 // this.UserId = item.UserId;
 // this.EntityId = item.ReferenceId;
   this.userType=this.Dbsecurity.Decrypt(item.UserType);
-  this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+  //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+  this.accountNumber=item.AccountNo;
   debugger;
   if(this.userType ==1)
   {
-    this.GUserId=item.UserId;
+    this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber=this.accountNumber;   
   }
 
  else if(this.userType ==3)
   {
-    this.GUserId=item.UserId;
+    this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber="0";
     this.PortfolioSummaryForm.controls["UserId"].setValue(0);
     this.isShowCustomer=true;
@@ -109,12 +110,12 @@ ngOnInit(): void {
   else if(this.userType ==2)
   {
     this.isShowCustomer=true;    
-    this.GUserId=item.UserId;
+    this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber="1";
     this.BindCustomers();
   }
   else{
-    this.GUserId=item.UserId;
+    this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber="0";
     this.isShowCustomer=false;
     this.isShowsEmployee=false;
@@ -170,7 +171,7 @@ BindEmployee(){
    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   // let  Data = new Commonfields();
    //Data.UserId = Sessionvalue.UserId;
-   this.TSService.BindEmployee(Sessionvalue.UserId).subscribe(
+   this.TSService.BindEmployee(Sessionvalue.UserId.replace('+',' ')).subscribe(
      (data) => {
        debugger;
           this.BindemployeesList = data.Table;
@@ -197,7 +198,7 @@ BindCustomers() {
  // this.loading = true;
   var currentContext = this;
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-  this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
+  this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
       subscribe((data) => {
           currentContext.customer = data.Table;
           this.isShowCustomer=true;
@@ -220,7 +221,7 @@ NextClick()
 
 BindGrid(CustomerAccount,AsOnDate,SeqNo){
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-  var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+  var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId.replace('+',' '));
   var JsonData ={
     "UserId" : UserId,
     "AsOnDate" :   AsOnDate   ,    // this.TransactionStatementForm.controls['FromDate'],

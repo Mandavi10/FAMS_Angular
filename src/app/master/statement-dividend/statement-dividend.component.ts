@@ -10,7 +10,9 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
-//import html2canvas from 'html2canvas';
+
+//  import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-statement-dividend',
@@ -58,6 +60,9 @@ export class StatementDividendComponent implements OnInit {
   totalcustomer:number;
   IsshowHeading:boolean;
   showGrid:boolean;
+  IsshowCSV:boolean=false;
+  customerlength:number;
+  IsShowNoRecord:boolean;
   
 
 
@@ -76,8 +81,46 @@ export class StatementDividendComponent implements OnInit {
       Employee1:['',Validators.required]
       //CustomerAccount
     })
-    // this.BindCustomers();
-    this.BindDefaultData();
+    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+      var userType=this.Dbsecurity.Decrypt(item.UserType);
+      
+      var accountNumber=item.AccountNo;
+      var GAccountNumber,GUserId;
+      
+      if(userType ==1)
+      {
+        GUserId=item.UserId;
+        GAccountNumber=accountNumber;   
+      }
+  
+     else if(userType ==3)
+      {
+        // this.GUserId=item.UserId;
+        GAccountNumber="0";
+        // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      
+      }
+      else if(userType ==2)
+      {
+       
+      //  GUserId=item.UserId;
+       GAccountNumber="1";
+        
+      }
+      else{
+        // this.GUserId=item.UserId;
+        GAccountNumber="0";
+       
+      }
+      
+       if (this.StatementDividendForm.controls["Employee1"].value==0 && this.StatementDividendForm.controls["Formdate"].value==""  && this.StatementDividendForm.controls["Todate"].value=="") 
+      {
+        // alert(GAccountNumber)
+        this.BindDefaultData(GAccountNumber,GUserId)
+      }
+  
+    // this.BindDefaultData();
   }
   onClicksavepopup() {
     this.showModalsavepopup = true;
@@ -302,8 +345,12 @@ else if(value == 0){
       
    
     }
-   }
-  
+   } //this.customerlength
+
+  if(this.PageCount < this.customerlength){
+
+    this.btnNext=true;
+  }
   if(this.PageCount == 1){
     this.btnPrev=false;
     this.btnNext=true;
@@ -336,18 +383,16 @@ this.data=' ';
       if(data.Table.length!=0){
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
-      // this.CustomerAccount = "";
-      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
-
-     // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
-      
+ 
+    //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
+    this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
       if(this.StatementDividendForm.controls['CustomerAccount'].value != 0){
         var pagecount=1; 
-         this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        //  this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
 
        }
        else{
-      this.CustomerAccount=this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+      // this.CustomerAccount=this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
         // this.btnNext=true;
          
        }
@@ -358,7 +403,8 @@ this.data=' ';
      
 
        if(Usertype == 2){
-        this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        this.CustomerAccount = data.Table[0]["CustomerAccountNo"]; 
       }
   
       // if(Usertype == 3 && this.capitalStatForm.controls['CustomerAccount'].value == 0){
@@ -458,6 +504,7 @@ BindCustomers(){
       this.totalcustomer=data.Table.length;
       
          this.BindcustomerallfieldsList = data.Table;
+         this.customerlength= data.Table.length;
     });
 }
 
@@ -474,15 +521,40 @@ BindEmployee(){
     });
 }
 
-BindDefaultData(){
+BindDefaultData(accountno,userid){
   // this.loader1=true;this.loader2=true;
 
   
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   let  Data = new Commonfields();
   Data.UserId = Sessionvalue.UserId;
-  this._StatementDividendService.BindDefaultData(JSON.stringify(Data)).subscribe(
+
+  var jasondata={
+    "UserId" : Data.UserId,
+    "CustomerAccountNo" : accountno,
+  }; 
+  this._StatementDividendService.BindDefaultData(jasondata).subscribe(
     (data) => {
+
+
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      
+      var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
+      var customeraccountno
+       if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+       customeraccountno=data.Table[0]["CustomerAccountNo"];
+       }
+       else
+       {
+        //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+        customeraccountno=(item.AccountNo); 
+         
+       }
+    
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
       this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
@@ -495,7 +567,8 @@ BindDefaultData(){
       // this.griddiv=true;
       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-      var customeraccount1=this.Dbsecurity.Encrypt( this.CustomerAccount)
+      // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+      var customeraccount1=(customeraccountno)
       var JsonData ={
         "UserId" : UserId,
         "fromdate" : this.FromDate,   
@@ -544,7 +617,10 @@ BindDefaultData(){
       // }
       //  this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
        this.data=' ';
+       this.IsShowNoRecord=false;
+       this.showGrid=true;
        this.IsshowHeading=true;
+       this.ISMaingrid=true;
       this.data1=res.Table2
       console.log(this.bindgrid)
       console.log(this.pagination)
@@ -556,12 +632,14 @@ BindDefaultData(){
   this.IsshowHeading=false;
   this.btnNext=false;
   this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
   
 }
 
       this.ShowLoaderp=false;
       
-      this.showGrid=true;
+      
       
       })   
     });
@@ -581,7 +659,8 @@ bindGrid(){
    
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
     IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
-    CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+    // CustomerAccountNo= this.Dbsecurity.Encrypt(this.StatementDividendForm.controls['CustomerAccount'].value);
+    CustomerAccountNo= (this.StatementDividendForm.controls['CustomerAccount'].value);
   }
   else{
     const IsCustomerAccount = this.StatementDividendForm.get('CustomerAccount');
@@ -661,6 +740,10 @@ if(res.Table.length!=0 && this.StatementDividendForm.controls['CustomerAccount']
   this.btnNext=true; 
 
 }
+else{
+  this.btnPrev=false;
+  this.btnNext=false; 
+}
 
 
 for(var i=0;i<res.Table.length;i++){
@@ -686,7 +769,11 @@ this.SumBalanceAmount=res.Table1[0].SumBalanceAmount;
 // this.SumOutstanding_Divident=res.Table3[0].SumOutstanding_Divident;
 // this.SumTotal_Amount=res.Table3[0].SumTotal_Amount;
 // this.SumTDS_Amount=res.Table3[0].SumTDS_Amount; Total
+this.showGrid=true;
 this.IsshowHeading=true;
+this.IsShowNoRecord=false;
+this.ISMaingrid=true;
+  
 this.data1=res.Table2
 console.log(this.bindgrid)
 console.log(this.pagination)
@@ -712,12 +799,14 @@ else
   this.IsshowHeading=false;
   this.btnNext=false;
   this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
   
 }
 
 
 this.ShowLoaderp=false;
-this.showGrid=true;
+
 
 
 })

@@ -11,7 +11,7 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
                        
-                        <li (click)="downloadCSVFile()">
+                        <li (click)="downloadCSVFile()" style="display: none;">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                             <label>
                                 Export to CSV
@@ -155,7 +155,9 @@
             <div id="Record" *ngIf="IsShowRecord" >
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="holdingreportGrid">
-                    <table class="bankmasterTable" id="bankmastertable">
+                        
+                    <table class="bankmasterTable" id="bankmastertable1">
+                        <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
                         <thead>
                             <!-- <tr *ngFor="let data of bindmaingridHeader ; index as i">
                                 <td colspan="6" class="text-center; ">{{data.Date }}</td>
@@ -264,7 +266,7 @@
           
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="holdingreportGridpop">
-                       <table class="bankmasterTable" id="bankmastertable">
+                       <table class="bankmasterTable" >
                           <thead>
                            
                              <!-- <tr>

@@ -13,7 +13,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
-//import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 @Component({
   selector: 'app-transaction-statement',
@@ -118,17 +118,18 @@ rowData = [
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
-    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    this.accountNumber=item.AccountNo;
     debugger;
     if(this.userType ==1)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber=this.accountNumber;   
     }
 
    else if(this.userType ==3)
     {
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
       this.TransactionStatementForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
@@ -150,13 +151,13 @@ rowData = [
 
 
        this.isShowCustomer=true;    
-       this.GUserId=item.UserId;
+       this.GUserId=item.UserId.replace('+',' ');
        this.GAccountNumber="1";
         this.BindCustomers();
 
     }
     else{
-      this.GUserId=item.UserId;
+      this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
@@ -229,7 +230,7 @@ var currentContext=this;
      let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // let  Data = new Commonfields();
      //Data.UserId = Sessionvalue.UserId;
-     this.TSService.BindEmployee(Sessionvalue.UserId).subscribe(
+     this.TSService.BindEmployee(Sessionvalue.UserId.replace('+',' ')).subscribe(
        (data) => {
          debugger;
             this.BindemployeesList = data.Table;
@@ -256,7 +257,7 @@ var currentContext=this;
    // this.loading = true;
     var currentContext = this;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
+    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
         subscribe((data) => {
             currentContext.customer = data.Table;
             this.isShowCustomer=true;
@@ -621,38 +622,71 @@ downloadPDFFile(){
   // doc.setFontSize(11);
   // doc.setTextColor(100);
 
-
-  // (doc as any).autoTable({
-  //   head: this.head,
-  //   body: this.bindmaingridDetails,
-  //   theme: 'plain',
-  //   didDrawCell: data => {
-  //     console.log(data.column.index)
-  //   }
-  // })
+  // if(this.EvenOdd % 2 !=0)
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses4,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
   //     // Open PDF document in new tab
   //   doc.output('dataurlnewwindow')
   
   //   // Download PDF document  
   //   doc.save('StatementOfExpenses.pdf');
+  // }
+  // else
+  // {
+  //   (doc as any).autoTable({
+  //     head: this.head,
+  //     body: this.statementOfExpenses5,
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  //     // Open PDF document in new tab
+  //   doc.output('dataurlnewwindow')
+  
+  //   // Download PDF document  
+  //   doc.save('StatementOfExpenses_Summary.pdf');
+  // }
 
 
+  var data = document.getElementById('bankmastertable1');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
 
-  // var data = document.getElementById('bankmasterTable');  
-  //   html2canvas(data).then(canvas => {  
-      
+
   //     var imgWidth = 208;   
   //     var pageHeight = 295;    
   //     var imgHeight = canvas.height * imgWidth / canvas.width;  
   //     var heightLeft = imgHeight;  
   
+
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('TransactionStatement.pdf'); // Generated PDF   
+    });    
+
   //     const contentDataURL = canvas.toDataURL('image/png')  
   //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
   //     var position = 0;  
   //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
   //     pdf.save('Transaction_Statement.pdf'); // Generated PDF   
   //   });    
+
   
+
 }
 
 }
