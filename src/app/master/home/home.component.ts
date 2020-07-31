@@ -184,7 +184,7 @@ this.OrderProcessing=false;
       this.isShowLoader = false;
   }
   imagefilename:string=""; baseUrl: string = ""; imagebindurl:any='';
-  Attachmentcodedisabled:boolean= false;
+  Attachmentcodedisabled:boolean= false; Allpostid=[];
   CheckClickLink()
   {
     if(this.imagefilename =='')
@@ -218,12 +218,38 @@ this.OrderProcessing=false;
           
           this.Attachmentcodedisabled=false;
         }
+        
         this.BindAllPostcount();
       });
+      debugger;
       var dynamicid='Dynamicdiv'+Lineid;
       var element = document.getElementById(dynamicid);
-      element.classList.remove("notificationboxunactive");
-   element.classList.add("notificationboxactive");
+      
+     for(var t=0;t<this.Allpostid.length;t++)
+     {
+       if(Lineid==this.Allpostid[t])
+       {
+        var dynamicid1='Dynamicdiv'+this.Allpostid[t];
+        var element1 = document.getElementById(dynamicid1);
+        element1.classList.remove("fontBold");
+        element1.classList.remove("notificationboxunactive");
+        element.classList.add("notificationboxactive");
+       }
+       else{
+        var dynamicid1='Dynamicdiv'+this.Allpostid[t];
+        var element1 = document.getElementById(dynamicid1);
+        element1.classList.remove("notificationboxactive");
+        element1.classList.add("notificationboxunactive");
+        
+       }
+     
+     }
+     
+      
+
+      //element.classList.remove("notificationboxactive");
+      // element.classList.remove("fontBold");
+     
 
       this.isShowLoader = false;
       
@@ -247,12 +273,12 @@ this.OrderProcessing=false;
     
     this.IsAll='2';
     this.BindAllPost();
-    var element = document.getElementById("myDIV");
-    element.classList.remove("msgall");
-    var element1 = document.getElementById("myDIV1");
-    element1.classList.add("msgall");
-    var element2 = document.getElementById("myDIV2");
-    element2.classList.remove("msgall");
+    var element3 = document.getElementById("myDIV");
+    element3.classList.remove("msgall");
+    var element13 = document.getElementById("myDIV1");
+    element13.classList.add("msgall");
+    var element23 = document.getElementById("myDIV2");
+    element23.classList.remove("msgall");
   }
 
   ClickTodayNotification()
@@ -269,7 +295,7 @@ this.OrderProcessing=false;
   }
 
   BindAllPost(){
-    
+    this.Allpostid=[];
     debugger;
     this.isShowLoader = true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
@@ -283,7 +309,11 @@ this.OrderProcessing=false;
     this._loginService.BindNote(JsonData).subscribe(
       (data) => {
         this.BindallNotificationdata = data.Table;
-
+        for(var kk=0;kk<data.Table.length;kk++)
+        {
+        this.Allpostid.push(data.Table[kk].NMId);
+          
+        }
         
       });
       this.isShowLoader = false;
