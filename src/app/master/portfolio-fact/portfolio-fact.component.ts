@@ -8,7 +8,9 @@ import{PortfolioFactService} from '../../Services/PortfolioFact/portfolio-fact.s
 import{SectorAllocation,portfolioSummary,PortfolioHolding,PortfolioPerformance} from '../../../Models/PortfolioFact/portfolioFact';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import { ReactiveFormsModule } from '@angular/forms'
+
 //  import html2canvas from 'html2canvas';
+
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 @Component({
