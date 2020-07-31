@@ -9,6 +9,7 @@
     }
 .notificationscroll{    overflow-y: auto;
     max-height: 509px;}
+.fontBold{font-weight:bold !important} 
 .menuBox{width: 19%;
     background: transparent;
     border-radius: 0px;
