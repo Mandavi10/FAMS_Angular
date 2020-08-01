@@ -13,7 +13,7 @@ import { Commonfields } from '../../../Models/commonfields';
 import { isNgTemplate } from '@angular/compiler';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
+//import html2canvas from 'html2canvas';
 
 
 
@@ -28,7 +28,9 @@ export class CurrentPortfolioComponent implements OnInit {
   CurrentportfolioList : Currentportfolio;loader1:boolean=false;loader2:boolean=false;
   FromDate:any;ToDate:any;ReportDate:any;HeaderList:Header;EmployeeDiv:boolean=false;
   AllEmployeesList:Bindemployee;BindCustomersList:BindCustomers;btnNext:boolean=true;btnPrev:boolean=true;
-  NoRecord:boolean=true;liExport:boolean=false;
+  NoRecord:boolean=true;liExport:boolean=false;CurrentportfolioList1:Currentportfolio;
+  CurrentportfolioList2:Currentportfolio;FooterSum1:boolean=true;FooterSum2:boolean=true;
+  IsShowNoRecord:boolean;IsShowRecord:boolean; Eqlbl:boolean=true;Shlbl:boolean=true;
   constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
   CurrentDate = new Date(); 
   STSumGL:number;
@@ -110,10 +112,18 @@ export class CurrentPortfolioComponent implements OnInit {
       "CustomerAccountNo" : this.CustomerAccount,
       "PageCount" : this.PageCount       
     }
+    debugger;
     this._CurrentportfolioService.BindGridAllFields(JsonData).subscribe(
       (data) => {
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0))
+        {
+  
+          this.IsShowRecord=true;
+          this.IsShowNoRecord=false;
+          this.btnNext = true;
         this.CurrentportfolioList = data.Table;
         this.HeaderList = data.Table1;
+        this.CurrentportfolioList1 = data.Table3;
 
         this.STSumGL = data.Table2[0].SumGL;
         this. STSumIncome = data.Table2[0].SumIncome;
@@ -122,16 +132,26 @@ export class CurrentPortfolioComponent implements OnInit {
         this. STSumPercentG_L= data.Table2[0].SumPercentG_L;
         this. STSumTotalCost = data.Table2[0].SumTotalCost;
 
-        this.ETSumTotalCost = data.Table2[0].SumGL;
-        this.ETSumMarketValue =data.Table2[0].SumIncome;
-        this.ETSumIncome =  data.Table2[0].SumMarketValue;
-        this.ETSumGL = data.Table2[0].SumPercentAssets;
+        this.ETSumTotalCost = data.Table2[0].SumTotalCost;
+        this.ETSumMarketValue =data.Table2[0].SumMarketValue;
+        this.ETSumIncome =  data.Table2[0].SumIncome;
+        this.ETSumGL = data.Table2[0].SumGL;
         this.ETSumPercentG_L = data.Table2[0].SumPercentG_L;
-        this.ETSumPercentAssets = data.Table2[0].SumTotalCost;
+        this.ETSumPercentAssets = data.Table2[0].SumPercentAssets;;
         this.NoRecord = false;
-        });
-        
-      this.loader1=false;this.loader2=false;
+        this.loader1=false;this.loader2=false;
+        }
+        else
+        {
+          this.loader1=false;this.loader2=false;
+          //this.isShowLoader=false;
+          this.IsShowRecord=false;
+          this.IsShowNoRecord=true;
+          this.btnNext=false;
+          //this.btnPrev=true;
+        }
+        });       
+      
   }
 
 
@@ -170,6 +190,7 @@ export class CurrentPortfolioComponent implements OnInit {
   }
   
   BindCurrentPortFolioReport(ReportDate) {
+    debugger;
        this.loader1 = true;this.loader2 = true;
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = Sessionvalue.UserId;
@@ -180,9 +201,17 @@ export class CurrentPortfolioComponent implements OnInit {
           "PageCount" : this.PageCount
         }   
         this._CurrentportfolioService.BindGridAllFields(JsonData).
-            subscribe((data) => {             
+            subscribe((data) => {     
+              if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0) )
+              {
+                this.loader1 = false;this.loader2 = false;
+                this.IsShowRecord=true;
+                this.IsShowNoRecord=false;   
+                this.btnNext = true;     
               this.CurrentportfolioList = data.Table;
               this.HeaderList = data.Table1;
+              this.CurrentportfolioList1 = data.Table3;
+              console.log(this.CurrentportfolioList1);
               this.STSumGL = data.Table2[0].SumGL;
               this. STSumIncome = data.Table2[0].SumIncome;
               this. STSumMarketValue = data.Table2[0].SumMarketValue;
@@ -190,23 +219,43 @@ export class CurrentPortfolioComponent implements OnInit {
               this. STSumPercentG_L= data.Table2[0].SumPercentG_L;
               this. STSumTotalCost = data.Table2[0].SumTotalCost;
 
-              this.ETSumTotalCost = data.Table2[0].SumGL;
-              this.ETSumMarketValue =data.Table2[0].SumIncome;
-              this.ETSumIncome =  data.Table2[0].SumMarketValue;
-              this.ETSumGL = data.Table2[0].SumPercentAssets;
+              this.ETSumTotalCost = data.Table2[0].SumTotalCost;
+              this.ETSumMarketValue =data.Table2[0].SumMarketValue;
+              this.ETSumIncome =  data.Table2[0].SumIncome;
+              this.ETSumGL = data.Table2[0].SumGL;
               this.ETSumPercentG_L = data.Table2[0].SumPercentG_L;
-              this.ETSumPercentAssets = data.Table2[0].SumTotalCost;
-              if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
-              {
-                this.btnNext=true;
-                this.NoRecord = false;
+              this.ETSumPercentAssets = data.Table2[0].SumPercentAssets;;
+              this.FooterSum2=true;
+              this.FooterSum1=true;
+              this.Eqlbl=true;
+              this.Shlbl=true;
+              // if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+              // {
+              //   this.loader1 = false;this.loader2 = false;
+              //   this.btnNext=true;
+              //   this.NoRecord = false;
+              //   // this.divMainGrid = false;
+              //   // this.IsShowNoRecord = true;
+              // }
+              // else{
+              //   this.loader1 = false;this.loader2 = false;
+              //   this.btnNext = false;
+              //   this.btnPrev=true;
+              //   this.NoRecord = true;
+              //   // this.divMainGrid = true;
+              //   // this.IsShowNoRecord = false;
+              //   }
               }
-              else{
-                this.btnNext = false;
-                this.btnPrev=true;
-                this.NoRecord = true;
-                }
-              this.loader1 = false;this.loader2 = false;
+              else
+      {
+        this.loader1 = false;this.loader2 = false;
+       // this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnNext=false;
+        //this.btnPrev=true;
+      }
+              
             });
     }
 
@@ -235,11 +284,13 @@ export class CurrentPortfolioComponent implements OnInit {
     }
 
     BindNextData(value){
+      debugger;
      // this.loader1 = true;this.loader2 = true;
       if(value == 1){this.PageCount = this.PageCount+1;}
       else if(value == 0){this.PageCount = this.PageCount-1;}
       if(this.PageCount >= 1){
       if(this.PageCount != 0 || this.PageCount !="" ){
+      if((this.PageCount%2) == 1){      
         this.loader1=true;this.loader2=true;
       if(this.userType == 3){
         this.BindCurrentPortFolioReport(this.ReportDate);
@@ -254,6 +305,14 @@ export class CurrentPortfolioComponent implements OnInit {
         //this.NextData();
         this.BindCurrentPortFolioReport(this.ReportDate);
       }
+    }
+    else{ this.CurrentportfolioList= this.CurrentportfolioList1; 
+      this.FooterSum2=false;
+      this.FooterSum1=false;
+      this.NoRecord = false;
+      this.Eqlbl=false;
+      this.Shlbl=false;
+    }
     }
   }
   else{ this.PageCount = 1;}
@@ -315,20 +374,20 @@ export class CurrentPortfolioComponent implements OnInit {
     }
 
     downloadPDFFile(){
-        var data = document.getElementById('CurrentPortfoliotable');  
-          html2canvas(data).then(canvas => {  
-            // Few necessary setting options  
-            var imgWidth = 208;   
-            var pageHeight = 295;    
-            var imgHeight = canvas.height * imgWidth / canvas.width;  
-            var heightLeft = imgHeight;  
+        // var data = document.getElementById('CurrentPortfoliotable');  
+        //   html2canvas(data).then(canvas => {  
+        //     // Few necessary setting options  
+        //     var imgWidth = 208;   
+        //     var pageHeight = 295;    
+        //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+        //     var heightLeft = imgHeight;  
         
-            const contentDataURL = canvas.toDataURL('image/png')  
-            let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-            var position = 0;  
-            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-            pdf.save('CurrentPortfolio.pdf'); // Generated PDF   
-          });         
+        //     const contentDataURL = canvas.toDataURL('image/png')  
+        //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        //     var position = 0;  
+        //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        //     pdf.save('CurrentPortfolio.pdf'); // Generated PDF   
+        //   });         
       }
 
 

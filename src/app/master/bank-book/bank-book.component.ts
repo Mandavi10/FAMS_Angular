@@ -13,7 +13,7 @@ import { Commonfields } from '../../../Models/commonfields';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';  
+//import html2canvas from 'html2canvas';  
 
 
 @Component({
@@ -29,6 +29,7 @@ export class BankBookComponent implements OnInit {
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
   NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;
+  IsShowRecord:boolean;  IsShowNoRecord:boolean;
 
   constructor(private BSService : BankbookService,private router: Router, 
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
@@ -151,6 +152,12 @@ else{ this.PageCount = 1;}
 
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0))
+      {
+        this.loader1=false;this.loader2=false;
+        this.btnNext=true;
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
         this.BindgridList = data.Table; 
         this.TotalsumgridData = data.Table1;
         this.HeaderList = data.Table2;
@@ -160,8 +167,18 @@ else{ this.PageCount = 1;}
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.NoRecord = false;
+      }
+      else
+      {
+        this.loader1=false;this.loader2=false;
+        //this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnNext=false;
+      }
         });
-      this.loader1=false;this.loader2=false;
+      
+      
   }
 
   BindCustomersOnChange(EmployeeId){
@@ -242,7 +259,12 @@ else{ this.PageCount = 1;}
     }
     this.BSService.BindGrid(JsonData).subscribe(
       (data) => {
-        debugger;
+        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0))
+        {
+          this.loader1=false;this.loader2=false;
+          this.btnNext = true;
+          this.IsShowRecord=true;
+          this.IsShowNoRecord=false;
         this.BindgridList = data.Table; 
         this.TotalsumgridData = data.Table1;
         this.HeaderList = data.Table2;
@@ -252,18 +274,29 @@ else{ this.PageCount = 1;}
         this.Dep_with=this.TotalsumgridData[0].Dep_with;
         this.Balance=this.TotalsumgridData[0].Balance;
         this.TotalRecord=this.TotalsumgridData[0].Total;
-        if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
-          {
-            this.btnNext=true;
-            this.NoRecord = false;
-          }
-          else{
-            this.btnNext = false;
-            this.btnPrev=true;
-            this.NoRecord = true;
-            }
+        // if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+        //   {
+        //     this.loader1=false;this.loader2=false;
+        //    // this.btnNext=true;
+        //     this.NoRecord = false;
+        //   }
+        //   else{
+        //     this.loader1=false;this.loader2=false;
+        //   //  this.btnNext = false;
+        //     this.btnPrev=true;
+        //     this.NoRecord = true;
+        //     }
            
-
+          }
+          else
+      {
+        this.loader1=false;this.loader2=false;
+        //this.isShowLoader=false;
+        this.IsShowRecord=false;
+        this.IsShowNoRecord=true;
+        this.btnNext = false;
+        //this.btnPrev=true;
+      }
         // if(data.Table.lenght == 0  && data.Table2.lenght == 0 ){ 
         //   this.NoRecord = true;
         //   this.PageCount = this.PageCount + 1;
@@ -296,7 +329,7 @@ else{ this.PageCount = 1;}
 
 
 
-        this.loader1=false;this.loader2=false;
+       
        // this.PaginationCount = (this.PaginationCount + data.Table1.length) + " Out " + this.TotalRecord;
         });
   }
@@ -449,20 +482,20 @@ downloadCSVFile() {
 //   //   doc.save('StatementOfExpenses_Summary.pdf');
 //   // }
 
-  var data = document.getElementById('bankmastertable');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+  // var data = document.getElementById('bankmastertable');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 208;   
+  //     var pageHeight = 295;    
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+  //     var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('BankBook.pdf'); // Generated PDF   
-    });    
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('BankBook.pdf'); // Generated PDF   
+  //   });    
   
 
 }
