@@ -1,11 +1,11 @@
 <div class="main-content maincontainer">
   <div class="content">
-    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none">
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
        </div>
    </div>
-     <form>
+     <form [formGroup]="PortfolioAppraisalsForm">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
               <span class="legal"></span>
@@ -20,7 +20,7 @@
                        </label>
                       
                     </li>
-                    <li >
+                    <li (click)="downloadPDFFile()">
                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                        <label>
                      
@@ -35,34 +35,33 @@
         <div class="row">
         
            <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-             <div class="col-md-3 col-xs-3 col-xs-12 ">
+             <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
                 <div class="form-group">
                   <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                    Dropdown 1 :
+                     Employee Name :
                   </label>
                   <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                      <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                      <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)" >
           
-                          <option>Select</option>
-                          <option> 1</option>  
-                          <option> 1</option>                      
+                        <option value="0">All Employee</option>
+                        <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                                            
                       </select>
                                     
                   </div>
               </div>
              </div>
-             <div class="col-md-3 col-xs-3 col-xs-12 ">
+             <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowCustomer">
               <div class="form-group">
                 <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                  Dropdown 2 :
+                  Customer Name :
                 </label>
                 <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-        
-                        <option>Select</option>
-                        <option> 1</option>  
-                        <option> 1</option>                      
-                    </select>
+                  <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                     <option value="0" selected>All Customer</option>
+                     <option *ngFor="let data of customer" value={{data.UserId}}  >
+                         {{data.UserName}}
+                     </option>
+                  </select>
                                   
                 </div>
             </div>
@@ -70,15 +69,28 @@
               <div class="col-md-3 col-sm-4 col-xs-12">
                  <div class="form-group">
                     <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                    Date :
+                   From Date :
                     </label>
                     <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                      <input type="date" class="col-sm-12 col-md-12 col-xs-12">
+                      <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                     </div>
                  </div>
               </div>
+
+              <div class="col-md-3 col-sm-4 col-xs-12">
+               <div class="form-group">
+                  <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                  To Date :
+                  </label>
+                  <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                     <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> -->
+                     <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
+                  </div>
+               </div>
+            </div>
+
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
-                  <button type="button" class="btn btn-success">Search</button> 
+               <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
                  
                
               </div>
@@ -118,7 +130,7 @@
            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="holdingreportGrid">
                  <table class="bankmasterTable">
-                   <thead>
+                   <!-- <thead>
                        <tr>
                           <th style="width: 220px">Security</th>
                           <th style="width: 222px">Quantity</th>
@@ -130,186 +142,59 @@
                           <th style="width: 205px">% G/L</th>
                           <th style="width: 124px">% Assets</th>
                        </tr>
-                    </thead>
+                    </thead> -->
                     <tbody class="scrollbar">
+                     
                        <tr>
                           <td colspan="9">
-                              <strong >Equity
-                             </strong> </td>
+                           <tr *ngFor="let data of HeaderData ; index as i">
+                              <td colspan="6" class="text-center">{{data.Date }}</td>
+                           </tr>
+                           <tr>
+                              <th style="width: 153px">Security</th>
+                              <th style="width: 152px">Quantity</th>
+                              <th style="width: 150px">Unit Cost</th>
+                              <th style="width: 135px">Cost</th>
+                              <th style="width: 137px">Price</th>
+                              <th style="width: 91px">Market Value</th>
+                              <th style="width: 130px">Gain / Loss (+/-)</th>
+                              <th style="width: 137px">% G/L</th>
+                              <th style="width: 204px">% Assets</th>
+                           </tr>
+                              <strong *ngIf="isShowEquity">Equity  </strong>
+                              <strong *ngIf="isShowFuture">Futures  </strong>
+                             </td>
                              </tr>
+                             <div *ngIf="isShowFutureData" >
+                              <tr *ngFor="let data of PortfolioappraisalModel ; index as i">
+                               <td style="width: 153px">{{data.Security }}</td>
+                               <td style="width: 152px">{{data.Quantity }}</td>
+                               <td style="width: 150px">{{data.UnitCost }}</td>
+                               <td style="width: 135px">{{data.Cost }}</td>
+                               <td style="width: 137px">{{data.Price }}</td>
+                               <td style="width: 91px">{{data.MarketValue }}</td>
+                               <td style="width: 130px">{{data.Gain_Loss }}</td>
+                               <td style="width: 137px">{{data.Gain_LossPer }}%</td>
+                               <td style="width: 204px">{{data.PerAsstes }}%</td>
+                            </tr>
+                            </div>
                                <!-- <tr *ngFor="let data of statementOfExpenses3 ; index as i">
                                       <td colspan="6" class="text-center">{{data.Date }}</td>
                                    </tr> -->
-                                   
-                                   <tr>
-                                    <td style="width: 153px">ICICI Bank</td>
-                                    <td style="width: 152px">5252</td>
-                                    <td style="width: 150px">5252</td>
-                                    <td style="width: 135px">5252</td>
-                                    <td style="width: 137px">5252</td>
-                                    <td style="width: 91px">5252</td>
-                                    <td style="width: 130px">5252</td>
-                                    <td style="width: 137px">-92%</td>
-                                    <td style="width: 204px">92%</td>
+                                   <div *ngIf="isShowSecurity" >
+                                   <tr *ngFor="let data of PortfolioappraisalModel ; index as i">
+                                    <td style="width: 153px">{{data.Security }}</td>
+                                    <td style="width: 152px">{{data.Quantity }}</td>
+                                    <td style="width: 150px">{{data.UnitCost }}</td>
+                                    <td style="width: 135px">{{data.Cost }}</td>
+                                    <td style="width: 137px">{{data.Price }}</td>
+                                    <td style="width: 91px">{{data.MarketValue }}</td>
+                                    <td style="width: 130px">{{data.Gain_Loss }}</td>
+                                    <td style="width: 137px">{{data.Gain_LossPer }}%</td>
+                                    <td style="width: 204px">{{data.PerAsstes }}%</td>
                                  </tr>
-                                 <tr>
-                                  <td style="width: 153px">ICICI Bank</td>
-                                  <td style="width: 152px">5252</td>
-                                  <td style="width: 150px">5252</td>
-                                  <td style="width: 135px">5252</td>
-                                  <td style="width: 137px">5252</td>
-                                  <td style="width: 91px">5252</td>
-                                  <td style="width: 130px">5252</td>
-                                  <td style="width: 137px">-92%</td>
-                                  <td style="width: 204px">92%</td>
-                               </tr>
-                               <tr>
-                                <td style="width: 153px">ICICI Bank</td>
-                                <td style="width: 152px">5252</td>
-                                <td style="width: 150px">5252</td>
-                                <td style="width: 135px">5252</td>
-                                <td style="width: 137px">5252</td>
-                                <td style="width: 91px">5252</td>
-                                <td style="width: 130px">5252</td>
-                                <td style="width: 137px">-92%</td>
-                                <td style="width: 204px">92%</td>
-                             </tr>
-                             <tr>
-                              <td style="width: 153px">ICICI Bank</td>
-                              <td style="width: 152px">5252</td>
-                              <td style="width: 150px">5252</td>
-                              <td style="width: 135px">5252</td>
-                              <td style="width: 137px">5252</td>
-                              <td style="width: 91px">5252</td>
-                              <td style="width: 130px">5252</td>
-                              <td style="width: 137px">-92%</td>
-                              <td style="width: 204px">92%</td>
-                           </tr>
-                           <tr>
-                            <td style="width: 153px">ICICI Bank</td>
-                            <td style="width: 152px">5252</td>
-                            <td style="width: 150px">5252</td>
-                            <td style="width: 135px">5252</td>
-                            <td style="width: 137px">5252</td>
-                            <td style="width: 91px">5252</td>
-                            <td style="width: 130px">5252</td>
-                            <td style="width: 137px">-92%</td>
-                            <td style="width: 204px">92%</td>
-                         </tr>
-                         <tr>
-                          <td style="width: 153px">ICICI Bank</td>
-                          <td style="width: 152px">5252</td>
-                          <td style="width: 150px">5252</td>
-                          <td style="width: 135px">5252</td>
-                          <td style="width: 137px">5252</td>
-                          <td style="width: 91px">5252</td>
-                          <td style="width: 130px">5252</td>
-                          <td style="width: 137px">-92%</td>
-                          <td style="width: 204px">92%</td>
-                       </tr>
-                       <tr>
-                        <td style="width: 153px">ICICI Bank</td>
-                        <td style="width: 152px">5252</td>
-                        <td style="width: 150px">5252</td>
-                        <td style="width: 135px">5252</td>
-                        <td style="width: 137px">5252</td>
-                        <td style="width: 91px">5252</td>
-                        <td style="width: 130px">5252</td>
-                        <td style="width: 137px">-92%</td>
-                        <td style="width: 204px">92%</td>
-                     </tr>
-
-                     <tr>
-                      <td style="width: 153px">ICICI Bank</td>
-                      <td style="width: 152px">5252</td>
-                      <td style="width: 150px">5252</td>
-                      <td style="width: 135px">5252</td>
-                      <td style="width: 137px">5252</td>
-                      <td style="width: 91px">5252</td>
-                      <td style="width: 130px">5252</td>
-                      <td style="width: 137px">-92%</td>
-                      <td style="width: 204px">92%</td>
-                   </tr>
-                   <tr>
-                    <td style="width: 153px">ICICI Bank</td>
-                    <td style="width: 152px">5252</td>
-                    <td style="width: 150px">5252</td>
-                    <td style="width: 135px">5252</td>
-                    <td style="width: 137px">5252</td>
-                    <td style="width: 91px">5252</td>
-                    <td style="width: 130px">5252</td>
-                    <td style="width: 137px">-92%</td>
-                    <td style="width: 204px">92%</td>
-                 </tr>
-                 <tr>
-                  <td style="width: 153px">ICICI Bank</td>
-                  <td style="width: 152px">5252</td>
-                  <td style="width: 150px">5252</td>
-                  <td style="width: 135px">5252</td>
-                  <td style="width: 137px">5252</td>
-                  <td style="width: 91px">5252</td>
-                  <td style="width: 130px">5252</td>
-                  <td style="width: 137px">-92%</td>
-                  <td style="width: 204px">92%</td>
-               </tr>
-               <tr>
-                <td style="width: 153px">ICICI Bank</td>
-                <td style="width: 152px">5252</td>
-                <td style="width: 150px">5252</td>
-                <td style="width: 135px">5252</td>
-                <td style="width: 137px">5252</td>
-                <td style="width: 91px">5252</td>
-                <td style="width: 130px">5252</td>
-                <td style="width: 137px">-92%</td>
-                <td style="width: 204px">92%</td>
-             </tr>
-             <tr>
-              <td style="width: 153px">ICICI Bank</td>
-              <td style="width: 152px">5252</td>
-              <td style="width: 150px">5252</td>
-              <td style="width: 135px">5252</td>
-              <td style="width: 137px">5252</td>
-              <td style="width: 91px">5252</td>
-              <td style="width: 130px">5252</td>
-              <td style="width: 137px">-92%</td>
-              <td style="width: 204px">92%</td>
-           </tr>
-           <tr>
-            <td style="width: 153px">ICICI Bank</td>
-            <td style="width: 152px">5252</td>
-            <td style="width: 150px">5252</td>
-            <td style="width: 135px">5252</td>
-            <td style="width: 137px">5252</td>
-            <td style="width: 91px">5252</td>
-            <td style="width: 130px">5252</td>
-            <td style="width: 137px">-92%</td>
-            <td style="width: 204px">92%</td>
-         </tr>
-         <tr>
-          <td style="width: 153px">ICICI Bank</td>
-          <td style="width: 152px">5252</td>
-          <td style="width: 150px">5252</td>
-          <td style="width: 135px">5252</td>
-          <td style="width: 137px">5252</td>
-          <td style="width: 91px">5252</td>
-          <td style="width: 130px">5252</td>
-          <td style="width: 137px">-92%</td>
-          <td style="width: 204px">92%</td>
-       </tr>
-
-
-
-     <tr>
-      <td style="width: 153px"></td>
-      <td style="width: 152px">5252</td>
-      <td style="width: 150px">5252</td>
-      <td style="width: 135px">5252</td>
-      <td style="width: 137px">5252</td>
-      <td style="width: 91px">5252</td>
-      <td style="width: 130px">5252</td>
-      <td style="width: 137px">-92%</td>
-      <td style="width: 204px">92%</td>
-   </tr>
+                                 
+                                 
    <tr>
     <td style="width: 153px">Cash and Equivalent</td>
     <td style="width: 152px"></td>
@@ -322,17 +207,18 @@
     <td style="width: 204px"></td>
  </tr>
                          
- <tr>
-  <td style="width: 153px">Cash</td>
-  <td style="width: 152px">5252</td>
-  <td style="width: 150px">5252</td>
-  <td style="width: 135px">5252</td>
-  <td style="width: 137px">5252</td>
-  <td style="width: 91px">5252</td>
-  <td style="width: 130px">5252</td>
-  <td style="width: 137px">-92%</td>
-  <td style="width: 204px">92%</td>
+ <tr *ngFor="let data of cashportfolio ; index as i">
+   <td style="width: 153px">{{data.Security }}</td>
+   <td style="width: 152px">{{data.Quantity }}</td>
+   <td style="width: 150px">{{data.UnitCost }}</td>
+   <td style="width: 135px">{{data.Cost }}</td>
+   <td style="width: 137px">{{data.Price }}</td>
+   <td style="width: 91px">{{data.MarketValue }}</td>
+   <td style="width: 130px">{{data.Gain_Loss }}</td>
+   <td style="width: 137px">{{data.Gain_LossPer }}%</td>
+   <td style="width: 204px">{{data.PerAsstes }}%</td>
 </tr>
+</div>
                                 </tbody>
                              
                             
