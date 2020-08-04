@@ -15,7 +15,7 @@
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
                      
-                      <li (click)="downloadMainGrid()">
+                      <li (click)="downloadMainGrid()" *ngIf="IsshowCSV">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                           <label>
                               <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -29,7 +29,7 @@
                           </button></a> --> 
                       </li>
                        
-                       <li (click)=downloadPDF()>
+                       <li (click)=downloadPDFFile()>
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
                                   <!-- <a target="_blank" href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
@@ -158,19 +158,45 @@
       </div>   
      
       <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable1" *ngIf="ISMaingrid">
+          <div class="holdingreportGrid" id="Statementdiv" *ngIf="showGrid"> 
+            <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
+                <table style="background-color:#ffffff !important;" *ngIf="ISMaingrid">
+            <thead style="border-bottom: 0px solid #ffffff;background-color:#ffffff !important;" >
+                
+                <tr *ngFor="let data of data1">
+              <td colspan="12" *ngIf="IsshowHeading"class="text-center">{{data.Data}}</td>
+           </tr>
+          
+           
+           <tr>
+
+            <th style="width: 153px">Ex Date</th>
+            <th style="width: 145px">Received Date</th>
+            <th style="width: 152px">Security</th>
+            <th style="width: 123px">Quantity</th>
+            <th style="width: 123px">Rate</th>
+            
+            <th style="width: 187px" class="text-right">Receivable Amount</th>
+            <th style="width: 151px" class="text-right">Received Amount</th>
+           <th style="width: 123px" class="text-right">TDS Amount</th> 
+            <th style="width: 132px" class="text-right">Net Amount</th>
+            <th style="width: 145px" class="text-right">Balance Amount</th>
+           
+        </tr>
+                
+        </thead>
+        </table>
+
+          <table class="bankmasterTable" id="bankmastertable1" >
               <thead>
-                <!-- <tr *ngFor="let data of data1">
-                    <td>{{data.Data}}</td>
-                </tr > -->
-                <tr *ngFor="let Data of data1">
+                
+                <!-- <tr *ngFor="let Data of data1">
                     <td colspan="9" class="text-center">{{Data.Data}}</td>
                  </tr>
-                <tr>
+                <tr> -->
 
                     
-
+<!-- 
                   <tr>
 
                       <th style="width: 153px">Ex Date</th>
@@ -178,14 +204,14 @@
                       <th style="width: 152px">Security</th>
                       <th style="width: 123px">Quantity</th>
                       <th style="width: 123px">Rate</th>
-                      <!-- <th style="width: 54px" class="text-right">Amount</th> -->
+                      
                       <th style="width: 187px" class="text-right">Receivable Amount</th>
                       <th style="width: 151px" class="text-right">Received Amount</th>
                      <th style="width: 123px" class="text-right">TDS Amount</th> 
                       <th style="width: 132px" class="text-right">Net Amount</th>
                       <th style="width: 145px" class="text-right">Balance Amount</th>
                      
-                  </tr>
+                  </tr> -->
               </thead>
               <tbody class="scrollbar">
                   <tr>
@@ -376,6 +402,12 @@
                     <span class="nextBtn"(click)="NextData(1)" *ngIf="btnNext">Next</span>
                 </div>
        </div>
+
+       <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+        <div class="text" style="text-align: center;">
+           <p>No Record Found</p>
+        </div>
+        </div>
     
       </form>
 

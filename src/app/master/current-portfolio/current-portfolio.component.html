@@ -1,22 +1,21 @@
 <div class="main-content maincontainer">
   <div class="content">
 
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none;">
-          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-          </div>
-      </div>
+    <div class="loaderOverlay"  *ngIf="loader1" ></div>
+    <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="loader2">
+        <img src="../../assets/images/loader.gif" />
+    </div>
 
       <form [formGroup]="CurrentPortfolioForm" autocomplete="off" appNorightclick>
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-               <span class="legal"></span>
+          <div class="col-sm-6 col-md-6 col-xs-3 ">
+               <span class="legal">Current Portfolio</span>
           </div>
           <div class="rightmenu">
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
                      
-                      <li (click)="downloadCSVFile()">
+                      <li (click)="downloadCSVFile()" *ngIf="liExport">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                           <label>
                               <!-- <a href="../../../assets/Files/Holding Report.csv">Export to CSV</a> -->
@@ -28,7 +27,7 @@
                          
                       </li>
                        
-                       <li (click)="downloadPDF()">
+                       <li (click)="downloadPDFFile()">
                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                                <label>
                                   <!-- <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Export to PDF</a> -->
@@ -43,6 +42,22 @@
      
       <div class="row">
      <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+        <div class="col-md-3 col-sm-5 col-xs-12" *ngIf="EmployeeDiv">
+            <div class="form-group">
+                <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                   Employee Name :
+                </label>
+                <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                    <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeId" #EmployeeId [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }" (change)="BindCustomersOnChange(EmployeeId.value)">
+
+                        <option value="">Select</option>
+                        <option *ngFor="let Data of AllEmployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                    </select>                  
+                </div>
+            </div>
+        </div>
+
+
         <div class="col-md-3 col-sm-5 col-xs-12" *ngIf="CustNameDive">
             <div class="form-group">
                 <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
@@ -52,7 +67,8 @@
                     <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" #CustomerAccount [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
 
                         <option value="">Select</option>
-                        <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.UserId}} text={{Data.UserName}}>                       
+                        <option value="">All Customers</option>
+                        <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                     </select>
                   
                 </div>
@@ -61,15 +77,15 @@
       <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="form-group">
             <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-             From Date :
+             Report Date :
             </label>
             <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                 
-                <input name="date" type="date" id="" formControlName="Formdate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate  /> 
+                <input name="date" type="date" id="" formControlName="ReportDate" [ngClass]="{ 'validate': submitted && f.Formdate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ReportDate  /> 
             </div>
         </div>
     </div>
-          <div class="col-md-3 col-sm-4 col-xs-12">
+          <!-- <div class="col-md-3 col-sm-4 col-xs-12">
                   <div class="form-group">
                       <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                        To Date :
@@ -79,13 +95,14 @@
                           <input name="date" type="date" id="" formControlName="Todate"  [ngClass]="{ 'validate': submitted && f.Todate.errors }"   value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight"  #ToDate  /> 
                       </div>
                   </div>
-              </div>
+              </div> -->
 
            
             
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                   <!-- <button type="button" class="btn btn-success">Search</button> -->
-                  <button type="button" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button>
+                  <!-- <button type="button" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button> -->
+                  <button type="button" (click)="Search(ReportDate.value)" class="btn btn-success"> Search</button>
                   <!-- <button type="submit" (click)="BindCurrentPortFolioReport(FromDate.value,ToDate.value)" class="btn btn-success"> Search</button> -->
 
                   <!-- <button type="button" (click)="test()" class="btn btn-success"> Search</button> -->
@@ -101,20 +118,20 @@
               <div class="toolbar pull-right">
                   <ul class="toolbar-content btnCon">
                      
-                      <li>
+                      <li (click)="PreviousDayFun()">
                          
                           <label>
                              Previous Day
                           </label>
                       </li>
-                      <li>
+                      <li (click)="LastOneWeekFun()">
                        
                           <label>
                              Last One Week
                           </label>
                       </li>
                        
-                       <li>
+                       <li (click)="LastOneMonthFun()">
                               
                                <label>
                                  Last One Month
@@ -124,320 +141,350 @@
               </div>
           </div>
       </div>   
-      <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="divMainGrid">
-          <div class="holdingreportGrid">
-          <table class="bankmasterTable" id="bankmastertable1">
-              <thead>
+    <div id="Record" *ngIf="IsShowRecord" >
+    <div class="col-md-12 col-sm-12 col-xs-12"  style="    overflow-y: auto;
+    height: 492px;">  
+    <!-- *ngIf="divMainGrid" -->
+        <div class="holdingreportGrid" id="CurrentPortfoliotable">
+            <!-- <label class="notelabel"  >**This is sample report. Actual report shall be as per the corporate requirement**</label> -->
+            <table style="background-color:#ffffff !important;">
+                 <label class="notelabel"  >**This is sample report. Actual report shall be as per the corporate requirement**</label>
+                <thead style="margin-left: 38%;border-bottom: 0px solid #ffffff;background-color:#ffffff !important;">
+                <!-- <tr><td colspan="8" class="text-center" style="color:#f31313; font-style: italic;">**This is sample report. Actual report shall be as per the corporate requirement**</td></tr> -->
+                <tr *ngFor="let Data of HeaderList">
+                <td colspan="8" class="text-center">{{Data.Data}}</td>
+                </tr></thead>
+            </table>
+        <table class="bankmasterTable" >
+            <thead>
+            
+            <tr>
+                <tr>
 
-                  <tr>
-
-                      <th style="width: 326px">Security</th>
-                      <th style="width: 145px">Price As On</th>
-                      <th style="width: 79px">Quantity</th>
-                      <th style="width: 103px">Unit Cost</th>
-                      <th style="width: 140px">Total Cost</th>
-                      <th style="width: 139px">Marked Price</th>
-                      <th style="width: 123px">Market Value</th>
-                     <th style="width: 123px">Income</th> 
-                      <th style="width: 132px">Total G/L</th>
-                      <th style="width: 95px">% G/L</th>
-                      <th style="width: 95px">IRR %</th>
-                      <th style="width: 95px">% Assets</th>
-                  </tr>
-              </thead>
-              <tbody class="scrollbar">
-                  <tr>
-                      <td colspan="9"><strong style="display: block;">Equity
-                      </strong>
-                      <strong style="display: block;">Shares
+                    <th style="width: 326px">Security</th>
+                    <th style="width: 145px">Price As On</th>
+                    <th style="width: 79px">Quantity</th>
+                    <th style="width: 103px">Unit Cost</th>
+                    <th style="width: 140px">Total Cost</th>
+                    <th style="width: 139px">Marked Price</th>
+                    <th style="width: 123px">Market Value</th>
+                    <th style="width: 123px">Income</th> 
+                    <th style="width: 132px">Total G/L</th>
+                    <th style="width: 95px">% G/L</th>
+                    <th style="width: 95px">IRR %</th>
+                    <th style="width: 95px">% Assets</th>
+                </tr>
+            </thead>
+            <tbody class="scrollbar">
+                <tr>
+                    <td colspan="9"><strong *ngIf="Eqlbl" style="display: block;">Equity
                     </strong>
-                          <table id="bankmastertable2">
-                              <tbody>
-                                  <tr *ngFor="let data of CurrentportfolioList" >
-                                     
-                                          <td style="width: 215px">{{data.Security }}</td>
-                                          <td style="width: 105px">{{data.Price }}</td>
-                                          <td style="width: 71px" >{{data.Quantity }}</td>
-                                          <td style="width: 77px">{{data.UnitCost }}</td>
-                                          <td style="width: 99px">{{data.TotalCost }}</td>
-                                          <td style="width: 103px">{{data.MarkedPrice }}</td>
-                                          <td style="width: 97px">{{data.MarketValue }}</td>
-                                           <td style="width: 93px">{{data.Income }}</td>
-                                          <td style="width: 95px">{{data.TotalG_L }}</td>
-                                          <td style="width: 68px">{{data.PercentG_L }}</td>
-                                          <td style="width: 74px">{{data.IRRPercent }}</td>
-                                          <td style="width: 69px">{{data.PercentAssets }}</td>
-                                      </tr>
-                                      <!-- <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr>
-                                    <tr >
-                                     
-                                        <td style="width: 215px">Bank OF India</td>
-                                        <td style="width: 105px">69598</td>
-                                        <td style="width: 71px" >69598</td>
-                                        <td style="width: 77px">69598</td>
-                                        <td style="width: 99px">69598</td>
-                                        <td style="width: 103px">69598</td>
-                                        <td style="width: 97px">69598</td>
-                                         <td style="width: 93px">69598</td>
-                                        <td style="width: 95px">-69598</td>
-                                        <td style="width: 68px">-69598</td>
-                                        <td style="width: 74px">-69598</td>
-                                        <td style="width: 69px">69598</td>
-                                    </tr> -->
-                              </tbody>
-                          <tfoot>
-                           
-                              <tr>
-                                      <td style="width: 215px">Shares Total</td>
-                                      <td style="width: 105px"></td>
-                                      <td style="width: 71px"></td>
-                                      <td style="width: 77px" ></td>
-                                      <td style="width: 99px" >{{STSumTotalCost}}</td>
-                                      <td style="width: 103px" ></td>
-                                      <td style="width: 97px" >{{STSumMarketValue}}</td>
-                                      <td style="width: 93px" >{{STSumIncome}}</td>
-                                      <td style="width: 95px" >{{STSumGL}}</td>
-                                      <td style="width: 68px" >{{STSumPercentG_L}}</td>
-                                      <td style="width: 74px" ></td>
-                                      <td style="width: 69px" >{{STSumPercentAssets}}</td>
-                              </tr>
-
-                          </tfoot>
-          </table>
-          </td>
-                     
-                  </tr>
-             
-                  <tr>
-                      <td colspan="9">
-                          <table>
-                              <tbody>
-                                  <tr >
+                    <strong *ngIf="Shlbl" style="display: block;">Shares
+                </strong>
+                        <table id="bankmastertable2">
+                            <tbody>
+                                <tr *ngIf="NoRecord">
+                                <p style="  text-align: center;font-size: 13px; color: #003974;font-weight: bold;">No Record Found</p>
+                                </tr>
+                                <tr *ngFor="let data of CurrentportfolioList" >
                                     
-                                    <td style="width: 215px"><strong >Equality Total
-                                    </strong></td>
+                                        <td style="width: 215px">{{data.Security }}</td>
+                                        <td style="width: 105px">{{data.Price }}</td>
+                                        <td style="width: 71px" >{{data.Quantity }}</td>
+                                        <td style="width: 77px">{{data.UnitCost }}</td>
+                                        <td style="width: 99px">{{data.TotalCost }}</td>
+                                        <td style="width: 103px">{{data.MarkedPrice }}</td>
+                                        <td style="width: 97px">{{data.MarketValue }}</td>
+                                        <td style="width: 93px">{{data.Income }}</td>
+                                        <td style="width: 95px">{{data.TotalG_L }}</td>
+                                        <td style="width: 68px">{{data.PercentG_L }}</td>
+                                        <td style="width: 74px">{{data.IRRPercent }}</td>
+                                        <td style="width: 69px">{{data.PercentAssets }}</td>
+                                    </tr>
+                                    <!-- <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr>
+                                <tr >
+                                    
+                                    <td style="width: 215px">Bank OF India</td>
+                                    <td style="width: 105px">69598</td>
+                                    <td style="width: 71px" >69598</td>
+                                    <td style="width: 77px">69598</td>
+                                    <td style="width: 99px">69598</td>
+                                    <td style="width: 103px">69598</td>
+                                    <td style="width: 97px">69598</td>
+                                        <td style="width: 93px">69598</td>
+                                    <td style="width: 95px">-69598</td>
+                                    <td style="width: 68px">-69598</td>
+                                    <td style="width: 74px">-69598</td>
+                                    <td style="width: 69px">69598</td>
+                                </tr> -->
+                            </tbody>
+                        <tfoot *ngIf="FooterSum1">
+                        
+                            <tr>
+                                    <td style="width: 215px">Shares Total</td>
                                     <td style="width: 105px"></td>
                                     <td style="width: 71px"></td>
                                     <td style="width: 77px" ></td>
-                                    <td style="width: 99px" ><strong >{{ETSumTotalCost}}</strong></td>
+                                    <td style="width: 99px" >{{STSumTotalCost}}</td>
                                     <td style="width: 103px" ></td>
-                                    <td style="width: 97px" ><strong >{{ETSumMarketValue}}</strong></td>
-                                    <td style="width: 93px" ><strong >{{ETSumIncome}}</strong></td>
-                                    <td style="width: 95px" ><strong >{{ETSumGL}}</strong></td>
-                                    <td style="width: 68px" ><strong >{{ETSumPercentG_L}}</strong></td>
+                                    <td style="width: 97px" >{{STSumMarketValue}}</td>
+                                    <td style="width: 93px" >{{STSumIncome}}</td>
+                                    <td style="width: 95px" >{{STSumGL}}</td>
+                                    <td style="width: 68px" >{{STSumPercentG_L}}</td>
                                     <td style="width: 74px" ></td>
-                                    <td style="width: 69px" ><strong >{{ETSumPercentAssets}}</strong></td>
-                                      </tr>
-                                  
-                              </tbody>
-                       
-          </table>
-          </td>
-                     
-                  </tr>
-                  
-              </tbody>
-              
-          </table>
+                                    <td style="width: 69px" >{{STSumPercentAssets}}</td>
+                            </tr>
 
-      </div>
-</div>
+                        </tfoot>
+        </table>
+        </td>
+                    
+                </tr>
+            
+                <tr *ngIf="FooterSum2">
+                    <td colspan="9">
+                        <table>
+                            <tbody>
+                                <tr >
+                                
+                                <td style="width: 215px"><strong >Equality Total
+                                </strong></td>
+                                <td style="width: 105px"></td>
+                                <td style="width: 71px"></td>
+                                <td style="width: 77px" ></td>
+                                <td style="width: 99px" ><strong >{{ETSumTotalCost}}</strong></td>
+                                <td style="width: 103px" ></td>
+                                <td style="width: 97px" ><strong >{{ETSumMarketValue}}</strong></td>
+                                <td style="width: 93px" ><strong >{{ETSumIncome}}</strong></td>
+                                <td style="width: 95px" ><strong >{{ETSumGL}}</strong></td>
+                                <td style="width: 68px" ><strong >{{ETSumPercentG_L}}</strong></td>
+                                <td style="width: 74px" ></td>
+                                <td style="width: 69px" ><strong >{{ETSumPercentAssets}}</strong></td>
+                                    </tr>
+                                
+                            </tbody>
+                    
+        </table>
+        </td>
+                    
+                </tr>
+                
+            </tbody>
+            
+        </table>
+
+    </div>
+    </div>
+  </div>
+    <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+        <div class="text" style="text-align: center;">
+        <p>No Record Found</p>
+        </div>
+    </div>
+
           
       </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+                <span class="previousBtn" *ngIf="btnPrev" (click)="BindNextData(0)">Previous</span>
+                <span class="paginationCount" [innerHTML]="PaginationCount"></span>
+                <span class="nextBtn" *ngIf="btnNext" (click)="BindNextData(1)">Next</span>
+            </div>
+    </div> 
     
       </form>
   </div>

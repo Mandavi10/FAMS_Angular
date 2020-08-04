@@ -9,7 +9,7 @@ table thead tr th {
 #portfolioAllocation .bankmasterTable{display:inline-block}
 #portfolioAllocation .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioAllocation .bankmasterTable tbody {
-    max-height: 17vh !important;
+    max-height: 14vh !important;
     display: inline-block;
     width:100%
 }
@@ -17,17 +17,27 @@ table thead tr th {
 #portfolioSummary .bankmasterTable{display:inline-block}
 #portfolioSummary .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioSummary .bankmasterTable tbody {
-    max-height: 17vh !important;
+    max-height: 14vh !important;
     display: inline-block;
     width:100%
 }
+.newsince{color: #003974 !important;
+    height: 30px;
+    font-size: 12px !important;
+    font-weight: 600;}
 #portfolioPerformance .bankmasterTable{display:inline-block}
 #portfolioPerformance .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioPerformance .bankmasterTable tbody {
-    max-height: 17vh !important;
+    max-height: 12vh !important;
     display: inline-block;
     width:100%
 }
+
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 9px;
+    top: 2px;}
 
 .loaderposition {
   position: absolute;

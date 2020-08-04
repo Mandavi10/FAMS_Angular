@@ -1,11 +1,25 @@
 .bankmasterTable thead tr th table tr td{padding:1px !important}
-
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
 table thead tr th {
     color: #003974 !important;
     height: 30px;
     font-size: 12px !important;
     font-weight: 600;
 }
+.paginationDiv {
+    position: fixed;
+    right: 0px;
+    bottom: 10px;
+}
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 26px;
+    top: 2px;}
 #portfolioAllocation .bankmasterTable{display:inline-block}
 #portfolioAllocation .bankmasterTable thead{ display: inline-block; width:100%}
 #portfolioAllocation .bankmasterTable tbody {
@@ -30,16 +44,16 @@ table thead tr th {
 }
 
 .loaderposition {
-  position: absolute;
-  z-index: 9999 !important;
-  text-align: center;
-  /* top: 37%; */
-}
-.loaderimagepage {
-  margin-left: 2%;
-  margin-top: 0%;
-  width: 8%;
-}
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    /* top: 37%; */
+  }
+  .loaderimagepage {
+    margin-left: -12%;
+    margin-top: 2%;
+    width: 8%;
+  }
 
  #portfolioPerformance { overflow:auto;}
 strong {

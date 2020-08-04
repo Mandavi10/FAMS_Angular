@@ -8,7 +8,10 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
-//import html2canvas from 'html2canvas';
+
+  import html2canvas from 'html2canvas';
+
+
 
 @Component({
   selector: 'app-capital-statement',
@@ -52,7 +55,13 @@ export class CapitalStatementComponent implements OnInit {
   count:number=1;
   countback:number=0;
   currentpagecount:number;
-  totalpagecount:number;4
+  totalpagecount:number;
+  IsshowHeading:boolean;
+  showGrid:boolean;
+  customerlength:number;
+  temppagecount:number;
+  IsshowCSV:boolean=false;
+  IsShowNoRecord:boolean;
   
 
 
@@ -70,9 +79,47 @@ export class CapitalStatementComponent implements OnInit {
       Employee1:['',Validators.required]
     })
 
-    this.DownloadExcel();
+    //this.DownloadExcel();
 
-    this.BindDefaultData();
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var userType=this.Dbsecurity.Decrypt(item.UserType);
+    
+    var accountNumber=item.AccountNo;
+    var GAccountNumber,GUserId;
+    
+    if(userType ==1)
+    {
+      GUserId=item.UserId;
+      GAccountNumber=accountNumber;   
+    }
+
+   else if(userType ==3)
+    {
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+      // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+    
+    }
+    else if(userType ==2)
+    {
+     
+    //  GUserId=item.UserId;
+     GAccountNumber="1";
+      
+    }
+    else{
+      // this.GUserId=item.UserId;
+      GAccountNumber="0";
+     
+    }
+    
+     if (this.capitalStatForm.controls["Employee1"].value==0 && this.capitalStatForm.controls["Formdate"].value==""  && this.capitalStatForm.controls["Todate"].value=="") 
+    {
+      // alert(GAccountNumber)
+      this.BindDefaultData(GAccountNumber,GUserId)
+    }
+
+    //this.BindDefaultData();
 
   }
 
@@ -234,6 +281,8 @@ BindCustomers(){
   this._capitalStateService.BindCustomers(UserId).subscribe(
     (data) => {
          this.BindcustomerallfieldsList = data.Table;
+         this.customerlength=data.Table.length;
+         
     });
 }
 
@@ -338,6 +387,35 @@ BindNextData(value){
   //  this.NextData();
 
   // this.bindGrid();
+  
+
+  if(this.capitalStatForm.controls['CustomerAccount'].value == 0 && Usertype == 3){
+        
+    // if(this.PageCount ==10){
+      if(this.PageCount == (this.customerlength *2)){ 
+        this.btnNext=false; 
+
+      }
+
+      if(this.PageCount <(this.customerlength *2)){ 
+        this.btnNext=true;
+  
+      }
+
+   }
+
+   if(this.capitalStatForm.controls['CustomerAccount'].value == 0 && Usertype == 2){
+    
+    
+    if(this.PageCount == (this.customerlength *2)){ 
+      this.btnNext=false;
+  
+    }
+    if(this.PageCount <(this.customerlength *2)){ 
+      this.btnNext=true;
+
+    }
+  }
 
 
 }
@@ -376,9 +454,14 @@ if(pagecountn < 1)
 //   this.btnNext=false;
 
 // }
+//var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+
   var JsonData ={
     "UserId" : item.UserId,
     "CustomerAccountNo" :this.capitalStatForm.controls['CustomerAccount'].value,
+    "fromdate" : this.capitalStatForm.controls['Formdate'].value,
+        "todate" :  this.capitalStatForm.controls['Todate'].value,
     "PageCount" : pagecountn
   }
 
@@ -397,21 +480,27 @@ if(pagecountn < 1)
       // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]);
 
 
-      
+      // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+      this.CustomerAccount = (data.Table[0]["CustomerAccountNo"]); 
       if(this.capitalStatForm.controls['CustomerAccount'].value != 0){
         var pagecount=1;
-        this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
 
        }
        else{
-        this.CustomerAccount=this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+        //this.CustomerAccount=this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
         this.btnNext=true;
        }
 
        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
       
        if(Usertype == 2){
-        this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+        // this.CustomerAccount = this.Dbsecurity.Encrypt(data.Table[0]["CustomerAccountNo"]); 
+         this.CustomerAccount = (data.Table[0]["CustomerAccountNo"]); 
       }
   
       // if(Usertype == 3 && this.capitalStatForm.controls['CustomerAccount'].value == 0){
@@ -427,8 +516,10 @@ if(pagecountn < 1)
         "PageCount" :pagecount
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._capitalStateService.BindGrid(JsonData).subscribe(
         (res) => {
+          if(res.Table.length !=0){
           this.bindgrid=res.Table;
           //this.pagination=res.Table1;
           console.log('bindgrid');
@@ -466,7 +557,7 @@ if(pagecountn < 1)
           this.SumST=res.Table1[0].SumST;
           this.SumLT=res.Table1[0].SumLT;
           this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
-
+          this.IsshowHeading=true;
           this.data1=res.Table2
           console.log(this.data1)
           var tabledata=res.Table.length
@@ -491,7 +582,17 @@ if(pagecountn < 1)
        
        
           // } 
+        }
+        else
+        {
+          // this.ISSummary=false;
+          // this.ISMaingrid=false;
+          // this.IsshowHeading=false;
+          
+          // this.data1={};
+        }
           this.ShowLoaderp=false;
+          this.showGrid=true;
           });
         }
         else{
@@ -517,14 +618,35 @@ BindEmployee(){
     });
 }
 
-BindDefaultData(){
+BindDefaultData(accountno,userid){
   // this.loader1=true;this.loader2=true;
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
 
   let  Data = new Commonfields();
   Data.UserId = Sessionvalue.UserId;
-  this._capitalStateService.BindDefaultData(JSON.stringify(Data)).subscribe(
+  var jasondata={
+    "UserId" : Data.UserId,
+    "CustomerAccountNo" : accountno,
+  }; 
+
+  this._capitalStateService.BindDefaultData(jasondata).subscribe(
     (data) => {
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      
+      var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+      //  alert(Usertype)
+      
+      
+      var customeraccountno
+       if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+       customeraccountno=data.Table[0]["CustomerAccountNo"];
+       }
+       else
+       {
+        //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+        customeraccountno=(item.AccountNo); 
+       }
      
       this.FromDate = data.Table[0]["FromDate"];
       this.ToDate = data.Table[0]["ToDate"];
@@ -536,7 +658,8 @@ BindDefaultData(){
       // this.griddiv=true;
       let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-      var customeraccount1=this.Dbsecurity.Encrypt( this.CustomerAccount)
+      // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+      var customeraccount1=(customeraccountno)
       var JsonData ={
         "UserId" : UserId,
         "fromdate" : this.FromDate,
@@ -545,8 +668,10 @@ BindDefaultData(){
         "PageCount" : this.PageCount
       }
       this.ShowLoaderp=true;
+      this.showGrid=false;
       this._capitalStateService.BindGrid(JsonData).subscribe(
         (res) => {
+          if(res.Table.length !=0){
           this.bindgrid=res.Table;
           //this.pagination=res.Table1;
           console.log('bindgrid');
@@ -592,10 +717,26 @@ BindDefaultData(){
           this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
 
           this.data1=res.Table2
+          this.IsshowHeading=true;
+          this.showGrid=true;
+          this.IsShowNoRecord=false;
           console.log(this.data1)
           // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
           this.data=' ';
+        }
+        else
+        {
+          this.ISSummary=false;
+          this.ISMaingrid=false;
+          this.IsshowHeading=false;
+          this.btnNext=false;
+          this.btnPrev=false;
+          this.IsShowNoRecord=true;
+           this.showGrid=false;
+            // this.data1={};
+        }
           this.ShowLoaderp=false;
+          
           });
 
     });
@@ -619,7 +760,8 @@ BindDefaultData(){
      }
    
 
-      CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+      CustomerAccountNo= (this.capitalStatForm.controls['CustomerAccount'].value);
     }
     else{
       const IsCustomerAccount = this.capitalStatForm.get('CustomerAccount');
@@ -693,15 +835,17 @@ BindDefaultData(){
   console.log('jasondata')
   console.log(jasondata)
   this.ShowLoaderp=true;
+  this.showGrid=false;
 this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 
   this.bindgrid=res.Table;
+  console.log(this.bindgrid)
   //this.pagination=res.Table1;
   if(res.Table.length!=0){
     this.btnPrev=false;
     this.btnNext=true;
 
-  }
+  
   console.log('bindgrid');
   console.log(res);
   console.log(res.Table[0].SaleAmount);
@@ -750,9 +894,12 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
   this.SumAfterIndex_LT=res.Table1[0].SumAfterIndex_LT;
 
   this.data1=res.Table2
+  this.showGrid=true;
+  this.IsshowHeading=true;
   console.log(this.data1)
   this.ISSummary=false;
   this.ISMaingrid=true;
+  this.IsShowNoRecord=false;
 //var pagecnt=1
   // if(this.PageCount%2 != 0){
   //   this.ISSummary=false;
@@ -767,12 +914,27 @@ this._capitalStateService.BindGrid(jasondata).subscribe((res)=>{
 this.currentpagecount=res.Table.length;
 this.totalpagecount=res.Table1[0].Total ;
   // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
-  this.data=' ';
+  this.data=' '; 
 
-  this.ShowLoaderp=false;
 
-  })
+  
 }
+else
+{
+  this.ISSummary=false;
+  this.ISMaingrid=false;
+  this.IsshowHeading=false;
+  this.btnNext=false;
+  this.btnPrev=false;
+  this.IsShowNoRecord=true;
+  this.showGrid=false;
+  // this.data1={};
+}
+this.ShowLoaderp=false;
+
+})
+}
+
 
   }
 
@@ -1097,20 +1259,20 @@ this.StaticArray2={value:"",value1:"Sale",value2:"",value3:"",value4:"",value5:"
     //   doc.save('StatementOfExpenses_Summary.pdf');
     // }
   
-    // var data = document.getElementById('gridmain');  
-    //   html2canvas(data).then(canvas => {  
-    //     // Few necessary setting options  
-    //     var imgWidth = 208;   
-    //     var pageHeight = 295;    
-    //     var imgHeight = canvas.height * imgWidth / canvas.width;  
-    //     var heightLeft = imgHeight;  
+    var data = document.getElementById('capitalStatementGrid');  
+      html2canvas(data).then(canvas => {  
+        // Few necessary setting options  
+        var imgWidth = 208;   
+        var pageHeight = 295;    
+        var imgHeight = canvas.height * imgWidth / canvas.width;  
+        var heightLeft = imgHeight;  
     
-    //     const contentDataURL = canvas.toDataURL('image/png')  
-    //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-    //     var position = 0;  
-    //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-    //     pdf.save('StatementOfExpenses_Html.pdf'); // Generated PDF   
-    //   });    
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        var position = 0;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('CapitalStatement Gain/Loss_Html.pdf'); // Generated PDF   
+      });    
     
   
   }

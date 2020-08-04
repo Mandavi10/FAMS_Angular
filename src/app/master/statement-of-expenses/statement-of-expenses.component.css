@@ -16,7 +16,16 @@
     .holdingreportGrid table thead, .holdingreportGrid table tbody{ display:table; width:100%} 
 table tbody tr td table tbody {
 overflow:hidden}*/
-
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 26px;
+    top: 2px;}
 table{display: block;}
 .loaderposition {
     position: absolute;
@@ -25,8 +34,8 @@ table{display: block;}
     /* top: 37%; */
   }
   .loaderimagepage {
-    margin-left: 0%;
-    margin-top: 21%;
+    margin-left: -12%;
+    margin-top: 2%;
     width: 8%;
   }
 .holdingreportGrid tbody {

@@ -13,7 +13,13 @@
                
                     <div class="col-sm-12 col-md-12 mt-3 ">
                         <div class="col-md-9 col-xs-9 col-sm-9 pl-0 mailbox">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 p-0">
+                          
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5 p-0">
+                                <div class="col-sm-6 col-md-6 col-xs-3 mb-1">
+                                    <span class="legal">Notifications</span>
+                                    </div>
+
+                                    <div class="col-md-12 col-xs-12 col-sm-12 p-0 borderbox">
                                 <div class="col-md-12 col-sm-12 col-xs-12 ">
                                 
                                     <div class="searchbox">
@@ -26,21 +32,21 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="col-md-12 col-sm-12 col-xs-12 p-0 allunreaddatebox">
                                 
-                                    <div (click)="ClickAll()" class="col-md-1 col-sm-4 col-xs-2 p-0">
+                                    <div (click)="ClickAll()" class="col-md-2 col-sm-4 col-xs-2 p-0">
                                         <div id="myDIV" class="msgall pull-left">
-                                            <label>All({{lblall}})</label>
+                                            <label>All ({{lblall}})</label>
                                         </div>
                                       
                                     </div>
-                                    <div (click)="ClickRead()" class="col-md-7 col-sm-4 col-xs-4 p-0" > 
+                                    <div (click)="ClickRead()" class="col-md-7 col-sm-4 col-xs-4 " > 
                                         <div id="myDIV1" class="unreadall pull-left">
-                                            <label>Unread({{lblunreadall}})</label>
+                                            <label>Unread ({{lblunreadall}})</label>
                                         </div>
                                       
                                     </div>
                                     <div (click)="ClickTodayNotification()" class="col-md-7 col-sm-4 col-xs-4 p-0" > 
                                         <div id="myDIV2" class="unreadall pull-left">
-                                            <label>Today's Notification({{lbltodayall}})</label>
+                                            <label>Today's Notification ({{lbltodayall}})</label>
                                         </div>
                                       
                                     </div>
@@ -60,11 +66,11 @@
                                 </div> -->
                                 
                                 <div class="col-md-12 col-sm-12 col-xs-12 " *ngFor="let Notify of BindallNotificationdata;index as i" >
-                                    <div id="{{ 'Dynamicdiv' + Notify.NMId }}" [ngClass]="{'notificationboxactive': Notify.IsRead == 0}" (click)="divClickRead(Notify.NMId)" class="col-md-12 col-sm-12 col-xs-12 " >
-                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel">
+                                    <div id="{{ 'Dynamicdiv' + Notify.NMId }}" [ngClass]="{'fontBold': Notify.IsRead == 0}" (click)="divClickRead(Notify.NMId)" class="col-md-12 col-sm-12 col-xs-12 notificationboxunactive" >
+                                        <div class="col-md-12 col-sm-12 col-xs-12 notificationlabel ">
                                             <div class="col-md-10 col-sm-10 col-xs-10 p-0"> 
                                                <span >{{Notify.Subject }}{{Notify.sublength ==0 ? '' : '....'}}</span>
-                                               
+                                               <!-- element.classList.add("notificationboxactive"); -->
                                             </div>
                                             <div class="col-md-2 col-sm-2 col-xs-2 pr-0"> 
                                                
@@ -75,13 +81,13 @@
                                         </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
-                                        <div class="notificationtext col-xs-10 col-md-9 col-sm-10">
+                                        <div class="notificationtext col-xs-8 col-md-8 col-sm-8">
                                             <span >{{Notify.Note}}{{Notify.NoteLength ==0 ? '' : '....'}}</span>
                                             
                                             </div>
 
 
-                                            <div class="notificationdate col-xs-3 col-md-3 p-0 col-sm-2 pull-right">
+                                            <div class="notificationdate col-xs-4 col-md-4 p-0 col-sm-4 pull-right">
                                                 <span>{{Notify.CreatedOn}}</span>
                                                 <span>{{Notify.CreatedOnTime}} </span>
                                                 </div>
@@ -235,12 +241,12 @@
                                 
                               
                                         </div>
-
+                                    </div>
 
 
                         </div>
 
-                        <div  class="col-md-6 col-sm-6 col-xs-12 mt-5 col-lg-6 downloadattachment">
+                        <div  class="col-md-7 col-sm-7 col-xs-12 mt-5 col-lg-7 downloadattachment">
                             <div *ngIf="Attachmentcodedisabled" class="col-md-12 col-sm-12 col-xs-12 mt-3"> 
                       
                                 <span class="pull-right attachment">
@@ -280,7 +286,9 @@
     
                     </div>
                         <div class=" col-md-3 col-sm-3 col-xs-3">
-        
+                            <div class="col-sm-6 col-md-6 col-xs-3">
+                                <span class="legal"> Reports</span>
+                                </div>
                             <!-- <div class=" portalBox" *ngFor="let Data of BindalltabsList">
                                 <a routerLink="{{Data.url}}" routerLinkActive="active">
                                 <img src="{{Data.ImagePath}}" />
@@ -288,40 +296,55 @@
                             </a>
                             </div> -->
 
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
                                     <h5>Dashboard</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
                                     <h5>User Setup</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
-                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
-                               
-                                    <h5>Order Processing</h5>
-                                </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
                                     <h5>User Setup</h5>
                                 </a>
-                            </div>
+                            </div> -->
+
                             <div class="portalBox">
+                                <a routerLink="/PortfolioSummary" routerLinkActive="active">
+                               
+                                    <h5>Performance Appraisal</h5>
+                                </a>
+                            </div>
+
+                            <div class="portalBox">
+                                <a routerLink="/PortfolioFact" routerLinkActive="active">
+                               
+                                    <h5>Portfolio Fact Sheet</h5>
+                                </a>
+                            </div>
+                            <!-- <div class="portalBox">
+                                <a routerLink="/CurrentPortfolio" routerLinkActive="active">
+                               
+                                    <h5>User Setup</h5>
+                                </a>
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
                                     <h5>Trial Balance Report</h5>
                                 </a>
-                            </div>
+                            </div> -->
                              <div class="portalBox">
                                 <a routerLink="/CurrentPortfolio" routerLinkActive="active">
                                
-                                    <h5>Current portfolio</h5>
+                                    <h5>Current Portfolio</h5>
                                 </a>
                             </div>
 
@@ -352,24 +375,17 @@
                             <div class="portalBox">
                                 <a routerLink="/StatementOfExpenses" routerLinkActive="active">
                               
-                                    <h5>Statement Of Expenses</h5>
+                                    <h5>Statement of Expenses</h5>
 
                                 </a>
                             </div> 
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/HoldingReport" routerLinkActive="active">
-                               
+                                <h5>Holding Report</h5> a>
 
-                                   
-                                  
-                                    <h5>Holding Report</h5> 
-
-                                    <!-- <h5>Holding Report</h5> -->
-                              </a>
-
-                            </div> 
+                            </div>  -->
         
         
                             <div class="portalBox">
@@ -380,24 +396,24 @@
                             </div>
         
         
-                            <div class="portalBox">
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
                                   
                                     <h5>Cash Equivalent</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
                                   
                                     <h5>Data Analysis</h5>
                                 </a>
-                            </div>
-                            <div class="portalBox">
+                            </div> -->
+                            <!-- <div class="portalBox">
                                 <a routerLink="/CashEquivalent" routerLinkActive="active">
                                   
                                     <h5>Notification</h5>
                                 </a>
-                            </div>
+                            </div> -->
                           
                         </div>
         

@@ -19,10 +19,30 @@ overflow:hidden}*/
 
 table{display: block;}
 
+
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 9px;
+    top: 2px;}
+
+.loaderposition {
+    position: absolute;
+    z-index: 9999 !important;
+    text-align: center;
+    top: 37%;
+    margin-left: -10% !important;
+}
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
+
 .holdingreportGrid tbody {
    
     display: block;
-    max-height: 68vh;
+    /* max-height: 0vh; */
 }
 
 .holdingreportGrid tbody tr {
