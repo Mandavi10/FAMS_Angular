@@ -57,7 +57,7 @@ const routes: Routes = [
 {path: 'TestPage', loadChildren: './test-page/test-page.module#TestPageModule'},
 {path: 'SchemeMaster', loadChildren: './scheme-master/scheme-master.module#SchemeMasterModule'},
 {path: 'PortfolioAppraisals', loadChildren: './portfolio-appraisals/portfolio-appraisals.module#PortfolioAppraisalsModule'},
-
+{path: 'PmsMaster', loadChildren: './pms-master/pms-master.module#PmsMasterModule'},
 {path: 'PortfolioFact', loadChildren: './portfolio-fact/portfolio-fact.module#PortfolioFactModule'},
 {path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
