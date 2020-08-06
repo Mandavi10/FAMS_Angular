@@ -32,7 +32,11 @@ table thead tr th {
     display: inline-block;
     width:100%
 }
-
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
 .notelabel{color: #f31313;
     font-style: italic;
     position: absolute;

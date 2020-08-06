@@ -13,13 +13,13 @@
            <div class="rightmenu">
               <div class="toolbar pull-right">
                  <ul class="toolbar-content">
-                    <li >
+                    <!-- <li >
                        <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to CSV"></i>
                        <label>
                           Export to CSV
                        </label>
                       
-                    </li>
+                    </li> -->
                     <li (click)="downloadPDFFile()">
                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to Pdf"></i>
                        <label>
@@ -69,7 +69,7 @@
               <div class="col-md-3 col-sm-4 col-xs-12">
                  <div class="form-group">
                     <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                   From Date :
+                   AsOn Date :
                     </label>
                     <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                       <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
@@ -77,17 +77,17 @@
                  </div>
               </div>
 
-              <div class="col-md-3 col-sm-4 col-xs-12">
+              <!-- <div class="col-md-3 col-sm-4 col-xs-12">
                <div class="form-group">
                   <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                   To Date :
                   </label>
                   <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                     <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> -->
+                    
                      <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
                   </div>
                </div>
-            </div>
+            </div> -->
 
               <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
                <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
@@ -104,20 +104,20 @@
               <div class="rightmenu" style="display:block">
                  <div class="toolbar pull-right">
                     <ul class="toolbar-content btnCon">
-                      <li>
+                      <li (click)="PreviousDayFun()">
                          
                          <label>
                             Previous Day
                          </label>
                      </li>
-                     <li>
+                     <li (click)="LastOneWeekFun()">
                       
                          <label>
                             Last One Week
                          </label>
                      </li>
                       
-                      <li>
+                      <li (click)="LastOneMonthFun()">
                              
                               <label>
                                 Last One Month
@@ -127,9 +127,10 @@
                  </div>
               </div>
            </div>
-           <div class="col-md-12 col-sm-12 col-xs-12">
+           <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="IsShowRecord">
               <div class="holdingreportGrid">
                  <table class="bankmasterTable">
+                  <label class="notelabel">**This is sample report. Actual report shall be as per the corporate requirement**</label>
                    <!-- <thead>
                        <tr>
                           <th style="width: 220px">Security</th>
@@ -143,7 +144,7 @@
                           <th style="width: 124px">% Assets</th>
                        </tr>
                     </thead> -->
-                    <tbody class="scrollbar">
+                    <tbody class="scrollbar" style="overflow-y: scroll;height: 412px;overflow-x: hidden; ">
                      
                        <tr>
                           <td colspan="9">
@@ -161,12 +162,12 @@
                               <th style="width: 137px">% G/L</th>
                               <th style="width: 204px">% Assets</th>
                            </tr>
-                              <strong *ngIf="isShowEquity">Equity  </strong>
-                              <strong *ngIf="isShowFuture">Futures  </strong>
+                              <strong *ngIf="isShowSecurity">Equity  </strong>
+                              <strong *ngIf="isShowFutureData">Futures  </strong>
                              </td>
                              </tr>
                              <div *ngIf="isShowFutureData" >
-                              <tr *ngFor="let data of PortfolioappraisalModel ; index as i">
+                              <tr *ngFor="let data of secoundgrid ; index as i">
                                <td style="width: 153px">{{data.Security }}</td>
                                <td style="width: 152px">{{data.Quantity }}</td>
                                <td style="width: 150px">{{data.UnitCost }}</td>
@@ -183,7 +184,7 @@
                                    </tr> -->
                                    <div *ngIf="isShowSecurity" >
                                    <tr *ngFor="let data of PortfolioappraisalModel ; index as i">
-                                    <td style="width: 153px">{{data.Security }}</td>
+                                    <td style="width: 153px" >{{data.Security }}</td>
                                     <td style="width: 152px">{{data.Quantity }}</td>
                                     <td style="width: 150px">{{data.UnitCost }}</td>
                                     <td style="width: 135px">{{data.Cost }}</td>
@@ -194,7 +195,20 @@
                                     <td style="width: 204px">{{data.PerAsstes }}%</td>
                                  </tr>
                                  
-                                 
+    
+                                 <tr *ngFor="let data of SumPortfolioappraisalModel ; index as i">
+                                    <td style="width: 153px"></td>
+                                    <td style="width: 152px"></td>
+                                    <td style="width: 150px"></td>
+                                    <td style="width: 135px">{{data.SumCost }}</td>
+                                    <td style="width: 137px"></td>
+                                    <td style="width: 91px">{{data.SumMarketValue }}</td>
+                                    <td style="width: 130px">{{data.SumGain_Loss }}</td>
+                                    <td style="width: 137px">{{data.SumGain_LossPer }}%</td>
+                                    <td style="width: 204px">{{data.SumPerAsstes }}%</td>
+                                 </tr>
+
+
    <tr>
     <td style="width: 153px">Cash and Equivalent</td>
     <td style="width: 152px"></td>
@@ -208,7 +222,18 @@
  </tr>
                          
  <tr *ngFor="let data of cashportfolio ; index as i">
-   <td style="width: 153px">{{data.Security }}</td>
+   <td style="width: 153px">Cash</td>
+   <td style="width: 152px">{{data.Quantity }}</td>
+   <td style="width: 150px">{{data.UnitCost }}</td>
+   <td style="width: 135px">{{data.Cost }}</td>
+   <td style="width: 137px">{{data.Price }}</td>
+   <td style="width: 91px">{{data.MarketValue }}</td>
+   <td style="width: 130px">{{data.Gain_Loss }}</td>
+   <td style="width: 137px">{{data.Gain_LossPer }}%</td>
+   <td style="width: 204px">{{data.PerAsstes }}%</td>
+</tr>
+<tr *ngFor="let data of cashportfolio ; index as i">
+   <td style="width: 153px"></td>
    <td style="width: 152px">{{data.Quantity }}</td>
    <td style="width: 150px">{{data.UnitCost }}</td>
    <td style="width: 135px">{{data.Cost }}</td>
@@ -227,13 +252,30 @@
                    
                  </table>
               </div>
+              <div class="paginationDiv">
+               <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
+               <span class="paginationCount"  id="lblcount"></span>
+               <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
+             </div>
            </div>
 
-          <div class="paginationDiv">
+          <!-- <div class="paginationDiv">
              <span class="previousBtn">Previous</span>
              <span class="paginationCount"></span>
              <span class="nextBtn" >Next</span>
-         </div>
+         </div> -->
+
+         <!-- <div class="paginationDiv">
+            <span class="previousBtn" (click)="PreviousClick()" *ngIf="btnPrev">Previous</span>
+            <span class="paginationCount"  id="lblcount"></span>
+            <span class="nextBtn" (click)="NextClick()" *ngIf="btnNext" >Next</span>
+          </div> -->
+
+          <div id="NoRecord"  *ngIf="IsShowNoRecord" class="col-md-12 col-xs-12 col-sm-12">
+            <div class="text" style="text-align: center;">
+               <p>No Record Found</p>
+            </div>
+            </div>
          
         </div>
       
