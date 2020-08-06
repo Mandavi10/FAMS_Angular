@@ -17,6 +17,11 @@ table thead tr th {
   position: absolute;
   right: 9px;
   top: 2px;}
+  .text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
 .loaderposition {
   position: absolute;
   z-index: 9999 !important;

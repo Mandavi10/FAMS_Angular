@@ -36,11 +36,18 @@ export class PortfolioAppraisalsComponent implements OnInit {
  loading: boolean = false;
  BindemployeesList:Bindemployee;
  PortfolioappraisalModel:PortfolioappraisalModel;
+ secoundgrid:PortfolioappraisalModel;
  SumPortfolioappraisalModel:SumPortfolioappraisalModel;
  cashportfolio:cashportfolio;
  Sumcashportfolio:Sumcashportfolio;
  HeaderData:HeaderData
-
+ btnPrev:boolean=true;
+ btnNext:boolean=true;
+ isShowFutureData:boolean=false;
+ pagecount:number=1;
+ customerlength:number;
+ IsShowNoRecord:boolean;
+ IsShowRecord:boolean;
   //BindemployeesList:Bindemployee;
 
 
@@ -58,8 +65,9 @@ export class PortfolioAppraisalsComponent implements OnInit {
   // this.UserId = item.UserId;
   // this.EntityId = item.ReferenceId;
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
-    this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
-    debugger;
+    // this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+    this.accountNumber=( item.AccountNo);
+    
     if(this.userType ==1)
     {
       this.GUserId=item.UserId;
@@ -96,32 +104,35 @@ export class PortfolioAppraisalsComponent implements OnInit {
   }
    BindDefaultLast(GAccountNumber,UserId)
    {
-     debugger;
-     this._PortfolioAppraisalsService.BindDefaultData(GAccountNumber,UserId).
+    var jason={
+      "CustomerAccountno":GAccountNumber,
+      "UserID":UserId 
+    }
+     this._PortfolioAppraisalsService.BindDefaultData(jason).
      subscribe((data) => {
-       //this.statementOfExpenses_Default=data.Table;
-      // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
-      if(this.userType==3)
-      {
-       if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
-       {
-        this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
-       }
-       else{
-        this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-       }
+       
+      // if(this.userType==3)
+      // {
+      //  if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+      //  {
+      //   this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
+      //  }
+      //  else{
+      //   this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      //  }
  
-      }
-      else
-      {
-       this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-      }
+      // }
+      // else
+      // {
+      //  this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+      // }
      
       //this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
  
-       this.PortfolioAppraisalsForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+       this.PortfolioAppraisalsForm.controls["FromDate"].setValue(data.Table[0].AsOnDate);
        this.PortfolioAppraisalsForm.controls["ToDate"].setValue(data.Table[0].ToDate);
-     this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
+       this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccountNo);
+     this.BindStatementOfExpReport(data.Table[0].CustomerAccountNo,data.Table[0].AsOnDate,data.Table[0].ToDate,this.EvenOdd) ;
      });
      
    }
@@ -134,65 +145,179 @@ export class PortfolioAppraisalsComponent implements OnInit {
    }
    PreviousClick()
    {
+          let item = JSON.parse(sessionStorage.getItem('User'));
+     var Usertype=this.Dbsecurity.Decrypt(item.UserType);
      this.EvenOdd-=1;
+
+
+     
+     if(this.EvenOdd == 1){
+      
+       this.btnPrev=false;
+       this.btnNext=true;
+
+     }
+
+       if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 2){
+      
+      
+      if(this.EvenOdd == (this.customerlength *2)){ 
+        this.btnNext=false;
+    
+      }
+      if(this.EvenOdd <(this.customerlength *2)){ 
+        this.btnNext=true;
+  
+      }
+    }
+  
+
+
+
+         if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3){
+        
+      // if(this.PageCount ==10){
+        if(this.EvenOdd == (this.customerlength *2)){ 
+          this.btnNext=false; 
+  
+        }
+  
+        if(this.EvenOdd <(this.customerlength *2)){ 
+          this.btnNext=true;
+    
+        }
+  
+     }
+
      //this.BindStatementOfExpReport(this.StatementOfExpenseForm.controls["UserId"].value,this.StatementOfExpenseForm.controls["FromDate"].value,this.StatementOfExpenseForm.controls["ToDate"].value,this.EvenOdd);
-     if(this.EvenOdd % 2 !=0)
+     if(this.EvenOdd % 2 ==0)
      {
+       this.pagecount -=1;
  
-       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd).
+       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount).
        subscribe((data) => {
        //this.statementOfExpenses_Default=data.Table;
       // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
          if(data.Table.length!=0)
          {
-           // this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-           // this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
-           // this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
-           // this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
-           this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd);
+           
+           this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,data.Table[0].AsOnDate,data.Table[0].AsOnDate,this.pagecount) ;
+          // this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd);
          }
          
        });
      }
      else
      {
-       this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd-1);
+       
+      // if(this.PortfolioAppraisalsForm.controls['UserId'].value != 0){
+      //   this.btnNext=false;
+      //   this.btnPrev=true;
+      //   }
+        // else{
+        //   this.btnPrev=true;
+
+        // }
+        this.isShowFutureData=false; 
+        this.isShowSecurity=true;
+
+       //this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd-1);
      }
-     
+
+
+
+
+  
+      
    }
    NextClick()
    {
-     debugger;
+     
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+     
      this.EvenOdd+=1;
+     
+
+     if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 2){
+      
+      
+      if(this.EvenOdd == (this.customerlength *2)){ 
+        this.btnNext=false;
+    
+      }
+      if(this.EvenOdd <(this.customerlength *2)){ 
+        
+        this.btnNext=true;
+  
+      }
+    }
+
+
+
+
+
+     if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3){
+        
+      // if(this.PageCount ==10){
+        if(this.EvenOdd == (this.customerlength *2)){ 
+          this.btnNext=false; 
+  
+        }
+  
+        if(this.EvenOdd <(this.customerlength *2)){ 
+          this.btnNext=true;
+    
+        }
+  
+     }
+
+
+     
      if(this.EvenOdd % 2 !=0)
      {
  
-       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd).
+      this.pagecount +=1;
+       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount).
        subscribe((data) => {
        //this.statementOfExpenses_Default=data.Table;
       // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
          if(data.Table.length!=0)
          {
-           // this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-           // this.StatementOfExpenseForm.controls["FromDate"].setValue(data.Table[0].FromDate);
-           // this.StatementOfExpenseForm.controls["ToDate"].setValue(data.Table[0].ToDate);
-           // this.BindStatementOfExpReport(data.Table[0].CustomerAccount,data.Table[0].FromDate,data.Table[0].ToDate,this.EvenOdd) ;
-           this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd);
-         }
+           
+          //  this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd);
+          this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount);
+        }
          
        });
      }
      else
      {
+      if(this.PortfolioAppraisalsForm.controls['UserId'].value != 0){
+        this.btnNext=false;
+        this.btnPrev=true;
+        }
+        else{
+          this.btnPrev=true;
+
+        }
+       this.isShowFutureData=true;
+       this.isShowSecurity=false;
        //this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd-1);
      }
+
+
+    
+  
+    
+  
      
      
    }
    PreviousDayFun(){
      var date = new Date();
      var currentDate = date.toISOString().slice(0,10);
-     this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
+    // this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
      date.setDate(date.getDate() - 1);
      var yesterday = date.toISOString().slice(0,10);
      this.PortfolioAppraisalsForm.controls['FromDate'].setValue(yesterday);
@@ -200,7 +325,7 @@ export class PortfolioAppraisalsComponent implements OnInit {
    LastOneWeekFun(){
      var date = new Date();
      var currentDate = date.toISOString().slice(0,10);
-     this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
+    // this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
      date.setDate(date.getDate() - 7);
      var yesterday = date.toISOString().slice(0,10);
      this.PortfolioAppraisalsForm.controls['FromDate'].setValue(yesterday);
@@ -208,7 +333,7 @@ export class PortfolioAppraisalsComponent implements OnInit {
    LastOneMonthFun(){
      var date = new Date();
      var currentDate = date.toISOString().slice(0,10);
-     this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
+    // this.PortfolioAppraisalsForm.controls['ToDate'].setValue(currentDate);
      date.setDate(date.getDate() - 30);
      var yesterday = date.toISOString().slice(0,10);
      this.PortfolioAppraisalsForm.controls['FromDate'].setValue(yesterday);
@@ -233,6 +358,8 @@ export class PortfolioAppraisalsComponent implements OnInit {
     this._PortfolioAppraisalsService.BindCustomer(EmployeeId).
         subscribe((data) => {
             currentContext.customer = data.Table;
+            this.customerlength=data.Table.length;
+            
             this.isShowCustomer=true;
         });
     // console.log(sessionStorage.getItem('ID'));
@@ -245,6 +372,8 @@ export class PortfolioAppraisalsComponent implements OnInit {
     this._PortfolioAppraisalsService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId)).
         subscribe((data) => {
             currentContext.customer = data.Table;
+            this.customerlength = data.Table.length;
+
             this.isShowCustomer=true;
         });
     // console.log(sessionStorage.getItem('ID'));
@@ -256,6 +385,7 @@ export class PortfolioAppraisalsComponent implements OnInit {
     this.loading = true;
     this.isShowLoader=true;
     var currentContext = this;
+    
 
     var jason={
       "CustomerAccountno":CustomerAccount,
@@ -265,11 +395,17 @@ export class PortfolioAppraisalsComponent implements OnInit {
     }
     this._PortfolioAppraisalsService.BindGridAllFields(jason).
         subscribe((data) => {
-          debugger;
+          if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
+          {
+            
+            this.IsShowRecord=true;
+            this.IsShowNoRecord=false;
              currentContext.cashportfolio = data.Table2;
              currentContext.SumPortfolioappraisalModel = data.Table1;
-            // currentContext.statementOfExpenses2 = data.Table2
+            // currentContext.statementOfExpenses2 = data.Table2 secoundgrid
             currentContext.PortfolioappraisalModel = data.Table;
+            currentContext.secoundgrid=data.Table3;
+            console.log(data)
             currentContext.HeaderData=data.Table4;
             this.isShowSecurity=true;
             if(this.EvenOdd % 2 !=0)
@@ -283,12 +419,66 @@ export class PortfolioAppraisalsComponent implements OnInit {
               // this.isShowstatementOfExpenses4=false;
               // this.isShowstatementOfExpenses5=true;
               // currentContext.statementOfExpenses5 = data.Table2;
+              this.isShowFutureData=true; 
+              this.isShowSecurity=false;
             }
             
             // currentContext.statementOfExpenses2 = data.Table2;
+
+
+
+      //       if(this.pagecount ==1){
+      //         alert(this.pagecount)
+      //       this.btnPrev=false;
+      //  this.btnNext=true;
+      //       }
+
+      if(this.EvenOdd==1)
+            {
+              this.btnPrev=false;
+              // this.btnNext=true;
+            }
+           
+           else if(this.EvenOdd !=1)
+            {
+              this.btnPrev=true;
+              // this.btnNext=true;
+            }
+
+        //     if(this.pagecount >1){
+        //       this.btnPrev=true;
+        //  this.btnNext=true;
+        //       }
+
+              let item = JSON.parse(sessionStorage.getItem('User'));
+              var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+            //   if(this.PortfolioAppraisalsForm.controls['CustomerAccount'].value == 0 && Usertype == 3){
+                 
+            //    // if(this.PageCount ==10){
+            //      if(this.EvenOdd == (this.customerlength *2)){ 
+            //        this.btnNext=false; 
+           
+            //      }
+           
+            //      if(this.EvenOdd <(this.customerlength *2)){ 
+            //        this.btnNext=true;
+             
+            //      }
+           
+            //   }
+            // alert(this.PortfolioAppraisalsForm.controls['UserId'].value)
+            // alert(Usertype)
+             
+          }
+          else{
+            this.IsShowRecord=false; 
+            this.IsShowNoRecord=true;
+            
+          }
             
         });
     // console.log(sessionStorage.getItem('ID'));
+
     this.loading = false;
     this.isShowLoader=false;
   }
@@ -323,6 +513,63 @@ export class PortfolioAppraisalsComponent implements OnInit {
         var ToDate=datat.ToDate;
         this.BindStatementOfExpReport(this.CustomerAccount,FromDate,ToDate,this.EvenOdd);
     } 
+  }
+
+  downloadPDFFile(){
+    
+    // var doc = new jsPDF();  
+   
+    // doc.setFontSize(11);    // doc.setTextColor(100);
+  
+    // if(this.EvenOdd % 2 !=0)
+    // {
+    //   (doc as any).autoTable({
+    //     head: this.head,
+    //     body: this.statementOfExpenses4,
+    //     theme: 'plain',
+    //     didDrawCell: data => {
+    //       console.log(data.column.index)
+    //     }
+    //   })
+    //     // Open PDF document in new tab
+    //   doc.output('dataurlnewwindow')
+    
+    //   // Download PDF document  
+    //   doc.save('StatementOfExpenses.pdf');
+    // }
+    // else
+    // {
+    //   (doc as any).autoTable({
+    //     head: this.head,
+    //     body: this.statementOfExpenses5,
+    //     theme: 'plain',
+    //     didDrawCell: data => {
+    //       console.log(data.column.index)
+    //     }
+    //   })
+    //     // Open PDF document in new tab
+    //   doc.output('dataurlnewwindow')
+    
+    //   // Download PDF document  
+    //   doc.save('StatementOfExpenses_Summary.pdf');
+    // }
+  
+    // var data = document.getElementById('Statementdiv');  
+    //   html2canvas(data).then(canvas => {  
+    //     // Few necessary setting options  
+    //     var imgWidth = 208;   
+    //     var pageHeight = 295;    
+    //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+    //     var heightLeft = imgHeight;  
+    
+    //     const contentDataURL = canvas.toDataURL('image/png')  
+    //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+    //     var position = 0;  
+    //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+    //     pdf.save('PortfolioAppraisals.pdf'); // Generated PDF   
+    //   });    
+    
+  
   }
 
   }

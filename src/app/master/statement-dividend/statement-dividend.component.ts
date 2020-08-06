@@ -11,7 +11,7 @@ import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
 
-  import html2canvas from 'html2canvas';
+  // import html2canvas from 'html2canvas';
 
 
 
@@ -65,6 +65,7 @@ export class StatementDividendComponent implements OnInit {
   IsshowCSV:boolean=false;
   customerlength:number;
   IsShowNoRecord:boolean;
+  gridlength:number;
   
 
 
@@ -125,7 +126,10 @@ export class StatementDividendComponent implements OnInit {
     // this.BindDefaultData();
   }
   onClicksavepopup() {
+    if(this.gridlength>0){
     this.showModalsavepopup = true;
+    }
+    else{ this.showModalsavepopup = false;}
   }
   hidesavepopup() {
     this.showModalsavepopup = false;
@@ -582,6 +586,7 @@ BindDefaultData(accountno,userid){
       this.showGrid=false;
       this._StatementDividendService.BindGrid(JsonData).subscribe((res)=>{
       console.log(res);
+      this.gridlength=res.Table.length;
       if(res.Table.length > 0){
       this.bindgrid=res.Table;
       this.bindgridDivident=res.Table1;
@@ -727,6 +732,7 @@ this.ShowLoaderp=true;
 this.showGrid=false;
 this._StatementDividendService.BindGrid(jasondata).subscribe((res)=>{
 console.log(res);
+this.gridlength=res.Table.length;
 if(res.Table.length >0){
 this.bindgrid=res.Table;
 this.bindgridDivident=res.Table1;
@@ -976,20 +982,20 @@ downloadPDFFile(){
   //   doc.save('StatementOfExpenses_Summary.pdf');
   // }
 
-  var data = document.getElementById('Statementdiv');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+  // var data = document.getElementById('Statementdiv');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 208;   
+  //     var pageHeight = 295;    
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+  //     var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('StatementDividend_Html.pdf'); // Generated PDF   
-    });    
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('StatementDividend_Html.pdf'); // Generated PDF   
+  //   });    
   
 
 }
