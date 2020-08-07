@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PmsMasterComponent } from './pms-master.component';
 import { PmsMasterRoutingModule } from './pms-master-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PmsMasterComponent],
   imports: [
     CommonModule,
     AgGridModule.withComponents([]),
-    PmsMasterRoutingModule
+    PmsMasterRoutingModule,FormsModule,ReactiveFormsModule,
   ]
 })
 export class PmsMasterModule { }

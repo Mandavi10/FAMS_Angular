@@ -1,33 +1,31 @@
 <div class="main-content maincontainer">
   <div class="content">
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none">
-             
+      <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none">
           <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
               <img src="../../assets/images/loader.gif" class="loaderimagepage" />
           </div>
-         
-
-
-      </div>
+      </div> -->
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
+    </div>
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-               <span class="legal"></span>
-           
+               <span class="legal"></span>           
           </div>
           <div class="rightmenu">
               <div class="toolbar pull-right">
                   <ul class="toolbar-content">
-
-                      
-                        
-                      <li>
+                    <li (click)="downloadCSVFile($event)">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                           <label>
                               Export to Excel
                           </label>
                       </li>
                   
-                      <li (click)="onClickupdatepopup()">
+                      <!-- <li (click)="onClickupdatepopup()"> -->
+                    <li (click)="onClickupdatepopup($event)" [style.display]="showNew ? 'block' : 'none'">
                           <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                           <label>
                               New
@@ -40,8 +38,6 @@
       <div class="row">
           <div class="col-md-4 col-sm-4 col-xs-4"></div>
           <div class="col-md-5 col-sm-4 col-xs-4"></div>
-         
-
       </div>
      
       <div class="col-md-12 col-sm-12 col-xs-12 tableDiv">
@@ -54,135 +50,162 @@
           <ag-grid-angular
           style="width: 100%; height: 430px;"
           class="ag-theme-alpine"
-          [rowData]="rowData"
+          [rowData]="_schemaMaster"
           [columnDefs]="columnDefs"
-          [enableFilter]="false"
-            [enableSorting]="true"
-            [showToolPanel]="true">
+          [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
+          (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
+          (gridReady)="onGridReady($event)">
       </ag-grid-angular>
     </div>
-<div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="paginationDiv">
-          <span class="previousBtn">Previous</span>
-          <span class="paginationCount">50 out of 200</span>
-          <span class="nextBtn">Next</span>
-      </div>
-</div>       
-      </div>
+    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+    </div>        -->
+    </div>
       
      
-      <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
-        <div class="modal-dialog model-lg">
-            <div class="modal-content">
-            
-                <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
-            
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
-                    <div class="col-sm-12 col-md-6 col-xs-12 no-padding">
-                        <h4 class="pageTitle">
-                            Scheme Master
-                             </h4>
+    <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+    <div class="modal-dialog model-lg">
+        <div class="modal-content">
         
-                    </div>
-                    <div class="rightmenu">
-                        <div class="toolbar pull-right">
-                            
-                        </div>
+            <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+        
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                <div class="col-sm-12 col-md-6 col-xs-12 no-padding">
+                    <h4 class="pageTitle">
+                        Scheme Master
+                            </h4>
+    
+                </div>
+                <div class="rightmenu">
+                    <div class="toolbar pull-right">
+                        
                     </div>
                 </div>
-                
-                    <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                            <form>
-                                                <div class="row no-padding mt-2">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                PMS Name:
-                                                            </label>
-                                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                <div class="form-group input-group" >
-                                                                <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
-                                                            </div>
-                                                        </div>
+            </div>
+            
+                <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                    <form [formGroup]="SchemaMasterFormGrp" autocomplete="off" class="form" appNorightclick>
+                                            <div class="row no-padding mt-2">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            PMS Name:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <!-- <div class="form-group input-group" >
+                                                                    <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
+                                                                </div> -->
+                                                            <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                                <option value="" selected>Select</option>
+                                                                <option value="">Custodian 1</option>
+                                                                <option value="">Custodian 2</option>
+                                                                <option value="">Custodian 3</option>
+                                                            </select> -->
+
+                                                            <div class="form-group input-group">
+                                                                <select  class="col-md-12 col-xs-12 col-sm-12"   #selectField required formControlName="PMSCode">
+                                                                   <option value="0" selected>Select PMSCode</option>
+                                                                   <option *ngFor="let data of pms" value={{data.PMSCode}}  >
+                                                                      {{data.PMSName}}
+                                                                   </option>
+                                                                </select>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+                                                </div>
+                                                
 
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                Custodian:
-                                                            </label>
-                                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                                                    <option value="" selected>Select</option>
-                                                                    <option value="">Custodian 1</option>
-                                                                    <option value="">Custodian 2</option>
-                                                                    <option value="">Custodian 3</option>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Custodian:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                                <option value="" selected>Select</option>
+                                                                <option value="">Custodian 1</option>
+                                                                <option value="">Custodian 2</option>
+                                                                <option value="">Custodian 3</option>
+                                                            </select> -->
+
+                                                            <div class="form-group input-group" >
+                                                                <select class="col-md-12 col-xs-12 col-sm-12" required  formControlName="CustodianCode">
+                                                                <option value="0" selected>Select Custodian</option>
+                                                                <option *ngFor="let data of custodian" value={{data.CustodianCode}}  >
+                                                                    {{data.CustodianName}}
+                                                                </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                Scheme Number:
-                                                            </label>
-                                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                <input type="text"  class="col-sm-12 col-md-12 col-xs-12"/>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Scheme Number:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <div class="form-group input-group" [ngClass]="displayFieldCss('SchemaNumber')">
+                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                 
-                                                           
-                                                        </div>
+                                                </div>
+                                                
+                                                        
                                                     </div>
-                               
-                            </form>
-                        </div>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-            <button type="button" class="btn btn-success">Save</button> 
-           
-            </div>
-            
-            </div>
-            </div>
+                                                </div>
+                            
+                        </form>
+                    </div>
         </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-success">Save</button>  -->
+        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+        
+        </div>
+        
+        </div>
+        </div>
+    </div>
      
 
-              <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
-                  <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                  
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                  <h4 class="modal-title">
-                 
-                  </h4>
-                  <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
-                  </div>
-                  
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                  <p><span [innerHTML]="SuccessText"></span></p>
-                  </div>
-                  
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                  <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
-                
-              </div>
-                  
-                  </div>
-                  </div>
-                  </div>
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+        
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p><span [innerHTML]="SuccessText"></span></p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+    
+    </div>
+        
+        </div>
+        </div>
+    </div>  
 
   </div>
 

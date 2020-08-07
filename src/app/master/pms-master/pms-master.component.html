@@ -1,33 +1,34 @@
 <div class="main-content maincontainer">
   <div class="content">
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none">
-             
+      <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" style="display:none">
           <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
               <img src="../../assets/images/loader.gif" class="loaderimagepage" />
           </div>
-         
+      </div> -->
 
-
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        </div>
       </div>
+
+
       <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-               <span class="legal"></span>
-           
+               <span class="legal"></span>           
           </div>
           <div class="rightmenu">
               <div class="toolbar pull-right">
-                  <ul class="toolbar-content">
-
-                      
+                  <ul class="toolbar-content">                     
                         
-                      <li>
+                      <li (click)="downloadCSVFile($event)">
                           <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
                           <label>
                               Export to Excel
                           </label>
                       </li>
                   
-                      <li (click)="onClickupdatepopup()">
+                      <li (click)="onClickupdatepopup()" [style.display]="showNew ? 'block' : 'none'">
                           <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                           <label>
                               New
@@ -54,30 +55,29 @@
           <ag-grid-angular
           style="width: 100%; height: 430px;"
           class="ag-theme-alpine"
-          [rowData]="rowData"
+          [rowData]="_pmsMaster"
           [columnDefs]="columnDefs"
-          [enableFilter]="false"
-            [enableSorting]="true"
-            [showToolPanel]="true">
+          [enableFilter]="true"
+      [enableSorting]="true"
+      [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true" (cellClicked)="onRowSelected($event)"
+      (gridReady)="onGridReady($event)"
+      >
       </ag-grid-angular>
     </div>
-<div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="paginationDiv">
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
           <span class="previousBtn">Previous</span>
           <span class="paginationCount">50 out of 200</span>
           <span class="nextBtn">Next</span>
-      </div>
-</div>       
+    </div>
+</div>        -->
       </div>
       
      
-      <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+    <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
         <div class="modal-dialog model-lg">
-            <div class="modal-content">
-            
+            <div class="modal-content">            
                 <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
-            
-            
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
@@ -94,66 +94,75 @@
                     </div>
                 </div>
                 
-                    <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                            <form>
-                                                <div class="row no-padding mt-2">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                    <div class="form-group">
-                                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                            PMS Code:
-                                                                        </label>
-                                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                            <div class="form-group input-group" >
-                                                                            <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
-                                                                        </div>
-                                                                    </div>
-                                                                    </div>
-                                                                </div>
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                PMS Name:
-                                                            </label>
-                                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                <div class="form-group input-group" >
-                                                                <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
-                                                            </div>
-                                                        </div>
-                                                        </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                    <form [formGroup]="PMSMasterFormGrp" autocomplete="off" class="form" appNorightclick>
+                        <div class="row no-padding mt-2">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                PMS Code:
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                <!-- <div class="form-group input-group" >
+                                                    <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
+                                                </div> -->
+                                                <div class="form-group input-group" [ngClass]="displayFieldCss('PMSCode')">
+                                                    <input type="text" required name="pMSCode" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSCode" />
                                                     </div>
-                                                   
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                                    Account Number:
-                                                            </label>
-                                                            <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                                <input type="text"  class="col-sm-12 col-md-12 col-xs-12"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                 
-                                                           
-                                                        </div>
-                                                    </div>
-                               
-                            </form>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                            PMS Name:
+                                        </label>
+                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                            <!-- <div class="form-group input-group" >
+                                                <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div> -->
+                                            <div class="form-group input-group" [ngClass]="displayFieldCss('PMSName')">
+                                                <input type="text" required name="pMSName" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                Account Number:
+                                        </label>
+                                        <!-- <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                            <input type="text"  class="col-sm-12 col-md-12 col-xs-12"/>
+                                        </div> -->
+                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                            <div class="form-group input-group" [ngClass]="displayFieldCss('PMSAccountNumber')">
+                                                <input type="text" required name="mMSAccountNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="PMSAccountNumber" />
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </form>
+                </div>
             </div>
             
             <!-- Modal footer -->
             <div class="modal-footer">
-            <button type="button" class="btn btn-success">Save</button> 
+            <!-- <button type="button" class="btn btn-success">Save</button>  -->
+            <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
            
             </div>
             
             </div>
             </div>
-        </div>
+    </div>
      
 
-              <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
                   <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                   
@@ -178,7 +187,7 @@
                   
                   </div>
                   </div>
-                  </div>
+    </div>
 
   </div>
 
