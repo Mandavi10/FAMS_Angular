@@ -19,6 +19,11 @@ overflow:hidden}*/
 .warningPopup .modal-dialog, .successPopup .modal-dialog {
     margin-top: 83px !important;
 }
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
 
 .notelabel{color: #f31313;
     font-style: italic;

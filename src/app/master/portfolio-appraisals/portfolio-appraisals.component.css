@@ -7,7 +7,7 @@
     overflow-x: auto;
 
 }
-
+.
 
     .holdingreportGrid table {
         width: 100%;
@@ -17,6 +17,22 @@
 table tbody tr td table tbody {
 overflow:hidden}*/
 
+.scrollbar {
+    height: 420px !important;
+    border-top: 1px solid #c5d0dc;
+    overflow: auto;
+    overflow-x: hidden;
+}
+.text{    font-size: 14px;
+    text-align: center;
+    color: #003974;
+    margin-top: 12%;
+}
+.notelabel{color: #f31313;
+    font-style: italic;
+    position: absolute;
+    right: 26px;
+    top: 2px;}
 table{display: block;}
 .loaderposition {
     position: absolute;
