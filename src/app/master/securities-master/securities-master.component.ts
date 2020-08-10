@@ -16,13 +16,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SecuritiesMasterComponent implements OnInit {
   isShowLoader:boolean=false;
-
+  SuccessPopup : any;
 
 
   showModalsavepopup: boolean;
   showModalSecurity: boolean;
   showModalupdatepopup:boolean;
-  SecurityFormGrp:FormGroup; _securityDetails: SecurityDetails;securityCodeDetails:[];custodian:[] ;securityDetails: []; security:[]; securityCodeDet:[]; country: []; sector:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  SecurityFormGrp:FormGroup; _securityDetails: SecurityDetails;
+  _securityDetails_Copy: SecurityDetails;
+  securityCodeDetails:[];custodian:[] ;securityDetails: []; 
+  security:[];
+
+  security_Copy:[];
+
+  
+  securityCodeDet:[]; country: []; sector:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; SecurityDetId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -111,7 +119,11 @@ debugger;
 
         this.BindSecurity(this.selectedRowId);
       }
-      
+      else
+      {
+        this.SuccessPopup="Please select custodian !";
+        this.onClicksavepopup();
+      }
 
       //this.onClickupdatepopup();
 
@@ -123,6 +135,7 @@ debugger;
       this._securityDetailsService.BindSecurity(SecurityDetailsId).
           subscribe((data) => {
               currentContext.security = data.Table;
+              this.security_Copy=data.Table;
           });
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
@@ -214,6 +227,67 @@ debugger;
                   this.selectedRowId=event.data.SecurityDetailId;
         }
       }
+
+      SecurityMasterSearch(evt: any) {
+        debugger;
+        let searchText = evt.target.value.toLocaleLowerCase();    
+        if(searchText ===  '' || searchText === undefined || searchText === null)
+        {
+          this.securityDetails  = JSON.parse(JSON.stringify(this._securityDetails_Copy));
+        }
+        else{
+          let gridArr = JSON.parse(JSON.stringify(this._securityDetails_Copy));
+          let finalArr = [];
+          gridArr.forEach(row => {
+
+            var CountryName = row.CountryName;
+            var CustodianName = row.CustodianName;
+            var ListCode = row.ListCode;
+            var ListName = row.ListName;
+           
+            var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
+            var isCustodianName = CustodianName.toLocaleLowerCase().includes(searchText) ;
+            var isListCode = ListCode.toLocaleLowerCase().includes(searchText) ;
+            var isListName = ListName.toLocaleLowerCase().includes(searchText) ;
+            
+      
+           if( isCountryName || isCustodianName || isListCode || isListName )
+            {
+              finalArr.push(row);
+            }
+          });
+          this.securityDetails  = JSON.parse(JSON.stringify(finalArr));
+        }
+      }
+
+      SecurityMasterDetailsSearch(evt: any) {
+        debugger;
+        let searchText = evt.target.value.toLocaleLowerCase();    
+        if(searchText ===  '' || searchText === undefined || searchText === null)
+        {
+          this.security  = JSON.parse(JSON.stringify(this.security_Copy));
+        }
+        else{
+          let gridArr = JSON.parse(JSON.stringify(this.security_Copy));
+          let finalArr = [];
+          gridArr.forEach(row => {
+
+            var SecurityCode = row.SecurityCode.toLocaleLowerCase();
+            var SecurityName = row.SecurityName.toLocaleLowerCase();
+            var SectorCode = row.SectorCode.toLocaleLowerCase();
+            
+            var isSecurityCode = SecurityCode.includes(searchText) ;
+            var isSecurityName = SecurityName.includes(searchText) ;
+            var isSectorCode = SectorCode.includes(searchText) ;
+      
+           if( isSecurityCode || isSecurityName || isSectorCode )
+            {
+              finalArr.push(row);
+            }
+          });
+          this.security  = JSON.parse(JSON.stringify(finalArr));
+        }
+      }
     onSubmit() {
       debugger;
       //alert('OnSubmi Clicked');
@@ -225,12 +299,12 @@ debugger;
           if (this.Temp == 1) {
             this.isShowLoader=true;
               this.SaveSecurity();
-              this.isShowLoader=false;
+             // this.isShowLoader=false;
           }
           else {
             this.isShowLoader=true;
               this.UpdateSecurity();
-              this.isShowLoader=false;
+              //this.isShowLoader=false;
           }
       } else {
           this.validateAllFormFields(this.SecurityFormGrp);
@@ -273,11 +347,15 @@ debugger;
                  // sessionStorage.setItem('ID', data.Result.toString());
                  // this.message = 'Record saved Successfully';
                  // alert(this.message);
+                // this.onClicksavepopup();
+                this.isShowLoader=false;
+                this.SuccessPopup="Saved Successfully";
                  this.onClicksavepopup();
               }
               else {
-                  this.message = 'Invalid Credential';
-                  alert(this.message);
+                this.isShowLoader=false;
+                this.SuccessPopup="Invalid Credentials !";
+                this.onClicksavepopup();
               }
               //this.EmployeeForm.reset();
               //this.loadAllDocuments();
@@ -296,11 +374,17 @@ debugger;
                  // alert(this.message);
                   //this.buttonDisabledDelete = true;
                   this.buttonDisabledReset = false;
-                  this.onClickupdatepopup();
+                  //this.onClickupdatepopup();
+                  this.isShowLoader=false;
+                  this.SuccessPopup="Updated Successfully";
+                  this.onClicksavepopup();
               }
               else {
-                  this.message = 'Invalid Credential';
-                  alert(this.message);
+                  // this.message = 'Invalid Credential';
+                  // alert(this.message);
+                  this.isShowLoader=false;
+                  this.SuccessPopup="Invalid Credentials !";
+                  this.onClicksavepopup();
               }
             
               //this.EmployeeForm.reset();
@@ -388,6 +472,7 @@ debugger;
       this._securityDetailsService.GetAllSecurityDetailss().
           subscribe((data) => {
               currentContext.securityDetails = data.Table;
+              this._securityDetails_Copy=data.Table
           });
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;

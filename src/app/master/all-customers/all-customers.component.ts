@@ -19,7 +19,10 @@ import { Allcustomerresponse } from 'src/Models/AllCustomers/allcustomerresponse
   styleUrls: ['./all-customers.component.css']
 })
 export class AllCustomersComponent implements OnInit {
-  AllCustomersList:AllCustomers;AllCustomersForm: FormGroup; SaveallfieldsList : SaveAllFields;CustomerResponse:Allcustomerresponse;
+  AllCustomersList:AllCustomers;
+  AllCustomersList_Copy:AllCustomers;
+  
+  AllCustomersForm: FormGroup; SaveallfieldsList : SaveAllFields;CustomerResponse:Allcustomerresponse;
   showModalupdatepopup:boolean;
   selectedRowId:number;
   CustomerId:number;
@@ -107,11 +110,48 @@ this.isShowGrid=false;
     // this.loading = false;
   }
 
+  AllCustomerSearch(evt: any) {
+    debugger;
+    let searchText = evt.target.value.toLocaleLowerCase();    
+    if(searchText ===  '' || searchText === undefined || searchText === null)
+    {
+      this.AllCustomersList  = JSON.parse(JSON.stringify(this.AllCustomersList_Copy));
+     
+    }
+    else{
+
+
+      let gridArr = JSON.parse(JSON.stringify(this.AllCustomersList_Copy));
+      let finalArr = [];
+      gridArr.forEach(row => {
+
+  
+        var AccountNo = row.AccountNo.toLocaleLowerCase();
+        var UserName = row.UserName.toLocaleLowerCase();
+        var EmailId = row.EmailId.toLocaleLowerCase();
+
+       
+        var isAccountNo= AccountNo.includes(searchText) ;
+        var isUserName = UserName.includes(searchText);
+        var isEmailId = EmailId.includes(searchText);
+
+       
+
+       if( isAccountNo || isUserName || isEmailId )
+        {
+          finalArr.push(row);
+        }
+        
+      });
+      this.AllCustomersList  = JSON.parse(JSON.stringify(finalArr));
+    }
+  }
 
 BindGrid(){
   this.AllCustomerService.BindGrid().subscribe(
     (data) => {
       this.AllCustomersList = data.Table;
+      this.AllCustomersList_Copy=data.Table;
         
       });
 }

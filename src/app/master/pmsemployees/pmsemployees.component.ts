@@ -18,9 +18,14 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
   styleUrls: ['./pmsemployees.component.css']
 })
 export class PMSEmployeesComponent implements OnInit {
-  PmsemployeesList : Pmsemployees; PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
+  PmsemployeesList : Pmsemployees;
+  PmsemployeesList_Copy : Pmsemployees;
+  
+  PMSEmployeesForm: FormGroup; CommonfieldsList : Commonfields; AllcustodianfieldsList : Allcustodianfields
   SaveallfieldsList : Saveallfields; BacktoPMSEmployee : boolean = false; PAMSEmpId : any = ""; flag = 0 ; HeaderArray : any =[];
-  BindallcustomersList : Bindallcustomers; liNew : boolean = true; liVieCusDetails : boolean = true; showModalsavepopup: boolean;
+  BindallcustomersList : Bindallcustomers; 
+  BindallcustomersList_Copy : Bindallcustomers; 
+  liNew : boolean = true; liVieCusDetails : boolean = true; showModalsavepopup: boolean;
   PmsemployeesCSVList : Array<PmsemployeesCSV> = []; isShowLoader : boolean = false; SuccessPopup : any;
   columnDefs = [
     {headerName: 'All', field: '', width: 60, cellRenderer: function() {
@@ -31,9 +36,6 @@ export class PMSEmployeesComponent implements OnInit {
     {headerName: 'Gender', field: 'Gender', width:'150'},
     {headerName: 'Qualification', field: 'Qualification', width:'150'},
     {headerName: 'About', field: 'About', width:'150'},
-   
-   
-    
   ];
   
   rowData = [
@@ -80,7 +82,7 @@ rowData1 = [
     this.BindCustomers();
     }
     else{
-      this.SuccessPopup = "Please checked checkbox";
+      this.SuccessPopup = "Please select pms employee!";
       this.showModalsavepopup = true;
     }
   }
@@ -123,6 +125,7 @@ rowData1 = [
     this.BindCustodian();
   }
 
+  
   BindGrid(){
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
@@ -130,6 +133,7 @@ rowData1 = [
     this.PMSEService.BindGrid(JSON.stringify(Data)).subscribe(
       (data) => {
         this.PmsemployeesList = data.Table;
+        this.PmsemployeesList_Copy=data.Table;
         this.PmsemployeesCSVList.push(this.PmsemployeesList);
         this.PAMSEmpId = "";
         });
@@ -163,6 +167,7 @@ rowData1 = [
     this.PMSEService.BindCustomers(JsonData).subscribe(
       (data) => {
         this.BindallcustomersList = data.Table;
+        this.BindallcustomersList_Copy=data.Table;
           
         });
   }
@@ -236,6 +241,84 @@ isFieldValid(field: string) {
         this.AllcustodianfieldsList = data.Table;         
         });
   }
+  PMSEmployeeSearch(evt: any) {
+    debugger;
+    let searchText = evt.target.value.toLocaleLowerCase();    
+    if(searchText ===  '' || searchText === undefined || searchText === null)
+    {
+      this.PmsemployeesList  = JSON.parse(JSON.stringify(this.PmsemployeesList_Copy));
+     
+    }
+    else{
+      let gridArr = JSON.parse(JSON.stringify(this.PmsemployeesList_Copy));
+      let finalArr = [];
+      gridArr.forEach(row => {
+        
+        var EmployeeCode = row.EmployeeCode.toLocaleLowerCase();
+        var EmployeeName = row.EmployeeName.toLocaleLowerCase();
+        var Gender = row.Gender.toLocaleLowerCase();
+
+        var Qualification = row.Qualification.toLocaleLowerCase();
+        var About = row.About.toLocaleLowerCase();
+
+        var isEmployeeCode= EmployeeCode.includes(searchText) ;
+        var isEmployeeName = EmployeeName.includes(searchText);
+        var isGender = Gender.includes(searchText);
+
+        var isQualification = Qualification.includes(searchText);
+        var isAbout = About.includes(searchText);
+
+       if( isEmployeeCode || isEmployeeName || isGender || isQualification ||isAbout)
+        {
+          finalArr.push(row);
+        }
+        
+      });
+      this.PmsemployeesList  = JSON.parse(JSON.stringify(finalArr));
+    }
+  }
+
+  PMSEmployeeDetailsSearch(evt: any) {
+    debugger;
+    let searchText = evt.target.value.toLocaleLowerCase();    
+    if(searchText ===  '' || searchText === undefined || searchText === null)
+    {
+      this.BindallcustomersList  = JSON.parse(JSON.stringify(this.BindallcustomersList_Copy));
+     
+    }
+    else{
+      let gridArr = JSON.parse(JSON.stringify(this.BindallcustomersList_Copy));
+      let finalArr = [];
+      gridArr.forEach(row => {
+
+    //     {headerName: 'Customer Code', field: 'CustomerCode', width:'150'},
+    // {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
+    // {headerName: 'Custodian', field: 'Custodian', width:'150'},
+    // {headerName: 'Inception Date', field: 'InceptionDate', width:'150'},
+    // {headerName: 'Employee Linking Date', field: 'EmpLinkingDate', width:'200'},
+        
+        var CustomerCode = row.CustomerCode.toLocaleLowerCase();
+        var CustomerName = row.CustomerName.toLocaleLowerCase();
+        var Custodian = row.Custodian.toLocaleLowerCase();
+        var InceptionDate = row.InceptionDate.toLocaleLowerCase();
+        var EmpLinkingDate = row.EmpLinkingDate.toLocaleLowerCase();
+
+        var isCustomerCode= CustomerCode.includes(searchText) ;
+        var isCustomerName = CustomerName.includes(searchText);
+        var isCustodian = Custodian.includes(searchText);
+        var isInceptionDate = InceptionDate.includes(searchText);
+        var isEmpLinkingDate = EmpLinkingDate.includes(searchText);
+
+       if( isCustomerCode || isCustomerName|| isCustodian || isInceptionDate ||isEmpLinkingDate)
+        {
+          finalArr.push(row);
+        }
+        
+      });
+      this.BindallcustomersList  = JSON.parse(JSON.stringify(finalArr));
+    }
+  }
+
   Search(value){
    // alert(value);
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));

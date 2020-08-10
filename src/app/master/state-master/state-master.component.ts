@@ -22,7 +22,7 @@ export class StateMasterComponent implements OnInit {
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  StateFormGrp:FormGroup; _state:State ;state: []; country: [];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  StateFormGrp:FormGroup; _state:State ;_state_Copy:State ;state: []; country: [];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; StateId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -132,7 +132,33 @@ debugger;
   }
 }
 
+StateMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.state  = JSON.parse(JSON.stringify(this._state_Copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._state_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+      var StateCode = row.StateCode;
+      var CountryName = row.CountryName;
+      var StateName = row.StateName;
+      
+      var isStateName = StateName.toLocaleLowerCase().includes(searchText) ;
+      var isStateCode = StateCode.toLocaleLowerCase().includes(searchText) ;
+      var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
 
+     if( isStateCode || isStateName || isCountryName)
+      {
+        finalArr.push(row);
+      }
+    });
+    this.state  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
 onSubmit() {
 debugger;
 //alert('OnSubmi Clicked');
@@ -252,6 +278,7 @@ var currentContext = this;
 this._stateService.loadAllState().
   subscribe((data) => {
       currentContext.state = data.Table;
+      this._state_Copy = data.Table;
   });
 // console.log(sessionStorage.getItem('ID'));
 this.loading = false;

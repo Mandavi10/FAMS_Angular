@@ -1,4 +1,14 @@
-
+.loaderposition {
+  position: absolute;
+  z-index: 9999 !important;
+  text-align: center;
+  /* top: 37%; */
+}
+.loaderimagepage {
+  margin-left: -12%;
+  margin-top: 2%;
+  width: 8%;
+}
   .chipsContainer{
     padding: 5px 0px 5px 5px;
     width: 84%;

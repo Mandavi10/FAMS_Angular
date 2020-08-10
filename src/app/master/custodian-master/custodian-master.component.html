@@ -1,10 +1,15 @@
 <div class="main-content maincontainer">
     <div class="content">
-      <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+      <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
          <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
              <img src="../../assets/images/loader.gif" class="loaderimagepage" />
          </div>
-     </div>
+     </div> -->
+
+     
+   <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+      <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+   </div>
      
        <!-- <form [formGroup]="CustodianFormGrp" autocomplete="off"> -->
        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
@@ -56,10 +61,14 @@
           <div class="col-md-5 col-sm-4 col-xs-4"></div>
        </div>
        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv"  *ngIf="Isdiv" style="display:block">
-          <div class="filter">
+          <!-- <div class="filter">
              <input type="text" placeholder="Search" />
              <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
+          </div> -->
+          <div class="filter">
+            <input type="text" (change) = "CustodianMasterSearch($event)" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+         </div>
           <ag-grid-angular style="width: 100%; height: 350px;" class="ag-theme-alpine" [rowData]="custodian"
           [columnDefs]="columnDefs" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
           (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
@@ -74,10 +83,15 @@
         </div>  -->
        </div>
        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
-          <div class="filter">
+          <!-- <div class="filter">
              <input type="text" placeholder="Search" />
              <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
+          </div> -->
+          <div class="filter">
+            <input type="text" (change) = "CustodianPmsSearch($event)" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+         </div>
+
           <ag-grid-angular style="width: 100%; height: 350px;" class="ag-theme-alpine" [rowData]="pmsDetails"
           [columnDefs]="columnDefs1" [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true" [pagination]="true" [paginationAutoPageSize]="true"
           (gridReady)="onGridReady1($event)"
@@ -256,36 +270,8 @@
     <!-- </form> -->
  </div>
 
- <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
-   <div class="modal-dialog modal-sm">
-   <div class="modal-content">
-   
-   <!-- Modal Header -->
-   <div class="modal-header">
-   <h4 class="modal-title">
-  
-   </h4>
-   <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
-   </div>
-   
-   <!-- Modal body -->
-   <div class="modal-body">
-   <p>Saved Successfully</p>
-   </div>
-   
-   <!-- Modal footer -->
-   <div class="modal-footer">
-   <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
- 
-</div>
-   
-   </div>
-   </div>
-   </div>
 
-
-
-   <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalupdatepopup ? 'block' : 'none'">
+   <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
       <div class="modal-dialog modal-sm">
       <div class="modal-content">
       
@@ -294,19 +280,19 @@
       <h4 class="modal-title">
      
       </h4>
-      <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
+      <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
       </div>
       
       <!-- Modal body -->
       <div class="modal-body">
-      <p>Updated Successfully</p>
+      <p><span [innerHTML]="SuccessPopup"></span></p>
       </div>
       
       <!-- Modal footer -->
       <div class="modal-footer">
-      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
+      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
     
-   </div>
+  </div>
       
       </div>
       </div>

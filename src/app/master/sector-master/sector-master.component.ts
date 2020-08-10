@@ -20,7 +20,7 @@ export class SectorMasterComponent implements OnInit {
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  SectorFormGrp:FormGroup; _sector:Sector ;state: []; country: [];sector:[];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  SectorFormGrp:FormGroup; _sector:Sector ;_sector_Copy:Sector ;state: []; country: [];sector:[];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; SectorId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -125,6 +125,35 @@ debugger;
   }
 }
 
+SectorMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.sector  = JSON.parse(JSON.stringify(this._sector_Copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._sector_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+
+      var CountryName = row.CountryName;
+      var SectorCode = row.SectorCode;
+      var SectorName = row.SectorName;
+     
+      var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
+      var isSectorCode = SectorCode.toLocaleLowerCase().includes(searchText) ;
+      var isSectorName = SectorName.toLocaleLowerCase().includes(searchText) ;
+      
+
+     if( isCountryName || isSectorCode || isSectorName )
+      {
+        finalArr.push(row);
+      }
+    });
+    this.sector  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
 
 onSubmit() {
 debugger;
@@ -249,6 +278,8 @@ var currentContext = this;
 this._sectorService.loadAllSector().
   subscribe((data) => {
       currentContext.sector = data.Table;
+      this._sector_Copy = data.Table;
+      
   });
 // console.log(sessionStorage.getItem('ID'));
 this.loading = false;

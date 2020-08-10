@@ -53,10 +53,15 @@
         </div>
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
+
+            <div class="filter">
+                <input type="text" (change) = "SectorMasterSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+             </div>
             
             
            <ag-grid-angular

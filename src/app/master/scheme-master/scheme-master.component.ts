@@ -27,7 +27,7 @@ export class SchemeMasterComponent implements OnInit {
   // showModalupdatepopup:boolean;
   // showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  SchemaMasterFormGrp:FormGroup; _schemaMaster:SchemaMaster ;custodian:[] ;pms:[];country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  SchemaMasterFormGrp:FormGroup; _schemaMaster:SchemaMaster ;_schemaMaster_Copy:SchemaMaster ;custodian:[] ;pms:[];country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; DesignationId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -135,7 +135,37 @@ rowData = [
                this.selectedRowId=event.data.SchemaMasterId;
       }
     }
-    
+    SchemeMasterSearch(evt: any) {
+      debugger;
+      let searchText = evt.target.value.toLocaleLowerCase();    
+      if(searchText ===  '' || searchText === undefined || searchText === null)
+      {
+        this._schemaMaster  = JSON.parse(JSON.stringify(this._schemaMaster_Copy));
+       
+      }
+      else{
+        let gridArr = JSON.parse(JSON.stringify(this._schemaMaster_Copy));
+        let finalArr = [];
+        gridArr.forEach(row => {
+          var schemaNumber = row.SchemaNumber.toLocaleLowerCase();
+          var PMSName = row.PMSName.toLocaleLowerCase();
+          var CustodianName = row.CustodianName.toLocaleLowerCase();
+
+          var isPMSName = PMSName.includes(searchText) ;
+          var isCustodianName = CustodianName.includes(searchText);
+
+          // var isPMSName = row.PMSName.includes(searchText) ;
+          // var isCustodianName = row.CustodianName.includes(searchText);
+          var isSchemaNumber = schemaNumber.includes(searchText) ;
+         if( isPMSName || isCustodianName || isSchemaNumber)
+          {
+            finalArr.push(row);
+          }
+          
+        });
+        this._schemaMaster  = JSON.parse(JSON.stringify(finalArr));
+      }
+    }
     
     onSubmit() {
     debugger;
@@ -286,6 +316,8 @@ rowData = [
     this._schemamasterService.loadAllSchemaMaster().
       subscribe((data) => {
           currentContext._schemaMaster = data.Table;
+          this._schemaMaster_Copy=JSON.parse(JSON.stringify(data.Table)) ;
+         // this.bindMastergrid_Copy = JSON.parse(JSON.stringify(res.Table)) ;
       });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;

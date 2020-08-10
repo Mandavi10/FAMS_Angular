@@ -16,11 +16,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class TBstructureComponent implements OnInit {
   isShowLoader:boolean=false;
- 
+  SuccessPopup : any;
   showModalsavepopup: boolean;
   showModalstatemaster: boolean;
   showModalupdatepopup:boolean;
-  TBStructureFormGrp:FormGroup; _tBStructure: TBStructure;tBStructure:[];custodian:[] ;tBStructureDetails: [];   country: []; parent:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  TBStructureFormGrp:FormGroup; _tBStructure: TBStructure; _tBStructure_Copy: TBStructure;tBStructure:[];custodian:[] ;
+  tBStructureDetails: [];
+  tBStructureDetails_Copy: [];
+  
+  country: []; parent:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; TBStructureId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -107,6 +111,13 @@ debugger;
        
         this.BindTBStructureDetails(this.selectedRowId);
       }
+
+      else
+      {
+        
+        this.SuccessPopup="Please select custodian !";
+        this.onClicksavepopup();
+      }
       
 
       //this.onClickupdatepopup();
@@ -119,6 +130,7 @@ debugger;
       this._tbstructureService.GetAllGetAllTBStructureDetailss(TBStructureId).
           subscribe((data) => {
               currentContext.tBStructureDetails = data.Table;
+              this.tBStructureDetails_Copy=data.Table;
           });
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
@@ -212,6 +224,71 @@ debugger;
                   this.selectedRowId=event.data.TBStructureId;
         }
       }
+
+
+
+
+      TbStructureMasterSearch(evt: any) {
+        debugger;
+        let searchText = evt.target.value.toLocaleLowerCase();    
+        if(searchText ===  '' || searchText === undefined || searchText === null)
+        {
+          this.tBStructure  = JSON.parse(JSON.stringify(this._tBStructure_Copy));
+        }
+        else{
+          let gridArr = JSON.parse(JSON.stringify(this._tBStructure_Copy));
+          let finalArr = [];
+          gridArr.forEach(row => {
+
+            var CountryName = row.CountryName;
+            var CustodianName = row.CustodianName;
+            var ListCode = row.ListCode;
+
+            var ListName = row.ListName;
+           
+            var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
+            var isCustodianName = CustodianName.toLocaleLowerCase().includes(searchText) ;
+            var isListCode = ListCode.toLocaleLowerCase().includes(searchText) ;
+            var isListName = ListName.toLocaleLowerCase().includes(searchText) ;
+            
+      
+           if( isCountryName || isCustodianName || isListCode || isListName)
+            {
+              finalArr.push(row);
+            }
+          });
+          this.tBStructure  = JSON.parse(JSON.stringify(finalArr));
+        }
+      }
+
+      TbStructureMasterDetailsSearch(evt: any) {
+        debugger;
+        let searchText = evt.target.value.toLocaleLowerCase();    
+        if(searchText ===  '' || searchText === undefined || searchText === null)
+        {
+          this.tBStructureDetails  = JSON.parse(JSON.stringify(this.tBStructureDetails_Copy));
+        }
+        else{
+          let gridArr = JSON.parse(JSON.stringify(this.tBStructureDetails_Copy));
+          let finalArr = [];
+          gridArr.forEach(row => {
+
+            var TBHeadCode = row.TBHeadCode.toLocaleLowerCase();
+            var TBHeadName = row.TBHeadName.toLocaleLowerCase();
+            var ParentName = row.ParentName.toLocaleLowerCase();
+            
+            var isTBHeadCode = TBHeadCode.includes(searchText) ;
+            var isTBHeadName = TBHeadName.includes(searchText) ;
+            var isParentName = ParentName.includes(searchText) ;
+      
+           if( isTBHeadCode || isTBHeadName || isParentName )
+            {
+              finalArr.push(row);
+            }
+          });
+          this.tBStructureDetails  = JSON.parse(JSON.stringify(finalArr));
+        }
+      }
     onSubmit() {
       debugger;
       //alert('OnSubmi Clicked');
@@ -223,12 +300,12 @@ debugger;
           if (this.Temp == 1) {
             this.isShowLoader=true;
               this.SaveTBStructure();
-              this.isShowLoader=false;
+              //this.isShowLoader=false;
           }
           else {
             this.isShowLoader=true;
               this.UpdateTBStructure();
-              this.isShowLoader=false;
+             // this.isShowLoader=false;
           }
       } else {
           this.validateAllFormFields(this.TBStructureFormGrp);
@@ -262,11 +339,17 @@ debugger;
                  // sessionStorage.setItem('ID', data.Result.toString());
                  // this.message = 'Record saved Successfully';
                  // alert(this.message);
+                 this.isShowLoader=false;
+                this.SuccessPopup="Saved Successfully";
                  this.onClicksavepopup();
+                 //this.onClicksavepopup();
               }
               else {
-                  this.message = 'Invalid Credential';
-                  alert(this.message);
+                  // this.message = 'Invalid Credential';
+                  // alert(this.message);
+                  this.isShowLoader=false;
+                  this.SuccessPopup="Invalid Credentials !";
+                  this.onClicksavepopup();
               }
               //this.EmployeeForm.reset();
               //this.loadAllDocuments();
@@ -285,11 +368,15 @@ debugger;
                  // alert(this.message);
                   //this.buttonDisabledDelete = true;
                   this.buttonDisabledReset = false;
-                  this.onClickupdatepopup();
+                 // this.onClickupdatepopup();
+                 this.SuccessPopup="Updated Successfully";
+                  this.onClicksavepopup();
               }
               else {
-                  this.message = 'Invalid Credential';
-                  alert(this.message);
+                  // this.message = 'Invalid Credential';
+                  // alert(this.message);
+                  this.SuccessPopup="Invalid Credentials !";
+                  this.onClicksavepopup();
               }
             
               //this.EmployeeForm.reset();
@@ -367,6 +454,8 @@ debugger;
       this._tbstructureService.GetAllGetAllTBStructure().
           subscribe((data) => {
               currentContext.tBStructure = data.Table;
+              this._tBStructure_Copy=data.Table;
+              
           });
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
