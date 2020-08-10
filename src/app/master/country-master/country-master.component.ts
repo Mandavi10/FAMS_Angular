@@ -24,7 +24,7 @@ export class CountryMasterComponent implements OnInit {
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  CountryFormGrp:FormGroup; _country:Country ;country: []; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  CountryFormGrp:FormGroup; _country:Country ;_country_Copy:Country ;country: []; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; CountryID: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -133,7 +133,32 @@ debugger;
   }
 }
 
+CountryMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.country  = JSON.parse(JSON.stringify(this._country_Copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._country_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+      var CountryCode = row.CountryCode;
+      var CountryName = row.CountryName;
+      
+      var isCountryCode = CountryCode.toLocaleLowerCase().includes(searchText) ;
+      var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
 
+     if( isCountryCode || isCountryName)
+      {
+        finalArr.push(row);
+      }
+      
+    });
+    this.country  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
 onSubmit() {
 debugger;
 
@@ -301,6 +326,7 @@ var currentContext = this;
 this._countryService.loadAllCountry().
   subscribe((data) => {
       currentContext.country = data.Table;
+      this._country_Copy=data.Table;
   });
 // console.log(sessionStorage.getItem('ID'));
 this.loading = false;

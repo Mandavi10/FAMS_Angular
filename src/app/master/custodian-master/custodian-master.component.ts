@@ -17,11 +17,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CustodianMasterComponent implements OnInit {
   isShowLoader:boolean=false;
-
+  SuccessPopup : any;
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  CustodianFormGrp:FormGroup; _custodian:Custodian ;custodian: []; country: [];  pms:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  CustodianFormGrp:FormGroup; _custodian:Custodian ;_custodian_copy:Custodian ;custodian: []; country: [];  pms:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; CustodianId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -30,6 +30,7 @@ export class CustodianMasterComponent implements OnInit {
   _pms:PMS;
   selectedRowId:number=0;
   pmsDetails:[];
+  pmsDetails_Copy:[];
   showBackToCustodian:boolean=false;
   showNew:boolean=true;
   showviewSecurities=true;
@@ -166,6 +167,7 @@ rowData1 = [
       this._custodianService.BindPMSDetails(CustodianId).
           subscribe((data) => {
               currentContext.pmsDetails = data.Table;
+              this.pmsDetails_Copy=data.Table;
           });
       // console.log(sessionStorage.getItem('ID'));
       this.loading = false;
@@ -196,6 +198,72 @@ onClickviewpms(){
   this.BindPMSDetails(this.selectedRowId);
 
   }
+  else
+  {
+    this.SuccessPopup="Please select custodian !";
+    this.onClicksavepopup();
+  }
+}
+
+
+CustodianMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.custodian  = JSON.parse(JSON.stringify(this._custodian_copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._custodian_copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+    
+      var CountryName = row.CountryName;
+      var CustodianCode = row.CustodianCode;
+      var CustodianName = row.CustodianName;
+     
+      var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
+      var isCustodianCode = CustodianCode.toLocaleLowerCase().includes(searchText) ;
+      var isCustodianName = CustodianName.toLocaleLowerCase().includes(searchText) ;
+      
+
+     if( isCountryName || isCustodianCode || isCustodianName )
+      {
+        finalArr.push(row);
+      }
+    });
+    this.custodian  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
+CustodianPmsSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.pmsDetails  = JSON.parse(JSON.stringify(this.pmsDetails_Copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this.pmsDetails_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+
+     
+      var PMSCode = row.PMSCode.toLocaleLowerCase();
+      var PMSName = row.PMSName.toLocaleLowerCase();
+      var PMSAccountNumber = row.PMSAccountNumber.toLocaleLowerCase();
+     
+      var isPMSCode = PMSCode.includes(searchText) ;
+      var isPMSName = PMSName.includes(searchText) ;
+      var isPMSAccountNumber = PMSAccountNumber.includes(searchText) ;
+      
+
+     if( isPMSCode || isPMSName || isPMSAccountNumber )
+      {
+        finalArr.push(row);
+      }
+    });
+    this.pmsDetails  = JSON.parse(JSON.stringify(finalArr));
+  }
 }
 onSubmit(pMSName,pMSAccountNumber) {
   debugger;
@@ -211,12 +279,12 @@ onSubmit(pMSName,pMSAccountNumber) {
       if (this.Temp == 1) {
         this.isShowLoader=true;
           this.SaveCustodian();
-          this.isShowLoader=false;
+         // this.isShowLoader=false;
       }
       else {
         this.isShowLoader=true;
           this.UpdateCustodian();
-          this.isShowLoader=false;
+          //this.isShowLoader=false;
       }
   } else {
       this.validateAllFormFields(this.CustodianFormGrp);
@@ -260,11 +328,16 @@ SaveCustodian() {
              // sessionStorage.setItem('ID', this._custodian.Result.toString());
              // this.message = 'Record saved Successfully';
              // alert(this.message);
+             this.isShowLoader=false;
+              this.SuccessPopup="Saved Successfully";
               this.onClicksavepopup();
           }
           else {
-              this.message = 'Invalid Credential';
-              alert(this.message);
+              // this.message = 'Invalid Credential';
+              // alert(this.message);
+              this.isShowLoader=false;
+              this.SuccessPopup="Invalid Credentials !";
+              this.onClicksavepopup();
           }
           //this.EmployeeForm.reset();
           //this.loadAllDocuments();
@@ -284,11 +357,16 @@ UpdateCustodian() {
               //this.buttonDisabledDelete = true;
              // this.buttonDisabledReset = false;
              // this.onClickupdatepopup();
-              this.onClickupdatepopup();
+             this.isShowLoader=false;
+             this.SuccessPopup="Updated Successfully";
+              this.onClicksavepopup();
           }
           else {
-              this.message = 'Invalid Credential';
-              alert(this.message);
+              // this.message = 'Invalid Credential';
+              // alert(this.message);
+              this.isShowLoader=false;
+              this.SuccessPopup="Invalid Credentials !";
+              this.onClicksavepopup();
           }
         
           //this.EmployeeForm.reset();
@@ -348,6 +426,7 @@ loadAllCustodians() {
   this._custodianService.GetAllCustodians().
       subscribe((data) => {
           currentContext.custodian = data.Table;
+          this._custodian_copy= data.Table;
       });
   // console.log(sessionStorage.getItem('ID'));
   this.loading = false;

@@ -18,7 +18,7 @@ export class DesignationMasterComponent implements OnInit {
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  DesignationFormGrp:FormGroup; _designation:Designation ;country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  DesignationFormGrp:FormGroup; _designation:Designation ; _designation_copy:Designation ;country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; DesignationId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -119,6 +119,35 @@ debugger;
   }
 }
 
+
+DesignationMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.designation  = JSON.parse(JSON.stringify(this._designation_copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._designation_copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+
+      var DesignationCode = row.DesignationCode;
+      var DesignationName = row.DesignationName;
+      
+      
+      var isDesignationCode = DesignationCode.toLocaleLowerCase().includes(searchText) ;
+      var isDesignationName = DesignationName.toLocaleLowerCase().includes(searchText) ;
+     
+
+     if( isDesignationCode || isDesignationName )
+      {
+        finalArr.push(row);
+      }
+    });
+    this.designation  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
 
 onSubmit() {
 debugger;
@@ -233,6 +262,7 @@ var currentContext = this;
 this._designationService.loadAllDesignation().
   subscribe((data) => {
       currentContext.designation = data.Table;
+      this._designation_copy=data.Table;
   });
 // console.log(sessionStorage.getItem('ID'));
 this.loading = false;

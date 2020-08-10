@@ -21,7 +21,7 @@ export class CityMasterComponent implements OnInit {
   showModalupdatepopup:boolean;
   showModalsavepopup:boolean;
   showModalcitymaster: boolean;
-  CityFormGrp:FormGroup; _city:City ;state: []; country: []; city:[];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  CityFormGrp:FormGroup; _city:City ;_city_Copy:City ;state: []; country: []; city:[];buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; CityId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -127,6 +127,35 @@ debugger;
   }
 }
 
+CityMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.city  = JSON.parse(JSON.stringify(this._city_Copy));
+  }
+  else{
+    let gridArr = JSON.parse(JSON.stringify(this._city_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+     var CountryName = row.CountryName;
+      var StateName = row.StateName;
+      var CityCode = row.CityCode;
+      var CityName = row.CityName;
+      
+      var isCountryName = CountryName.toLocaleLowerCase().includes(searchText) ;
+      var isStateName = StateName.toLocaleLowerCase().includes(searchText) ;
+      var isCityCode = CityCode.toLocaleLowerCase().includes(searchText) ;
+      var isCityName = CityName.toLocaleLowerCase().includes(searchText) ;
+
+     if( isCountryName || isStateName || isCityCode || isCityName)
+      {
+        finalArr.push(row);
+      }
+    });
+    this.city  = JSON.parse(JSON.stringify(finalArr));
+  }
+}
 
 onSubmit() {
 debugger;
@@ -243,6 +272,7 @@ loadAllCity() {
   this._cityService.loadAllCity().
     subscribe((data) => {
         currentContext.city = data.Table;
+        this._city_Copy=data.Table;
     });
   // console.log(sessionStorage.getItem('ID'));
   this.loading = false;

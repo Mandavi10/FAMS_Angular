@@ -70,10 +70,14 @@
         </div>
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" #SearchData (keyup)="Search(SearchData.value)"/>
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
+            <div class="filter">
+                <input type="text" (change) = "PMSEmployeeSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
             
             
            <ag-grid-angular
@@ -91,13 +95,11 @@
 </ag-grid-angular>
            
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="paginationDiv">
-          
-          
+                <!-- <div class="paginationDiv">
                     <span class="previousBtn">Previous</span>
-                        <span class="paginationCount">50 out of 200</span>
-                        <span class="nextBtn">Next</span>
-                    </div>
+                    <span class="paginationCount">50 out of 200</span>
+                    <span class="nextBtn">Next</span>
+                </div> -->
            </div>
             
         </div>
@@ -105,10 +107,14 @@
 
 
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showCustomer">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
+            <div class="filter">
+                <input type="text" (change) = "PMSEmployeeDetailsSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
             
             
            <ag-grid-angular
@@ -127,14 +133,12 @@
            
             
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="paginationDiv">
-          
-          
+                <!-- <div class="paginationDiv">
                     <span class="previousBtn">Previous</span>
                         <span class="paginationCount">50 out of 200</span>
                         <span class="nextBtn">Next</span>
-                    </div>
-           </div>
+                </div> -->
+            </div>
         </div>
        
 

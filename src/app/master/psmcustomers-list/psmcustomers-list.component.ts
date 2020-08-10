@@ -16,6 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PSMCustomersListComponent implements OnInit {
   isShowLoader:boolean=false;
+  SuccessPopup : any;
   _custodian:Custodian;_portFolio:PortFolio;_linkedPMSEmployee:LinkedPMSEmployee;_pMSCustomerListDetails:PMSCustomerListDetails;_pMSCustomerListCodeDetails;_pMSCustomerList:PMSCustomerList
   Isdiv1:boolean;
   Isdiv:boolean;
@@ -23,7 +24,11 @@ export class PSMCustomersListComponent implements OnInit {
   showModalSecurity: boolean;
   showModalupdatepopup:boolean;
   PMSCustomerListFormGrp:FormGroup;
-  custodian:Custodian;portFolio:PortFolio;linkedPMSEmployee:LinkedPMSEmployee;pMSCustomerListDetails:PMSCustomerListDetails;pMSCustomerListCodeDetails;pMSCustomerList:PMSCustomerList
+  custodian:Custodian;portFolio:PortFolio;linkedPMSEmployee:LinkedPMSEmployee;
+  pMSCustomerListDetails:PMSCustomerListDetails;
+  pMSCustomerListDetails_copy:PMSCustomerListDetails;
+  pMSCustomerListCodeDetails;pMSCustomerList:PMSCustomerList
+  pMSCustomerListCodeDetails_Copy:PMSCustomerList;
   selectedRowId:number=0;
   CustomerListId:number;
   Temp: number = 1;  loading: boolean = false;
@@ -79,7 +84,7 @@ showModalstatemaster: boolean;
         this.showBackToCustomerList=true;
         this.Isdiv1=true;
         this.Isdiv=false;
-        this.BindPMSCustomerListCodeDetails(this.selectedRowId);
+      //  this.BindPMSCustomerListCodeDetails(this.selectedRowId);
         this.showNew=false;
         this.showviewSecurities=false;
 
@@ -87,6 +92,11 @@ showModalstatemaster: boolean;
         this.Isdiv=false;
         this.BindPMSCustomerListCodeDetails(this.selectedRowId);
 
+      }
+      else
+      {
+        this.SuccessPopup="Please select custodian !";
+        this.onClicksavepopup();
       }
      
     }
@@ -173,6 +183,85 @@ showModalstatemaster: boolean;
                 this.selectedRowId=event.data.CustomerListId;
       }
     }
+
+
+    PMSCustomerListSearch(evt: any) {
+      debugger;
+      let searchText = evt.target.value.toLocaleLowerCase();    
+      if(searchText ===  '' || searchText === undefined || searchText === null)
+      {
+        this.pMSCustomerListDetails  = JSON.parse(JSON.stringify(this.pMSCustomerListDetails_copy));
+       
+      }
+      else{
+        let gridArr = JSON.parse(JSON.stringify(this.pMSCustomerListDetails_copy));
+        let finalArr = [];
+        gridArr.forEach(row => {
+
+          var CustodianCode = row.CustodianCode.toLocaleLowerCase();
+          var ListCode = row.ListCode.toLocaleLowerCase();
+          
+
+          var isCustodianCode = CustodianCode.includes(searchText) ;
+          var isListCode = ListCode.includes(searchText);
+
+          
+         if( isCustodianCode || isListCode)
+          {
+            finalArr.push(row);
+          }
+          
+        });
+        this.pMSCustomerListDetails  = JSON.parse(JSON.stringify(finalArr));
+      }
+    }
+
+    PMSCustomerListDetailsSearch(evt: any) {
+      debugger;
+      let searchText = evt.target.value.toLocaleLowerCase();    
+      if(searchText ===  '' || searchText === undefined || searchText === null)
+      {
+        this.pMSCustomerListCodeDetails  = JSON.parse(JSON.stringify(this.pMSCustomerListCodeDetails_Copy));
+       
+      }
+      else{
+        let gridArr = JSON.parse(JSON.stringify(this.pMSCustomerListCodeDetails_Copy));
+        let finalArr = [];
+        gridArr.forEach(row => {
+
+  //         {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
+  // {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
+  // {headerName: ' 	Portfolio Type', field: 'PortfolioName', width:'150'},
+  // {headerName: 'Inception Date', field: 'InceptionDate', width:'150'},
+  // {headerName: 'Linked PMS Employee', field: 'EmployeeName', width:'200'}
+
+         var CustomerAccount = row.CustomerAccount.toLocaleLowerCase();
+          var CustomerName = row.CustomerName.toLocaleLowerCase();
+
+          var PortfolioName = row.PortfolioName.toLocaleLowerCase();
+          var InceptionDate = row.InceptionDate.toLocaleLowerCase();
+          var EmployeeName = row.EmployeeName.toLocaleLowerCase();
+          
+          
+
+          var isCustomerAccount = CustomerAccount.includes(searchText) ;
+          var isCustomerName = CustomerName.includes(searchText);
+
+          var isPortfolioName = PortfolioName.includes(searchText) ;
+          var isInceptionDate = InceptionDate.includes(searchText);
+          var isEmployeeName = EmployeeName.includes(searchText) ;
+          
+
+          
+         if( isCustomerAccount || isCustomerName || isPortfolioName || isInceptionDate || isEmployeeName)
+          {
+            finalArr.push(row);
+          }
+          
+        });
+        this.pMSCustomerListCodeDetails  = JSON.parse(JSON.stringify(finalArr));
+      }
+    }
   onSubmit() {
     debugger;
     //alert('OnSubmi Clicked');
@@ -184,12 +273,12 @@ showModalstatemaster: boolean;
         if (this.Temp == 1) {
           this.isShowLoader=true;
             this.AddCustomerListDetails();
-            this.isShowLoader=false;
+           // this.isShowLoader=false;
         }
         else {
           this.isShowLoader=true;
             this.UpdateCustomerListDetails();
-            this.isShowLoader=false;
+           // this.isShowLoader=false;
         }
     } else {
         this.validateAllFormFields(this.PMSCustomerListFormGrp);
@@ -223,12 +312,18 @@ showModalstatemaster: boolean;
                // sessionStorage.setItem('ID', data.Result.toString());
                // this.message = 'Record saved Successfully';
                // alert(this.message);
+               //this.onClicksavepopup();
+               this.isShowLoader=false;
+               this.SuccessPopup="Saved Successfully !";
                this.onClicksavepopup();
                this.hidestatemaster();
             }
             else {
-                this.message = 'Invalid Credential';
-                alert(this.message);
+                // this.message = 'Invalid Credential';
+                // alert(this.message);
+                this.isShowLoader=false;
+                this.SuccessPopup="Invalid Credentials !";
+                this.onClicksavepopup();
             }
             //this.EmployeeForm.reset();
             //this.loadAllDocuments();
@@ -246,12 +341,18 @@ showModalstatemaster: boolean;
                // alert(this.message);
                 //this.buttonDisabledDelete = true;
                 //this.buttonDisabledReset = false;
-                this.onClickupdatepopup();
+               // this.onClickupdatepopup();
+               this.isShowLoader=false;
+               this.SuccessPopup="Updated Successfully !";
+               this.onClicksavepopup();
                 this.hidestatemaster();
             }
             else {
-                this.message = 'Invalid Credential';
-                alert(this.message);
+                // this.message = 'Invalid Credential';
+                // alert(this.message);
+                this.isShowLoader=false;
+                this.SuccessPopup="Invalid Credentials !";
+                this.onClicksavepopup();
             }
           
             //this.EmployeeForm.reset();
@@ -321,6 +422,7 @@ showModalstatemaster: boolean;
     this._pmsCustomerListService.BindPMSCustomerListDetails().
         subscribe((data) => {
             currentContext.pMSCustomerListDetails = data.Table;
+            this.pMSCustomerListDetails_copy=data.Table;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
@@ -333,6 +435,8 @@ showModalstatemaster: boolean;
     this._pmsCustomerListService.BindPMSCustomerListCodeDetails(CustomerListId).
         subscribe((data) => {
             currentContext.pMSCustomerListCodeDetails = data.Table;
+            this.pMSCustomerListCodeDetails=data.Table;
+            this.pMSCustomerListCodeDetails_Copy=data.Table;
         });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;

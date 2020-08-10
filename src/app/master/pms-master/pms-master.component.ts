@@ -22,7 +22,7 @@ export class PmsMasterComponent implements OnInit {
   // showModalupdatepopup:boolean;
   // showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  PMSMasterFormGrp:FormGroup; _pmsMaster:PMSMaster ;country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  PMSMasterFormGrp:FormGroup; _pmsMaster:PMSMaster ;_pmsMaster_Copy:PMSMaster ;country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; DesignationId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
@@ -134,7 +134,38 @@ rowData = [
       }
     }
     
-    
+    PMSMasterSearch(evt: any){
+      debugger;
+      let searchText = evt.target.value.toLocaleLowerCase();    
+      if(searchText ===  '' || searchText === undefined || searchText === null)
+      {
+        this._pmsMaster  = JSON.parse(JSON.stringify(this._pmsMaster_Copy));
+       
+      }
+      else{
+        let gridArr = JSON.parse(JSON.stringify(this._pmsMaster_Copy));
+        let finalArr = [];
+        gridArr.forEach(row => {
+          var PMSCode = row.PMSCode.toLocaleLowerCase();
+          var PMSName = row.PMSName.toLocaleLowerCase();
+          var PMSAccountNumber = row.PMSAccountNumber.toLocaleLowerCase();
+
+          var isPMSCode = PMSCode.includes(searchText) ;
+          var isPMSName = PMSName.includes(searchText);
+          var isPMSAccountNumber = PMSAccountNumber.includes(searchText);
+
+          // var isPMSName = row.PMSName.includes(searchText) ;
+          // var isCustodianName = row.CustodianName.includes(searchText);
+         // var isSchemaNumber = schemaNumber.includes(searchText) 
+         if( isPMSCode || isPMSName || isPMSAccountNumber)
+          {
+            finalArr.push(row);
+          }
+          
+        });
+        this._pmsMaster  = JSON.parse(JSON.stringify(finalArr));
+      }
+    }
     onSubmit() {
     debugger;
     //alert('OnSubmi Clicked');
@@ -260,6 +291,7 @@ rowData = [
     this._pmsmasterService.loadAllPMSMaster().
       subscribe((data) => {
           currentContext._pmsMaster = data.Table;
+          this._pmsMaster_Copy=data.Table;
       });
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;

@@ -1,10 +1,14 @@
 <div class="main-content maincontainer">
     <div class="content">
 
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div>
+        </div> -->
+
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
         </div>
         
 
@@ -61,10 +65,15 @@
         </div>
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showGrid">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
+
+            <div class="filter">
+                <input type="text" (change) = "SecurityMasterSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+             </div>
             
             
            <ag-grid-angular
@@ -82,11 +91,11 @@
       
 </ag-grid-angular>
          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="paginationDiv">
+            <!-- <div class="paginationDiv">
                     <span class="previousBtn">Previous</span>
                     <span class="paginationCount">50 out of 200</span>
                     <span class="nextBtn">Next</span>
-                </div>
+                </div> -->
         </div>      
             
         </div>
@@ -94,12 +103,15 @@
 
 
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" *ngIf="showSecurity">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
             
-            
+            <div class="filter">
+                <input type="text" (change) = "SecurityMasterDetailsSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+             </div>
            <ag-grid-angular
     style="width: 100%; height: 450px;"
     class="ag-theme-alpine"
@@ -112,11 +124,11 @@
       >
 </ag-grid-angular>
 <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="paginationDiv">
+    <!-- <div class="paginationDiv">
             <span class="previousBtn">Previous</span>
             <span class="paginationCount">50 out of 200</span>
             <span class="nextBtn">Next</span>
-        </div>
+        </div> -->
 </div> 
             
         </div>
@@ -324,8 +336,7 @@
 
     </div>
 
-    
-    <div class="modal successPopup" id="myModalUpdate" [style.display]="showModalsavepopup ? 'block' : 'none'">
+    <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
         <div class="modal-dialog modal-sm">
         <div class="modal-content">
         
@@ -339,7 +350,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-        <p>Saved Successfully</p>
+        <p><span [innerHTML]="SuccessPopup"></span></p>
         </div>
         
         <!-- Modal footer -->
@@ -351,33 +362,6 @@
         </div>
         </div>
         </div>
-
-        <div class="modal successPopup" id="myModal" [style.display]="showModalupdatepopup ? 'block' : 'none'">
-            <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-            
-            <!-- Modal Header -->
-            <div class="modal-header">
-            <h4 class="modal-title">
-           
-            </h4>
-            <button type="button" class="close" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-            <p>Updated Successfully</p>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideupdatepopup()">Ok</button>
-          
-        </div>
-            
-            </div>
-            </div>
-            </div>
     
 
 

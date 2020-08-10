@@ -57,10 +57,15 @@
         </div>
        
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
+            </div> -->
+
+            <div class="filter">
+                <input type="text" (change) = "StateMasterSearch($event)" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+             </div>
             
             
            <ag-grid-angular
@@ -75,11 +80,11 @@
 </ag-grid-angular>
            
 <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="paginationDiv">
+    <!-- <div class="paginationDiv">
             <span class="previousBtn">Previous</span>
             <span class="paginationCount">50 out of 200</span>
             <span class="nextBtn">Next</span>
-        </div>
+        </div> -->
 </div> 
         </div>
         

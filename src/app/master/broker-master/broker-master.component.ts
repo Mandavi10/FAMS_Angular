@@ -15,7 +15,10 @@ import { Commonfields } from '../../../Models/commonfields';
 export class BrokerMasterComponent implements OnInit {
   BindallfieldsList : Bindallfields; BrokerMasterForm: FormGroup; CommonfieldsList : Commonfields; 
   JsondataList : Jsondata ; showModalsavepopup : boolean = false; isShowLoader : boolean =false;
-  HeaderArray : any; BMId : any; Bindallfields2List : Bindallfields2; SuccessText : any;
+  HeaderArray : any; BMId : any;
+   Bindallfields2List : Bindallfields2;
+   Bindallfields2List_Copy : Bindallfields2;
+    SuccessText : any;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'srNo', width:70 },
     {headerName: 'Broker Name', field: 'BrokerName', width:150 },
@@ -107,8 +110,56 @@ isFieldValid(field: string) {
       (data) => {  
         this.BindallfieldsList = data.Table;  
         this.Bindallfields2List = data.Table1;
+        this.Bindallfields2List_Copy=data.Table1;
        // console.log(this.BindallfieldsList);  
   });
+}
+
+BrokerMasterSearch(evt: any) {
+  debugger;
+  let searchText = evt.target.value.toLocaleLowerCase();    
+  if(searchText ===  '' || searchText === undefined || searchText === null)
+  {
+    this.Bindallfields2List  = JSON.parse(JSON.stringify(this.Bindallfields2List_Copy));
+   
+  }
+  else{
+
+
+    let gridArr = JSON.parse(JSON.stringify(this.Bindallfields2List_Copy));
+    let finalArr = [];
+    gridArr.forEach(row => {
+
+      var BrokerName = row.BrokerName.toLocaleLowerCase();
+      var TradeName = row.TradeName.toLocaleLowerCase();
+      var RegistrationNo = row.RegistrationNo.toLocaleLowerCase();
+
+      var GSTNo = row.GSTNo.toLocaleLowerCase();
+      var StockExchangeName = row.StockExchangeName.toLocaleLowerCase();
+      var Email = row.Email.toLocaleLowerCase();
+
+      var Telephone = row.Telephone.toLocaleLowerCase();
+
+     
+      var isBrokerName= BrokerName.includes(searchText) ;
+      var isTradeName = TradeName.includes(searchText);
+      var isRegistrationNo = RegistrationNo.includes(searchText);
+
+
+      var isGSTNo= GSTNo.includes(searchText) ;
+      var isStockExchangeName = StockExchangeName.includes(searchText);
+      var isEmail = Email.includes(searchText);
+      var isTelephone = Telephone.includes(searchText);
+     
+
+     if( isBrokerName || isTradeName || isRegistrationNo || isGSTNo || isStockExchangeName || isEmail || isTelephone )
+      {
+        finalArr.push(row);
+      }
+      
+    });
+    this.Bindallfields2List  = JSON.parse(JSON.stringify(finalArr));
+  }
 }
 SaveData(){
   this.isShowLoader = true;
