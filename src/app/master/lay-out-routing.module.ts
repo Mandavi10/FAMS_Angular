@@ -67,6 +67,7 @@ const routes: Routes = [
  {path: 'FileUpload', loadChildren: './file-upload/file-upload.module#FileUploadModule'},
  {path: 'PortfolioSummary', loadChildren: './portfolio-summary/portfolio-summary.module#PortfolioSummaryModule'},  
 
+ {path: 'Upload', loadChildren: './upload/upload.module#UploadModule'}, 
  ]
       }
 
