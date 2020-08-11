@@ -23,6 +23,8 @@ BinddataOnPageLoad1(em:any): Observable<any> {
     headers 
 });
 }
+
+
 BinddataOnPageLoad2(em:any): Observable<any> {  
   const body = em; 
   const headers = new HttpHeaders().set('content-type', 'application/json');
