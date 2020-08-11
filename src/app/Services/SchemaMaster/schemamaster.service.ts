@@ -18,6 +18,14 @@ export class SchemamasterService {
   this.baseUrl = AppSettings.Login_URL;
   }
 
+  BindSchemeDetails(SchemaMasterId): Observable<any> {
+    return this._http.get<any>(this.baseUrl + 'api/SchemaMaster/BindSchemaMasterDetails/'+SchemaMasterId);
+  }
+
+  BindCustomer(): Observable<any> {
+    return this._http.get<any>(this.baseUrl + '/api/SchemaMaster/BindAllCustomer/');
+  }
+
   loadAllPMS(): Observable<any> {
     // let item = JSON.parse(sessionStorage.getItem('User'));
     // this.UserId = item.UserId;

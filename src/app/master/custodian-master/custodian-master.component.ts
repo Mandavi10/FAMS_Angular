@@ -55,9 +55,9 @@ rowData = [
 
   
 columnDefs1 = [
-    {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
-return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
-    }},
+//     {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
+// return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
+//     }},
  
   {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
   {headerName: 'PMS code', field: 'PMSCode', width:'150'},
@@ -193,9 +193,9 @@ onClickviewpms(){
     this.showviewSecurities=false;
     this.showNew=false;
 
-    this.Isdiv1=true;
-    this.Isdiv=false;
-  this.BindPMSDetails(this.selectedRowId);
+  //   this.Isdiv1=true;
+  //   this.Isdiv=false;
+  // this.BindPMSDetails(this.selectedRowId);
 
   }
   else

@@ -50,9 +50,9 @@ return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
 ];
 
 columnDefs2 = [
-  {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
-return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
-  }},
+//   {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
+// return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
+//   }},
   {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
   {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
   {headerName: 'Customer Name', field: 'CustomerName', width:'150'},

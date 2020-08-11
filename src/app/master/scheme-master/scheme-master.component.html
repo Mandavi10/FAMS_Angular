@@ -5,70 +5,96 @@
               <img src="../../assets/images/loader.gif" class="loaderimagepage" />
           </div>
       </div> -->
-    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
         </div>
-    </div>
-      <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
-          <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-               <span class="legal"></span>           
-          </div>
-          <div class="rightmenu">
-              <div class="toolbar pull-right">
-                  <ul class="toolbar-content">
-                    <li (click)="downloadCSVFile($event)">
-                          <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
-                          <label>
-                              Export to Excel
-                          </label>
-                      </li>
-                  
-                      <!-- <li (click)="onClickupdatepopup()"> -->
-                    <li (click)="onClickupdatepopup($event)" [style.display]="showNew ? 'block' : 'none'">
-                          <i class="fa fa-plus" aria-hidden="true" title="New"></i>
-                          <label>
-                              New
-                          </label>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-md-4 col-sm-4 col-xs-4"></div>
-          <div class="col-md-5 col-sm-4 col-xs-4"></div>
-      </div>
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal"></span>           
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                        <li (click)="downloadCSVFile($event)">
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <li (click)="BackToCustodian()" [style.display]="showBackToSchemeMaster ? 'block' : 'none'">
+                            <i title="View Custodian"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
+                            <label>
+                                Back To SchemeMaster
+                            </label>
+                        </li>
+                    <li (click)="onClickviewSchemaDetails()" [style.display]="showviewSchemeDetails? 'block' : 'none'">
+                        <i title="View PMS"><img src="../assets/images/viewImg.png" style="width:18%; margin-top: -6px;" ></i>
+                        <label>
+                        View SchemeDetails
+                        </label>
+                    </li>
+                        <!-- <li (click)="onClickupdatepopup()"> -->
+                        <li (click)="onClickupdatepopup($event)" [style.display]="showNew ? 'block' : 'none'">
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+        </div>
      
-      <div class="col-md-12 col-sm-12 col-xs-12 tableDiv">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 tableDiv"> -->
           <!-- <div class="filter">
               <input type="text" placeholder="Search" />
               <i class="fa fa-search" aria-hidden="true"></i>
           </div> -->
-        <div class="filter">
-                <input type="text" (change) = "SchemeMasterSearch($event)" placeholder="Search" />
-                <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
-          
-          <div>
-          <ag-grid-angular
-          style="width: 100%; height: 430px;"
-          class="ag-theme-alpine"
-          [rowData]="_schemaMaster"
-          [columnDefs]="columnDefs"
-          [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
-          (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
-          (gridReady)="onGridReady($event)">
-      </ag-grid-angular>
-    </div>
-    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="paginationDiv">
-            <span class="previousBtn">Previous</span>
-            <span class="paginationCount">50 out of 200</span>
-            <span class="nextBtn">Next</span>
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv"  *ngIf="Isdiv" style="display:block">
+            <div class="filter">
+                    <input type="text" (change) = "SchemeMasterSearch($event)" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <!-- <div> -->
+            <ag-grid-angular
+                style="width: 100%; height: 430px;"
+                class="ag-theme-alpine"
+                [rowData]="_schemaMaster"
+                [columnDefs]="columnDefs"
+                [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
+                (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
+                (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
         </div>
-    </div>        -->
-    </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
+            <!-- <div class="filter">
+            <input type="text" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+            </div> -->
+            <div class="filter">
+            <input type="text" (change) = "SchemeDetailsSearch($event)" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+
+        <ag-grid-angular
+                style="width: 100%; height: 430px;"
+                class="ag-theme-alpine"
+                [rowData]="_schemaDetails"
+                [columnDefs]="columnDefs1"
+                [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
+                 [pagination]="true" [paginationAutoPageSize]="true"
+                (gridReady)="onGridReady1($event)">
+            </ag-grid-angular>
+        </div>
+
+   <!-- </div> -->
       
      
     <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
@@ -98,6 +124,24 @@
                     <form [formGroup]="SchemaMasterFormGrp" autocomplete="off" class="form" appNorightclick>
                                             <div class="row no-padding mt-2">
                                                 <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                                                               Customer Name :
+                                                            </label>
+                                                            <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
+                                                                <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="Cust_code">
+                                                                    <option value="0" selected>Select Customer</option>
+                                                                    <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                                                        {{data.UserName}}
+                                                                    </option>
+                                                                 </select>
+                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
