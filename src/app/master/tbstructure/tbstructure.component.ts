@@ -70,8 +70,8 @@ export class TBstructureComponent implements OnInit {
       ];
 
       columnDefs1 = [
-        {headerName: 'All', field: '', width: 60, cellRenderer: function() {
-          return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
+        // {headerName: 'All', field: '', width: 60, cellRenderer: function() {
+        //   return '<input type="checkbox" class="texBox" value="All" style="width:15px" />'} },
         {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
         {headerName: 'TBHead Code', field: 'TBHeadCode', width:'150'},
         {headerName: 'TBHead Name', field: 'TBHeadName', width:'150'},

@@ -5,11 +5,10 @@ export class SchemaMaster{
     PMSId:any;
     PMSCode: string;
     PMSName: string; 
-    
     CustodianCode: string;
-    CustodianName: string;  
-     
-
+    CustodianName: string; 
+    CustomerName: string;
+    CustomerCode: string; 
     SchemaNumber: string;  
     CreatedBy: string;
     CreatedOn: string;

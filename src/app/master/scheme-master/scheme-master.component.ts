@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Customer} from '../../../Models/HoldingReport/holdingReport';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./scheme-master.component.css']
 })
 export class SchemeMasterComponent implements OnInit {
+  customer:Customer ;
   SchemaMasterId:any;
   SuccessText:string;
   showModalupdatepopup:boolean;
@@ -27,22 +29,33 @@ export class SchemeMasterComponent implements OnInit {
   // showModalupdatepopup:boolean;
   // showModalsavepopup:boolean;
   showModalstatemaster: boolean;
-  SchemaMasterFormGrp:FormGroup; _schemaMaster:SchemaMaster ;_schemaMaster_Copy:SchemaMaster ;custodian:[] ;pms:[];country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
+  SchemaMasterFormGrp:FormGroup; 
+  _schemaMaster:SchemaMaster ;_schemaMaster_Copy:SchemaMaster ;
+  _schemaDetails:SchemaMaster ;_schemaDetails_Copy:SchemaMaster ;
+  
+  
+  custodian:[] ;pms:[];country: [];designation:[]; buttonDisabledReset: boolean = false; /*buttonDisabledDelete: boolean = true;*/ submitted = false; sucess = false; Show = true;
   Temp: number = 1; DesignationId: number = 0; loading: boolean = false;
   message: string;
   setClickedRow: Function;
   Isdiv1:boolean;
   Isdiv:boolean;
   selectedRowId:number=0;
-  showBackToCustodian:boolean=false;
+  showBackToSchemeMaster:boolean=false;
   showNew:boolean=true;
+  showviewSchemeDetails=true;
   PMSId:number;
 
+
   columnDefs = [
+    {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
+      return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
+          }},
     {headerName: 'Sr.No', field: 'SrNo', width:100 },
     {headerName: 'PMS Name', field: 'PMSName', width:150 },
     {headerName: 'Custodian Name', field: 'CustodianName', width:150},
-    {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
+    // {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
+    {headerName: 'Customer Name', field: 'CustomerName',width:150},
     {headerName: 'Created By', field: 'CreatedBy', width:130},
     {headerName: 'Created On', field: 'CreatedOn' ,width:160},
     {headerName: 'Updated By', field: 'UpdatedBy',width:150 },
@@ -51,6 +64,25 @@ export class SchemeMasterComponent implements OnInit {
 
 rowData = [
     { srNo: '1', PMSName: 'Vishal', Custodian: 'Custodian', SchemeNumber: '12155', createdby: 'Vishal',createdon: '06/08/2020' , UpdatedBy: 'Vishal', UpdatedOn: '06/08/2020' }
+];
+
+columnDefs1 = [
+  // {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
+  //   return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
+  //       }},
+  {headerName: 'Sr.No', field: 'SrNo', width:100 },
+  {headerName: 'PMS Name', field: 'PMSName', width:150 },
+  {headerName: 'Custodian Name', field: 'CustodianName', width:150},
+  {headerName: 'Customer Name', field: 'CustomerName',width:150},
+  {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
+  // {headerName: 'Created By', field: 'CreatedBy', width:130},
+  // {headerName: 'Created On', field: 'CreatedOn' ,width:160},
+  // {headerName: 'Updated By', field: 'UpdatedBy',width:150 },
+  // {headerName: 'Updated On', field: 'UpdatedOn', width: 130},
+];
+
+rowData1 = [
+  { srNo: '1', PMSName: 'Vishal', Custodian: 'Custodian', SchemeNumber: '12155', createdby: 'Vishal',createdon: '06/08/2020' , UpdatedBy: 'Vishal', UpdatedOn: '06/08/2020' }
 ];
 
     // onClickupdatepopup() {
@@ -95,6 +127,7 @@ rowData = [
     this.Isdiv1=false;
     this.Isdiv=true;
     this.SchemaMasterFormGrp = this.formbulider.group({
+      Cust_code: [0, ],
       PMSCode: [0, ],
       CustodianCode: [0,],
       SchemaNumber: ['',],
@@ -104,7 +137,8 @@ rowData = [
     // this.setClickedRow = function (index) {
     //     this.selectedRow = index;
     // }
-    // this.AllEmployee();
+    // this.AllEmployee();;
+    this.BindCustomers();
     this.loadAllPMS();
     this.loadAllCustodians();
     
@@ -112,15 +146,33 @@ rowData = [
     debugger;
     
     }
+
+    BackToCustodian(){
+      // this.showSecurity = false;
+      // this.showGrid = true;
+      this.Isdiv1=false;
+      this.Isdiv=true;
+      this.selectedRowId=0;
+      this.showviewSchemeDetails=true;
+        this.showNew=true;
+        this.showBackToSchemeMaster=false;
+    }
     onRowSelected(event){
     debugger;
       if (event.column.colId != "all" ) // only first column clicked
       {
         this.Temp=2;
         this.showModalupdatepopup = true;
+        
+        this.SchemaMasterFormGrp.controls['Cust_code'].setValue(event.data.CustomerCode);
         this.SchemaMasterFormGrp.controls['PMSCode'].setValue(event.data.PMSCode);
         this.SchemaMasterFormGrp.controls['CustodianCode'].setValue(event.data.CustodianCode);
         this.SchemaMasterFormGrp.controls['SchemaNumber'].setValue(event.data.SchemaNumber);
+
+        this.SchemaMasterFormGrp.controls['Cust_code'].disable();
+        this.SchemaMasterFormGrp.controls['PMSCode'].disable();
+        this.SchemaMasterFormGrp.controls['CustodianCode'].disable();
+        //this.SchemaMasterFormGrp.controls['SchemaNumber'].disable();
        
         this.SchemaMasterId=event.data.SchemaMasterId;
        // event.preventDefault();
@@ -135,6 +187,47 @@ rowData = [
                this.selectedRowId=event.data.SchemaMasterId;
       }
     }
+
+    onClickviewSchemaDetails(){
+        if(this.selectedRowId != 0)
+        {
+          this.showBackToSchemeMaster=true;
+          this.Isdiv1=true;
+          this.Isdiv=false;
+          this.BindSchemeDetails(this.selectedRowId);
+          this.showviewSchemeDetails=false;
+          this.showNew=false;
+        }
+        else
+        {
+          this.SuccessText="Please select scheme !";
+          this.onClicksavepopup();
+        }
+      }
+      BindSchemeDetails(SchemeMasterId) {
+        debugger;
+        this.loading = true;
+        var currentContext = this;
+        this._schemamasterService.BindSchemeDetails(SchemeMasterId).
+            subscribe((data) => {
+                currentContext._schemaDetails = data.Table;
+                this._schemaDetails_Copy=data.Table;
+            });
+        // console.log(sessionStorage.getItem('ID'));
+        this.loading = false;
+      }
+    BindCustomers() {
+      // this.loading = true;
+       var currentContext = this;
+       //let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+       this._schemamasterService.BindCustomer().
+           subscribe((data) => {
+               currentContext.customer = data.Table;
+               
+           });
+       // console.log(sessionStorage.getItem('ID'));
+      // this.loading = false;
+     }
     SchemeMasterSearch(evt: any) {
       debugger;
       let searchText = evt.target.value.toLocaleLowerCase();    
@@ -147,23 +240,46 @@ rowData = [
         let gridArr = JSON.parse(JSON.stringify(this._schemaMaster_Copy));
         let finalArr = [];
         gridArr.forEach(row => {
-          var schemaNumber = row.SchemaNumber.toLocaleLowerCase();
+          var CustomerName = row.CustomerName.toLocaleLowerCase();
           var PMSName = row.PMSName.toLocaleLowerCase();
           var CustodianName = row.CustodianName.toLocaleLowerCase();
 
           var isPMSName = PMSName.includes(searchText) ;
           var isCustodianName = CustodianName.includes(searchText);
+          var isCustomerName = CustomerName.includes(searchText);
 
-          // var isPMSName = row.PMSName.includes(searchText) ;
-          // var isCustodianName = row.CustodianName.includes(searchText);
-          var isSchemaNumber = schemaNumber.includes(searchText) ;
-         if( isPMSName || isCustodianName || isSchemaNumber)
+         if( isPMSName || isCustodianName || isCustomerName)
           {
             finalArr.push(row);
           }
-          
         });
         this._schemaMaster  = JSON.parse(JSON.stringify(finalArr));
+      }
+    }
+    
+
+
+    SchemeDetailsSearch(evt: any) {
+      debugger;
+      let searchText = evt.target.value.toLocaleLowerCase();    
+      if(searchText ===  '' || searchText === undefined || searchText === null)
+      {
+        this._schemaDetails  = JSON.parse(JSON.stringify(this._schemaDetails_Copy));
+       
+      }
+      else{
+        let gridArr = JSON.parse(JSON.stringify(this._schemaDetails_Copy));
+        let finalArr = [];
+        gridArr.forEach(row => {
+          var SchemaNumber = row.SchemaNumber.toLocaleLowerCase();
+          var isSchemaNumber = SchemaNumber.includes(searchText);
+
+         if( isSchemaNumber)
+          {
+            finalArr.push(row);
+          }
+        });
+        this._schemaDetails  = JSON.parse(JSON.stringify(finalArr));
       }
     }
     
@@ -270,6 +386,10 @@ rowData = [
     }
     ResetSchemaMaster() {
     this.SchemaMasterFormGrp.reset();
+    this.SchemaMasterFormGrp.controls['Cust_code'].enable();
+        this.SchemaMasterFormGrp.controls['PMSCode'].enable();
+        this.SchemaMasterFormGrp.controls['CustodianCode'].enable();
+    this.SchemaMasterFormGrp.controls['Cust_code'].setValue(0);
     this.SchemaMasterFormGrp.controls['PMSCode'].setValue(0);
     this.SchemaMasterFormGrp.controls['CustodianCode'].setValue(0);
     // this.buttonDisabledReset = false;
@@ -325,6 +445,10 @@ rowData = [
     
     private gridApi;
     private gridColumnApi;
+
+    private gridApi1;
+    private gridColumnApi1;
+
     getValue(inputSelector) {
       // var text = document.querySelector(inputSelector).value;
       var text = 'array';
@@ -376,6 +500,11 @@ rowData = [
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
     }
+    onGridReady1(params) {
+      debugger;
+      this.gridApi1 = params.api;
+      this.gridColumnApi1 = params.columnApi;
+    }
     downloadCSVFile() {
       debugger;
     //var params = this.getParams();
@@ -385,6 +514,7 @@ rowData = [
         //   );
         // }
         var params = {
+          columnKeys: ['SrNo','PMSName','CustodianName', 'SchemaNumber','CustomerName','CreatedBy','CreatedOn','UpdatedBy','UpdatedOn'],
           skipHeader: false,
           skipFooters: true,
           allColumns: true,
@@ -393,7 +523,24 @@ rowData = [
           fileName: 'SchemeMaster.csv',
           columnSeparator: ','
         };
-        this.gridApi.exportDataAsCsv(params);
+        var params1 = {
+          columnKeys: ['SrNo','PMSName','CustodianName', 'SchemaNumber','CustomerName'],
+          skipHeader: false,
+          skipFooters: true,
+          allColumns: true,
+          onlySelected: false,
+          suppressQuotes: true,
+          fileName: 'SchemeMasterDetails.csv',
+          columnSeparator: ','
+        };
+        //this.gridApi.exportDataAsCsv(params);
+        if(this.selectedRowId==0)
+    {
+      this.gridApi.exportDataAsCsv(params);
+    }
+    else{
+      this.gridApi1.exportDataAsCsv(params1);
+    }
       }
     
     }
