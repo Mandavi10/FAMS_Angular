@@ -18,7 +18,9 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
+
 // import html2canvas from 'html2canvas';  
+
 
 @Component({
   selector: 'app-portfolio-summary',
@@ -398,7 +400,7 @@ downloadPDFFile(){
 // debugger;  
 // var data = document.getElementById('portfolioSummaryGridPdf');  
 //   html2canvas(data).then(canvas => {  
-//     // Few necessary setting options  
+
 //     var imgWidth = 208;   
 //     var pageHeight = 295;    
 //     var imgHeight = canvas.height * imgWidth / canvas.width;  
