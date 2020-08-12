@@ -13,8 +13,7 @@ import { Commonfields } from '../../../Models/commonfields';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-//import html2canvas from 'html2canvas';  
-
+// import html2canvas from 'html2canvas';  
 
 @Component({
   selector: 'app-bank-book',

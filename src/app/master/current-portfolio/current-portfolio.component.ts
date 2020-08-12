@@ -16,7 +16,6 @@ import 'jspdf-autotable';
 //import html2canvas from 'html2canvas';
 
 
-
 @Component({
   selector: 'app-current-portfolio',
   templateUrl: './current-portfolio.component.html',
@@ -373,6 +372,7 @@ export class CurrentPortfolioComponent implements OnInit {
       this.CurrentPortfolioForm.controls['ReportDate'].setValue(yesterday);
     }
 
+
     // downloadPDFFile(){
     //     var data = document.getElementById('CurrentPortfoliotable');  
     //       html2canvas(data).then(canvas => {  
@@ -388,6 +388,7 @@ export class CurrentPortfolioComponent implements OnInit {
     //         pdf.save('CurrentPortfolio.pdf'); // Generated PDF   
     //       });         
     //   }
+
 
 
 //   BindCurrentPortFolioReport(FromDate,ToDate) {
