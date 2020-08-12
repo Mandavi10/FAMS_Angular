@@ -65,8 +65,15 @@ const routes: Routes = [
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
  {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},
  {path: 'FileUpload', loadChildren: './file-upload/file-upload.module#FileUploadModule'},
- {path: 'PortfolioSummary', loadChildren: './portfolio-summary/portfolio-summary.module#PortfolioSummaryModule'},  
-
+ {path: 'PortfolioSummary', loadChildren: './portfolio-summary/portfolio-summary.module#PortfolioSummaryModule'}, 
+ {path: 'PortfolioSummaryView', loadChildren: './portfolio-summary-view/portfolio-summary-view.module#PortfolioSummaryViewModule'},   
+ {path: 'PortfolioFactView', loadChildren: './portfolio-fact-view/portfolio-fact-view.module#PortfolioFactViewModule'},   
+ {path: 'CurrentPortfolioView', loadChildren: './current-portfolio-view/current-portfolio-view.module#CurrentPortfolioViewModule'},  
+ {path: 'StatementDividendView', loadChildren: './statement-dividend-view/statement-dividend-view.module#StatementDividendViewModule'},   
+ {path: 'BankBookView', loadChildren: './bank-book-view/bank-book-view.module#BankBookViewModule'}, 
+ {path: 'CapitalStatementView', loadChildren: './capital-statement-view/capital-statement-view.module#CapitalStatementViewModule'},     
+ {path: 'StatementOfExpensesView', loadChildren: './statement-of-expenses-view/statement-of-expenses-view.module#StatementOfExpensesViewModule'},    
+ {path: 'TransactionStatementView', loadChildren: './transaction-statement-view/transaction-statement-view.module#TransactionStatementViewModule'},      
  {path: 'Upload', loadChildren: './upload/upload.module#UploadModule'}, 
  ]
       }
