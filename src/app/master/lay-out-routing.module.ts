@@ -77,6 +77,7 @@ const routes: Routes = [
  {path: 'StatementOfExpensesView', loadChildren: './statement-of-expenses-view/statement-of-expenses-view.module#StatementOfExpensesViewModule'},    
  {path: 'TransactionStatementView', loadChildren: './transaction-statement-view/transaction-statement-view.module#TransactionStatementViewModule'},      
  {path: 'Upload', loadChildren: './upload/upload.module#UploadModule'}, 
+ {path: 'AllAutoRequest', loadChildren: './all-auto-request/all-auto-request.module#AllAutoRequestModule'},
  ]
       }
 
