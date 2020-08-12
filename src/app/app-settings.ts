@@ -8,6 +8,7 @@ export class AppSettings {
 
   // public static Login_URL='http://localhost:55073/';
 
+
    public static Login_URL='http://219.90.65.215:9003/';
    
 
