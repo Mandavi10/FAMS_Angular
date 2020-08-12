@@ -61,6 +61,8 @@ const routes: Routes = [
 {path: 'PortfolioFact', loadChildren: './portfolio-fact/portfolio-fact.module#PortfolioFactModule'},
 {path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
+{path: 'AutoReportRequest', loadChildren: './auto-report-request/auto-report-request.module#AutoReportRequestModule'},
+
 
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
  {path: 'StatementOfExpenses', loadChildren: './statement-of-expenses/statement-of-expenses.module#StatementOfExpensesModule'},

@@ -15,7 +15,6 @@ import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 // import html2canvas from 'html2canvas';  
 
-
 @Component({
   selector: 'app-bank-book',
   templateUrl: './bank-book.component.html',

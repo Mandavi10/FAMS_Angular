@@ -14,7 +14,8 @@ import { timer } from 'rxjs';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-// import html2canvas from 'html2canvas'; 
+
+//import html2canvas from 'html2canvas'; 
 import { Router, ActivatedRoute } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
