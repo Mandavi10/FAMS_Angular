@@ -68,6 +68,7 @@ const routes: Routes = [
  {path: 'PortfolioSummary', loadChildren: './portfolio-summary/portfolio-summary.module#PortfolioSummaryModule'},  
 
  {path: 'Upload', loadChildren: './upload/upload.module#UploadModule'}, 
+ {path: 'AllAutoRequest', loadChildren: './all-auto-request/all-auto-request.module#AllAutoRequestModule'},
  ]
       }
 
