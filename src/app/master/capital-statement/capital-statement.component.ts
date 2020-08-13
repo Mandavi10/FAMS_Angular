@@ -8,7 +8,7 @@ import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { SummaryreportService } from '../../Services/SummaryReport/summaryreport.service';
 import { Commonfields } from '../../../Models/commonfields';
-
+import { Router, ActivatedRoute } from '@angular/router';
   // import html2canvas from 'html2canvas';
 
 
@@ -65,7 +65,7 @@ export class CapitalStatementComponent implements OnInit {
   
 
 
-  constructor(private _capitalStateService:CapitalSatementService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
+  constructor(private router1:ActivatedRoute,private _capitalStateService:CapitalSatementService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private SRService : SummaryreportService) { }
 
   ngOnInit(): void {
     this.showhead=true;
@@ -112,12 +112,27 @@ export class CapitalStatementComponent implements OnInit {
       GAccountNumber="0";
      
     }
-    
-     if (this.capitalStatForm.controls["Employee1"].value==0 && this.capitalStatForm.controls["Formdate"].value==""  && this.capitalStatForm.controls["Todate"].value=="") 
+    if(userType !=1)
     {
-      // alert(GAccountNumber)
-      this.BindDefaultData(GAccountNumber,GUserId)
+      debugger;
+      this.BindCustomers();
     }
+    this. CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+    this.FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+    this.ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+    this.capitalStatForm.controls["Formdate"].setValue(this.FromDate);
+      this.capitalStatForm.controls["Todate"].setValue(this.ToDate);
+      this.capitalStatForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
+      this.capitalStatForm.controls["Employee1"].setValue("1");
+      this.bindGrid();
+    
+//alert (CustomerAccount + '-' + FromDate+'-' +ToDate)
+    
+    //  if (this.capitalStatForm.controls["Employee1"].value==0 && this.capitalStatForm.controls["Formdate"].value==""  && this.capitalStatForm.controls["Todate"].value=="") 
+    // {
+    //   // alert(GAccountNumber)
+    //   this.BindDefaultData(GAccountNumber,GUserId)
+    // }
 
     //this.BindDefaultData();
 
@@ -791,7 +806,7 @@ BindDefaultData(accountno,userid){
     else{
       let item = JSON.parse(sessionStorage.getItem('User'));
       var usertype=this.Dbsecurity.Decrypt(item.UserType);
-      var userid, CustomerAccountNo;
+     // var userid, CustomerAccountNo;
 
       // if(usertype == 2 ||usertype == 3 || usertype == 4){
 

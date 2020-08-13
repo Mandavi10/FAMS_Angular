@@ -25,6 +25,14 @@ export class DividendModel{
     Outstanding_Divident:string;
     Total_Amount:string;
     TDS_Amount:string;
-   
-
+}
+export class BindViewGrid{
+    SrNo : string;
+    FromDate : string;
+    ToDate: string;
+    CustomerAccount: string;
+    Scheme: string;
+    DownloadLink: string;
+    ReportType: string;
+    ReportName: string;
 }
