@@ -15,3 +15,14 @@ export interface ReportLink {
     LinkID:string;
     LinkName:string;
 }
+
+
+export interface BindCapitalpie1 {
+    ST:string;
+    LT:string;
+}
+
+export interface BindCapitalpie1column {
+    row_num:string;
+    NAME:string;
+}

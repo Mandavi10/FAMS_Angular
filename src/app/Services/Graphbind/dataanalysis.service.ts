@@ -23,8 +23,6 @@ BinddataOnPageLoad1(em:any): Observable<any> {
     headers 
 });
 }
-
-
 BinddataOnPageLoad2(em:any): Observable<any> {  
   const body = em; 
   const headers = new HttpHeaders().set('content-type', 'application/json');
@@ -37,6 +35,14 @@ BinddataCustomer(em:any): Observable<any> {
   const body = em; 
   const headers = new HttpHeaders().set('content-type', 'application/json');
   return this._http.post<any>(this.baseUrl + 'api/AllCustomer/BindGraphGrid3/', body, {
+    headers 
+});
+}
+
+BinddataGraphPie(em:any): Observable<any> {  
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AllCustomer/BindGraphGridPie/', body, {
     headers 
 });
 }
