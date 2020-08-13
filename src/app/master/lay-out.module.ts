@@ -9,6 +9,7 @@ import { LayOutRoutingModule } from './lay-out-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import{NorightclickModule}from '../Services/norightclick.module';
 
+
 @NgModule({
   declarations: [MainLayoutComponent,HeaderComponent,SidebarComponent,FooterComponent,MenuComponent],
   imports: [
