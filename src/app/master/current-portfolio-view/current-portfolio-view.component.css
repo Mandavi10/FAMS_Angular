@@ -1,0 +1,294 @@
+
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  
+  @media only screen and (min-width: 1100px) and (max-width: 1200px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  
+  @media only screen and (min-width: 1000px) and (max-width: 1100px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  
+  }
+  
+  @media only screen and (min-width: 900px) and (max-width: 1000px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  
+  @media only screen and (min-width: 800px) and (max-width: 900px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  @media only screen and (min-width: 700px) and (max-width: 800px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  }
+  
+  @media only screen and (min-width: 600px) and (max-width: 700px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  
+  
+  @media only screen and (min-width: 499px) and (max-width: 600px) {
+    #createuser .modal-dialog{
+      float: right;
+  }
+  #createuser .modal-content {
+  height: 565px !important;
+  }
+  #createuser .modal-dialog {
+  width: 100% !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+  
+  }
+  
+  @media (max-width: 498px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+    margin-right: 6px;
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
+   
+
+
+  @media (max-width: 414px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+  
+    margin-right: -8px;
+
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
+
+   
+  @media (max-width: 411px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+    margin-right: -7px;
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
+  @media (max-width: 360px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+    margin-right: 6px;
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
+  @media (max-width: 375px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+    margin-right: 7px;
+
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
+  @media (max-width: 320px) {
+  
+    #createuser .modal-dialog{
+      margin: 0px 0 0 0% !important;
+  }
+  #createuser .modal-dialog {
+    width: 100% !important;
+  }
+  
+  #createuser .modal-content {
+    height: 565px !important;
+  }
+  .toolbar-content li {
+    margin-right: 4px !important; 
+    padding:1px 6px 0px 1px !important; 
+   }
+   .btnsearch{float: right;
+    margin-right: 14px;
+  }
+  .rightmenu {
+    position: relative;
+    margin-right: 0px!important;
+}
+  }
