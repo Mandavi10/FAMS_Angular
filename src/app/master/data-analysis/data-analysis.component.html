@@ -1,90 +1,93 @@
 <div class="main-content maincontainer">
     <div class="content">
         <form [formGroup]="Datanalysis" autocomplete="off">
-       <div class="row">
+<div class="row">
         <div class="col-md-12 col-sm-4 col-xs-4">
 
-            <div *ngIf="Employeeshowhid" class="col-md-4 col-sm-4 col-xs-4 selectDate">
-                    <div class="form-group">
-                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
-                           Employee Name:
-                        </label>
-                         
-                        <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
-                         <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Employeename" #Employeename
-                         [ngClass]="displayFieldCss('Employeename')" (change)="ValueAssign(Employeename.value)" [attr.disabled]="EmployeeCodedesabled ? '' : null"
-                         >
-                         <option selected value="">Select</option>
-                         <option *ngFor="let Employee of Table;index as i" value={{Employee.PMSEmpId}} >
-                             {{Employee.EmployeeName}}                                                                                
-                         </option>
-                                        
-                         </select>
-                           
+                <div *ngIf="Employeeshowhid" class="col-md-4 col-sm-4 col-xs-4 selectDate">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                               Employee Name:
+                            </label>
+                             
+                            <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
+                             <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Employeename" #Employeename
+                             [ngClass]="displayFieldCss('Employeename')" (change)="ValueAssign(Employeename.value)" [attr.disabled]="EmployeeCodedesabled ? '' : null"
+                             >
+                             <option selected value="">Select</option>
+                             <option *ngFor="let Employee of Table;index as i" value={{Employee.PMSEmpId}} >
+                                 {{Employee.EmployeeName}}                                                                                
+                             </option>
+                                            
+                             </select>
+                               
+                            </div>
                         </div>
                     </div>
-                </div>
-     
-                <div *ngIf="Customershowhid" class="col-md-4 col-sm-4 col-xs-4 selectDate">
-                 <div class="form-group">
-                     <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
-                        Customer Name:
-                     </label>
-                      
-                     <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
-                      <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="CustomerName"
-                      [ngClass]="displayFieldCss('CustomerName')" #CustomerName (change)="ReportValueAssign(CustomerName.value)" [attr.disabled]="CustomerCodedesabled ? '' : null"
-                      >
-                      <option selected value="">Select</option>
-                      <option *ngFor="let Customer of Table1;index as i" value={{Customer.CustId}} >
-                         {{Customer.CustomerName}}                                                                                
-                     </option>
-                      </select>
-                        
+         
+                    <div *ngIf="Customershowhid" class="col-md-4 col-sm-4 col-xs-4 selectDate">
+                     <div class="form-group">
+                         <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                            Customer Name:
+                         </label>
+                          
+                         <div class="col-sm-8 col-md-8 col-xs-8 pl-0 displayinlineblock">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="CustomerName"
+                          [ngClass]="displayFieldCss('CustomerName')" #CustomerName (change)="ReportValueAssign(CustomerName.value)" [attr.disabled]="CustomerCodedesabled ? '' : null"
+                          >
+                          <option selected value="">Select</option>
+                          <option *ngFor="let Customer of Table1;index as i" value={{Customer.CustId}} >
+                             {{Customer.CustomerName}}                                                                                
+                         </option>
+                          </select>
+                            
+                         </div>
                      </div>
                  </div>
-             </div>
-             <div class="rightmenu">
-                    <div class="toolbar pull-right">
-                        <ul class="toolbar-content">
-                            <li>
-                                <i class="fa fa-home" aria-hidden="true" title="Home"></i>
-                                <label>
-                                   Home
-                                </label>
-                            </li> 
-                           
-                            
-                        </ul>
+                 <div class="rightmenu">
+                        <div class="toolbar pull-right">
+                            <ul class="toolbar-content">
+                                <li>
+                                    <i class="fa fa-home" aria-hidden="true" title="Home"></i>
+                                    <label>
+                                       Home
+                                    </label>
+                                </li> 
+                               
+                                
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-    </div>
-          
-           <div class="col-md-6 col-sm-6 col-xs-12 p-0">
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Report:</span>
+        </div>
+</div>
+
+       <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+           <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                            <span class="">Select Report:</span>
+                         </label>
+                         <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report" #Report
+                            [ngClass]="displayFieldCss('Report')"   (change)="Report1R(Report.value)"
+                            >
+                            <option selected value="">Select</option>
+                            <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                                {{ReportLink.LinkName}}                                                                                
+                            </option>                   
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+            <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                <div class="col-md-12 col-sm-12 col-xs-12 pr-0">
+                <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                    <span class="">Select Date:</span>
                  </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report"
-                    [ngClass]="displayFieldCss('CustomerName')" 
-                    >
-                    <option selected value="">Select</option>
-                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
-                        {{ReportLink.LinkName}}                                                                                
-                    </option>                   
-                    </select>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Date:</span>
-                 </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock dateSelect">
+                 <div class="col-sm-8 col-md-6 col-xs-8 pl-0 displayinlineblock dateSelect">
                     <input type="text" id="txtDateRangePicker" [ngClass]="displayFieldCss('DateRangePicker')"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
             
                 </div>
@@ -98,7 +101,7 @@
                    <span (click)="showGrid()"><i class="fa fa-th" aria-hidden="true"></i></span>
                    <span (click)="showChart()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
                </div>
-               <div class="col-md-11 col-sm-11 col-xs-11">
+               <div class="col-md-12 col-sm-12 col-xs-12">
                    <div [style.display]="isPie ? 'block' : 'none'">
                    <div id="chartContainer1" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
                    </div>
@@ -120,42 +123,48 @@
                
          
            </div>
+
+
+
+
+
            <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Report:</span>
+                <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                            <span class="">Select Report:</span>
+                         </label>
+                         <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report1" #Report1
+                            [ngClass]="displayFieldCss('Report1')"     (change)="Report2R(Report1.value)"
+                            >
+                            <option selected value="">Select</option>
+                            <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                                {{ReportLink.LinkName}}                                                                                
+                            </option>      
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+            <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                <div class="col-md-12 col-sm-12 col-xs-12 pr-0">
+                <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                    <span class="">Select Date:</span>
                  </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report"
-                    [ngClass]="displayFieldCss('CustomerName')" 
-                    >
-                    <option selected value="">Select</option>
-                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
-                        {{ReportLink.LinkName}}                                                                                
-                    </option>                   
-                    </select>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Date:</span>
-                 </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker" [ngClass]="displayFieldCss('DateRangePicker')"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
+                 <div class="col-sm-8 col-md-6 col-xs-8 pl-0 displayinlineblock dateSelect">
+                    <input type="text" id="txtDateRangePicker1" [ngClass]="displayFieldCss('DateRangePicker1')"   formControlName="DateRangePicker1" placeholder="Select Date" class="form-control inputboxheight"  bsDaterangepicker >
             
                 </div>
             </div>
             </div>
+            
             
                <div class="iconBox">
                    <span (click)="showPie1()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid1()"><i class="fa fa-th" aria-hidden="true"></i></span>
                    <span (click)="showChart1()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
                </div>
-               <div class="col-md-11 col-sm-11 col-xs-11">
+               <div class="col-md-12 col-sm-12 col-xs-12">
                    <div [style.display]="isPie1 ? 'block' : 'none'">
                    <div id="chartContainer2" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
                    </div>
@@ -177,42 +186,44 @@
                
          
            </div>
+
+
            <div class="col-md-6 col-sm-6 col-xs-12">
-            
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Report:</span>
+                <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                            <span class="">Select Report:</span>
+                         </label>
+                         <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report2"
+                            [ngClass]="displayFieldCss('Report2')" #Report2  (change)="Report3R(Report2.value)"
+                            >
+                            <option selected value="">Select</option>
+                            <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                                {{ReportLink.LinkName}}                                                                                
+                            </option>      
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+            <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                <div class="col-md-12 col-sm-12 col-xs-12 pr-0">
+                <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                    <span class="">Select Date:</span>
                  </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report"
-                    [ngClass]="displayFieldCss('CustomerName')" 
-                    >
-                    <option selected value="">Select</option>
-                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
-                        {{ReportLink.LinkName}}                                                                                
-                    </option>                   
-                    </select>
+                 <div class="col-sm-8 col-md-6 col-xs-8 pl-0 displayinlineblock dateSelect">
+                    <input type="text" id="txtDateRangePicker2"  formControlName="DateRangePicker2" [ngClass]="displayFieldCss('DateRangePicker2')" placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
+            
                 </div>
             </div>
             </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Date:</span>
-                 </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker2" [ngClass]="displayFieldCss('DateRangePicker')"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
-            
-                </div>
-            </div>
-            </div>
+           
                <div class="iconBox">
                    <span (click)="showPie2()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid2()"><i class="fa fa-th" aria-hidden="true"></i></span>
                    <span (click)="showChart2()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
                </div>
-               <div class="col-md-11 col-sm-11 col-xs-11">
+               <div class="col-md-12 col-sm-12 col-xs-12">
                    <div [style.display]="isPie2 ? 'block' : 'none'">
                    <div id="chartContainer4" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
                    </div>
@@ -236,41 +247,41 @@
            </div>
 
            <div class="col-md-6 col-sm-6 col-xs-12">
-          
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Report:</span>
+                <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                        <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                            <span class="">Select Report:</span>
+                         </label>
+                         <div class="col-sm-8 col-md-6 col-xs-8 p-0 displayinlineblock">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report3"
+                            [ngClass]="displayFieldCss('Report3')" #Report3  (change)="Report4R(Report3.value)"
+                            >
+                            <option selected value="">Select</option>
+                            <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
+                                {{ReportLink.LinkName}}                                                                                
+                            </option>      
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+            <div class="col-md-5 col-sm-6 col-xs-6 p-0">
+                <div class="col-md-12 col-sm-12 col-xs-12 pr-0">
+                <label class="col-sm-4 col-md-6 col-xs-4 control-label pl-0" for="form-field-1">
+                    <span class="">Select Date:</span>
                  </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock">
-                    <select class="dropdown col-sm-12 col-md-12 col-xs-12 inputboxheight" formControlName="Report"
-                    [ngClass]="displayFieldCss('CustomerName')" 
-                    >
-                    <option selected value="">Select</option>
-                    <option *ngFor="let ReportLink of Table2;index as i" value={{ReportLink.LinkID}} >
-                        {{ReportLink.LinkName}}                                                                                
-                    </option>                   
-                    </select>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 p-0">
-                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <label class="col-sm-6 col-md-6 col-xs-6 control-label pl-0" for="form-field-1">
-                    <span class="pull-right">Select Date:</span>
-                 </label>
-                 <div class="col-sm-6 col-md-6 col-xs-6 p-0 displayinlineblock dateSelect">
-                    <input type="text" id="txtDateRangePicker3" [ngClass]="displayFieldCss('DateRangePicker')"  formControlName="DateRangePicker" placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
+                 <div class="col-sm-8 col-md-6 col-xs-8 pl-0 displayinlineblock dateSelect">
+                    <input type="text" id="txtDateRangePicker3"  formControlName="DateRangePicker3" [ngClass]="displayFieldCss('DateRangePicker3')"  placeholder="Select Date" class="form-control inputboxheight" bsDaterangepicker >
             
                 </div>
             </div>
             </div>
+            
                <div class="iconBox">
                    <span (click)="showPie3()"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
                    <span (click)="showGrid3()"><i class="fa fa-th" aria-hidden="true"></i></span>
                    <span (click)="showChart3()"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
                </div>
-               <div class="col-md-11 col-sm-11 col-xs-11">
+               <div class="col-md-12 col-sm-12 col-xs-12">
                    <div [style.display]="isPie3 ? 'block' : 'none'">
                    <div id="chartContainer6" style="height: 250px; width: 100%; margin-left:auto;margin-right:auto;"></div>
                    </div>
@@ -292,11 +303,29 @@
                
          
            </div>
-       </div>
+           <!-- <div class="col-md-8 col-sm-8 col-xs-8 mt-2">
+                <div class="rightmenu">
+                    <div class="toolbar pull-right">
+                        <ul class="toolbar-content">
+                           
+                            <li (click)="Generate_click()">  
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" title="Generate"></i>
+                                <label>
+                                    Generate
+                                </label>
+                            </li>
+                             
+                            
+                         </ul>
+                    </div>
+                </div>
+               </div> -->
 
+            </div>     
+       </div>
        <div class="col-md-12 col-sm-12 col-xs-12">
-        <button  class="btn btn-success pull-right" type="button" (click)="Generate_click()">Generate</button>
-     </div>
+            <button  class="btn btn-success pull-right" type="button" (click)="Generate_click()">Generate</button>
+         </div>
         </form>
                 
           

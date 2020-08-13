@@ -10,8 +10,8 @@ import{FormsModule,ReactiveFormsModule} from '@angular/forms';
   declarations: [DataAnalysisComponent],
   imports: [
     CommonModule,
-    DataAnalysisRoutingModule,FormsModule,ReactiveFormsModule,
-    BsDatepickerModule,
+    DataAnalysisRoutingModule,
+    BsDatepickerModule,FormsModule,ReactiveFormsModule,
     AgGridModule.withComponents([])
   ]
 })
