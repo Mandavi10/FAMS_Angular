@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                <span class="legal"></span>           
+                <span class="legal">Scheme Master</span>           
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
@@ -23,16 +23,16 @@
                                 Export to Excel
                             </label>
                         </li>
-                        <li (click)="BackToCustodian()" [style.display]="showBackToSchemeMaster ? 'block' : 'none'">
+                        <!-- <li (click)="BackToCustodian()" >
                             <i title="View Custodian"><img src="../assets/images/viewImg.png" style="width:14%; margin-top: -6px;" ></i>
                             <label>
                                 Back To SchemeMaster
                             </label>
-                        </li>
+                        </li> -->
                     <li (click)="onClickviewSchemaDetails()" [style.display]="showviewSchemeDetails? 'block' : 'none'">
-                        <i title="View PMS"><img src="../assets/images/viewImg.png" style="width:18%; margin-top: -6px;" ></i>
+                        <i class="fa fa-user" aria-hidden="true" title=" Customers"></i>
                         <label>
-                        View SchemeDetails
+                       Customers
                         </label>
                     </li>
                         <!-- <li (click)="onClickupdatepopup()"> -->
@@ -65,34 +65,13 @@
             <ag-grid-angular
                 style="width: 100%; height: 430px;"
                 class="ag-theme-alpine"
-                [rowData]="_schemaMaster"
+                [rowData]="rowData"
                 [columnDefs]="columnDefs"
-                [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
-                (cellClicked)="onRowSelected($event)" [pagination]="true" [paginationAutoPageSize]="true"
-                (gridReady)="onGridReady($event)">
+                [enableFilter]="true">
             </ag-grid-angular>
         </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" *ngIf="Isdiv1"style="display:block">
-            <!-- <div class="filter">
-            <input type="text" placeholder="Search" />
-            <i class="fa fa-search" aria-hidden="true"></i>
-            </div> -->
-            <div class="filter">
-            <input type="text" (change) = "SchemeDetailsSearch($event)" placeholder="Search" />
-            <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
-
-        <ag-grid-angular
-                style="width: 100%; height: 430px;"
-                class="ag-theme-alpine"
-                [rowData]="_schemaDetails"
-                [columnDefs]="columnDefs1"
-                [enableFilter]="true" [enableSorting]="true" [showToolPanel]="true"  rowSelection="single"
-                 [pagination]="true" [paginationAutoPageSize]="true"
-                (gridReady)="onGridReady1($event)">
-            </ag-grid-angular>
-        </div>
+      
 
    <!-- </div> -->
       
@@ -125,48 +104,68 @@
                                             <div class="row no-padding mt-2">
                                                 <div class="col-md-12 col-sm-12 col-xs-12 p-0">
 
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                                                               Customer Name :
-                                                            </label>
-                                                            <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
-                                                                <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="Cust_code">
-                                                                    <option value="0" selected>Select Customer</option>
-                                                                    <option *ngFor="let data of customer" value={{data.UserId}}  >
-                                                                        {{data.UserName}}
-                                                                    </option>
-                                                                 </select>
-                                                              
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                  
+
+                                             
+
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            PMS Name:
+                                                            Scheme No.:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <div class="form-group input-group" >
+                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Scheme Name:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <div class="form-group input-group" >
+                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Description:
+                                                        </label>
+                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
+                                                            <div class="form-group input-group" >
+                                                                <textarea id="w3review" name="w3review" rows="4" cols="50" style="width: 100%;">
+                                                                    </textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
+                                                            Securities:
                                                         </label>
                                                         <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
                                                             <!-- <div class="form-group input-group" >
                                                                     <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
                                                                 </div> -->
-                                                            <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
                                                                 <option value="" selected>Select</option>
-                                                                <option value="">Custodian 1</option>
-                                                                <option value="">Custodian 2</option>
-                                                                <option value="">Custodian 3</option>
-                                                            </select> -->
+                                                                <option value="">Securities 1</option>
+                                                                <option value="">Securities 2</option>
+                                                                <option value="">Securities 3</option>
+                                                            </select>
 
-                                                            <div class="form-group input-group">
-                                                                <select  class="col-md-12 col-xs-12 col-sm-12"   #selectField required formControlName="PMSCode">
-                                                                   <option value="0" selected>Select PMSCode</option>
-                                                                   <option *ngFor="let data of pms" value={{data.PMSCode}}  >
-                                                                      {{data.PMSName}}
-                                                                   </option>
-                                                                </select>
-                                                             </div>
+                                                         
                                                         </div>
+                                                        <span class="plusicon"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                     </div>
                                                 </div>
                                                 
@@ -174,39 +173,22 @@
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Custodian:
+                                                            Sector:
                                                         </label>
                                                         <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
                                                                 <option value="" selected>Select</option>
-                                                                <option value="">Custodian 1</option>
-                                                                <option value="">Custodian 2</option>
-                                                                <option value="">Custodian 3</option>
-                                                            </select> -->
+                                                                <option value="">Sector 1</option>
+                                                                <option value="">Sector 2</option>
+                                                                <option value="">Sector 3</option>
+                                                            </select>
 
-                                                            <div class="form-group input-group" >
-                                                                <select class="col-md-12 col-xs-12 col-sm-12" required  formControlName="CustodianCode">
-                                                                <option value="0" selected>Select Custodian</option>
-                                                                <option *ngFor="let data of custodian" value={{data.CustodianCode}}  >
-                                                                    {{data.CustodianName}}
-                                                                </option>
-                                                                </select>
-                                                            </div>
+                                                          
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Scheme Number:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <div class="form-group input-group" [ngClass]="displayFieldCss('SchemaNumber')">
-                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </div>
+
                                                 
                                                         
                                                     </div>
@@ -219,7 +201,9 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <!-- <button type="button" class="btn btn-success">Save</button>  -->
-        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Save</button>
+        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Create</button>
+        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Expire</button>
+        
         
         </div>
         
@@ -229,7 +213,7 @@
      
 
     <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
         <div class="modal-content">
         
         <!-- Modal Header -->
@@ -237,12 +221,41 @@
         <h4 class="modal-title">
         
         </h4>
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+            <div class="col-sm-12 col-md-12 col-xs-12 no-padding">
+                <h4 class="pageTitle" style="text-align: center;">
+                   Customers
+                        </h4>
+
+            </div>
+         
+        </div>
         <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-        <p><span [innerHTML]="SuccessText"></span></p>
+         
+            <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv1" style="display:block">
+                <!-- <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+                </div> -->
+                <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+    
+            <ag-grid-angular
+                    style="width: 100%; height: 300px;"
+                    class="ag-theme-alpine"
+                    [rowData]="rowData1"
+                    [columnDefs]="columnDefs1"
+                    [enableFilter]="true" 
+                    >
+                </ag-grid-angular>
+            </div>
         </div>
         
         <!-- Modal footer -->
