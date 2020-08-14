@@ -14,6 +14,16 @@ export class TransactionstatementService {
   constructor(private Dbsecurity: DbsecurityService,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {   
       this.baseUrl = AppSettings.Login_URL;
   }
+
+  BindTransactionStatementView(em:any): Observable<any> {
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/TransactionStatement/BindTransactionStatementView', body, {
+      headers 
+  });
+}
+
+  
   BindGrid(em:any): Observable<any> { 
     const body = em; 
     const headers = new HttpHeaders().set('content-type', 'application/json');
