@@ -151,7 +151,11 @@ export class PortfolioFactComponent implements OnInit {
       
       this.BindDefaultData(CustomerAccount1,GUserId)
     }
-
+    this.PortFolioForm.controls["Employee1"].setValue(1);
+    this.BindCustomers();
+    this.PortFolioForm.controls["Formdate"].setValue(FromDatee);
+    
+    this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
    
    // this.BindDefaultData();
   }
@@ -183,6 +187,7 @@ export class PortfolioFactComponent implements OnInit {
       this.divEmployee=true;
       
       this.BindEmployee();
+
   
     }
   
