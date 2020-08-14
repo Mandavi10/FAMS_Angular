@@ -5,7 +5,7 @@
             <img src="../../assets/images/loader.gif" />
         </div>
   
-        <form class="form">
+        <!-- <form class="form"> -->
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
             <div class="col-sm-6 col-md-6 col-xs-3">
                                <span class="legal">Bank Book</span>
@@ -87,7 +87,7 @@
               </label>
               <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                   
-                  <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
+                  <input type="date" name="FromDate" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" /> 
               </div>
           </div>
       </div>
@@ -99,7 +99,7 @@
                         </label>
                         <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                            
-                            <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" /> 
+                            <input type="date" name="ToDate" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" /> 
                         </div>
                     </div>
                 </div>
@@ -341,7 +341,7 @@
    
   
       
-        </form>
+        <!-- </form> -->
     </div>
   
   </div>
