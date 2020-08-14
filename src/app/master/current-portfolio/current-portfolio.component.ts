@@ -72,6 +72,7 @@ export class CurrentPortfolioComponent implements OnInit {
     this.CurrentPortfolioForm.controls["ReportDate"].setValue(ReportDate);
 
 
+    
 
     if(this.userType == 3){
       this.CustNameDive=true;this.EmployeeDiv=true;
