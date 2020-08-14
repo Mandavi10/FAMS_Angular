@@ -13,7 +13,8 @@ export class PortfolioSummaryViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'customeraccount', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(){
-      return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
+      return '    <i class="fa fa-file-pdf-o" aria-hidden="true" title="Download"></i>';
+      
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
       return '<button type="button" class="btn btn-success">View</button>';
