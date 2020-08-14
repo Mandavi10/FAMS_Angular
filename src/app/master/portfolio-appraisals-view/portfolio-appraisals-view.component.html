@@ -6,7 +6,7 @@
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div>
         </div>
-        
+        <form [formGroup]="PortfolioAppraisalsForm">
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
                  <span class="legal">Portfolio Appraisals: Report View</span>
@@ -53,6 +53,37 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
            
+                <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
+                    <div class="form-group">
+                      <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         Employee Name:
+                      </label>
+                      <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)" >
+              
+                            <option value="0">All Employee</option>
+                            <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                                            
+                          </select>
+                                        
+                      </div>
+                  </div>
+                 </div>
+                 <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowCustomer">
+                  <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                      Customer Name:
+                    </label>
+                    <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                      <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                         <option value="0" selected>All Customer</option>
+                         <option *ngFor="let data of customer" value={{data.UserId}}  >
+                             {{data.UserName}}
+                         </option>
+                      </select>
+                                      
+                    </div>
+                </div>
+               </div>
                
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
@@ -60,12 +91,12 @@
                            As On:
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" >                        </div>
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate >                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
-                        <button type="submit" class="btn btn-success ml-4"> Search</button>
+                        <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
                 </div>
             
                
@@ -74,15 +105,15 @@
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" style="display:block">
                <div class="col-md-12 col-sm-12 col-xs-12">
 
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-             </div>
+             </div> -->
           
              <ag-grid-angular
              style="width: 100%; height: 350px;"
              class="ag-theme-alpine"
-             [rowData]="rowData"
+             [rowData]="gridView1"
              [columnDefs]="columnDefs"
              [enableFilter]="true"
                [enableSorting]="true"
@@ -90,18 +121,18 @@
          </ag-grid-angular>
              </div>
            
-<div class="col-md-12 col-sm-12 col-xs-12">
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="paginationDiv">
             <span class="previousBtn">Previous</span>
             <span class="paginationCount">50 out of 200</span>
             <span class="nextBtn">Next</span>
         </div>
-</div> 
+</div>  -->
         </div>
         
        
     
-       
+       </form>
    
     </div>
    

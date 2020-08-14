@@ -48,6 +48,15 @@ export class PortfolioAppraisalsService {
       headers 
   });
   }
+
+  BindGridAllFieldsView(em): Observable<any> {
+    const body = em; 
+    
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/PortfolioAppraisals/BindGridView/', body, {
+      headers 
+  });
+  }
   BindDefaultData(em): Observable<any> {
     const body = em; 
      

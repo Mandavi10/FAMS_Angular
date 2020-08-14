@@ -7,7 +7,9 @@ import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 //import html2canvas from 'html2canvas';  
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
+import { UrlSegment } from '@angular/router';
+
 
 
 @Component({
@@ -51,7 +53,7 @@ export class PortfolioAppraisalsComponent implements OnInit {
   //BindemployeesList:Bindemployee;
 
 
-  constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService) { }
+  constructor(private router: Router,private route:ActivatedRoute,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit() {
     this.PortfolioAppraisalsForm = this.formbulider.group({
@@ -67,6 +69,8 @@ export class PortfolioAppraisalsComponent implements OnInit {
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
     // this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
     this.accountNumber=( item.AccountNo);
+        let CustomerAccountNo=this.route.snapshot.queryParamMap.get('CustomerAccountNo');
+let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
     
     if(this.userType ==1)
     {
@@ -78,17 +82,21 @@ export class PortfolioAppraisalsComponent implements OnInit {
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
-      this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
+     // this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
       this.BindEmployee();
-      //this.BindCustomer();
+      this.PortfolioAppraisalsForm.controls["EmployeeId"].setValue(1);
+     // this.BindCustomer();
+     this.BindCustomerOnChange(1)
+      this.PortfolioAppraisalsForm.controls["UserId"].setValue(CustomerAccountNo);
      
     }
     else if(this.userType ==2)
     {
      // this.isShowCustomer=true;
      this.GUserId=item.UserId;
-     this.GAccountNumber="1";
+    //  this.GAccountNumber="1";  CustomerAccountNo
+     this.GAccountNumber=CustomerAccountNo; 
       this.BindCustomer();
     }
     else{
@@ -97,13 +105,35 @@ export class PortfolioAppraisalsComponent implements OnInit {
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
     }
-    if (this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  && this.PortfolioAppraisalsForm.controls["ToDate"].value=="") 
-   {
-     this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-   }
+  //   if (this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  && this.PortfolioAppraisalsForm.controls["ToDate"].value=="") 
+  //  {
+   //  this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+  // this.BindCustomer();
+   this.PortfolioAppraisalsForm.controls["UserId"].setValue(CustomerAccountNo);
+   this.PortfolioAppraisalsForm.controls["FromDate"].setValue(AsOnDate);
+   this.BindStatementOfExpReport(CustomerAccountNo,AsOnDate,AsOnDate,this.EvenOdd) ;
+   //}
   }
+
    BindDefaultLast(GAccountNumber,UserId)
    {
+
+    //router
+    // let EmployeeId=this.route.snapshot.queryParamMap.get('CustomerAccount');
+    // let UserId1=this.route.snapshot.queryParamMap.get('FromDate');
+    // let FromDate=this.route.snapshot.queryParamMap.get('EmployeeId');
+
+    alert(GAccountNumber)
+    alert(UserId)
+    // alert(FromDate)
+
+    let CustomerAccountNo=this.route.snapshot.queryParamMap.get('CustomerAccountNo');
+let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
+
+
+
+
+
     var jason={
       "CustomerAccountno":GAccountNumber,
       "UserID":UserId 
