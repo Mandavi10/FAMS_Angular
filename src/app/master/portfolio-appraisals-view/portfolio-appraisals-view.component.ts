@@ -18,6 +18,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
       return '<button type="button" class="btn btn-success">View</button>';
     }},
+    
   
     
 ];
