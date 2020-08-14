@@ -1,9 +1,10 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div>
+
         </div>
         
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
@@ -46,80 +47,160 @@
             </div>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+
+        </div> -->
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="isShowLoader" >
+
             <img src="../../assets/images/loader.gif" class="loaderimagepage" />
         </div>
-       
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-           
-               
-                <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                           From Date :
-                        </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" >
-                        </div>
+        <form [formGroup]="TransactionStatementViewForm" autocomplete="off" appNorightclick>
+            <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+                <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
+                    <span class="legal">Transaction Statement View: Report View</span>
+                </div>
+                <div class="rightmenu">
+                    <div class="toolbar pull-right">
+                        <ul class="toolbar-content">
+                            <li >
+                                <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                                <label>
+                                    Fetch Latest Report
+                                </label>
+                            </li>
+                            
+                            <li (click)="downloadCSVFile($event)">
+                                <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to PDF"></i>
+                                <label>
+                                    Export to PDF
+                                </label>
+                            </li> 
+                            <!-- <li>
+                                <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                                <label>
+                                    Download Template
+                                </label>
+                            </li>
+                            <li>
+                                <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                                <label>
+                                    Upload User
+                                </label>
+                            </li> -->
+                            
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                         To Date :
-                        </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12"  >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
-                        <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
-                        <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
-                </div>
-            
-               
-        </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
-            <!-- <div class="filter">
-                <input type="text" placeholder="Search" />
-                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
             </div> -->
-
-            <div class="filter">
-                <input type="text" placeholder="Search" />
-                <i class="fa fa-search" aria-hidden="true"></i>
-             </div>
-            
-             <ag-grid-angular
-             style="width: 100%; height: 350px;"
-             class="ag-theme-alpine"
-             [rowData]="rowData"
-             [columnDefs]="columnDefs"
-             [enableFilter]="true"
-               [enableSorting]="true"
-               [showToolPanel]="true" >
-         </ag-grid-angular>
-           
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="paginationDiv">
-            <span class="previousBtn">Previous</span>
-            <span class="paginationCount">50 out of 200</span>
-            <span class="nextBtn">Next</span>
-        </div>
-</div> 
-        </div>
         
-       
-    
-       
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+                  <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
+                     <div class="form-group">
+                       <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         Employee Name :
+                       </label>
+                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                           <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+               
+                               <option value="0">All Employee</option>
+                               <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                           </select>
+                       </div>
+                   </div>
+                  </div>
+                  <div class="col-md-3 col-sm-4 col-xs-12"  *ngIf="isShowCustomer">
+                     <div class="form-group" >
+                         <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                            Customer Name :
+                         </label>
+                         <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock" >
+                             <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12">
+                                 <option>Select Customer</option>
+                                 <option>Customer 1</option>
+                                 <option>Customer 2</option>
+                                 <option>Customer 3</option>
+                             </select> -->
+         
+                             <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                                 <option value="0" selected>All Customer</option>
+                                 <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                     {{data.UserName}}
+                                 </option>
+                              </select>
+                           
+                         </div>
+                     </div>
+                 </div>
+                   <div class="col-md-3 col-sm-4 col-xs-12">
+                      <div class="form-group">
+                         <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         From Date :
+                         </label>
+                         <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                            <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" />  -->
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-3 col-sm-4 col-xs-12">
+                      <div class="form-group">
+                         <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         To Date :
+                         </label>
+                         <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                            <!-- <input name="date" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #Date formControlName="Date" /> -->
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
+                      <!-- <button type="button" class="btn btn-success">Search</button> -->
+                      
+                      <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
+                   </div>
+                </div>
+             </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+                <!-- <div class="filter">
+                    <input type="text" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div> -->
 
+                <!-- <div class="filter">
+                    <input type="text" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div> -->
+
+                <div class="filter">
+                    <input type="text" (change) = "TransactionStatementViewSearch($event)" placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+                
+                <ag-grid-angular
+                style="width: 100%; height: 350px;"
+                class="ag-theme-alpine"
+                [rowData]="transactionStatementView"
+                [columnDefs]="columnDefs"
+                [enableFilter]="true"
+                [enableSorting]="true"
+                [showToolPanel]="true"
+                rowSelection="single"
+                [pagination]="true" [paginationAutoPageSize]="true" >
+            </ag-grid-angular>
+            
+    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="paginationDiv">
+                <span class="previousBtn">Previous</span>
+                <span class="paginationCount">50 out of 200</span>
+                <span class="nextBtn">Next</span>
+            </div>
+    </div>  -->
+
+            </div>
+        </form>
     </div>
-   
-     
-     
-     
-      
 </div>
 

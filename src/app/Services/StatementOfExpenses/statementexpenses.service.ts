@@ -26,6 +26,16 @@ export class StatementexpensesService {
        headers 
     });
   }
+
+  BindStatementExpView(em:any): Observable<any> {
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/StatementOfExpenses/BindStatementExpView', body, {
+      headers 
+  });
+
+    //return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindStatementExpView/'+ ReportType);
+  }
   BindCustomer(EmployeeId): Observable<any> {
     // let item = JSON.parse(sessionStorage.getItem('User'));
     // this.UserId = item.UserId;
