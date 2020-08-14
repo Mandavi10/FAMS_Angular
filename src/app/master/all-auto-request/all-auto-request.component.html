@@ -1,1 +1,297 @@
-<p>all-auto-request works!</p>
+<div class="main-content maincontainer">
+    <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                 <span class="legal"> All Auto Report Request</span>
+             
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+                        
+                          
+                        <li >
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li> 
+                        <!-- <li>
+                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Download Template
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
+                            <label>
+                                Upload User
+                            </label>
+                        </li> -->
+                        <li (click)="onClickstatemaster($event)" >
+                            <i class="fa fa-plus" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+       
+      
+       
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv mt-3" id="tbldiv" style="display:block">
+            <!-- <div class="filter">
+                <input type="text" placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div> -->
+
+            <div class="filter">
+                <input type="text"  placeholder="Search" />
+                <i class="fa fa-search" aria-hidden="true"></i>
+             </div>
+            
+            
+           <ag-grid-angular
+    style="width: 100%; height: 350px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="true"
+      [enableSorting]="true"
+      [showToolPanel]="true" >
+</ag-grid-angular>
+           
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="paginationDiv">
+            <span class="previousBtn">Previous</span>
+            <span class="paginationCount">50 out of 200</span>
+            <span class="nextBtn">Next</span>
+        </div>
+</div> 
+        </div>
+        
+       
+
+        <div class="modal" id="createuser" [style.display]="showModalstatemaster ? 'block' : 'none'">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <button type="button" class="closeDiv" data-dismiss="modal" (click)="hidestatemaster()">&times;</button>
+                
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-6 col-xs-12 contnt-wrapper">
+                        <div class="col-sm-12 col-md-12 col-xs-12 no-padding">
+                            <h4 class="pageTitle">
+                                Auto Report Request
+                                 </h4>
+            
+                        </div>
+                        <div class="rightmenu">
+                            <div class="toolbar pull-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                            Portfolio Appraisal:
+                                        </label>
+                                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                            <label>Quaterly</label>
+                                            
+                                          
+                                        </div> 
+                                    </div>
+                                    </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                        Portfolio Summary:
+                                    </label>
+                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                        <label>Quaterly</label>
+                                        
+                                      
+                                    </div> 
+                                </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                            Portfolio  Fact: 
+                                        </label>
+                                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                            <label>Half-Yearly</label>
+                                            
+                                          
+                                        </div> 
+                                    </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Current Portfolio: 
+                                            </label>
+                                            <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                <label>Yearly</label>
+                                                
+                                              
+                                            </div> 
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                    Statement Dividend: 
+                                                </label>
+                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                    <label>Quaterly</label>
+                                                    
+                                                  
+                                                </div> 
+                                            </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                        Bank Book: Monthly
+                                                    </label>
+                                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                        <label>Monthly</label>
+                                                        
+                                                      
+                                                    </div> 
+                                                </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                            Capital Statement: 
+                                                        </label>
+                                                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                            <label>Quaterly</label>
+                                                            
+                                                          
+                                                        </div> 
+                                                    </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                Statement Of Expenses: 
+                                                            </label>
+                                                            <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                <label>Monthly</label>
+                                                                
+                                                              
+                                                            </div> 
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                    Transaction Statement: 
+                                                                </label>
+                                                                <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                                                       <label>Monthly</label>
+                                                                    
+                                                                  
+                                                                </div> 
+                                                            </div>
+                                                            </div>
+                            </div>
+                            </div>
+
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" (click)="onSubmit()" class="btn btn-success"> Accept </button>
+                    <button type="submit" (click)="onClicksavepopup()"  class="btn btn-success"> Reject</button>
+          
+
+                         
+
+
+                </div>
+                
+                
+                
+                </div>
+                </div>
+                </div>
+                <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+                    <div class="modal-dialog modal-sm" id="modalwidth">
+                    <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="margin-bottom:0px !important">
+                    <h4 class="modal-title">
+                   
+                    </h4>
+                    <div class="col-sm-12 col-md-12 col-xs-12 ">
+                        <h4 class="pageTitle" id="thispage">
+                            Reject Reason
+                             </h4>
+        
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0" id="divForm" style="display:block">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                                       Reason:
+                                    </label>
+                                    <div class="col-sm-9 col-md-9 col-xs-9 p-0 displayinlineblock">
+                                          
+                                        <textarea id="w3review" name="w3review" rows="4" cols="50" class="col-sm-12 col-md-12 col-xs-12" >
+                                           
+                                            </textarea>  
+                                      
+                                    </div> 
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer pt-0">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Submit</button>
+                  
+                 </div>
+                    
+                    </div>
+                    </div>
+                    </div>
+
+    </div>
+    
+     
+     
+     
+       
+</div>
+

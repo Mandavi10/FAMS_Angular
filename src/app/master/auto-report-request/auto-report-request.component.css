@@ -23,7 +23,7 @@
         width: 54%;
         display: inline-block;
         height: 30px;
-        border-top: 3px solid #78b181;}
+        border-top: 3px solid #78b181;padding-top: 5px;}
 .alphaSorting{right: 2px;
     width: 28px;
     cursor: pointer;
@@ -69,7 +69,7 @@ max-height: 500px;}*/
         color: #003974;
         font-weight: bold;
         display: inline-block;
-        border-top: 3px solid #e06b6b;}
+        border-top: 3px solid #e06b6b;padding-top: 5px;}
 .roleHead{padding-bottom: 7.5px;
     border-bottom: 1px solid #dadee2;}
 .boxstyle{ border: 1px solid #cdcdcd;

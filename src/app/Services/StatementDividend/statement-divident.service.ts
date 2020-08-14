@@ -38,5 +38,28 @@ BindNextData(em:any): Observable<any> {
     headers 
 });
 }
+BindEmployee(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/BankBook/BindEmployees' , body, {
+     headers 
+  });
+}
+
+BindCustomers(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+ return this._http.post<any>(this.baseUrl + 'api/BankBook/BindCustomers' , body, {
+     headers 
+ });
+}
+
+BindViewGrid(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+ return this._http.post<any>(this.baseUrl + 'api/StatementDividend/BindViewGrid' , body, {
+     headers 
+ });
+}
   
 }
