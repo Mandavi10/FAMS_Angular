@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
@@ -92,7 +93,7 @@ export class PortfolioFactComponent implements OnInit {
   IsShowNoRecord:boolean;
   // showGrid:boolean;
 
-  constructor(private _porfolioFactService:PortfolioFactService,private formbuilder:FormBuilder, private _capitalStateService:CapitalSatementService,private Dbsecurity: DbsecurityService) { }
+  constructor(private _porfolioFactService:PortfolioFactService,private formbuilder:FormBuilder, private _capitalStateService:CapitalSatementService,private Dbsecurity: DbsecurityService,private router1:ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -106,7 +107,9 @@ export class PortfolioFactComponent implements OnInit {
       Employee1:['',Validators.required]
 
     })
-
+    let CustomerAccount1=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+    let FromDatee=this.router1.snapshot.queryParamMap.get('FromDate');
+    let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
     this.Showcustdropdown();
 
 
@@ -119,13 +122,13 @@ export class PortfolioFactComponent implements OnInit {
     if(userType ==1)
     {
       GUserId=item.UserId;
-      GAccountNumber=accountNumber;   
+      GAccountNumber=CustomerAccount1;   
     }
 
    else if(userType ==3)
     {
       // this.GUserId=item.UserId;
-      GAccountNumber="0";
+      GAccountNumber=CustomerAccount1;
       // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
     
     }
@@ -133,21 +136,27 @@ export class PortfolioFactComponent implements OnInit {
     {
      
     //  GUserId=item.UserId;
-     GAccountNumber="1";
+     GAccountNumber=CustomerAccount1;
       
     }
     else{
       // this.GUserId=item.UserId;
-      GAccountNumber="0";
+      GAccountNumber=CustomerAccount1;
      
     }
     
      if (this.PortFolioForm.controls["Employee1"].value==0 && this.PortFolioForm.controls["Formdate"].value==""  && this.PortFolioForm.controls["Todate"].value=="") 
     {
       // alert(GAccountNumber)
-      this.BindDefaultData(GAccountNumber,GUserId)
+      
+      this.BindDefaultData(CustomerAccount1,GUserId)
     }
-
+    this.PortFolioForm.controls["Employee1"].setValue(1);
+    this.BindCustomers();
+    this.PortFolioForm.controls["Formdate"].setValue(FromDatee);
+    
+    this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+   
    // this.BindDefaultData();
   }
 
@@ -178,6 +187,7 @@ export class PortfolioFactComponent implements OnInit {
       this.divEmployee=true;
       
       this.BindEmployee();
+
   
     }
   
@@ -526,83 +536,37 @@ this.performance15=res.Table5[3].Data4
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
-  //   var UserId=Data.UserId;
-  //    var customeraccount=item.AccountNo
-
-
-  //  var Usertype=this.Dbsecurity.Decrypt(item.UserType);
-
-  //     if(Usertype == 3 ){
-  //    customeraccount=("6010005");
-
-  //    }
-
-     var Jasondata={
-      "UserId" : Data.UserId,
-      "CustomerAccountNo" : accountno,
-    }; 
-          
-    //  var Jasondata={
-    //   "UserId" : UserId,
-    //   "CustomerAccountNo" : customeraccount
-    //  }
-    
-    this._porfolioFactService.BindDefaultData(JSON.stringify(Jasondata)).subscribe(
-      (data) => {
-
-
-        let item = JSON.parse(sessionStorage.getItem('User'));
-      
-        var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+    let FromDatee=this.router1.snapshot.queryParamMap.get('FromDate');
+    let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
   
-        //  alert(Usertype)
-        
-        
-        var customeraccountno
-         if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
-         customeraccountno=data.Table[0]["CustomerAccountNo"];
-         }
-         else
-         {
-          //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
-          customeraccountno=(item.AccountNo); 
-         }
-        this.FromDate = data.Table[0]["AsOnDate"];
-        this.ToDate = data.Table[0]["AsOnDate"];
-        this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
-        // console.log('default');
-        // console.log(data.Table[0].FromDate);
-        this.PortFolioForm.controls["Formdate"].setValue(data.Table[0].AsOnDate);
-        this.PortFolioForm.controls["Todate"].setValue(data.Table[0].AsOnDate);
-        this.PortFolioForm.controls["CustomerAccount"].setValue(data.Table[0].CustomerAccountNo);
-        this.PageCount = 1;
-        // this.griddiv=true;
-        let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-        var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
-        // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
-        var customeraccount1=(customeraccountno)
-        
-        var JsonData ={
-          "UserId" : UserId,
-          "fromdate" : this.FromDate,   
-          // "todate" :  this.ToDate,
-          "todate" :  this.FromDate,
-          "CustomerAccountNo" : customeraccount1,
-          "PageCount" : this.PageCount       
-        } 
-        this.ShowLoaderp=true;
-        this.showGrid=false;
-        this._porfolioFactService.BindGrid(JsonData).subscribe((res)=>{
-          if(res.Table.length >0 && res.Table2.length >0 &&res.Table4.length >0  && res.Table5.length >0 ){
-          console.log('portgoliofactgird');
-        console.log(res);
-        this.sectorAllocation=res.Table;
-        this.portfolioHolding=res.Table2;
-      this.portfolioSummary=res.Table4;
-      this.PortfolioPerformance=res.Table5;
-      console.log(this.portfolioSummary);
-      
-      this.sumarryheading1=res.Table4[0].Heading;
+
+    //  var Jasondata={
+    //   "UserId" : Data.UserId,
+    //   "CustomerAccountNo" : accountno,
+    // }; 
+
+    var JsonData ={
+                "UserId" : userid,
+                "fromdate" : FromDatee,   
+                // "todate" :  this.ToDate,
+                "todate" :  ToDatee,
+                "CustomerAccountNo" : accountno,
+                "PageCount" : this.PageCount       
+              } 
+              this.ShowLoaderp=true;
+              this.showGrid=false;
+          
+    this._porfolioFactService.BindGrid(JsonData).subscribe((res)=>{
+      if(res.Table.length >0 && res.Table2.length >0 &&res.Table4.length >0  && res.Table5.length >0 ){
+      console.log('portgoliofactgird');
+    console.log(res);
+    this.sectorAllocation=res.Table;
+    this.portfolioHolding=res.Table2;
+  this.portfolioSummary=res.Table4;
+  this.PortfolioPerformance=res.Table5;
+  console.log(this.portfolioSummary);
+  
+  this.sumarryheading1=res.Table4[0].Heading;
 this.sumarryheading2=res.Table4[0].Data;
 
 this.sumarry1=res.Table4[1].Heading;
@@ -639,71 +603,229 @@ this.performance12=res.Table5[3].Data1
 this.performance13=res.Table5[3].Data2
 this.performance14=res.Table5[3].Data3
 this.performance15=res.Table5[3].Data4
-      
-      
-        
-        this.SumAsstes=res.Table1[0].SumAsstes;
-        this.SumMktValue=res.Table3[0].SumMktValue;
-        this.SumPerAssets=res.Table3[0].SumPerAssets;
-      
-        this.data1=res.Table6;
-        this.showmainheading=true;
+  
+  
+    
+    this.SumAsstes=res.Table1[0].SumAsstes;
+    this.SumMktValue=res.Table3[0].SumMktValue;
+    this.SumPerAssets=res.Table3[0].SumPerAssets;
+  
+    this.data1=res.Table6;
+    this.showmainheading=true;
 
-        this. showperformance=true;
-        this.showsummary=true;
-        this.showholding=true;
-        this.showsector=true;
-        this.IsShowNoRecord=false;
-  this.showGrid=true;
+    this. showperformance=true;
+    this.showsummary=true;
+    this.showholding=true;
+    this.showsector=true;
+    this.IsShowNoRecord=false;
+this.showGrid=true;
+    
+    // if(res.Table.length!=0 && this.PortFolioForm.controls['CustomerAccount'].value == 0){
+    //   this.btnPrev=false;
+    //   this.btnNext=true; 
+    
+    // }
+    
+    
+    // for(var i=0;i<res.Table.length;i++){
+       
+    //   if(this.bindgrid[i].ReceivedDate == ""){
+    //     this.bindgrid[i].ReceivedDate = ''
+    //     // this.bindgrid1[i].FromDate = ''
+    //     // this.bindgrid1[i].Amount = ''
+    //   }
+      
+    
+    // }
+    
+    
+   
+    
+    // console.log(this.bindgrid)
+    // console.log(this.pagination)
+    
+    // // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
+    // this.data=' ';
+    // this.totalpagecount=res.Table1[0].Total
+    
+   
+      }
+      else{
+        this. showperformance=false;
+         this.showsummary=false;
+         this.showholding=false;
+         this.showsector=false;
+         this.btnPrev=false;
+         this.btnNext=false;
+         this.showmainheading=false;
+         this.IsShowNoRecord=true;
+this.showGrid=false;
+       }
+    
+    this.ShowLoaderp=false;
+    
+    
+    
+    }) 
+    
+    
+//     this._porfolioFactService.BindDefaultData(JSON.stringify(Jasondata)).subscribe(
+//       (data) => {
+
+
+//         let item = JSON.parse(sessionStorage.getItem('User'));
+      
+//         var Usertype=this.Dbsecurity.Decrypt(item.UserType);
+  
+//         //  alert(Usertype)
         
-        // if(res.Table.length!=0 && this.PortFolioForm.controls['CustomerAccount'].value == 0){
-        //   this.btnPrev=false;
-        //   this.btnNext=true; 
         
-        // }
+//         var customeraccountno
+//          if(Usertype == 2 || Usertype == 4 || Usertype == 3 ){
+//          customeraccountno=data.Table[0]["CustomerAccountNo"];
+//          }
+//          else
+//          {
+//           //  customeraccountno=this.Dbsecurity.Decrypt(item.AccountNo); 
+//           customeraccountno=(item.AccountNo); 
+//          }
+//         this.FromDate = data.Table[0]["AsOnDate"];
+//         this.ToDate = data.Table[0]["AsOnDate"];
+//         this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
+//         // console.log('default');
+//         // console.log(data.Table[0].FromDate);
+//         this.PortFolioForm.controls["Formdate"].setValue(data.Table[0].AsOnDate);
+//         this.PortFolioForm.controls["Todate"].setValue(data.Table[0].AsOnDate);
+//         this.PortFolioForm.controls["CustomerAccount"].setValue(data.Table[0].CustomerAccountNo);
+//         this.PageCount = 1;
+//         // this.griddiv=true;
+//         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+//         var UserId = this.Dbsecurity.Decrypt( Sessionvalue.UserId);
+//         // var customeraccount1=this.Dbsecurity.Encrypt(customeraccountno)
+//         var customeraccount1=(customeraccountno)
+        
+//         var JsonData ={
+//           "UserId" : UserId,
+//           "fromdate" : this.FromDate,   
+//           // "todate" :  this.ToDate,
+//           "todate" :  this.FromDate,
+//           "CustomerAccountNo" : customeraccount1,
+//           "PageCount" : this.PageCount       
+//         } 
+//         this.ShowLoaderp=true;
+//         this.showGrid=false;
+//         this._porfolioFactService.BindGrid(JsonData).subscribe((res)=>{
+//           if(res.Table.length >0 && res.Table2.length >0 &&res.Table4.length >0  && res.Table5.length >0 ){
+//           console.log('portgoliofactgird');
+//         console.log(res);
+//         this.sectorAllocation=res.Table;
+//         this.portfolioHolding=res.Table2;
+//       this.portfolioSummary=res.Table4;
+//       this.PortfolioPerformance=res.Table5;
+//       console.log(this.portfolioSummary);
+      
+//       this.sumarryheading1=res.Table4[0].Heading;
+// this.sumarryheading2=res.Table4[0].Data;
+
+// this.sumarry1=res.Table4[1].Heading;
+// this.sumarry2=res.Table4[1].Data;
+// this.sumarry3=res.Table4[2].Heading;
+// this.sumarry4=res.Table4[2].Data;
+// this.sumarry5=res.Table4[3].Heading;
+// this.sumarry6=res.Table4[3].Data;
+// this.sumarry7=res.Table4[4].Heading;
+// this.sumarry8=res.Table4[4].Data;
+
+// this.performanceheading1=res.Table5[0].Heading
+// this.performanceheading2=res.Table5[0].Data1
+// this.performanceheading3=res.Table5[0].Data2
+// this.performanceheading4=res.Table5[0].Data3
+// this.performanceheading5=res.Table5[0].Data4
+
+
+// this.performance1=res.Table5[1].Heading
+// this.performance2=res.Table5[1].Data1
+// this.performance3=res.Table5[1].Data2
+// this.performance4=res.Table5[1].Data3
+// this.performance5=res.Table5[1].Data4
+
+
+// this.performance6=res.Table5[2].Heading
+// this.performance7=res.Table5[2].Data1
+// this.performance8=res.Table5[2].Data2
+// this.performance9=res.Table5[2].Data3
+// this.performance10=res.Table5[2].Data4
+
+// this.performance11=res.Table5[3].Heading
+// this.performance12=res.Table5[3].Data1
+// this.performance13=res.Table5[3].Data2
+// this.performance14=res.Table5[3].Data3
+// this.performance15=res.Table5[3].Data4
+      
+      
+        
+//         this.SumAsstes=res.Table1[0].SumAsstes;
+//         this.SumMktValue=res.Table3[0].SumMktValue;
+//         this.SumPerAssets=res.Table3[0].SumPerAssets;
+      
+//         this.data1=res.Table6;
+//         this.showmainheading=true;
+
+//         this. showperformance=true;
+//         this.showsummary=true;
+//         this.showholding=true;
+//         this.showsector=true;
+//         this.IsShowNoRecord=false;
+//   this.showGrid=true;
+        
+//         // if(res.Table.length!=0 && this.PortFolioForm.controls['CustomerAccount'].value == 0){
+//         //   this.btnPrev=false;
+//         //   this.btnNext=true; 
+        
+//         // }
         
         
-        // for(var i=0;i<res.Table.length;i++){
+//         // for(var i=0;i<res.Table.length;i++){
            
-        //   if(this.bindgrid[i].ReceivedDate == ""){
-        //     this.bindgrid[i].ReceivedDate = ''
-        //     // this.bindgrid1[i].FromDate = ''
-        //     // this.bindgrid1[i].Amount = ''
-        //   }
+//         //   if(this.bindgrid[i].ReceivedDate == ""){
+//         //     this.bindgrid[i].ReceivedDate = ''
+//         //     // this.bindgrid1[i].FromDate = ''
+//         //     // this.bindgrid1[i].Amount = ''
+//         //   }
           
         
-        // }
+//         // }
         
         
        
         
-        // console.log(this.bindgrid)
-        // console.log(this.pagination)
+//         // console.log(this.bindgrid)
+//         // console.log(this.pagination)
         
-        // // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
-        // this.data=' ';
-        // this.totalpagecount=res.Table1[0].Total
+//         // // this.data='Showing '+res.Table.length+' out of ' + res.Table1[0].Total + '';
+//         // this.data=' ';
+//         // this.totalpagecount=res.Table1[0].Total
         
        
-          }
-          else{
-            this. showperformance=false;
-             this.showsummary=false;
-             this.showholding=false;
-             this.showsector=false;
-             this.btnPrev=false;
-             this.btnNext=false;
-             this.showmainheading=false;
-             this.IsShowNoRecord=true;
-  this.showGrid=false;
-           }
+//           }
+//           else{
+//             this. showperformance=false;
+//              this.showsummary=false;
+//              this.showholding=false;
+//              this.showsector=false;
+//              this.btnPrev=false;
+//              this.btnNext=false;
+//              this.showmainheading=false;
+//              this.IsShowNoRecord=true;
+//   this.showGrid=false;
+//            }
         
-        this.ShowLoaderp=false;
+//         this.ShowLoaderp=false;
         
         
         
-        }) 
-      });
+//         }) 
+//       });
   }
 
 

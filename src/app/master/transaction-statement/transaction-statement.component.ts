@@ -44,6 +44,7 @@ export class TransactionStatementComponent implements OnInit {
   GUserId:number;
   isShowsEmployee:boolean=false;
   BindemployeesList:Bindemployee;
+  EvenOdd:number=1;
 
   UniqueSeqNo:number=1;
   Page_SeqNo:number=1;
@@ -85,7 +86,7 @@ rowData = [
     
 ];
 
-  constructor(private router: Router,private TSService : TransactionstatementService
+  constructor(private router1:ActivatedRoute,private router: Router,private TSService : TransactionstatementService
     , private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
@@ -110,67 +111,68 @@ rowData = [
         // }
         // else{
         //   this.isShowCustomer=false;
-        // } 
-        debugger;
+        // }
+        
+        
 
+        let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 
-        let item = JSON.parse(sessionStorage.getItem('User'));
-  // this.UserId = item.UserId;
-  // this.EntityId = item.ReferenceId;
-    this.userType=this.Dbsecurity.Decrypt(item.UserType);
-    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
-    this.accountNumber=item.AccountNo;
-    debugger;
-    if(this.userType ==1)
-    {
-      this.GUserId=item.UserId.replace('+',' ');
-      this.GAccountNumber=this.accountNumber;   
-    }
+this.BindEmployee();
+this.BindCustomer();
+this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
+this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
+this.TransactionStatementForm.controls["FromDate"].setValue(FromDate);
+this.TransactionStatementForm.controls["ToDate"].setValue(ToDate);
+this.BindGrid(CustomerAccount,FromDate,ToDate,this.SeqNo,this.EvenOdd) ;
 
-   else if(this.userType ==3)
-    {
-      this.GUserId=item.UserId.replace('+',' ');
-      this.GAccountNumber="0";
-      this.TransactionStatementForm.controls["UserId"].setValue(0);
-      this.isShowCustomer=true;
-      this.BindEmployee();
-      //this.BindCustomers();
+  //       debugger;
+  //       let item = JSON.parse(sessionStorage.getItem('User'));  
+  //   this.userType=this.Dbsecurity.Decrypt(item.UserType);
+    
+  //   this.accountNumber=item.AccountNo;
+  //   debugger;
+  //   if(this.userType ==1)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.GAccountNumber=this.accountNumber;   
+  //   }
+
+  //  else if(this.userType ==3)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.GAccountNumber="0";
+  //     this.TransactionStatementForm.controls["UserId"].setValue(0);
+  //     this.isShowCustomer=true;
+  //     this.BindEmployee();
+      
 
      
-    }
-    else if(this.userType ==2)
-    {
-     // this.isShowCustomer=true;
-    // //  this.GUserId=item.UserId;
-    // //  this.GAccountNumber="1";
-    // //  this.isShowCustomer=true;          
-    // //    var currentContext = this;
-    // //    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    // //    //this.BindCustomers(this.Dbsecurity.Decrypt(Sessionvalue.UserId));
-    // //    this.BindCustomers(this.GAccountNumber);
+  //   }
+  //   else if(this.userType ==2)
+  //   {
+    
 
 
-       this.isShowCustomer=true;    
-       this.GUserId=item.UserId.replace('+',' ');
-       this.GAccountNumber="1";
-        this.BindCustomers();
+  //      this.isShowCustomer=true;    
+  //      this.GUserId=item.UserId.replace('+',' ');
+  //      this.GAccountNumber="1";
+  //       this.BindCustomers();
 
-    }
-    else{
-      this.GUserId=item.UserId.replace('+',' ');
-      this.GAccountNumber="0";
-      this.isShowCustomer=false;
-      this.isShowsEmployee=false;
-    }
-    debugger;
-     if (this.TransactionStatementForm.controls["UserId"].value==0 && this.TransactionStatementForm.controls["FromDate"].value==""  && this.TransactionStatementForm.controls["ToDate"].value=="") 
-    {
-      this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-    }
-        // this.TransactionStatementForm.controls["UserId"].setValue("6010005");
-        // this.TransactionStatementForm.controls["FromDate"].setValue("2020-06-30");
-        // this.TransactionStatementForm.controls["ToDate"].setValue("2020-06-30");
-        // this.BindGrid("6010005","2020-01-01","2020-06-30",1);
+  //   }
+  //   else{
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.GAccountNumber="0";
+  //     this.isShowCustomer=false;
+  //     this.isShowsEmployee=false;
+  //   }
+  //   debugger;
+  //    if (this.TransactionStatementForm.controls["UserId"].value==0 && this.TransactionStatementForm.controls["FromDate"].value==""  && this.TransactionStatementForm.controls["ToDate"].value=="") 
+  //   {
+  //     this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+  //   }
+        
   }
 
   
@@ -238,7 +240,18 @@ var currentContext=this;
            // this.loader1=false;this.loader2=false;
        });
    }
-
+   BindCustomer() {
+   // this.loading = true;
+    var currentContext = this;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    this.TSService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
+        subscribe((data) => {
+            currentContext.customer = data.Table;
+            this.isShowCustomer=true;
+        });
+    // console.log(sessionStorage.getItem('ID'));
+   // this.loading = false;
+  }
    BindCustomerOnChange(EmployeeId) {
     // alert(EmployeeId);
    // this.loading = true;

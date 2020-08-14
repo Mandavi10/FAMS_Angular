@@ -10,7 +10,7 @@ import { SummaryreportService } from '../../Services/SummaryReport/summaryreport
 import { Commonfields } from '../../../Models/commonfields';
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import{CapitalSatementService} from '../../Services/CapitalStatement/capital-satement.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
   // import html2canvas from 'html2canvas';
 
 
@@ -71,12 +71,12 @@ export class StatementDividendComponent implements OnInit {
 
 
   StatementDividendForm:FormGroup;
-  constructor(private _StatementDividendService:StatementDividentService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private _capitalStateService:CapitalSatementService) { }
+  constructor(private router1:ActivatedRoute,private _StatementDividendService:StatementDividentService,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private _capitalStateService:CapitalSatementService) { }
 
   ngOnInit() {
     this.btnPrev=false;
     this.btnNext==false;
-    this.Showcustdropdown(); 
+   // this.Showcustdropdown(); 
     this.StatementDividendForm=this.formbuilder.group({
       Formdate:['',Validators.required],
       Todate:['',Validators.required] ,
@@ -117,11 +117,20 @@ export class StatementDividendComponent implements OnInit {
        
       }
       
-       if (this.StatementDividendForm.controls["Employee1"].value==0 && this.StatementDividendForm.controls["Formdate"].value==""  && this.StatementDividendForm.controls["Todate"].value=="") 
-      {
-        // alert(GAccountNumber)
-        this.BindDefaultData(GAccountNumber,GUserId)
-      }
+      //  if (this.StatementDividendForm.controls["Employee1"].value==0 && this.StatementDividendForm.controls["Formdate"].value==""  && this.StatementDividendForm.controls["Todate"].value=="") 
+      // {
+      //   // alert(GAccountNumber)
+      //   this.BindDefaultData(GAccountNumber,GUserId)
+      // }
+      this. CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+      this.FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+      this.ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+      this.StatementDividendForm.controls["Formdate"].setValue(this.FromDate);
+      this.StatementDividendForm.controls["Todate"].setValue(this.ToDate);
+      this.StatementDividendForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
+      this.StatementDividendForm.controls["Employee1"].setValue("1");
+      this.Showcustdropdown();
+      this.bindGrid();
   
     // this.BindDefaultData();
   }
@@ -154,12 +163,12 @@ Showcustdropdown(){
 
   if(usertype == 3){
    // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-    this.CustomerAccount = "";
+    //this.CustomerAccount = "";
     this.CustNameDive=true;
     this.divEmployee=true;
     
     this.BindEmployee();
-
+    this.BindCustomers();
   }
 
 }

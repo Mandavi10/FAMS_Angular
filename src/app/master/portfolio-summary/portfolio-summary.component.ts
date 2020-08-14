@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
 import { TransactionstatementService } from '../../Services/TransactionStatement/transactionstatement.service';
 import { PortfoliosummaryService } from '../../Services/PortfolioSummary/portfoliosummary.service';
 import { BindmaingridHeader,BindPortfolioAllocation,BindPortfolioSummary,BindPortfolioPerformance,BindPortfolioAllocation_Total } from '../../../Models/PortfolioSummary/PortfolioSummary';
@@ -73,10 +74,10 @@ export class PortfolioSummaryComponent implements OnInit {
   StaticArray:any=[];FromDate:any;ToDate:any;StaticArray1:any=[];  head = [];isShowCustomer:boolean=false;
   BindcustomerallfieldsList:Bindcustomerallfields; userType:number;
   constructor(private router: Router,private TSService : PortfoliosummaryService
-  , private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService) { }
+  , private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService,private router1:ActivatedRoute) { }
 
 ngOnInit(): void {
-      debugger;
+     
       // this.router.navigate(['/Home']);
       // this.router.navigate(['/TransactionStatement']);
       this.PortfolioSummaryForm = this.formBuilder.group({  
@@ -86,7 +87,11 @@ ngOnInit(): void {
        
         CustomerAccount:['']
       });
-      debugger;
+      let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+
+
   let item = JSON.parse(sessionStorage.getItem('User'));
 // this.UserId = item.UserId;
 // this.EntityId = item.ReferenceId;
@@ -97,13 +102,13 @@ ngOnInit(): void {
   if(this.userType ==1)
   {
     this.GUserId=item.UserId.replace('+',' ');
-    this.GAccountNumber=this.accountNumber;   
+    this.GAccountNumber=CustomerAccount;   
   }
 
  else if(this.userType ==3)
   {
     this.GUserId=item.UserId.replace('+',' ');
-    this.GAccountNumber="0";
+    this.GAccountNumber=CustomerAccount;
     this.PortfolioSummaryForm.controls["UserId"].setValue(0);
     this.isShowCustomer=true;
     this.BindEmployee();
@@ -113,20 +118,28 @@ ngOnInit(): void {
   {
     this.isShowCustomer=true;    
     this.GUserId=item.UserId.replace('+',' ');
-    this.GAccountNumber="1";
+    this.GAccountNumber=CustomerAccount;
     this.BindCustomers();
   }
   else{
     this.GUserId=item.UserId.replace('+',' ');
-    this.GAccountNumber="0";
+    this.GAccountNumber=CustomerAccount;
     this.isShowCustomer=false;
     this.isShowsEmployee=false;
   }
-  debugger;
+  
    if (this.PortfolioSummaryForm.controls["UserId"].value==0 && this.PortfolioSummaryForm.controls["AsOnDate"].value=="") 
   {
-    this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+    //this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+    //this.PortfolioSummaryForm.controls["AsOnDate"].setValue(data.Table[0].AsOnDate);
+    let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+    this.BindGrid(this.GAccountNumber,FromDate,this.SeqNo) ;
   }
+  this.PortfolioSummaryForm.controls["EmployeeId"].setValue(1);
+    this.BindCustomers();
+    this.PortfolioSummaryForm.controls["AsOnDate"].setValue(FromDate);
+    
+    this.PortfolioSummaryForm.controls["UserId"].setValue(this.GAccountNumber);
       // this.TransactionStatementForm.controls["UserId"].setValue("6010005");
       // this.TransactionStatementForm.controls["FromDate"].setValue("2020-06-30");
       // this.TransactionStatementForm.controls["ToDate"].setValue("2020-06-30");
@@ -143,25 +156,24 @@ BindDefaultLast(GAccountNumber,UserId)
    // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
     // this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
 
-    if(this.userType==3)
-   {
-    if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
-    {
-     this.PortfolioSummaryForm.controls["UserId"].setValue(0);
-    }
-    else{
-     this.PortfolioSummaryForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-    }
+  //   if(this.userType==3)
+  //  {
+  //   if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
+  //   {
+  //    this.PortfolioSummaryForm.controls["UserId"].setValue(0);
+  //   }
+  //   else{
+  //    this.PortfolioSummaryForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+  //   }
 
-   }
-   else
-   {
-    this.PortfolioSummaryForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-   }
+  //  }
+  //  else
+  //  {
+  //   this.PortfolioSummaryForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
+  //  }
 
   //this.TransactionStatementForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
-  this.PortfolioSummaryForm.controls["AsOnDate"].setValue(data.Table[0].AsOnDate);
-  this.BindGrid(data.Table[0].CustomerAccount,data.Table[0].AsOnDate,this.SeqNo) ;
+ 
   //this.BindGrid("6010001","2020-06-30",this.SeqNo) ;
   
   

@@ -9,14 +9,14 @@
         
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
-                 <span class="legal">Portfolio Summary: Report View</span>
+                 <span class="legal">Portfolio Summary</span>
              
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
-                        <li >
+                        <li (click)="FetchLatestReport($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
                             <label>
                                 Fetch Latest Report
@@ -24,7 +24,8 @@
                         </li>
                           
                         <li >
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to PDF"></i>
+                           
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                             <label>
                                 Export to PDF
                             </label>
@@ -52,8 +53,39 @@
        
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-           
+                <form [formGroup]="PortfolioSummaryFormView" autocomplete="off"> 
                
+                <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
+                    <div class="form-group">
+                      <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                        Employee Name :
+                      </label>
+                      <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+              
+                              <option value="0">All Employee</option>
+                              <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                          </select>
+                      </div>
+                  </div>
+                 </div>
+                 <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="isShowCustomer" >
+                    <div class="form-group" >
+                        <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                           Customer Name :
+                        </label>
+                        <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
+                            <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                                <option value="0" selected>All Customer</option>
+                                <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                    {{data.UserName}}
+                                </option>
+                             </select>
+                          
+                        </div>
+                    </div>
+                        
+                </div>  
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
@@ -65,9 +97,9 @@
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
-                        <button type="submit" class="btn btn-success ml-4"> Search</button>
+                        <button type="submit" class="btn btn-success ml-4" (click)="onSubmit()"> Search</button>
                 </div>
-            
+            </form>
                
         </div>
         </div>
@@ -82,7 +114,7 @@
              <ag-grid-angular
              style="width: 100%; height: 350px;"
              class="ag-theme-alpine"
-             [rowData]="rowData"
+             [rowData]="bindmaingrid"
              [columnDefs]="columnDefs"
              [enableFilter]="true"
                [enableSorting]="true"

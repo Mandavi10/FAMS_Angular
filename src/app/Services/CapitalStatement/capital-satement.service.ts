@@ -68,5 +68,28 @@ BindNextData(em:any): Observable<any> {
 });
 }
 
+BindCustomer(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+ return this._http.post<any>(this.baseUrl + 'api/BankBook/BindCustomers' , body, {
+     headers 
+ });
+}
+
+BindViewGrid(em:any){
+  const body = em;
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+ return this._http.post<any>(this.baseUrl + 'api/StatementDividend/BindViewGrid' , body, {
+     headers 
+ });
+}
+
+GetFetchLatestReport(em:any): Observable<any> {
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/FetchLatestReport/GetFetchLatestReport', body, {
+    headers 
+});
+}
 
 }
