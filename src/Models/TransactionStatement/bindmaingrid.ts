@@ -25,3 +25,14 @@ export class BindmaingridDetailsSummary {
     TotalCurrentPeriodSettled: string;
 }
 
+export class TransactionStatementView {
+    SrNo : string;
+    FromDate : string;
+    ToDate : string;
+    CustomerAccount : string;
+    Scheme : string;
+    DownloadLink : string;
+    ReportType : string;
+    ReportName : string;
+}
+

@@ -54,9 +54,11 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
     // {headerName: 'To Date', field: 'todate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
+
     {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
       // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
       return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
       // return '<button type="button href="/PortfolioAppraisals?EmployeeId='  + this.PortfolioAppraisalsForm.controls["EmployeeId"].value  + '&UserId='+ this.PortfolioAppraisalsForm.controls["UserId"].value   + '&FromDate='+ this.PortfolioAppraisalsForm.controls["FromDate"].value  + '" class="btn btn-success">View</button>';

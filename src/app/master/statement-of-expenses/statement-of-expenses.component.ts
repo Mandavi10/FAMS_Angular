@@ -19,6 +19,8 @@ import 'jspdf-autotable';
 import { Router, ActivatedRoute } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
+
+
 @Component({
   selector: 'app-statement-of-expenses',
   templateUrl: './statement-of-expenses.component.html',
@@ -61,7 +63,7 @@ export class StatementOfExpensesComponent implements OnInit {
   Isdiv:boolean;
 
  
-  constructor(private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
+  constructor(private router1:ActivatedRoute,private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
 
     //  this.custodian = new Custodian();
      
@@ -90,57 +92,72 @@ export class StatementOfExpensesComponent implements OnInit {
  
   
 debugger;
-  let item = JSON.parse(sessionStorage.getItem('User'));
-  // this.UserId = item.UserId;
-  // this.EntityId = item.ReferenceId;
-  // alert(item.UserId);
-  //   console.log(item.UserId);
-    this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
+
+let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+
+this.BindEmployee();
+this.BindCustomer();
+this.StatementOfExpenseForm.controls["UserId"].setValue(CustomerAccount);
+this.StatementOfExpenseForm.controls["FromDate"].setValue(FromDate);
+this.StatementOfExpenseForm.controls["ToDate"].setValue(ToDate);
+this.BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,this.EvenOdd) ;
+
+//alert (CustomerAccount + '-' + FromDate+'-' +ToDate)
+
+  // let item = JSON.parse(sessionStorage.getItem('User'));
+  // // this.UserId = item.UserId;
+  // // this.EntityId = item.ReferenceId;
+  // // alert(item.UserId);
+  // //   console.log(item.UserId);
+  //   this.userType=this.Dbsecurity.Decrypt(item.UserType);
 
    
-   // let ActivityId=this.Dbsecurity.Decrypt(this.router1.snapshot.queryParamMap.get('ActivityId').replace(/ /g, '+'));
-    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
-    this.accountNumber=item.AccountNo;
-    // alert(item.UserId.replace('+',/ /g));
-    // console.log(item.UserId.replace('+',/ /g));
+  //  // let ActivityId=this.Dbsecurity.Decrypt(this.router1.snapshot.queryParamMap.get('ActivityId').replace(/ /g, '+'));
+  //   //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+  //   this.accountNumber=item.AccountNo;
+  //   // alert(item.UserId.replace('+',/ /g));
+  //   // console.log(item.UserId.replace('+',/ /g));
 
-    //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
+  //   //this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
 
-    debugger;
-    if(this.userType ==1)
-    {
-      this.GUserId=item.UserId.replace('+',' ');
-      this.GAccountNumber=this.accountNumber;   
-    }
+  //   debugger;
+  //   if(this.userType ==1)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.GAccountNumber=this.accountNumber;   
+  //   }
 
-   else if(this.userType ==3)
-    {
-      this.GUserId=item.UserId.replace('+',' ');
-      this.GAccountNumber="0";
-      this.StatementOfExpenseForm.controls["UserId"].setValue(0);
-      this.isShowCustomer=true;
-      this.BindEmployee();
-      //this.BindCustomer();
+  //  else if(this.userType ==3)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.GAccountNumber="0";
+  //     this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+  //     this.isShowCustomer=true;
+  //     this.BindEmployee();
+  //     //this.BindCustomer();
      
-    }
-    else if(this.userType ==2)
-    {
-     // this.isShowCustomer=true;
-     this.GUserId=item.UserId.replace('+',' ');;
-     this.GAccountNumber="1";
-      this.BindCustomer();
-    }
-    else{
-      this.GUserId=item.UserId.replace('+',' ');;
-      this.GAccountNumber="0";
-      this.isShowCustomer=false;
-      this.isShowsEmployee=false;
-    }
-    debugger;
-     if (this.StatementOfExpenseForm.controls["UserId"].value==0 && this.StatementOfExpenseForm.controls["FromDate"].value==""  && this.StatementOfExpenseForm.controls["ToDate"].value=="") 
-    {
-      this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-    }
+  //   }
+  //   else if(this.userType ==2)
+  //   {
+  //    // this.isShowCustomer=true;
+  //    this.GUserId=item.UserId.replace('+',' ');;
+  //    this.GAccountNumber="1";
+  //     this.BindCustomer();
+  //   }
+  //   else{
+  //     this.GUserId=item.UserId.replace('+',' ');;
+  //     this.GAccountNumber="0";
+  //     this.isShowCustomer=false;
+  //     this.isShowsEmployee=false;
+  //   }
+  //   debugger;
+  //    if (this.StatementOfExpenseForm.controls["UserId"].value==0 && this.StatementOfExpenseForm.controls["FromDate"].value==""  && this.StatementOfExpenseForm.controls["ToDate"].value=="") 
+  //   {
+  //     this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+  //   }
 
     
     

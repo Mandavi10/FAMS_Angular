@@ -14,7 +14,7 @@
         <form [formGroup]="CurrentPortfolioForm" autocomplete="off" >
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
-                 <span class="legal">Current Portfolio: Report View</span>
+                 <span class="legal">Current Portfolio</span>
              
             </div>
             <div class="rightmenu">
@@ -22,14 +22,14 @@
                     <ul class="toolbar-content">
 
                         <li >
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title=" Fetch Latest Report"></i>
                             <label>
                                 Fetch Latest Report
                             </label>
                         </li>
                           
                         <li (click)="downloadCSVFile($event)">
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to PDF"></i>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                             <label>
                                 Export to PDF
                             </label>
