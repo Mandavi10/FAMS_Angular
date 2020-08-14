@@ -31,8 +31,11 @@ export class StatementDividendViewComponent implements OnInit {
     // {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
     //   return '<button type="button" class="btn btn-success">View</button>';
     // }},
-    {headerName: 'Download', field: '', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(){
-      return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    // {headerName: 'Download', field: '', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(){
+    //   return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    // }},
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
     }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/StatementDividend?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -53,8 +56,8 @@ export class StatementDividendViewComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     this.StatementdiviViewForm = this.formBuilder.group({  
-        Formdate:[''],
-        Todate:[''],
+        Formdate:['',Validators.required],
+        Todate:['',Validators.required],
         CustomerAccount:[''] ,
         EmployeeId:['']
      });
@@ -79,6 +82,27 @@ export class StatementDividendViewComponent implements OnInit {
      }
      this.BindViewGrid();
   }
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+  
+        if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
+  }
+  get AllFields() { return this.StatementdiviViewForm.controls; }
+  displayFieldCss(field: string) {
+    return {
+        'validate': this.isFieldValid(field),
+    };
+}
+isFieldValid(field: string) {
+    return !this.StatementdiviViewForm.get(field).valid && this.StatementdiviViewForm.get(field).touched;
+}
+
 
   BindEmployee(){
     this.isShowLoader=true;
@@ -131,6 +155,7 @@ export class StatementDividendViewComponent implements OnInit {
   }
 
   SearchData(){
+    if(this.StatementdiviViewForm.valid){
     this.isShowLoader=true;
     this.Formdate = this.StatementdiviViewForm.controls["Formdate"].value;
     this.Todate = this.StatementdiviViewForm.controls["Todate"].value;
@@ -153,6 +178,10 @@ export class StatementDividendViewComponent implements OnInit {
            this.BindViewGridList = data.Table;
            this.isShowLoader=false;
       }); 
+    }
+    else{
+      this.validateAllFormFields(this.StatementdiviViewForm); 
+    } 
   }
 
 }

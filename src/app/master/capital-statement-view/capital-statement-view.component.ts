@@ -29,8 +29,11 @@ export class CapitalStatementViewComponent implements OnInit {
     // {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
     //   return '<button type="button" class="btn btn-success">View</button>';
     // }},
-    {headerName: 'Download', field: '', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(){
-      return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    // {headerName: 'Download', field: '', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(){
+    //   return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    // }},
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
     }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/CapitalStatement?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -50,8 +53,8 @@ export class CapitalStatementViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.StatementCapitalViewForm = this.formBuilder.group({  
-      Formdate:[''],
-      Todate:[''],
+      Formdate:['',Validators.required],
+      Todate:['',Validators.required],
       CustomerAccount:[''] ,
       EmployeeId:['']
    });
@@ -76,6 +79,27 @@ export class CapitalStatementViewComponent implements OnInit {
      }
      this.BindViewGrid();
   }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+  
+        if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
+  }
+  get AllFields() { return this.StatementCapitalViewForm.controls; }
+  displayFieldCss(field: string) {
+    return {
+        'validate': this.isFieldValid(field),
+    };
+}
+isFieldValid(field: string) {
+    return !this.StatementCapitalViewForm.get(field).valid && this.StatementCapitalViewForm.get(field).touched;
+}
 
   BindEmployee(){
     this.isShowLoader=true;
@@ -115,6 +139,7 @@ export class CapitalStatementViewComponent implements OnInit {
 
   BindViewGrid(){
     this.isShowLoader=true;
+   // if (this.StatementCapitalViewForm.valid) {
     var JsonData ={
       "UserId" : this.UserId,
       "CustomerAccountNo" : this.CustomerAccount.trim(),
@@ -125,10 +150,15 @@ export class CapitalStatementViewComponent implements OnInit {
            this.BindViewGridList = data.Table;
            this.isShowLoader=false;
       }); 
+   // }
+    // else{
+    //   this.validateAllFormFields(this.StatementCapitalViewForm);      
+    // }
   }
 
   SearchData(){
     debugger;
+    if(this.StatementCapitalViewForm.valid){
     this.isShowLoader=true;
     this.Formdate = this.StatementCapitalViewForm.controls["Formdate"].value;
     this.Todate = this.StatementCapitalViewForm.controls["Todate"].value;
@@ -150,7 +180,11 @@ export class CapitalStatementViewComponent implements OnInit {
       (data) => {
            this.BindViewGridList = data.Table;
            this.isShowLoader=false;
-      }); 
+      });
+    }
+    else{
+      this.validateAllFormFields(this.StatementCapitalViewForm); 
+    } 
   }
 
 }
