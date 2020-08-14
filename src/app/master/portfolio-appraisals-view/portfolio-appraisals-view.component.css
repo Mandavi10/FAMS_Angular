@@ -1,14 +1,4 @@
-.loaderposition {
-  position: absolute;
-  z-index: 9999 !important;
-  text-align: center;
-  /* top: 37%; */
-}
-.loaderimagepage {
-  margin-left: -12%;
-  margin-top: 2%;
-  width: 8%;
-}
+
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
     #createuser .modal-dialog{
       float: right;
@@ -172,11 +162,11 @@
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
+  }
   }
    
-
-
+  
+  
   @media (max-width: 414px) {
   
     #createuser .modal-dialog{
@@ -196,14 +186,14 @@
    .btnsearch{float: right;
   
     margin-right: -8px;
-
+  
   }
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
   }
-
+  }
+  
    
   @media (max-width: 411px) {
   
@@ -227,7 +217,7 @@
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
+  }
   }
   @media (max-width: 360px) {
   
@@ -251,7 +241,7 @@
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
+  }
   }
   @media (max-width: 375px) {
   
@@ -271,12 +261,12 @@
    }
    .btnsearch{float: right;
     margin-right: 7px;
-
+  
   }
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
+  }
   }
   @media (max-width: 320px) {
   
@@ -300,5 +290,5 @@
   .rightmenu {
     position: relative;
     margin-right: 0px!important;
-}
+  }
   }

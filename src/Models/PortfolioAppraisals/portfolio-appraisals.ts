@@ -11,6 +11,12 @@ export class Commonfields {
     UserId : string;
 }
 
+export class gridView {
+    CustomerAccountNo : string;
+    AsOnDate : string;
+}
+
+
 
 
 
