@@ -257,6 +257,7 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
     
   }
   BindEmployee(){
+    
     // this.loader1=true;this.loader2=true;
      let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // let  Data = new Commonfields();
