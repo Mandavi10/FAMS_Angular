@@ -76,7 +76,7 @@ export class StatementDividendComponent implements OnInit {
   ngOnInit() {
     this.btnPrev=false;
     this.btnNext==false;
-    this.Showcustdropdown(); 
+   // this.Showcustdropdown(); 
     this.StatementDividendForm=this.formbuilder.group({
       Formdate:['',Validators.required],
       Todate:['',Validators.required] ,
@@ -129,6 +129,7 @@ export class StatementDividendComponent implements OnInit {
       this.StatementDividendForm.controls["Todate"].setValue(this.ToDate);
       this.StatementDividendForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
       this.StatementDividendForm.controls["Employee1"].setValue("1");
+      this.Showcustdropdown();
       this.bindGrid();
   
     // this.BindDefaultData();
@@ -162,12 +163,12 @@ Showcustdropdown(){
 
   if(usertype == 3){
    // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-    this.CustomerAccount = "";
+    //this.CustomerAccount = "";
     this.CustNameDive=true;
     this.divEmployee=true;
     
     this.BindEmployee();
-
+    this.BindCustomers();
   }
 
 }

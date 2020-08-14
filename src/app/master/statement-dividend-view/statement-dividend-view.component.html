@@ -90,7 +90,9 @@
                            From Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Formdate">
+                            <div class="form-group input-group" [ngClass]="displayFieldCss('Formdate')">
+                            <input type="date" required class="col-sm-12 col-md-12 col-xs-12" formControlName="Formdate">
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -100,11 +102,13 @@
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate" >
+                            <div class="form-group input-group" [ngClass]="displayFieldCss('Todate')">
+                            <input type="date" required class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate" >
+                        </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
+                <div class="col-md-1 col-sm-2 col-xs-3 mt-2 btnsearch pull-right">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
                         <button type="submit" (click)="SearchData()" class="btn btn-success ml-4"> Search</button>
                 </div>
@@ -130,10 +134,12 @@
              [columnDefs]="columnDefs"
              [enableFilter]="true"
                [enableSorting]="true"
-               [showToolPanel]="true" >
+               [showToolPanel]="true" 
+               [pagination]="true" 
+      [paginationAutoPageSize]="true">
          </ag-grid-angular>
            
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
     <div class="paginationDiv">
             <span class="previousBtn">Previous</span>
             <span class="paginationCount">50 out of 200</span>

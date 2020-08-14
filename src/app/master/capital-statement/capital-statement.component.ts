@@ -71,7 +71,7 @@ export class CapitalStatementComponent implements OnInit {
     this.showhead=true;
     this.btnPrev=false;
     this.btnNext==false;
-    this.Showcustdropdown();
+   // this.Showcustdropdown();
     this.capitalStatForm=this.formbuilder.group({
       Formdate:['',Validators.required],
       Todate:['',Validators.required],
@@ -124,6 +124,7 @@ export class CapitalStatementComponent implements OnInit {
       this.capitalStatForm.controls["Todate"].setValue(this.ToDate);
       this.capitalStatForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
       this.capitalStatForm.controls["Employee1"].setValue("1");
+      this.Showcustdropdown();
       this.bindGrid();
     
 //alert (CustomerAccount + '-' + FromDate+'-' +ToDate)
@@ -161,7 +162,7 @@ export class CapitalStatementComponent implements OnInit {
       this.CustNameDive=true;
       this.divEmployee=true;
       this.BindEmployee();
-
+      this.BindCustomers();
     }
   }
 
@@ -760,7 +761,7 @@ BindDefaultData(accountno,userid){
 
 
   bindGrid(){
-
+debugger;
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid, CustomerAccountNo;
