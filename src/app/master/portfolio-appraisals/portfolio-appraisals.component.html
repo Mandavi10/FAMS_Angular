@@ -7,9 +7,9 @@
    </div>
      <form [formGroup]="PortfolioAppraisalsForm">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">
-           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-              <span class="legal"></span>
-           </div>
+           <div class="col-sm-6 col-md-6 col-xs-3">
+            <span class="legal">Portfolio Appraisals</span>
+       </div>
            <div class="rightmenu">
               <div class="toolbar pull-right">
                  <ul class="toolbar-content">
@@ -38,7 +38,7 @@
              <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowsEmployee">
                 <div class="form-group">
                   <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                     Employee Name :
+                     Employee Name:
                   </label>
                   <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                       <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)" >
@@ -53,7 +53,7 @@
              <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="isShowCustomer">
               <div class="form-group">
                 <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                  Customer Name :
+                  Customer Name:
                 </label>
                 <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                   <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
@@ -68,10 +68,10 @@
            </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                  <div class="form-group">
-                    <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
-                   AsOn Date :
+                    <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                   As On:
                     </label>
-                    <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                    <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left displayinlineblock">
                       <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                     </div>
                  </div>
@@ -89,7 +89,7 @@
                </div>
             </div> -->
 
-              <div class="col-md-1 col-sm-1 col-xs-12 mt-2 pull-right">
+              <div class="col-md-1 col-sm-1 col-xs-12 mt-2">
                <button type="submit" (click)="onSubmit()" class="btn btn-success ml-5"> Search</button>
                  
                

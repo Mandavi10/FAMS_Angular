@@ -85,7 +85,7 @@ export class StatementOfExpensesViewComponent implements OnInit {
   GUserId:number;
 
 
-  columnDefs = [
+ columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'From Date', field: 'FromDate', width:'150'},
     {headerName: 'To Date', field: 'ToDate', width:'150'},
@@ -104,6 +104,7 @@ export class StatementOfExpensesViewComponent implements OnInit {
   
     
 ];
+
 
 rowData = [
     {  SrNo: '1', fromdate:'14/07/2020', todate:'20/07/2020',  customeraccount: '47481000024748', scheme: '', download:'',  viewmode: ''},

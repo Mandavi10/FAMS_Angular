@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 @Component({
-  selector: 'app-bank-book-view',
-  templateUrl: './bank-book-view.component.html',
-  styleUrls: ['./bank-book-view.component.css']
+  selector: 'app-portfolio-appraisals-view',
+  templateUrl: './portfolio-appraisals-view.component.html',
+  styleUrls: ['./portfolio-appraisals-view.component.css']
 })
-export class BankBookViewComponent implements OnInit {
+export class PortfolioAppraisalsViewComponent implements OnInit {
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'From Date', field: 'fromdate', width:'150'},

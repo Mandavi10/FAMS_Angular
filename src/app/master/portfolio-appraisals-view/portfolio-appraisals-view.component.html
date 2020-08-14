@@ -1,5 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
+    
         <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
                 <img src="../../assets/images/loader.gif" class="loaderimagepage" />
@@ -8,7 +9,7 @@
         
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
-                 <span class="legal">Current Portfolio</span>
+                 <span class="legal">Portfolio Appraisals</span>
              
             </div>
             <div class="rightmenu">
@@ -22,7 +23,7 @@
                             </label>
                         </li>
                           
-                        <li (click)="downloadCSVFile($event)">
+                        <li >
                             <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                             <label>
                                 Export to PDF
@@ -53,35 +54,31 @@
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
            
                
-                <div class="col-lg-3 col-md-9 col-sm-9 col-xs-12">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
-                           Report Date :
+                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                           As On:
                         </label>
-                        <div class="col-sm-9 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="AsOnDate" >
-                        </div>
+                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" >                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
-                        <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
+                        <button type="submit" class="btn btn-success ml-4"> Search</button>
                 </div>
             
                
         </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
-            <!-- <div class="filter">
-                <input type="text" placeholder="Search" />
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </div> -->
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" style="display:block">
+               <div class="col-md-12 col-sm-12 col-xs-12">
 
             <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
              </div>
-            
+          
              <ag-grid-angular
              style="width: 100%; height: 350px;"
              class="ag-theme-alpine"
@@ -91,6 +88,7 @@
                [enableSorting]="true"
                [showToolPanel]="true" >
          </ag-grid-angular>
+             </div>
            
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="paginationDiv">
@@ -104,7 +102,7 @@
        
     
        
-
+   
     </div>
    
      

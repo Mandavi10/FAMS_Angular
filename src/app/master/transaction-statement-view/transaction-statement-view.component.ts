@@ -62,7 +62,7 @@ export class TransactionStatementViewComponent implements OnInit {
   BindcustomerallfieldsList:Bindcustomerallfields; userType:number;
   
 
-  columnDefs = [
+ columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'From Date', field: 'FromDate', width:'150'},
     {headerName: 'To Date', field: 'ToDate', width:'150'},
@@ -72,7 +72,7 @@ export class TransactionStatementViewComponent implements OnInit {
       return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
     }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
-      return '<a href="/TransactionStatement?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
+      return '<a href="/StatementOfExpenses?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
     }
     },
     // {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
@@ -81,6 +81,7 @@ export class TransactionStatementViewComponent implements OnInit {
   
     
 ];
+
 
 
 rowData = [

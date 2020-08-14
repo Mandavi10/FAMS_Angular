@@ -78,6 +78,7 @@ const routes: Routes = [
  {path: 'TransactionStatementView', loadChildren: './transaction-statement-view/transaction-statement-view.module#TransactionStatementViewModule'},      
  {path: 'Upload', loadChildren: './upload/upload.module#UploadModule'}, 
  {path: 'AllAutoRequest', loadChildren: './all-auto-request/all-auto-request.module#AllAutoRequestModule'},
+ {path: 'PortfolioAppraisalsView', loadChildren: './portfolio-appraisals-view/portfolio-appraisals-view.module#PortfolioAppraisalsViewModule'},
  ]
       }
 
