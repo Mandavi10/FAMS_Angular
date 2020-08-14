@@ -70,3 +70,14 @@ export class Commonfields {
     Result : string;
     UserId : string;
 }
+
+export class StatementOfExpView {
+    SrNo : string;
+    FromDate : string;
+    ToDate : string;
+    CustomerAccount : string;
+    Scheme : string;
+    DownloadLink : string;
+    ReportType : string;
+    ReportName : string;
+}
