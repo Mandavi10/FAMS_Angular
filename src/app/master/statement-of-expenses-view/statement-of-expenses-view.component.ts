@@ -134,9 +134,10 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
     // this.isShowsEmployee=true;
     // this.BindEmployee();
     // this.BindCustomer();
-    var ReportName="Statement of Expenses Clientwise";
+    //var ReportName="Statement of Expenses Clientwise";
+    var ReportType="8";
 
-    this.BindStatementExpView("0","","",ReportName.trim());
+    this.BindStatementExpView("0","","",ReportType.trim());
 
     let item = JSON.parse(sessionStorage.getItem('User'));
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
@@ -189,10 +190,38 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
         }
         var FromDate=datat.FromDate;
         var ToDate=datat.ToDate;
-        var ReportName="Statement of Expenses Clientwise";
-        this.BindStatementExpView(this.CustomerAccount,FromDate,ToDate,ReportName);
+       // var ReportName="Statement of Expenses Clientwise";
+       var ReportType="8";
+        this.BindStatementExpView(this.CustomerAccount,FromDate,ToDate,ReportType);
     } 
   }
+  FetchLatestReport() {
+    debugger;
+    // this.loading = true;
+    this.isShowLoader=true;
+     var currentContext = this;
+     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+     var ReportName="Statement of Expenses Clientwise";
+     const datat = this.StatementOfExpenseViewForm.value;
+     var CustomerAccount=datat.UserId;
+     var JsonData ={
+           //this.TransactionStatementForm.controls['ToDate']
+       "CustomerAccount" : CustomerAccount,
+      "ReportName":ReportName
+     }
+ 
+     
+     this._statementexpensesService.GetFetchLatestReport(JsonData).
+         subscribe((data) => {
+            //  currentContext.transactionStatementView = data.Table;
+            //  this.transactionStatementView_Copy=data.Table;
+            // this.isShowCustomer=true;
+            this.isShowLoader=false;
+         });
+     // console.log(sessionStorage.getItem('ID'));
+     //this.loading = false;
+     
+   }
 
   StatementOfExpViewSearch(evt: any) {
     debugger;
@@ -227,7 +256,7 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
     }
   }
 
-  BindStatementExpView(CustomerAccount,FromDate,ToDate,ReportName) {
+  BindStatementExpView(CustomerAccount,FromDate,ToDate,ReportType) {
     this.loading = true;
     var currentContext = this;
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
@@ -236,12 +265,13 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
       "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
       "CustomerAccount" : CustomerAccount,
-     "ReportName":ReportName.trim()
+     "ReportType":ReportType.trim()
     }
-
+    this.isShowLoader=true;
     
     this._statementexpensesService.BindStatementExpView(JsonData).
         subscribe((data) => {
+          this.isShowLoader=false;
             currentContext.statementOfExpView = data.Table;
             this.statementOfExpView_Copy=data.Table;
            // this.isShowCustomer=true;

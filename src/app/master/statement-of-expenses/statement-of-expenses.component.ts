@@ -100,6 +100,7 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 
 this.BindEmployee();
 this.BindCustomer();
+this.StatementOfExpenseForm.controls["EmployeeId"].setValue(1);
 this.StatementOfExpenseForm.controls["UserId"].setValue(CustomerAccount);
 this.StatementOfExpenseForm.controls["FromDate"].setValue(FromDate);
 this.StatementOfExpenseForm.controls["ToDate"].setValue(ToDate);

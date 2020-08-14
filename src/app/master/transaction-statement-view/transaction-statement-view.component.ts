@@ -111,8 +111,9 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
 
 
 
-    var ReportName="Transaction Statement Cleintwise";
-    this.BindTransactionStatementView("0","","",ReportName.trim());
+    //var ReportName="Transaction Statement Cleintwise";
+    var ReportType="9";
+    this.BindTransactionStatementView("0","","",ReportType.trim());
     let item = JSON.parse(sessionStorage.getItem('User'));
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
     this.accountNumber=item.AccountNo;
@@ -162,8 +163,9 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
         }
         var FromDate=datat.FromDate;
         var ToDate=datat.ToDate;
-        var ReportName="Transaction Statement Cleintwise";
-        this.BindTransactionStatementView(this.CustomerAccount,FromDate,ToDate,ReportName);
+        //var ReportName="Transaction Statement Cleintwise";
+        var ReportType="9";
+        this.BindTransactionStatementView(this.CustomerAccount,FromDate,ToDate,ReportType);
     } 
   }
 
@@ -200,7 +202,35 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
     }
   }
 
-  BindTransactionStatementView(CustomerAccount,FromDate,ToDate,ReportName) {
+  FetchLatestReport() {
+    debugger;
+    // this.loading = true;
+    this.isShowLoader=true;
+     var currentContext = this;
+     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+     var ReportName="Transaction Statement Cleintwise";
+     const datat = this.TransactionStatementViewForm.value;
+     var CustomerAccount=datat.UserId;
+     var JsonData ={
+           //this.TransactionStatementForm.controls['ToDate']
+       "CustomerAccount" : CustomerAccount,
+      "ReportName":ReportName
+     }
+ 
+     
+     this.TSService.GetFetchLatestReport(JsonData).
+         subscribe((data) => {
+            //  currentContext.transactionStatementView = data.Table;
+            //  this.transactionStatementView_Copy=data.Table;
+            // this.isShowCustomer=true;
+            this.isShowLoader=false;
+         });
+     // console.log(sessionStorage.getItem('ID'));
+     //this.loading = false;
+     
+   }
+
+  BindTransactionStatementView(CustomerAccount,FromDate,ToDate,ReportType) {
    // this.loading = true;
    this.isShowLoader=true;
     var currentContext = this;
@@ -210,19 +240,20 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
       "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
       "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
       "CustomerAccount" : CustomerAccount,
-     "ReportName":ReportName.trim()
+     "ReportType":ReportType
     }
 
     
     this.TSService.BindTransactionStatementView(JsonData).
         subscribe((data) => {
+          this.isShowLoader=false;
             currentContext.transactionStatementView = data.Table;
             this.transactionStatementView_Copy=data.Table;
            // this.isShowCustomer=true;
         });
     // console.log(sessionStorage.getItem('ID'));
     //this.loading = false;
-    this.isShowLoader=false;
+    
   }
   BindEmployee(){
     // this.loader1=true;this.loader2=true;

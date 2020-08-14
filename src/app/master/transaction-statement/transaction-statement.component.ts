@@ -121,6 +121,7 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 
 this.BindEmployee();
 this.BindCustomer();
+this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
 this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
 this.TransactionStatementForm.controls["FromDate"].setValue(FromDate);
 this.TransactionStatementForm.controls["ToDate"].setValue(ToDate);
