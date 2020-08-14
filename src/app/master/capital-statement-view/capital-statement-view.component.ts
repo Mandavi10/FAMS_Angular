@@ -143,7 +143,7 @@ isFieldValid(field: string) {
     var JsonData ={
       "UserId" : this.UserId,
       "CustomerAccountNo" : this.CustomerAccount.trim(),
-       "PageType" : "Statement of Capital Gain clientwise"
+       "PageType" : "6"
     }  
     this._CapitalSatementService.BindViewGrid(JsonData).subscribe(
       (data) => {
@@ -174,7 +174,7 @@ isFieldValid(field: string) {
       "CustomerAccountNo" : this.CustomerAccount.trim(),
       "fromdate" : this.Formdate,
       "todate" : this.Todate,
-      "PageType" : "Statement of Capital Gain clientwise"
+      "PageType" : "6"
     }  
     this._CapitalSatementService.BindViewGrid(JsonData).subscribe(
       (data) => {
