@@ -1,51 +1,6 @@
 <div class="main-content maincontainer">
     <div class="content">
-        <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
-            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-            </div>
-
-        </div>
-        
-        <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
-            <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
-                 <span class="legal">Transaction Statement </span>
-             
-            </div>
-            <div class="rightmenu">
-                <div class="toolbar pull-right">
-                    <ul class="toolbar-content">
-
-                        <li >
-                            <i class="fa fa-file-pdf-o" aria-hidden="true" title=" Fetch Latest Report"></i>
-                            <label>
-                                Fetch Latest Report
-                            </label>
-                        </li>
-                          
-                        <li (click)="downloadCSVFile($event)">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
-                            <label>
-                                Export to PDF
-                            </label>
-                        </li> 
-                        <!-- <li>
-                            <i class="fa fa-download" aria-hidden="true" title="Save"></i>
-                            <label>
-                                Download Template
-                            </label>
-                        </li>
-                        <li>
-                            <i class="fa fa-upload" aria-hidden="true" title="Upload User"></i>
-                            <label>
-                                Upload User
-                            </label>
-                        </li> -->
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
+     
         <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" style="display:none">
 
         </div> -->
@@ -56,20 +11,20 @@
         <form [formGroup]="TransactionStatementViewForm" autocomplete="off" appNorightclick>
             <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
                 <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
-                    <span class="legal">Transaction Statement View: Report View</span>
+                    <span class="legal">Transaction Statement View</span>
                 </div>
                 <div class="rightmenu">
                     <div class="toolbar pull-right">
                         <ul class="toolbar-content">
                             <li >
-                                <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Fetch Latest Report"></i>
                                 <label>
                                     Fetch Latest Report
                                 </label>
                             </li>
                             
                             <li (click)="downloadCSVFile($event)">
-                                <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to PDF"></i>
+                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Export to PDF"></i>
                                 <label>
                                     Export to PDF
                                 </label>
