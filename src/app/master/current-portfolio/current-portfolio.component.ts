@@ -30,7 +30,8 @@ export class CurrentPortfolioComponent implements OnInit {
   NoRecord:boolean=true;liExport:boolean=false;CurrentportfolioList1:Currentportfolio;
   CurrentportfolioList2:Currentportfolio;FooterSum1:boolean=true;FooterSum2:boolean=true;
   IsShowNoRecord:boolean;IsShowRecord:boolean; Eqlbl:boolean=true;Shlbl:boolean=true;
-  constructor(private router: Router, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
+
+  constructor(private router: Router, private Route :ActivatedRoute,private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }  //,private SRService : SummaryreportService
   CurrentDate = new Date(); 
   STSumGL:number;
   STSumIncome:number;
@@ -58,8 +59,21 @@ export class CurrentPortfolioComponent implements OnInit {
       CustomerAccount:[''] ,ReportDate:[''],EmployeeId:['']
   });
    // this.Showcustdropdown();
+
+
+   let CustomerAccountNo=this.Route.snapshot.queryParamMap.get('CustomerAccountNo');
+   let ReportDate=this.Route.snapshot.queryParamMap.get('ReportDate');
     let item = JSON.parse(sessionStorage.getItem('User'));  
     this.userType=this.Dbsecurity.Decrypt( item.UserType);
+
+    this.CurrentPortfolioForm.controls["EmployeeId"].setValue(1);
+    this.BindCustomersOnChange(1);
+    this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(CustomerAccountNo);
+    this.CurrentPortfolioForm.controls["ReportDate"].setValue(ReportDate);
+
+
+    
+
     if(this.userType == 3){
       this.CustNameDive=true;this.EmployeeDiv=true;
        this.UserId = this.Dbsecurity.Decrypt(item.UserId);
@@ -78,37 +92,47 @@ export class CurrentPortfolioComponent implements OnInit {
       // this.CustomerAccount = this.Dbsecurity.Decrypt(item.AccountNo);
       this.CustomerAccount = item.AccountNo;
      }
-    this.BindDefaultData();
-    //this.BindCustomers();
+   // this.BindDefaultData();
+  this. BindDefaultGrid(ReportDate,CustomerAccountNo)
+    
   }
  
-  BindDefaultData(){
-    debugger;
-    this.loader1=true;this.loader2=true;
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var JsonData ={
-      "UserId" : this.UserId,
-      "CustomerAccountNo" : this.CustomerAccount ,
-      "PageCount" : this.PageCount
-    }
-    this._CurrentportfolioService.BindDefaultData(JsonData).subscribe(
-      (data) => {
-        this.ReportDate = data.Table[0]["ReportDate"];
-        this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
-          this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
-          this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
-        this.PageCount = 1;
-        this.BindDefaultGrid();     
-      });
-      this.loader1=false;this.loader2=false;     
-  }
+  // BindDefaultData(){
+  //   //Route
+  //   let ActivityId=this.Route.snapshot.queryParamMap.get('param1')
+  //   alert(ActivityId)
+  //   this.loader1=true;this.loader2=true;
+  //   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  //   var JsonData ={
+  //     "UserId" : this.UserId,
+  //     "CustomerAccountNo" : this.CustomerAccount ,
+  //     "PageCount" : this.PageCount
+  //   }
+  //   this._CurrentportfolioService.BindDefaultData(JsonData).subscribe(
+  //     (data) => {
+  //       this.ReportDate = data.Table[0]["ReportDate"];
+  //       this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
+  //         this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
+  //         this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
+  //       this.PageCount = 1;
+  //       this.BindDefaultGrid();     
+  //     });
+  //     this.loader1=false;this.loader2=false;     
+  // }
 
-  BindDefaultGrid(){
+  BindDefaultGrid(reportdata,customeraccount){
     this.loader1=true;this.loader2=true;
+    this.PageCount = 1;
+   // CustomerAccount:[''] ,ReportDate:[''],EmployeeId:['']
+
+  //  this.CurrentPortfolioForm.controls["EmployeeId"].setValue(1);
+  //   this.CurrentPortfolioForm.controls["ReportDate"].setValue(reportdata);
     var JsonData ={
       "UserId" : this.UserId,
-      "ReportDate" : this.ReportDate,   
-      "CustomerAccountNo" : this.CustomerAccount,
+      // "ReportDate" : this.ReportDate,   
+      "ReportDate" : reportdata,   
+      // "CustomerAccountNo" : this.CustomerAccount,
+      "CustomerAccountNo" : customeraccount,
       "PageCount" : this.PageCount       
     }
     debugger;

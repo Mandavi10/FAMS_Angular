@@ -15,3 +15,10 @@ export class Currentportfolio {
 
 
 
+export class CurrentportfolioView
+{
+    CustomerAccountNo:string;
+    ReportDate:string;//DownloadLink
+    DownloadLink:string;
+
+}
