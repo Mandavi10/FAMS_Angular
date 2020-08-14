@@ -53,4 +53,20 @@ export class BankbookService {
       headers 
   });
   }
+
+  BindGridView(em:any): Observable<any> {
+    alert("hyy"); 
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindGridView', body, {
+      headers 
+  });
+  }
+  GetFetchLatestReport(em:any): Observable<any> {
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/FetchLatestReport/GetFetchLatestReport', body, {
+      headers 
+  });
+}
 }
