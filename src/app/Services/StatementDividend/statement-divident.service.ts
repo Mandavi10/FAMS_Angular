@@ -61,5 +61,13 @@ BindViewGrid(em:any){
      headers 
  });
 }
+
+GetFetchLatestReport(em:any): Observable<any> {
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/FetchLatestReport/GetFetchLatestReport', body, {
+    headers 
+});
+}
   
 }

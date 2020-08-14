@@ -184,4 +184,16 @@ isFieldValid(field: string) {
     } 
   }
 
+  FetchLatestReport() {
+    this.CustomerAccount=this.StatementdiviViewForm.controls['CustomerAccount'].value;
+    var JsonData ={
+     "CustomerAccountNo" : this.CustomerAccount.trim(),
+     "PageType" : "6"
+    }   
+    this._StatementDividendService.GetFetchLatestReport(JsonData).
+        subscribe((data) => {
+          
+        });
+  }
+
 }

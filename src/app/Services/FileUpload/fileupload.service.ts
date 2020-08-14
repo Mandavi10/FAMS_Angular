@@ -25,4 +25,12 @@ export class FileuploadService {
   const httpOptions = { headers: headers };
     return this._http.post<any>(this.baseUrl + 'api/FileUpload/ReadCSV',formdata,httpOptions);
   }
+
+  UploadPDF(formdata:FormData): Observable<any> {
+  let headers = new HttpHeaders();
+  headers.append('Content-Type', 'multipart/form-data');
+  headers.append('Accept', 'application/json');
+  const httpOptions = { headers: headers };
+    return this._http.post<any>(this.baseUrl + 'api/FileUpload/ReadPDF',formdata,httpOptions);
+  }
 }
