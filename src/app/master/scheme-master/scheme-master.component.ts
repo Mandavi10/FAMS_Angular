@@ -48,41 +48,39 @@ export class SchemeMasterComponent implements OnInit {
 
 
   columnDefs = [
-    {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
-      return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
-          }},
+   
     {headerName: 'Sr.No', field: 'SrNo', width:100 },
-    {headerName: 'PMS Name', field: 'PMSName', width:150 },
-    {headerName: 'Custodian Name', field: 'CustodianName', width:150},
+    {headerName: 'Scheme No.', field: 'schemeno', width:150 },
+    {headerName: 'Scheme Name', field: 'schemename', width:150},
     // {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
-    {headerName: 'Customer Name', field: 'CustomerName',width:150},
-    {headerName: 'Created By', field: 'CreatedBy', width:130},
-    {headerName: 'Created On', field: 'CreatedOn' ,width:160},
-    {headerName: 'Updated By', field: 'UpdatedBy',width:150 },
-    {headerName: 'Updated On', field: 'UpdatedOn', width: 130},
+    {headerName: 'Status(Active, Expired)', field: 'Status',width:200},
+    {headerName: 'Created On', field: 'Createdon', width:130},
+    {headerName: 'Created By', field: 'Createdby' ,width:160},
+    {headerName: 'Expired On', field: 'expiredon',width:150 },
+    {headerName: 'Expired By', field: 'expiredby', width: 130},
 ];
 
 rowData = [
-    { srNo: '1', PMSName: 'Vishal', Custodian: 'Custodian', SchemeNumber: '12155', createdby: 'Vishal',createdon: '06/08/2020' , UpdatedBy: 'Vishal', UpdatedOn: '06/08/2020' }
+    { SrNo: '1', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
+    { SrNo: '2', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
+    { SrNo: '3', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' }
 ];
 
 columnDefs1 = [
-  // {headerName: 'All', field: 'all', width:'60', cellRenderer: function(){
-  //   return'<input type="checkbox" class="texBox" value="All" style="width:15px"/>'
-  //       }},
-  {headerName: 'Sr.No', field: 'SrNo', width:100 },
-  {headerName: 'PMS Name', field: 'PMSName', width:150 },
-  {headerName: 'Custodian Name', field: 'CustodianName', width:150},
-  {headerName: 'Customer Name', field: 'CustomerName',width:150},
-  {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
-  // {headerName: 'Created By', field: 'CreatedBy', width:130},
-  // {headerName: 'Created On', field: 'CreatedOn' ,width:160},
-  // {headerName: 'Updated By', field: 'UpdatedBy',width:150 },
-  // {headerName: 'Updated On', field: 'UpdatedOn', width: 130},
+  {headerName: 'Sr. No.', field: 'srNo', width:'80'},
+  {headerName: 'Customer Account', field: 'AccountNo', width:'150'},
+  {headerName: 'User Name', field: 'UserName', width:'150'},
+  {headerName: 'User Email', field: 'EmailId', width:'150'},
+  
+  
 ];
 
 rowData1 = [
-  { srNo: '1', PMSName: 'Vishal', Custodian: 'Custodian', SchemeNumber: '12155', createdby: 'Vishal',createdon: '06/08/2020' , UpdatedBy: 'Vishal', UpdatedOn: '06/08/2020' }
+  {  srNo: '1', AccountNo:'Demo ', UserName:'Tarun',  EmailId: 'Demo'},
+  {  srNo: '2', AccountNo:'Demo', UserName:'Tarun',  EmailId: 'Demo', },
+  {  srNo: '3', AccountNo:'Demo', UserName:'Tarun',  EmailId: 'Demo', }
+ 
+ 
 ];
 
     // onClickupdatepopup() {
