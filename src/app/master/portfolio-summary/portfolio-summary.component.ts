@@ -3,6 +3,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
+
 import { TransactionstatementService } from '../../Services/TransactionStatement/transactionstatement.service';
 import { PortfoliosummaryService } from '../../Services/PortfolioSummary/portfoliosummary.service';
 import { BindmaingridHeader,BindPortfolioAllocation,BindPortfolioSummary,BindPortfolioPerformance,BindPortfolioAllocation_Total } from '../../../Models/PortfolioSummary/PortfolioSummary';
@@ -87,9 +88,13 @@ ngOnInit(): void {
        
         CustomerAccount:['']
       });
+      
       let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
 let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
 let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+var splitted = FromDate.split("/", 3); 
+var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
 
 
   let item = JSON.parse(sessionStorage.getItem('User'));
@@ -133,11 +138,11 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
     //this.BindDefaultLast(this.GAccountNumber,this.GUserId)
     //this.PortfolioSummaryForm.controls["AsOnDate"].setValue(data.Table[0].AsOnDate);
     let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
-    this.BindGrid(this.GAccountNumber,FromDate,this.SeqNo) ;
+    this.BindGrid(this.GAccountNumber,maxDate,this.SeqNo) ;
   }
   this.PortfolioSummaryForm.controls["EmployeeId"].setValue(1);
     this.BindCustomers();
-    this.PortfolioSummaryForm.controls["AsOnDate"].setValue(FromDate);
+    this.PortfolioSummaryForm.controls["AsOnDate"].setValue(maxDate);
     
     this.PortfolioSummaryForm.controls["UserId"].setValue(this.GAccountNumber);
       // this.TransactionStatementForm.controls["UserId"].setValue("6010005");
@@ -318,6 +323,19 @@ else{
 
   
   
+}
+ formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
 }
 onSubmit() {
   this.SeqNo=1;
