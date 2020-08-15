@@ -183,7 +183,7 @@ displayFieldCss(field: string) {
     this.SeqNo=1;
     this.submitted = true;
     if (this.validation()) {
-      
+            
       const datat = this.PortfolioSummaryFormView.value;
       if(datat.UserId=="0")
       {
@@ -212,6 +212,37 @@ displayFieldCss(field: string) {
    }
   }
   FetchLatestReport() {
+    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==1){
+      this.isShowLoader=true;
+    var currentContext = this;
+    // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var ReportName="3";
+    const datat = this.PortfolioSummaryFormView.value;
+    var CustomerAccount=datat.UserId;
+    var JsonData ={
+    //this.TransactionStatementForm.controls['ToDate']
+    "CustomerAccount" : CustomerAccount,
+    "ReportName":ReportName
+    }
+    
+    
+    this.TSService.GetFetchLatestReport(JsonData).
+    subscribe((data) => {
+    // currentContext.transactionStatementView = data.Table;
+    // this.transactionStatementView_Copy=data.Table;
+    // this.isShowCustomer=true;
+    const datat = this.PortfolioSummaryFormView.value;
+var AsOnDate=datat.AsOnDate;
+var ToDate=datat.ToDate;
+    this.BindMainGrid(this.accountNumber,AsOnDate,ToDate)
+    
+    });
+    // console.log(sessionStorage.getItem('ID'));
+    //this.loading = false;
+    }
+    else{
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
    
    if(acno =="0")
@@ -248,7 +279,7 @@ var ToDate=datat.ToDate;
     // console.log(sessionStorage.getItem('ID'));
     //this.loading = false;
    }
-   
+  }
     
     }
     validateAllFormFields(formGroup: FormGroup) {

@@ -292,15 +292,9 @@ rowData = [
 
   }
   FetchLatestReport() {
-    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
-   
-    if(acno =="0")
-    {
-     document.getElementById("ddlcustomerdropdown").classList.add('validate');
-    }
-    else{
-   
-    this.isShowLoader=true;
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==1){
+      this.isShowLoader=true;
     var currentContext = this;
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var ReportName="5";
@@ -325,7 +319,45 @@ rowData = [
     });
     // console.log(sessionStorage.getItem('ID'));
     //this.loading = false;
-  }
+    }
+    else
+        {
+      let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   
+      if(acno =="0")
+      {
+       document.getElementById("ddlcustomerdropdown").classList.add('validate');
+      }
+      else{
+     
+      this.isShowLoader=true;
+      var currentContext = this;
+      // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+      var ReportName="5";
+      const datat = this.PortFolioFactView.value;
+      var CustomerAccount=datat.UserId;
+      var JsonData ={
+      //this.TransactionStatementForm.controls['ToDate']
+      "CustomerAccount" : CustomerAccount,
+      "ReportName":ReportName
+      }
+      
+      
+      this.TSService.GetFetchLatestReport(JsonData).
+      subscribe((data) => {
+      // currentContext.transactionStatementView = data.Table;
+      // this.transactionStatementView_Copy=data.Table;
+      // this.isShowCustomer=true;
+      const datat = this.PortFolioFactView.value;
+      var AsOnDate=datat.Formdate;
+      var ToDate=datat.Todate;
+      this.BindMainGrid(this.tempGAccountNumber,AsOnDate,ToDate);
+      });
+      // console.log(sessionStorage.getItem('ID'));
+      //this.loading = false;
+    }
+    }
+  
     
     }
   

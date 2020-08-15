@@ -245,6 +245,7 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       });
   }
 
+  
 
   LastOneMonthFun(){
     var date = new Date();
