@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +6,9 @@ import { PortfolioAppraisalsService } from 'src/app/Services/PortfolioAppraisals
 import { PortfolioAppraisals,gridView,Bindemployee,SumPortfolioappraisalModel,Sumcashportfolio,cashportfolio,PortfolioappraisalModel,HeaderData} from '../../../Models/PortfolioAppraisals/portfolio-appraisals';
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import { Router, ActivatedRoute } from '@angular/router';
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-portfolio-appraisals-view',
   templateUrl: './portfolio-appraisals-view.component.html',
@@ -49,6 +52,10 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
  loader2:boolean;
  submitted=false;
  employeeid:string='132';
+
+
+ baseUrl: string = "";
+
   columnDefs = [
     // {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Sr. No.', field: 'srNo', width: 80,cellRenderer : function (params) {
@@ -58,10 +65,19 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
     // {headerName: 'To Date', field: 'todate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
-    {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
-      // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
-      return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
+    //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
+    //  // return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // //  return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
+    // }},
+
+
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
     }},
+
+
+
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
       // return '<button type="button href="/PortfolioAppraisals?EmployeeId='  + this.PortfolioAppraisalsForm.controls["EmployeeId"].value  + '&UserId='+ this.PortfolioAppraisalsForm.controls["UserId"].value   + '&FromDate='+ this.PortfolioAppraisalsForm.controls["FromDate"].value  + '" class="btn btn-success">View</button>';
       // return '<a href="/PortfolioAppraisals?EmployeeId='  + this.PortfolioAppraisalsForm.controls["EmployeeId"].value  + '&UserId='+ this.PortfolioAppraisalsForm.controls["UserId"].value   + '&FromDate='+ this.PortfolioAppraisalsForm.controls["FromDate"].value  + '">' + params.value + '</a>';
@@ -82,13 +98,13 @@ rowData = [
 
    
 ];
-constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService) { }
+constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) { }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { 
+    this.baseUrl = AppSettings.Login_URL;
     this.PortfolioAppraisalsForm = this.formbulider.group({
       EmployeeId: [0, Validators.required],
-      UserId: [0,Validators.required ],
+      UserId: [0,Validators.required ], 
       FromDate: ['',Validators.required ]
       // ToDate: ['',Validators.required],
   });
@@ -135,7 +151,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
     if ((this.userType ==2 || this.userType ==3)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
    {
     // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-    this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value=="",this.PortfolioAppraisalsForm.controls["FromDate"].value=="",this.EvenOdd) ;
+    this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;
    }
    else
    {
@@ -151,7 +167,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
    }
     this._PortfolioAppraisalsService.BindDefaultData(jason).
     subscribe((data) => {
-
+      
      // if(this.userType==3)
      // {
      //  if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
@@ -228,47 +244,45 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   onSubmit() {
     this.EvenOdd=1;
     
-    // let item = JSON.parse(sessionStorage.getItem('User'));
-    // var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
 
-    // if(usertype == 2 ||usertype == 3 || usertype == 4){
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
 
-    //   const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
-    //   IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+      const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
     
 
-    //   // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
     
-    // }
-    // else{
-    //   const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
-    //   IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+    }
+    else{
+      const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
 
-    // //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
-    // //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+    //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
   
 
-    // }
-    // if(usertype == 3){
+    }
+    if(usertype == 3){
 
       
-    //   const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
-    //   IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
-    //   // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+      const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+      IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
 
-    // }
-    // else{
-    //   const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
-    //   IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
-    //   // CustomerAccountNo= item.AccountNo
-
-
+    }
+    else{
+      const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= item.AccountNo
       
    
 
-    // }
-    // const IsAsondate = this.PortfolioAppraisalsForm.get('FromDate');
-    // IsAsondate.setValidators(Validators.required); IsAsondate.updateValueAndValidity();
+    }
+    const IsAsondate = this.PortfolioAppraisalsForm.get('FromDate');
+    IsAsondate.setValidators(Validators.required); IsAsondate.updateValueAndValidity();
     this.submitted = true;
     if (this.PortfolioAppraisalsForm.invalid) {
       return; 
@@ -305,20 +319,22 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   BindStatementOfExpReport(CustomerAccount,FromDate,Userid,SeqNo) {
     
     
+
+    
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
 let userid1;
     if(usertype == 1){
       userid1=Userid
-      var splitted = FromDate.split("-", 3); 
-      FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+      // var splitted = FromDate.split("-", 3); 
+      // FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     }
     else{
       userid1=''
     }
 
-    // var splitted = FromDate.split("-", 3); 
-    // var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    var splitted = FromDate.split("-", 3); 
+    var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     this.loader2=true;
     this.loader1=true;
     this.IsShowRecord=false;
@@ -328,7 +344,7 @@ let ReportType=4
     var jason={
       "CustomerAccountno":CustomerAccount,
       
-      "Fromdate":FromDate,
+      "Fromdate":ReportDate,
       "pagecount":SeqNo,
       "ReportType":  ReportType ,
       "UserID":userid1
