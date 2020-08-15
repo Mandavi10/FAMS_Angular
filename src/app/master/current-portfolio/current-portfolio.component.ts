@@ -62,7 +62,11 @@ export class CurrentPortfolioComponent implements OnInit {
 
 
    let CustomerAccountNo=this.Route.snapshot.queryParamMap.get('CustomerAccountNo');
-   let ReportDate=this.Route.snapshot.queryParamMap.get('ReportDate');
+   let ReportDate1=this.Route.snapshot.queryParamMap.get('ReportDate');
+
+   var splitted = ReportDate1.split("/", 3); 
+   var ReportDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
     let item = JSON.parse(sessionStorage.getItem('User'));  
     this.userType=this.Dbsecurity.Decrypt( item.UserType);
 

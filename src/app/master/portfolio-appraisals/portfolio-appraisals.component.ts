@@ -9,6 +9,8 @@ import 'jspdf-autotable';
 //import html2canvas from 'html2canvas';  
 import { Router, ActivatedRoute  } from '@angular/router';
 import { UrlSegment } from '@angular/router';
+import { DatePipe } from '@angular/common'
+
 
 
 
@@ -70,8 +72,15 @@ export class PortfolioAppraisalsComponent implements OnInit {
     // this.accountNumber=this.Dbsecurity.Decrypt( item.AccountNo);
     this.accountNumber=( item.AccountNo);
         let CustomerAccountNo=this.route.snapshot.queryParamMap.get('CustomerAccountNo');
-let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
+let AsOnDate1=this.route.snapshot.queryParamMap.get('AsOnDate');
     
+var splitted = AsOnDate1.split("/", 3); 
+var AsOnDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+
+
+
+
     if(this.userType ==1)
     {
       this.GUserId=item.UserId;

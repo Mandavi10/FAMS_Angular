@@ -39,6 +39,7 @@ export class CurrentPortfolioViewComponent implements OnInit {
   ETSumPercentAssets:number;
   ETSumPercentG_L:number;
   ETSumTotalCost:number;
+  submitted = false;
 
 
 
@@ -51,13 +52,10 @@ export class CurrentPortfolioViewComponent implements OnInit {
    //  {headerName: 'To Date', field: 'ReportDate', width:'150',hide:true},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
-
     {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
       // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
       // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
       return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
-
-
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
     //  return '<button type="button" class="btn btn-success">View</button>';
@@ -85,7 +83,8 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
     this.CurrentPortfolioForm = this.formBuilder.group({  
       //   Formdate:[''],
         // Todate:['',Validators.required],
-         CustomerAccount:[''] ,ReportDate:[''],EmployeeId:['']
+         CustomerAccount:['0',Validators.required] ,ReportDate:['',Validators.required],
+         EmployeeId:['0',Validators.required]
      });
 
 
@@ -120,7 +119,6 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       this.BindDefaultData();
     // }
 
-
   }
 
 
@@ -165,76 +163,27 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindDefaultGrid(){
     
+    var splitted = this.ReportDate.split("-", 3); 
+    var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    
+
     let ReportType=2;
-=======
-  }
-
-
-
-
-  BindDefaultData(){
-    
-    this.loader1=true;this.loader2=true;
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var JsonData ={
       "UserId" : this.UserId,
-      "CustomerAccountNo" : this.CustomerAccount ,
-      "PageCount" : this.PageCount
-    }
-    this._CurrentportfolioService.BindDefaultData(JsonData).subscribe(
-      (data) => {
-        this.ReportDate = data.Table[0]["ReportDate"];
-        // this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
-          // this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
-          // this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
-        this.PageCount = 1;
-
-        let item = JSON.parse(sessionStorage.getItem('User'));  
-        this.userType=this.Dbsecurity.Decrypt( item.UserType);
-        if(this.userType == 2 || this.userType == 3){  
-          this.CustomerAccount='';   
-          this.CurrentPortfolioForm.controls["CustomerAccount"].setValue('');
-    
-        }
-        else{
-          this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
-          this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
-          this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
-
-        }
-       
-        this.BindDefaultGrid();     
-      });
-      this.loader1=false;this.loader2=false;     
-  }
-
-
-  BindDefaultGrid(){
-    
-
-    var JsonData ={
-      "UserId" : this.UserId,
-      "ReportDate" : this.ReportDate,   
+      "ReportDate" : ReportDate,   
       "CustomerAccountNo" : this.CustomerAccount,
-
       "PageCount" : this.PageCount,
       "ReportType":  ReportType  
     }
     this.loader1=true;this.loader2=true;
     this.IsShowRecord=false;
     
-
-     
-    
     this._CurrentportfolioService.BindGridAllFieldsView(JsonData).subscribe(
       (data) => {
       //  if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0))
         {
   
-
           
-          
-
          // this.IsShowNoRecord=false;
        //   this.btnNext = true;
         this.CurrentportfolioList = data.Table;
@@ -259,9 +208,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
         // this.ETSumPercentAssets = data.Table2[0].SumPercentAssets;;
        // this.NoRecord = false;
         this.loader1=false;this.loader2=false;
-
         this.IsShowRecord=true;
-
         }
         // else
         // {
@@ -284,90 +231,122 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
 
   BindEmployee(){
-
     // this.loader1=true;this.loader2=true;
-
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
     this._CurrentportfolioService.BindEmployee(JSON.stringify(Data)).subscribe(
       (data) => {
            this.AllEmployeesList = data.Table;
-
           //  this.loader1=false;this.loader2=false;
-
       });
   }
 
   BindCustomers(){
-
     // this.loader1=true;this.loader2=true;
-
-    
-
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
     this._CurrentportfolioService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindCustomersList = data.Table;
-
           //  this.loader1=false;this.loader2=false;
-
       });
   }
 
 
   
   BindCustomersOnChange(EmployeeId){
-
+    // this.loader1=true;this.loader2=true;
     let  Data = new Commonfields();
     Data.UserId = EmployeeId ;
     this._CurrentportfolioService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindCustomersList = data.Table;
-
           //  this.loader1=false;this.loader2=false;
-
-           
-
       });
 
   }
 
   Search(ReportDate){
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+     if(this.CurrentPortfolioForm.controls['CustomerAccount'].value != 0){
+      
+
+     }
+   
+
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+    
+    }
+    else{
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+    //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+  
+
+    }
+    if(usertype == 3){
+
+      
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+
+    }
+    else{
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= item.AccountNo
+      
+   
+
+    }
+    const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+    this.submitted = true;
+    if (this.CurrentPortfolioForm.invalid) {
+      return; 
+    }
+    else{
+      
     this.ReportDate = ReportDate;
     this.CustomerAccount = this.CurrentPortfolioForm.controls['CustomerAccount'].value;
     this.PageCount = 1;
     this.BindCurrentPortFolioReport(this.ReportDate);
+    }
   }
 
   
   BindCurrentPortFolioReport(ReportDate) {
     
-
        
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = Sessionvalue.UserId;
         let ReportType=2;
-
-       this.loader1 = true;this.loader2 = true;
-        let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-        var UserId = Sessionvalue.UserId;
-
         var JsonData ={
           "UserId" : UserId,
           "ReportDate" : ReportDate,   
           "CustomerAccountNo" : this.CustomerAccount,
-
           "PageCount" : this.PageCount,
           "ReportType":  ReportType  
         }   
-       
+        this.loader1 = true;this.loader2 = true;
+        this.IsShowRecord=false;
         this._CurrentportfolioService.BindGridAllFieldsView(JsonData).
             subscribe((data) => {     
             //  if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0) )
               {
+
               //  this.IsShowNoRecord=false;   
               //  this.btnNext = true;     
               this.CurrentportfolioList = data.Table;
@@ -407,27 +386,60 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       //   // this.btnNext=false;
         
       // }
-
       this.loader1 = false;this.loader2 = false;
       this.IsShowRecord=true;
-
-
               
             });
     }
 
-
     FetchLatestReport() {
     
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      var usertype=this.Dbsecurity.Decrypt(item.UserType);
+      var CustomerAccount;
+      if(usertype == 2 ||usertype == 3 || usertype == 4){
+  
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+      
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+
+      }
+      else{
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        
+        
+        CustomerAccount= item.AccountNo
+  
+      }
+
+      this.submitted = true; 
+     // if (this.CurrentPortfolioForm.controls['CustomerAccount'].invalid) {
+        if (this.CurrentPortfolioForm.invalid) {
+        return; 
+      }
+      else{
       // this.loading = true;
       //this.isShowLoader=true;
-      this.loader1 = true;this.loader2 = true;
+     // this.loader1 = true;this.loader2 = true;
        var currentContext = this;
        // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
        var ReportName=2;
       // const datat = this.TransactionStatementViewForm.value;
       // var CustomerAccount=datat.UserId;
-      var CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+    //  CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
        var JsonData ={
              //this.TransactionStatementForm.controls['ToDate']
          "CustomerAccount" : CustomerAccount,
@@ -441,10 +453,11 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;
              // this.isShowLoader=false; 
-             this.loader1 = false;this.loader2 = false;
+           //  this.loader1 = false;this.loader2 = false;
            });
        // console.log(sessionStorage.getItem('ID'));
        //this.loading = false;
+          }
        
      }
 
