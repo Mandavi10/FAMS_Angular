@@ -120,6 +120,11 @@ export class CapitalStatementComponent implements OnInit {
     this. CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
     this.FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
     this.ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+    var splitted =  this.FromDate.split("/", 3); 
+    this.FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+    var splitted =  this.ToDate.split("/", 3); 
+    this.ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
     this.capitalStatForm.controls["Formdate"].setValue(this.FromDate);
       this.capitalStatForm.controls["Todate"].setValue(this.ToDate);
       this.capitalStatForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
