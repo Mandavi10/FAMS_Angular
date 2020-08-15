@@ -15,6 +15,8 @@ import {AppSettings} from './app-settings';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MultiSelectService } from './multi-select.service';
 
+import {DatePipe} from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +27,11 @@ import { MultiSelectService } from './multi-select.service';
     RouterModule.forRoot([]),
     AgGridModule.withComponents([]),
     HttpClientModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    
   ],
-  
+  providers: [DatePipe],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

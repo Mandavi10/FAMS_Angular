@@ -15,12 +15,21 @@ import 'jspdf-autotable';
 import { timer } from 'rxjs';
 //import html2canvas from 'html2canvas';  
 
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Injectable , Inject } from '@angular/core';
+
+
+
+
+
 @Component({
   selector: 'app-transaction-statement-view',
   templateUrl: './transaction-statement-view.component.html',
   styleUrls: ['./transaction-statement-view.component.css']
 })
 export class TransactionStatementViewComponent implements OnInit {
+  baseUrl: string = "";
   IsShowRecord:boolean;
   IsShowNoRecord:boolean;
 
@@ -68,11 +77,15 @@ export class TransactionStatementViewComponent implements OnInit {
     {headerName: 'To Date', field: 'ToDate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
+    // {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+    //   return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
+    // }},
+
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
-    }},
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
+      }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
-      return '<a href="/StatementOfExpenses?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
+      return '<a href="/TransactionStatement?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
     }
     },
     // {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
@@ -93,17 +106,18 @@ rowData = [
 ];
 //constructor(private router: Router,private formbulider: FormBuilder, private TSService: TransactionstatementService,private Dbsecurity: DbsecurityService) {}
 
-constructor(private router: Router,private formbulider: FormBuilder,private TSService : TransactionstatementService, private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
+constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,private router: Router,private formbulider: FormBuilder,private TSService : TransactionstatementService, private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
     debugger;
-
+    this.baseUrl = AppSettings.Login_URL;
     this.TransactionStatementViewForm = this.formbulider.group({
       EmployeeId: [0, ],
       UserId: [0, ],
       FromDate: ['', ],
       ToDate: ['',],
     });
+
 
     // this.isShowsEmployee=true;
     // this.isShowsEmployee=true;
@@ -153,21 +167,29 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
   }
   onSubmit() {
     debugger;
-    if (this.TransactionStatementViewForm.valid) {
-        const datat = this.TransactionStatementViewForm.value;
-       if(datat.UserId=="0")
-        {
-         this.CustomerAccount=datat.UserId; 
-        }
-        else{
-         this.CustomerAccount=datat.UserId;
-        }
-        var FromDate=datat.FromDate;
-        var ToDate=datat.ToDate;
-        //var ReportName="Transaction Statement Cleintwise";
-        var ReportType="9";
-        this.BindTransactionStatementView(this.CustomerAccount,FromDate,ToDate,ReportType);
-    } 
+    if (this.validation()) {
+          if (this.TransactionStatementViewForm.valid) {
+              const datat = this.TransactionStatementViewForm.value;
+              if(datat.UserId=="0")
+              {
+              this.CustomerAccount=datat.UserId; 
+              }
+              else{
+              this.CustomerAccount=datat.UserId;
+              }
+              var FromDate=datat.FromDate;
+              var ToDate=datat.ToDate;
+
+              var splitted = FromDate.split("-", 3); 
+              FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+              var splitted = ToDate.split("-", 3); 
+              ToDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+
+
+              var ReportType="9";
+              this.BindTransactionStatementView(this.CustomerAccount,FromDate,ToDate,ReportType);
+            } 
+      }
   }
 
   TransactionStatementViewSearch(evt: any) {
@@ -204,33 +226,172 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
   }
 
   FetchLatestReport() {
-    debugger;
-    // this.loading = true;
+    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==1){
+      this.isShowLoader=true;
+    var currentContext = this;
+    
+    var ReportName="9";
+    const datat = this.TransactionStatementViewForm.value;
+    //var CustomerAccount=datat.UserId;
+    var CustomerAccount=item.AccountNo;
+   
+    var JsonData ={
+    
+    "CustomerAccount" : CustomerAccount,
+    "ReportName":ReportName
+    }
+    
+    
+    this.TSService.GetFetchLatestReport(JsonData).
+        subscribe((data) => {
+          var ReportType="9";
+        this.BindTransactionStatementView("0","","",ReportType.trim()); 
+          this.isShowLoader=false;
+        });
+    }
+    else{
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   
+   if(acno =="0")
+   {
+    document.getElementById("ddlcustomerdropdown").classList.add('validate');
+   }
+   else{
+    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+
     this.isShowLoader=true;
-     var currentContext = this;
-     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-     var ReportName="Transaction Statement Cleintwise";
-     const datat = this.TransactionStatementViewForm.value;
-     var CustomerAccount=datat.UserId;
-     var JsonData ={
-           //this.TransactionStatementForm.controls['ToDate']
-       "CustomerAccount" : CustomerAccount,
-      "ReportName":ReportName
-     }
- 
-     
-     this.TSService.GetFetchLatestReport(JsonData).
+    var currentContext = this;
+    
+    var ReportName="9";
+    const datat = this.TransactionStatementViewForm.value;
+    var CustomerAccount=datat.UserId;
+    var JsonData ={
+    //this.TransactionStatementForm.controls['ToDate']
+    "CustomerAccount" : CustomerAccount,
+    "ReportName":ReportName
+    }
+    
+    
+    this.TSService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-            //  currentContext.transactionStatementView = data.Table;
-            //  this.transactionStatementView_Copy=data.Table;
-            // this.isShowCustomer=true;
+           var ReportType="9";
+          this.BindTransactionStatementView("0","","",ReportType.trim()); 
             this.isShowLoader=false;
          });
-     // console.log(sessionStorage.getItem('ID'));
-     //this.loading = false;
-     
+    
+   
    }
+  }
+    
+    }
 
+  // get f() {
+  //   return this.TransactionStatementViewForm.controls;
+  // }
+  // FetchLatestReport() {
+  //   debugger;
+  
+   
+
+  //   let item = JSON.parse(sessionStorage.getItem('User'));
+  //   var usertype=this.Dbsecurity.Decrypt(item.UserType);
+  //   if(usertype == 2 ||usertype == 3 || usertype == 4){
+  //     const IsCustomerAccount = this.TransactionStatementViewForm.get('UserId');
+  //     IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+  //     const IsTodate = this.TransactionStatementViewForm.get('ToDate');
+  //     IsTodate.clearValidators(); IsTodate.updateValueAndValidity();
+  //     const IsFormdate = this.TransactionStatementViewForm.get('FromDate');
+  //     IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+  //     this.CustomerAccount=this.TransactionStatementViewForm.controls['UserId'].value;
+  //   }
+  //   else{
+  //     const IsCustomerAccount = this.TransactionStatementViewForm.get('UserId');
+  //     IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+       
+  //     const IsFormdate = this.TransactionStatementViewForm.get('FromDate');
+  //     IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+  //     const IsTodate = this.TransactionStatementViewForm.get('ToDate');
+  //     IsTodate.clearValidators(); IsTodate.updateValueAndValidity();      
+  //     this.CustomerAccount= item.AccountNo
+  //   }
+
+
+       
+  //      if (this.TransactionStatementViewForm.invalid) {
+  //      return; 
+  //    }
+  //    else{
+  //     this.isShowLoader = true;
+  //    var JsonData ={
+  //     "CustomerAccount" : this.CustomerAccount,
+  //     "ReportName" : "9"
+  //    }   
+     
+     
+  //    this.TSService.GetFetchLatestReport(JsonData).
+  //        subscribe((data) => {
+  //          var ReportType="9";
+  //         this.BindTransactionStatementView("0","","",ReportType);
+  //           this.isShowLoader=false;
+  //        });
+ 
+  //    }
+  //  }
+
+
+
+  // FetchLatestReport() {
+  //   debugger;
+  //   this.isShowLoader=true;
+  //    var currentContext = this;
+  //    var ReportName="9";
+
+  //    let item = JSON.parse(sessionStorage.getItem('User'));
+  //   this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
+   
+  //   this.accountNumber=item.AccountNo;
+  //   debugger;
+  //   if(this.userType ==1)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.accountNumber=this.accountNumber;   
+  //   }
+
+  //  else if(this.userType ==3)
+  //   {
+  //     const datat = this.TransactionStatementViewForm.value;
+  //    this.accountNumber=datat.UserId;
+     
+  //   }
+  //   else if(this.userType ==2)
+  //   {
+  //    const datat = this.TransactionStatementViewForm.value;
+  //    this.accountNumber=datat.UserId;
+      
+  //   }
+  //   else{     
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.accountNumber=this.accountNumber;  
+    
+  //   }
+    
+  //    var JsonData ={
+  //     "CustomerAccount" : this.accountNumber,
+  //     "ReportName":ReportName
+  //    }
+ 
+     
+  //    this.TSService.GetFetchLatestReport(JsonData).
+  //        subscribe((data) => {
+  //          var ReportType="9";
+  //         this.BindTransactionStatementView("0","","",ReportType.trim()); 
+  //           this.isShowLoader=false;
+  //        });
+    
+  //  }//***************
   BindTransactionStatementView(CustomerAccount,FromDate,ToDate,ReportType) {
    // this.loading = true;
    this.isShowLoader=true;
@@ -299,5 +460,92 @@ constructor(private router: Router,private formbulider: FormBuilder,private TSSe
      //this.loading = false;
      this.isShowLoader=false;
    }
+
+   CustomerOn_Change(){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   
+   if(acno =="0")
+   {
+    document.getElementById("ddlcustomerdropdown").classList.add('validate');
+   }
+   else{
+    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+   }
+  }
+   validateAllFormFields(formGroup: FormGroup) {
+      Object.keys(formGroup.controls).forEach(field => {
+          const control = formGroup.get(field);
+          if (control instanceof FormControl) {
+              control.markAsTouched({ onlySelf: true });
+          } else if (control instanceof FormGroup) {
+              this.validateAllFormFields(control);
+          }
+      });
+  }
+  validation():boolean{
+
+    var flag=true;
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+      let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+      if(emp =="0")
+      {
+       document.getElementById("ddlemployeedropdown").classList.add('validate');
+       flag=false;
+      }
+    }
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno =="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.add('validate');
+     flag=false;
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date =="")
+    {
+     document.getElementById("date").classList.add('validate');
+     flag=false;
+    }
+
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 =="")
+    {
+     document.getElementById("date1").classList.add('validate');
+     flag=false;
+    }
+    
+    return flag;
+  }
+  RemoveClass(){
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp !="0")
+    {
+     document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    }
+  }
+  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno !="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date !="")
+    {
+     document.getElementById("date").classList.remove('validate');
+    }
+
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 !="")
+    {
+     document.getElementById("date1").classList.remove('validate');
+    }
+
+  }
 
 }

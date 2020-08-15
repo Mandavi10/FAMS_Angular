@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
+import { DatePipe } from '@angular/common';
 
 import { timer } from 'rxjs';
 
@@ -63,7 +64,7 @@ export class StatementOfExpensesComponent implements OnInit {
   Isdiv:boolean;
 
  
-  constructor(private router1:ActivatedRoute,private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
+  constructor(private datePipe: DatePipe,private router1:ActivatedRoute,private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
 
     //  this.custodian = new Custodian();
      
@@ -97,11 +98,29 @@ debugger;
 let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
 let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
 let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+// let FromDate=this.datePipe.transform(this.router1.snapshot.queryParamMap.get('FromDate'),"yyyy-MM-dd");
+// let ToDate=this.datePipe.transform(this.router1.snapshot.queryParamMap.get('ToDate'),"yyyy-MM-dd");
+
+var splitted = FromDate.split("/", 3); 
+FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+
+var splitted = ToDate.split("/", 3); 
+ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+//  FromDate=this.datePipe.transform(FromDate,"yyyy-MM-dd");
+// ToDate=this.datePipe.transform(ToDate,"yyyy-MM-dd");
+
 
 this.BindEmployee();
 this.BindCustomer();
+debugger;
 this.StatementOfExpenseForm.controls["EmployeeId"].setValue(1);
 this.StatementOfExpenseForm.controls["UserId"].setValue(CustomerAccount);
+//alert(FromDate+'--'+ToDate);
+
+ //alert(this.datePipe.transform(FromDate,"yyyy-MM-dd"));
+ //+'--'+this.datePipe.transform(ToDate,"yyyy-MM-dd"));
 this.StatementOfExpenseForm.controls["FromDate"].setValue(FromDate);
 this.StatementOfExpenseForm.controls["ToDate"].setValue(ToDate);
 this.BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,this.EvenOdd) ;
@@ -333,7 +352,15 @@ this.BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,this.EvenOdd) ;
     this.isShowLoader=true;
     var currentContext = this;
     // timer(4000).subscribe(x => {
-      this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
+      //this._statementexpensesService.BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo).
+
+      var JsonData ={
+        "FromDate" :   FromDate   ,    // this.TransactionStatementForm.controls['FromDate'],
+        "ToDate" :  ToDate  ,        //this.TransactionStatementForm.controls['ToDate']
+        "CustomerAccount" : CustomerAccount,
+        "SeqNo":SeqNo
+    }
+      this._statementexpensesService.BindGridAllFields(JsonData).
         subscribe((data) => {
 
       if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )

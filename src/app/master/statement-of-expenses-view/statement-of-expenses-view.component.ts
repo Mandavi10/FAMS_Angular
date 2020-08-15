@@ -8,9 +8,15 @@ import { StatementexpensesService } from 'src/app/Services/StatementOfExpenses/s
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { AgGridAngular } from 'ag-grid-angular';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
+import { DatePipe } from '@angular/common'; 
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Injectable , Inject } from '@angular/core';
+
+
 
 
 import { timer } from 'rxjs';
@@ -33,7 +39,7 @@ export class StatementOfExpensesViewComponent implements OnInit {
   // loading:boolean;
 
 
-
+  baseUrl: string = "";
   btnPrev:boolean=true;
   btnNext:boolean=true;
   IsShowRecord:boolean;
@@ -84,6 +90,9 @@ export class StatementOfExpensesViewComponent implements OnInit {
   GAccountNumber:any;
   GUserId:number;
 
+  
+  
+    
 
  columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
@@ -91,9 +100,13 @@ export class StatementOfExpensesViewComponent implements OnInit {
     {headerName: 'To Date', field: 'ToDate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
+    // {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+    //   return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
+    // }},
+
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
-    }},
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
+      }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/StatementOfExpenses?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
     }
@@ -113,8 +126,8 @@ rowData = [
 
    
 ];
-constructor(private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
-
+constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,private datePipe: DatePipe,private router: Router,private formbulider: FormBuilder, private _statementexpensesService: StatementexpensesService,private Dbsecurity: DbsecurityService) {
+  
   //  this.custodian = new Custodian();
    
 }
@@ -123,7 +136,7 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
 
   ngOnInit(): void {
     debugger;
-
+    this.baseUrl = AppSettings.Login_URL;
     this.StatementOfExpenseViewForm = this.formbulider.group({
       EmployeeId: [0, ],
       UserId: [0, ],
@@ -180,49 +193,162 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
   }
   onSubmit() {
     debugger;
-    if (this.StatementOfExpenseViewForm.valid) {
-        const datat = this.StatementOfExpenseViewForm.value;
-       if(datat.UserId=="0")
-        {
-         this.CustomerAccount=datat.UserId; 
-        }
-        else{
-         this.CustomerAccount=datat.UserId;
-        }
-        var FromDate=datat.FromDate;
-        var ToDate=datat.ToDate;
-       // var ReportName="Statement of Expenses Clientwise";
-       var ReportType="8";
-        this.BindStatementExpView(this.CustomerAccount,FromDate,ToDate,ReportType);
-    } 
+    if (this.validation()) {
+      if (this.StatementOfExpenseViewForm.valid) {
+          const datat = this.StatementOfExpenseViewForm.value;
+        if(datat.UserId=="0")
+          {
+          this.CustomerAccount=datat.UserId; 
+          }
+          else{
+          this.CustomerAccount=datat.UserId;
+          }
+          var FromDate=datat.FromDate;
+          var ToDate=datat.ToDate;
+
+          var splitted = FromDate.split("-", 3); 
+          FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+          var splitted = ToDate.split("-", 3); 
+          ToDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+        // var ReportName="Statement of Expenses Clientwise";
+        var ReportType="8";
+          this.BindStatementExpView(this.CustomerAccount,FromDate,ToDate,ReportType);
+      } 
+    }
   }
-  FetchLatestReport() {
-    debugger;
-    // this.loading = true;
-    this.isShowLoader=true;
-     var currentContext = this;
-     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-     var ReportName="Statement of Expenses Clientwise";
-     const datat = this.StatementOfExpenseViewForm.value;
-     var CustomerAccount=datat.UserId;
-     var JsonData ={
-           //this.TransactionStatementForm.controls['ToDate']
-       "CustomerAccount" : CustomerAccount,
-      "ReportName":ReportName
-     }
+  // FetchLatestReport() {
+  //   debugger;
+  //   this.isShowLoader=true;
+  //    var currentContext = this;
+  //   var ReportName="8";
+
+  //   let item = JSON.parse(sessionStorage.getItem('User'));
+  //   this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
+   
+  //   this.accountNumber=item.AccountNo;
+  //   debugger;
+  //   if(this.userType ==1)
+  //   {
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.accountNumber=this.accountNumber;   
+  //   }
+
+  //  else if(this.userType ==3)
+  //   {
+  //     const datat = this.StatementOfExpenseViewForm.value;
+  //    this.accountNumber=datat.UserId;
+     
+  //   }
+  //   else if(this.userType ==2)
+  //   {
+  //   const datat = this.StatementOfExpenseViewForm.value;
+  //    this.accountNumber=datat.UserId;
+      
+  //   }
+  //   else{
+
+
+  //     this.GUserId=item.UserId.replace('+',' ');
+  //     this.accountNumber=this.accountNumber;   
+    
+  //   }
+  
+  //    var JsonData ={
+
+  //      "CustomerAccount" : this.accountNumber,
+  //     "ReportName":ReportName
+  //    }
  
      
-     this._statementexpensesService.GetFetchLatestReport(JsonData).
+  //    this._statementexpensesService.GetFetchLatestReport(JsonData).
+  //        subscribe((data) => {
+  //           var ReportType="9";
+    
+  //           this.BindStatementExpView("0","","",ReportType.trim());
+  //           this.isShowLoader=false;
+  //        });
+     
+  //  }
+
+   FetchLatestReport() {
+     debugger;
+    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==1){
+      this.isShowLoader=true;
+    var currentContext = this;
+    
+    var ReportName="8";
+    const datat = this.StatementOfExpenseViewForm.value;
+    //var CustomerAccount=datat.UserId;
+    var CustomerAccount=item.AccountNo;
+    var JsonData ={
+    
+    "CustomerAccount" : CustomerAccount,
+    "ReportName":ReportName
+    }
+    
+       this._statementexpensesService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-            //  currentContext.transactionStatementView = data.Table;
-            //  this.transactionStatementView_Copy=data.Table;
-            // this.isShowCustomer=true;
+            var ReportType="8";    
+            this.BindStatementExpView("0","","",ReportType.trim());
             this.isShowLoader=false;
          });
-     // console.log(sessionStorage.getItem('ID'));
-     //this.loading = false;
      
+  //  }
+    // this.TSService.GetFetchLatestReport(JsonData).
+    //     subscribe((data) => {
+    //       var ReportType="9";
+    //     this.BindTransactionStatementView("0","","",ReportType.trim()); 
+    //       this.isShowLoader=false;
+    //     });
+    }
+    else{
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   
+   if(acno =="0")
+   {
+    document.getElementById("ddlcustomerdropdown").classList.add('validate');
    }
+   else{
+    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+
+    this.isShowLoader=true;
+    var currentContext = this;
+    
+    var ReportName="8";
+    const datat = this.StatementOfExpenseViewForm.value;
+    var CustomerAccount=datat.UserId;
+    var JsonData ={
+    //this.TransactionStatementForm.controls['ToDate']
+    "CustomerAccount" : CustomerAccount,
+    "ReportName":ReportName
+    }
+    
+    
+    // this.TSService.GetFetchLatestReport(JsonData).
+    //      subscribe((data) => {
+    //        var ReportType="9";
+    //       this.BindTransactionStatementView("0","","",ReportType.trim()); 
+    //         this.isShowLoader=false;
+    //      });
+
+    this._statementexpensesService.GetFetchLatestReport(JsonData).
+         subscribe((data) => {
+            var ReportType="8";    
+            this.BindStatementExpView("0","","",ReportType.trim());
+            this.isShowLoader=false;
+         });
+    
+   
+   }
+  }
+    
+    }
+
+
+  
 
   StatementOfExpViewSearch(evt: any) {
     debugger;
@@ -319,4 +445,92 @@ constructor(private router: Router,private formbulider: FormBuilder, private _st
      this.loading = false;
    }
 
+   CustomerOn_Change(){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   
+   if(acno =="0")
+   {
+    document.getElementById("ddlcustomerdropdown").classList.add('validate');
+   }
+   else{
+    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+   }
+  }
+   validateAllFormFields(formGroup: FormGroup) {
+      Object.keys(formGroup.controls).forEach(field => {
+          const control = formGroup.get(field);
+          if (control instanceof FormControl) {
+              control.markAsTouched({ onlySelf: true });
+          } else if (control instanceof FormGroup) {
+              this.validateAllFormFields(control);
+          }
+      });
+  }
+  validation():boolean{
+
+    var flag=true;
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+      let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+      if(emp =="0")
+      {
+       document.getElementById("ddlemployeedropdown").classList.add('validate');
+       flag=false;
+      }
+    }
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno =="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.add('validate');
+     flag=false;
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date =="")
+    {
+     document.getElementById("date").classList.add('validate');
+     flag=false;
+    }
+
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 =="")
+    {
+     document.getElementById("date1").classList.add('validate');
+     flag=false;
+    }
+    
+    return flag;
+  }
+  RemoveClass(){
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp !="0")
+    {
+     document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    }
+  }
+  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno !="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date !="")
+    {
+     document.getElementById("date").classList.remove('validate');
+    }
+
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 !="")
+    {
+     document.getElementById("date1").classList.remove('validate');
+    }
+
+  }
+
 }
+
