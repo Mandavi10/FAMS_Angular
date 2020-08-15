@@ -125,6 +125,10 @@ export class StatementDividendComponent implements OnInit {
       this. CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
       this.FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
       this.ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+      var splitted =  this.FromDate.split("/", 3); 
+      this.FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+      var splitted =  this.ToDate.split("/", 3); 
+      this.ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       this.StatementDividendForm.controls["Formdate"].setValue(this.FromDate);
       this.StatementDividendForm.controls["Todate"].setValue(this.ToDate);
       this.StatementDividendForm.controls["CustomerAccount"].setValue(this. CustomerAccount);
