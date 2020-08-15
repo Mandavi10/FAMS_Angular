@@ -1,10 +1,7 @@
 <div class="main-content maincontainer">
+    <form [formGroup]="BankBookViewForm" autocomplete="off">
     <div class="content">
-        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
-            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
-                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
-            </div>
-        </div>
+       
         
         <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
             <div class="col-sm-6 col-md-6 col-xs-12 no-padding">
@@ -15,8 +12,12 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
-                        <li >
-                            <i class="fa fa-file-pdf-o" aria-hidden="true" title=" Fetch Latest Report"></i>
+
+                        <li (click)="FetchLatestReport($event)">
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+
+                       
+
                             <label>
                                 Fetch Latest Report
                             </label>
@@ -51,64 +52,107 @@
        
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-           
+                <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="divEmployee">
+                    <div class="form-group">
+                      <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                        Employee Name :
+                      </label>
+                      <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomersOnChange(EmployeeId.value)">
+              
+                              <option value="" selected>Select</option>
+                              <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                          </select>
+                                        
+                      </div>
+                  </div>
+              </div>
+        
+                <div class="col-md-3 col-xs-3 col-xs-12 " *ngIf="divCustomer">
+                    <div class="form-group">
+                      <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
+                         Customer Name :
+                      </label>
+                      <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="UserId">
+              
+                              <option value="" selected>Select</option>
+                              <option value="">All Customers</option>
+                              <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
+                          </select>
+                        
+                      </div>
+                  </div>
+        
+              </div>
                
-                <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+                <div class="col-md-3 col-sm-5 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                            From Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" >
+                            <input type="date"  value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12"  #FromDate formControlName="FromDate" >
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+                <div class="col-md-3 col-sm-5 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12"  >
+                            <input type="date"  value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12" #ToDate formControlName="ToDate"  >
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
-                        <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
-                        <button type="submit" (click)="onSubmit()" class="btn btn-success ml-4"> Search</button>
-                </div>
+               
             
                
         </div>
         </div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+    <div class="col-md-12 col-sm-2 col-xs-3 mt-2 btnsearch">
+        <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
+        <button type="submit" (click)="SearchData(FromDate.value,ToDate.value)" class="btn btn-success pull-right"> Search</button>
+</div>
+</div>
+</div>
+
         <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
             <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div> -->
 
-            <div class="filter">
+            <!-- <div class="filter">
                 <input type="text" placeholder="Search" />
                 <i class="fa fa-search" aria-hidden="true"></i>
-             </div>
-            
+             </div> -->
+             <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+                <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                    <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+                </div>
+            </div>
+
              <ag-grid-angular
              style="width: 100%; height: 350px;"
              class="ag-theme-alpine"
-             [rowData]="rowData"
+             [rowData]="BindGridview1"
              [columnDefs]="columnDefs"
              [enableFilter]="true"
                [enableSorting]="true"
                [showToolPanel]="true" >
          </ag-grid-angular>
            
-<div class="col-md-12 col-sm-12 col-xs-12">
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="paginationDiv">
             <span class="previousBtn">Previous</span>
             <span class="paginationCount">50 out of 200</span>
             <span class="nextBtn">Next</span>
         </div>
-</div> 
+</div>  -->
         </div>
         
        
@@ -118,7 +162,7 @@
     </div>
    
      
-     
+</form>  
      
       
 </div>

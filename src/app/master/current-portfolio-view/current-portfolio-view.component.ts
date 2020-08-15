@@ -57,6 +57,7 @@ export class CurrentPortfolioViewComponent implements OnInit {
       // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
       return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
 
+
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
     //  return '<button type="button" class="btn btn-success">View</button>';
@@ -119,6 +120,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       this.BindDefaultData();
     // }
 
+
   }
 
 
@@ -162,20 +164,77 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
 
   BindDefaultGrid(){
+    
+    let ReportType=2;
+=======
+  }
+
+
+
+
+  BindDefaultData(){
+    
     this.loader1=true;this.loader2=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+    var JsonData ={
+      "UserId" : this.UserId,
+      "CustomerAccountNo" : this.CustomerAccount ,
+      "PageCount" : this.PageCount
+    }
+    this._CurrentportfolioService.BindDefaultData(JsonData).subscribe(
+      (data) => {
+        this.ReportDate = data.Table[0]["ReportDate"];
+        // this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
+          // this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
+          // this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
+        this.PageCount = 1;
+
+        let item = JSON.parse(sessionStorage.getItem('User'));  
+        this.userType=this.Dbsecurity.Decrypt( item.UserType);
+        if(this.userType == 2 || this.userType == 3){  
+          this.CustomerAccount='';   
+          this.CurrentPortfolioForm.controls["CustomerAccount"].setValue('');
+    
+        }
+        else{
+          this.CustomerAccount = data.Table[0]["CustomerAccountNo"];
+          this.CurrentPortfolioForm.controls["ReportDate"].setValue(this.ReportDate);
+          this.CurrentPortfolioForm.controls["CustomerAccount"].setValue(this.CustomerAccount);
+
+        }
+       
+        this.BindDefaultGrid();     
+      });
+      this.loader1=false;this.loader2=false;     
+  }
+
+
+  BindDefaultGrid(){
+    
+
     var JsonData ={
       "UserId" : this.UserId,
       "ReportDate" : this.ReportDate,   
       "CustomerAccountNo" : this.CustomerAccount,
-      "PageCount" : this.PageCount       
+
+      "PageCount" : this.PageCount,
+      "ReportType":  ReportType  
     }
-    debugger;
+    this.loader1=true;this.loader2=true;
+    this.IsShowRecord=false;
+    
+
+     
+    
     this._CurrentportfolioService.BindGridAllFieldsView(JsonData).subscribe(
       (data) => {
       //  if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0))
         {
   
-          this.IsShowRecord=true;
+
+          
+          
+
          // this.IsShowNoRecord=false;
        //   this.btnNext = true;
         this.CurrentportfolioList = data.Table;
@@ -200,6 +259,9 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
         // this.ETSumPercentAssets = data.Table2[0].SumPercentAssets;;
        // this.NoRecord = false;
         this.loader1=false;this.loader2=false;
+
+        this.IsShowRecord=true;
+
         }
         // else
         // {
@@ -222,39 +284,53 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
 
   BindEmployee(){
-    this.loader1=true;this.loader2=true;
+
+    // this.loader1=true;this.loader2=true;
+
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
     this._CurrentportfolioService.BindEmployee(JSON.stringify(Data)).subscribe(
       (data) => {
            this.AllEmployeesList = data.Table;
-           this.loader1=false;this.loader2=false;
+
+          //  this.loader1=false;this.loader2=false;
+
       });
   }
 
   BindCustomers(){
-    this.loader1=true;this.loader2=true;
+
+    // this.loader1=true;this.loader2=true;
+
+    
+
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = this.Dbsecurity.Decrypt(Sessionvalue.UserId);
     this._CurrentportfolioService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindCustomersList = data.Table;
-           this.loader1=false;this.loader2=false;
+
+          //  this.loader1=false;this.loader2=false;
+
       });
   }
 
 
   
   BindCustomersOnChange(EmployeeId){
-    this.loader1=true;this.loader2=true;
+
     let  Data = new Commonfields();
     Data.UserId = EmployeeId ;
     this._CurrentportfolioService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
            this.BindCustomersList = data.Table;
-           this.loader1=false;this.loader2=false;
+
+          //  this.loader1=false;this.loader2=false;
+
+           
+
       });
 
   }
@@ -269,21 +345,29 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   
   BindCurrentPortFolioReport(ReportDate) {
     
+
+       
+        let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+        var UserId = Sessionvalue.UserId;
+        let ReportType=2;
+
        this.loader1 = true;this.loader2 = true;
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = Sessionvalue.UserId;
+
         var JsonData ={
           "UserId" : UserId,
           "ReportDate" : ReportDate,   
           "CustomerAccountNo" : this.CustomerAccount,
-          "PageCount" : this.PageCount
+
+          "PageCount" : this.PageCount,
+          "ReportType":  ReportType  
         }   
+       
         this._CurrentportfolioService.BindGridAllFieldsView(JsonData).
             subscribe((data) => {     
             //  if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) && (data.Table3.length !=0) )
               {
-                this.loader1 = false;this.loader2 = false;
-                this.IsShowRecord=true;
               //  this.IsShowNoRecord=false;   
               //  this.btnNext = true;     
               this.CurrentportfolioList = data.Table;
@@ -323,9 +407,46 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       //   // this.btnNext=false;
         
       // }
+
+      this.loader1 = false;this.loader2 = false;
+      this.IsShowRecord=true;
+
+
               
             });
     }
+
+
+    FetchLatestReport() {
+    
+      // this.loading = true;
+      //this.isShowLoader=true;
+      this.loader1 = true;this.loader2 = true;
+       var currentContext = this;
+       // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+       var ReportName=2;
+      // const datat = this.TransactionStatementViewForm.value;
+      // var CustomerAccount=datat.UserId;
+      var CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+       var JsonData ={
+             //this.TransactionStatementForm.controls['ToDate']
+         "CustomerAccount" : CustomerAccount,
+        "ReportName":ReportName
+       }
+   
+       
+       this._CurrentportfolioService.GetFetchLatestReport(JsonData).
+           subscribe((data) => {
+              //  currentContext.transactionStatementView = data.Table;
+              //  this.transactionStatementView_Copy=data.Table;
+              // this.isShowCustomer=true;
+             // this.isShowLoader=false; 
+             this.loader1 = false;this.loader2 = false;
+           });
+       // console.log(sessionStorage.getItem('ID'));
+       //this.loading = false;
+       
+     }
 
 
 }

@@ -53,7 +53,7 @@ export class SchemeMasterComponent implements OnInit {
     {headerName: 'Scheme No.', field: 'schemeno', width:150 },
     {headerName: 'Scheme Name', field: 'schemename', width:150},
     // {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
-    {headerName: 'Status(Active, Expired)', field: 'Status',width:200},
+    {headerName: 'Status', field: 'Status',width:150},
     {headerName: 'Created On', field: 'Createdon', width:130},
     {headerName: 'Created By', field: 'Createdby' ,width:160},
     {headerName: 'Expired On', field: 'expiredon',width:150 },
@@ -61,9 +61,9 @@ export class SchemeMasterComponent implements OnInit {
 ];
 
 rowData = [
-    { SrNo: '1', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
-    { SrNo: '2', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
-    { SrNo: '3', schemeno: '0008765', schemename: 'Custodian', Status: '12155', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' }
+    { SrNo: '1', schemeno: '0008765', schemename: 'Custodian', Status: 'Active', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
+    { SrNo: '2', schemeno: '0008765', schemename: 'Custodian', Status: 'Expire', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
+    { SrNo: '3', schemeno: '0008765', schemename: 'Custodian', Status: 'Active', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' }
 ];
 
 columnDefs1 = [
