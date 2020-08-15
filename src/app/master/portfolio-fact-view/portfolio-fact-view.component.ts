@@ -3,6 +3,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 import {FormBuilder,FormControl,FormGroup,Validator, Validators} from '@angular/forms';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { Commonfields } from '../../../Models/commonfields';
+import { Injectable , Inject } from '@angular/core';
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 
@@ -19,7 +22,7 @@ import { PortfolioSummaryViewServiceService } from '../../Services/PortfolioSumm
 export class PortfolioFactViewComponent implements OnInit {
   PortFolioFactView:FormGroup; BindemployeesList:BindEmployees;
   PageCount=1;  BindcustomerallfieldsList : Bindcustomerallfields;
-  btnPrev:boolean; customerlength:number;
+  btnPrev:boolean; customerlength:number;baseUrl: string = "";
   btnNext:boolean; isShowLoader:boolean=false;bindmaingrid:BindMainGriddata;
   submitted = false;
   CustNameDive:boolean;
@@ -37,7 +40,7 @@ export class PortfolioFactViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="http://localhost:55073/'  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/PortfolioFact?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -54,9 +57,10 @@ rowData = [
 
    
 ];
-  constructor(private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private _capitalStateService:CapitalSatementService,private TSService : PortfolioSummaryViewServiceService) { }
+  constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,private formbuilder:FormBuilder,private Dbsecurity: DbsecurityService,private _capitalStateService:CapitalSatementService,private TSService : PortfolioSummaryViewServiceService) { }
 
   ngOnInit(): void {
+    this.baseUrl = AppSettings.Login_URL;
     this.btnNext=false;
     this.btnPrev=false;
 

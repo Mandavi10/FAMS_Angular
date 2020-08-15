@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
+import { Injectable , Inject } from '@angular/core';
 
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
+
 import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Bindemployee,Customer,PrimaryDetails,BindMainGriddata} from '../../../Models/PortfolioSummaryView/PortfolioSummaryViewGrid';
 import { PortfolioSummaryViewServiceService } from '../../Services/PortfolioSummaryView/portfolio-summary-view-service.service';
 @Component({
@@ -31,7 +34,7 @@ export class PortfolioSummaryViewComponent implements OnInit {
   NoOfPage:number;SeqNo:number=1;
   Default_NoOfPage:number=1;
   CustomerAccountNo :any;
-  PortfolioSummaryFormView : FormGroup;
+  PortfolioSummaryFormView : FormGroup;baseUrl: string = ""; 
 
 
   columnDefs = [
@@ -41,7 +44,7 @@ export class PortfolioSummaryViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="http://localhost:55073/'  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/PortfolioSummary?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -58,7 +61,7 @@ rowData = [
 
    
 ];
-  constructor(private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService,private TSService : PortfolioSummaryViewServiceService) { }
+  constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,private formBuilder: FormBuilder, private Dbsecurity: DbsecurityService,private TSService : PortfolioSummaryViewServiceService) { }
 
   ngOnInit(): void {
     this.PortfolioSummaryFormView = this.formBuilder.group({  
@@ -70,7 +73,7 @@ rowData = [
     });
    this.isShowLoader=true;
 let item = JSON.parse(sessionStorage.getItem('User'));
-
+this.baseUrl = AppSettings.Login_URL;
 
 this.userType=this.Dbsecurity.Decrypt(item.UserType);
 this.accountNumber="0";
