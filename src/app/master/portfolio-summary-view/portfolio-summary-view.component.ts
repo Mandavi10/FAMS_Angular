@@ -183,7 +183,7 @@ displayFieldCss(field: string) {
     this.SeqNo=1;
     this.submitted = true;
     if (this.validation()) {
-            
+
       const datat = this.PortfolioSummaryFormView.value;
       if(datat.UserId=="0")
       {
@@ -195,6 +195,10 @@ displayFieldCss(field: string) {
       }
       var AsOnDate=datat.AsOnDate;
       var ToDate=datat.ToDate;
+      var splitted = AsOnDate.split("-", 3); 
+      var splitted1 = ToDate.split("-", 3); 
+        AsOnDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+        ToDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
       this.BindMainGrid(this.CustomerAccount,AsOnDate,ToDate)
 
     } 
