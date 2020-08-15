@@ -58,7 +58,7 @@
                         Employee Name :
                       </label>
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" (change)="BindCustomersOnChange(EmployeeId.value)">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlemployeedropdown" (change)="RemoveClass()"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomersOnChange(EmployeeId.value)">
               
                               <option value="" selected>Select</option>
                               <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
@@ -74,9 +74,9 @@
                          Customer Name :
                       </label>
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #CustomerAccount formControlName="UserId">
+                          <select id="ddlcustomerdropdown" class="dropdown col-sm-12 col-md-12 col-xs-12" (change)="RemoveClass()" #CustomerAccount formControlName="UserId">
               
-                              <option value="" selected>Select</option>
+                              <option value="0" selected>Select</option>
                               <option value="">All Customers</option>
                               <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                           </select>
@@ -92,7 +92,7 @@
                            From Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date"  value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12"  #FromDate formControlName="FromDate" >
+                            <input type="date" id="date" (change)="RemoveClass()"  value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12"  #FromDate formControlName="FromDate" >
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date"  value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12" #ToDate formControlName="ToDate"  >
+                            <input type="date" id="date1"  (change)="RemoveClass()" value="{{CurrentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12" #ToDate formControlName="ToDate"  >
                         </div>
                     </div>
                 </div>

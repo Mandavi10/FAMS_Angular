@@ -151,7 +151,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
    }
     this._PortfolioAppraisalsService.BindDefaultData(jason).
     subscribe((data) => {
-      
+
      // if(this.userType==3)
      // {
      //  if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
@@ -261,6 +261,8 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
     //   const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
     //   IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
     //   // CustomerAccountNo= item.AccountNo
+
+
       
    
 

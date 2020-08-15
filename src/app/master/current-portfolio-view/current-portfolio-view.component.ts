@@ -163,6 +163,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindDefaultGrid(){
     
+
     var splitted = this.ReportDate.split("-", 3); 
     var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     

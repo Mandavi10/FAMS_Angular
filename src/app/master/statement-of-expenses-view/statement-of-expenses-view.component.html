@@ -64,11 +64,17 @@
                         Employee Name :
                       </label>
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                          <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+                          <!-- <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
               
                               <option value="0">All Employee</option>
                               <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
-                          </select>
+                          </select> -->
+
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12"  id="ddlemployeedropdown" #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value);RemoveClass();">
+               
+                            <option value="0">All Employee</option>
+                            <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
+                        </select>
                       </div>
                   </div>
                 </div>
@@ -78,13 +84,20 @@
                            Customer Name :
                         </label>
                         <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
-                            <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
+                            <!-- <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
                                 <option value="0" selected>All Customer</option>
                                 <option *ngFor="let data of customer" value={{data.UserId}}  >
                                     {{data.UserName}}
                                 </option>
                              </select>
-                          
+                           -->
+                           <select class="col-md-12 col-xs-12 col-sm-12" id="ddlcustomerdropdown" (change)="CustomerOn_Change();RemoveClass();"  formControlName="UserId">
+                            <option value="0" selected>All Customer</option>
+                            <option *ngFor="let data of customer" value={{data.UserId}}  >
+                                {{data.UserName}}
+                            </option>
+                         </select>
+                      
                         </div>
                     </div>
                         
@@ -96,7 +109,8 @@
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                             <!-- <input type="date" class="col-sm-12 col-md-12 col-xs-12" > -->
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
+                            <!-- <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate> -->
+                            <input type="date" id="date" (change)="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate>
                         </div>
                     </div>
                 </div>
@@ -107,7 +121,8 @@
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                             <!-- <input type="date" class="col-sm-12 col-md-12 col-xs-12"  > -->
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate> 
+                            <!-- <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>  -->
+                            <input type="date" id="date1" (change)="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12" formControlName="ToDate" value="{{currentdate | date:'yyyy-mm-dd'}}" #Todate>     
                         </div>
                     </div>
                 </div>

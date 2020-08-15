@@ -61,9 +61,9 @@
                         Employee Name :
                       </label>
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                          <select class="dropdown col-sm-12 col-md-12 col-xs-12"  #EmployeeId formControlName="EmployeeId" (change)="BindCustomerOnChange(EmployeeId.value)">
+                          <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" id="ddlemployeedropdown"   (change)="BindCustomerOnChange(EmployeeId.value);RemoveClass();">
               
-                              <option value="0">All Employee</option>
+                              <option value="0" selected>All Employee</option>
                               <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
                           </select>
                       </div>
@@ -75,8 +75,8 @@
                            Customer Name :
                         </label>
                         <div class="col-sm-9 col-md-7 col-xs-9 p-0 displayinlineblock">
-                            <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId">
-                                <option value="0" selected>All Customer</option>
+                            <select class="col-md-12 col-xs-12 col-sm-12" id="ddlcustomerdropdown" (change)="CustomerOn_Change();RemoveClass();"  formControlName="UserId">
+                                <option value="0" selected="">All Customer</option>
                                 <option *ngFor="let data of customer" value={{data.UserId}}  >
                                     {{data.UserName}}
                                 </option>
@@ -92,8 +92,8 @@
                            As On:
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" >                        </div>
-                    </div>
+                            <input type="date" id="date"  class="col-sm-12 col-md-12 col-xs-12" formControlName="AsOnDate" (change)="RemoveClass();" >                        </div>
+                    </div>                    
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->

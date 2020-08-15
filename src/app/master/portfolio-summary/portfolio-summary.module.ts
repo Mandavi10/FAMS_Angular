@@ -4,6 +4,7 @@ import { PortfolioSummaryComponent } from './portfolio-summary.component';
 import { PortfolioSummaryRoutingModule } from './portfolio-summary-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [PortfolioSummaryComponent],
   imports: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject} from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
@@ -7,6 +7,9 @@ import{CapitalSatementService} from '../../Services/CapitalStatement/capital-sat
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import {BindViewGrid} from '../../../Models/StatementDividend/StatementDividend';
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-capital-statement-view',
@@ -17,6 +20,8 @@ export class CapitalStatementViewComponent implements OnInit {
   StatementCapitalViewForm:FormGroup;divEmployee:boolean=false;CustNameDive:boolean=false;
   userType:any;UserId:any;CustomerAccount:any;Formdate:any;Todate:any;isShowLoader:boolean=false;
   BindemployeesList:BindEmployees;BindcustomerallfieldsList:Bindcustomerallfields;BindViewGridList:BindViewGrid;
+  submitted=false;baseUrl: string = "";
+  
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'From Date', field: 'FromDate', width:'150'},
@@ -33,7 +38,7 @@ export class CapitalStatementViewComponent implements OnInit {
     //   return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
     // }},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''+ params.data.DownloadLink + '"> Download</a> ';
     }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/CapitalStatement?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -49,13 +54,14 @@ export class CapitalStatementViewComponent implements OnInit {
 //     {  SrNo: '3', fromdate:'14/07/2020', todate:'20/07/2020',  customeraccount: '47481000024748', scheme: '', download:'',  viewmode: ''},  
 // ];
   constructor(private formBuilder: FormBuilder,private Dbsecurity: DbsecurityService,
-    private _CapitalSatementService:CapitalSatementService) { }
+    private _CapitalSatementService:CapitalSatementService,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) { }
 
   ngOnInit(): void {
+    this.baseUrl = AppSettings.Login_URL;
     this.StatementCapitalViewForm = this.formBuilder.group({  
       Formdate:['',Validators.required],
       Todate:['',Validators.required],
-      CustomerAccount:[''] ,
+      CustomerAccount:['',Validators.required] ,
       EmployeeId:['']
    });
    let item = JSON.parse(sessionStorage.getItem('User'));
@@ -99,6 +105,10 @@ export class CapitalStatementViewComponent implements OnInit {
 }
 isFieldValid(field: string) {
     return !this.StatementCapitalViewForm.get(field).valid && this.StatementCapitalViewForm.get(field).touched;
+}
+
+get f() {
+  return this.StatementCapitalViewForm.controls;
 }
 
   BindEmployee(){
@@ -162,6 +172,10 @@ isFieldValid(field: string) {
     this.isShowLoader=true;
     this.Formdate = this.StatementCapitalViewForm.controls["Formdate"].value;
     this.Todate = this.StatementCapitalViewForm.controls["Todate"].value;
+    var splitted =  this.Formdate.split("-", 3); 
+    this.Formdate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    var splitted =  this.Todate.split("-", 3); 
+    this.Todate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     if(this.userType==1){
       let item = JSON.parse(sessionStorage.getItem('User'));
       this.CustomerAccount = item.AccountNo;
@@ -188,15 +202,57 @@ isFieldValid(field: string) {
   }
 
   FetchLatestReport() {
-     this.CustomerAccount=this.StatementCapitalViewForm.controls['CustomerAccount'].value;
+    debugger;
+  
+    // if(this.userType==1){
+    //  let item = JSON.parse(sessionStorage.getItem('User'));
+    //  this.CustomerAccount=item.AccountNo;
+    // }
+    // else{
+    //  this.CustomerAccount=this.StatementCapitalViewForm.controls['CustomerAccount'].value;
+    // }
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    //var CustomerAccount;
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      this.CustomerAccount=this.StatementCapitalViewForm.controls['CustomerAccount'].value;
+    }
+    else{
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+      // const IsEmployee = this.StatementCapitalViewForm.get('EmployeeId');
+      // IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();   
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();      
+      this.CustomerAccount= item.AccountNo
+    }
+
+
+       this.submitted = true; 
+       if (this.StatementCapitalViewForm.invalid) {
+       return; 
+     }
+     else{
+      this.isShowLoader = true;
      var JsonData ={
-      "CustomerAccountNo" : this.CustomerAccount.trim(),
-      "PageType" : "6"
+      "CustomerAccount" : this.CustomerAccount.trim(),
+      "ReportName" : "6"
      }   
      this._CapitalSatementService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-           
+          this.BindViewGrid();
+          this.isShowLoader = false;
          });
+     }
    }
 
 

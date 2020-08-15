@@ -48,11 +48,19 @@ export class StatementexpensesService {
     // this.EntityId = item.ReferenceId;
     return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindCustomer/'+ EmployeeId);
   }
-BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
-  // let item = JSON.parse(sessionStorage.getItem('User'));
-  // this.UserId = item.UserId;
-  // this.EntityId = item.ReferenceId;
-  return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindGridAllFields/'+CustomerAccount+ '/' +FromDate +'/' + ToDate+'/' + SeqNo );
+// BindGridAllFields(CustomerAccount,FromDate,ToDate,SeqNo): Observable<any> {
+//   // let item = JSON.parse(sessionStorage.getItem('User'));
+//   // this.UserId = item.UserId;
+//   // this.EntityId = item.ReferenceId;
+//   return this._http.get<any>(this.baseUrl + 'api/StatementOfExpenses/BindGridAllFields/'+CustomerAccount+ '/' +FromDate +'/' + ToDate+'/' + SeqNo );
+// }
+
+BindGridAllFields(em:any): Observable<any> { 
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/StatementOfExpenses/BindGridAllFields', body, {
+    headers 
+});
 }
   
 BindDefaultData(GAccountNumber,UserId): Observable<any> {

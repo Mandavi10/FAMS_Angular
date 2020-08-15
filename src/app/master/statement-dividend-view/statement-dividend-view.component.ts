@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import{DbsecurityService}from '../../Services/dbsecurity.service';
@@ -7,7 +7,8 @@ import{StatementDividentService,} from '../../Services/StatementDividend/stateme
 import{CapitalStatementModel,BindEmployees,BindCustomer} from '../../../Models/CapitalStatement/capitalStatement';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import {BindViewGrid} from '../../../Models/StatementDividend/StatementDividend';
-
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 @Component({ 
   selector: 'app-statement-dividend-view',
@@ -18,7 +19,8 @@ export class StatementDividendViewComponent implements OnInit {
   divEmployee:boolean=false;CustNameDive:boolean=false;userType:any;UserId:any;CustomerAccount:any;
   BindemployeesList:BindEmployees;BindcustomerallfieldsList : Bindcustomerallfields;isShowLoader:boolean=false;
   BindViewGridList:BindViewGrid;StatementdiviViewForm : FormGroup;Formdate:any;Todate:any;
-
+  submitted=false;baseUrl: string = "";
+  
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'From Date', field: 'FromDate', width:'150'},
@@ -35,7 +37,7 @@ export class StatementDividendViewComponent implements OnInit {
     //   return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
     // }},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
     }},
      {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/StatementDividend?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -51,7 +53,7 @@ export class StatementDividendViewComponent implements OnInit {
 
    
 // ];
-  constructor( private formBuilder: FormBuilder,private Dbsecurity: DbsecurityService,private _StatementDividendService:StatementDividentService) { }
+  constructor(private formBuilder: FormBuilder,private Dbsecurity: DbsecurityService,private _StatementDividendService:StatementDividentService,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) { }
 
   ngOnInit(): void {
     debugger;
@@ -80,7 +82,9 @@ export class StatementDividendViewComponent implements OnInit {
       this.UserId = this.Dbsecurity.Decrypt(item.UserId);
       this.CustomerAccount = item.AccountNo;
      }
+     this.baseUrl = AppSettings.Login_URL;
      this.BindViewGrid();
+    
   }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -102,7 +106,9 @@ export class StatementDividendViewComponent implements OnInit {
 isFieldValid(field: string) {
     return !this.StatementdiviViewForm.get(field).valid && this.StatementdiviViewForm.get(field).touched;
 }
-
+get f() {
+  return this.StatementdiviViewForm.controls;
+}
 
   BindEmployee(){
     this.isShowLoader=true;
@@ -159,6 +165,10 @@ isFieldValid(field: string) {
     this.isShowLoader=true;
     this.Formdate = this.StatementdiviViewForm.controls["Formdate"].value;
     this.Todate = this.StatementdiviViewForm.controls["Todate"].value;
+    var splitted =  this.Formdate.split("-", 3); 
+    this.Formdate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    var splitted =  this.Todate.split("-", 3); 
+    this.Todate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     if(this.userType==1){
       let item = JSON.parse(sessionStorage.getItem('User'));
       this.CustomerAccount = item.AccountNo;
@@ -185,15 +195,44 @@ isFieldValid(field: string) {
   }
 
   FetchLatestReport() {
-    this.CustomerAccount=this.StatementdiviViewForm.controls['CustomerAccount'].value;
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+      const IsCustomerAccount = this.StatementdiviViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      this.CustomerAccount=this.StatementdiviViewForm.controls['CustomerAccount'].value;
+    }
+    else{
+      const IsCustomerAccount = this.StatementdiviViewForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+      // const IsEmployee = this.StatementCapitalViewForm.get('EmployeeId');
+      // IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();   
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();      
+      this.CustomerAccount= item.AccountNo
+    }
+
+
+       this.submitted = true; 
+       if (this.StatementdiviViewForm.invalid) {
+       return; 
+     }
+     else{
     var JsonData ={
-     "CustomerAccountNo" : this.CustomerAccount.trim(),
-     "PageType" : "6"
+     "CustomerAccount" : this.CustomerAccount.trim(),
+     "ReportName" : "6"
     }   
     this._StatementDividendService.GetFetchLatestReport(JsonData).
         subscribe((data) => {
-          
+          this.BindViewGrid();
         });
+     }
   }
 
 }

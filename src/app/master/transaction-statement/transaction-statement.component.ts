@@ -71,6 +71,7 @@ export class TransactionStatementComponent implements OnInit {
     {headerName: 'STT', field: 'STT', width: 100, cellClass:'price', headerClass:'price'},
     {headerName: 'Settlement Amount', field: 'SettlementAmount', width: 150, cellClass:'price', headerClass:'price'},
    
+    
 ];
 
 rowData = [
@@ -121,11 +122,17 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 
 this.BindEmployee();
 this.BindCustomer();
+
+var splitted = FromDate.split("/", 3); 
+FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+var splitted = ToDate.split("/", 3); 
+ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
 this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
 this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
 this.TransactionStatementForm.controls["FromDate"].setValue(FromDate);
 this.TransactionStatementForm.controls["ToDate"].setValue(ToDate);
-this.BindGrid(CustomerAccount,FromDate,ToDate,this.SeqNo,this.EvenOdd) ;
+this.BindGrid(CustomerAccount,FromDate,ToDate,this.SeqNo,this.EvenOdd);
 
   //       debugger;
   //       let item = JSON.parse(sessionStorage.getItem('User'));  

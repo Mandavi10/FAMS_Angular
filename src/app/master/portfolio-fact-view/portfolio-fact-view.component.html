@@ -58,12 +58,11 @@
                            Employee :
                         </label>
                         <div class="col-sm-7 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="Employee1" (change)="BindCustomers()" [ngClass]="{ 'validate': submitted && f.Employee1.errors }">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlemployeedropdown" formControlName="Employee1" (change)="BindCustomers();RemoveClass();">
         
-                                <option value="">Select</option>
+                                <option value="0">Select</option>
                                 <option *ngFor="let Data of BindemployeesList " value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
-                            </select>
-                          
+                            </select>                          
                         </div>
                     </div>
                 </div>
@@ -73,7 +72,7 @@
                            Customer Name:
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+                            <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlcustomerdropdown" (change)="CustomerOn_Change();RemoveClass();" formControlName="CustomerAccount" >
                               <option value="">Select</option>
                               <option value="0" selected>All Customer</option>
                               <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustomerAccountNo}} text={{Data.UserName}}>                                         
@@ -88,7 +87,7 @@
                            As On:
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="AsOnDate" >
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" id="date" (change)="RemoveClass();" formControlName="AsOnDate" >
                         </div>
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                          To Date :
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
-                            <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="Todate" [ngClass]="{ 'validate': submitted && f.Todate.errors }">
+                            <input type="date" class="col-sm-12 col-md-12 col-xs-12"   formControlName="Todate">
                         </div>
                     </div>
                 </div>
