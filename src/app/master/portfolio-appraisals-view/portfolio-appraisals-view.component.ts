@@ -47,6 +47,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
  IsShowRecord:boolean;
  loader1:boolean;
  loader2:boolean;
+ submitted=false;
  employeeid:string='132';
   columnDefs = [
     // {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
@@ -86,10 +87,10 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   ngOnInit(): void {
     
     this.PortfolioAppraisalsForm = this.formbulider.group({
-      EmployeeId: [0, ],
-      UserId: [0, ],
-      FromDate: ['', ],
-      ToDate: ['',],
+      EmployeeId: [0, Validators.required],
+      UserId: [0,Validators.required ],
+      FromDate: ['',Validators.required ]
+      // ToDate: ['',Validators.required],
   });
  
 //this.employeeid= this.PortfolioAppraisalsForm.controls["EmployeeId"].value 
@@ -131,7 +132,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
     }
-    if ((this.userType ==2 || this.userType ==3)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  && this.PortfolioAppraisalsForm.controls["ToDate"].value=="") 
+    if ((this.userType ==2 || this.userType ==3)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
    {
     // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
     this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value=="",this.PortfolioAppraisalsForm.controls["FromDate"].value=="",this.EvenOdd) ;
@@ -150,7 +151,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
    }
     this._PortfolioAppraisalsService.BindDefaultData(jason).
     subscribe((data) => {
-      
+
      // if(this.userType==3)
      // {
      //  if(data.Table[0].CustomerAccount=="6010001" || data.Table[0].CustomerAccount=="6010002"||data.Table[0].CustomerAccount=="6010003" || data.Table[0].CustomerAccount=="6010004"||data.Table[0].CustomerAccount=="6010005")
@@ -170,9 +171,11 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
      //this.StatementOfExpenseForm.controls["UserId"].setValue(data.Table[0].CustomerAccount);
 
       this.PortfolioAppraisalsForm.controls["FromDate"].setValue(data.Table[0].AsOnDate);
-      this.PortfolioAppraisalsForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+      // this.PortfolioAppraisalsForm.controls["ToDate"].setValue(data.Table[0].ToDate);
       this.PortfolioAppraisalsForm.controls["UserId"].setValue(data.Table[0].CustomerAccountNo);
-    this.BindStatementOfExpReport(data.Table[0].CustomerAccountNo,data.Table[0].AsOnDate,data.Table[0].ToDate,this.EvenOdd) ;
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      var userID=this.Dbsecurity.Decrypt(item.UserId);
+    this.BindStatementOfExpReport(data.Table[0].CustomerAccountNo,data.Table[0].AsOnDate,userID,this.EvenOdd) ;
     });
     
   }
@@ -218,13 +221,60 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
     // console.log(sessionStorage.getItem('ID'));
     this.loading = false;
   }
+  get f() {
+    return this.PortfolioAppraisalsForm.controls;
+  }
 
   onSubmit() {
     this.EvenOdd=1;
     
-    //alert('OnSubmi Clicked');
-    //this.submitted = true;
-    if (this.PortfolioAppraisalsForm.valid) {
+    // let item = JSON.parse(sessionStorage.getItem('User'));
+    // var usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+    // if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+    //   const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+    //   IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+    
+
+    //   // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+    
+    // }
+    // else{
+    //   const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+    //   IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+    // //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    // //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+  
+
+    // }
+    // if(usertype == 3){
+
+      
+    //   const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+    //   IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+    //   // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+
+    // }
+    // else{
+    //   const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+    //   IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+    //   // CustomerAccountNo= item.AccountNo
+
+
+      
+   
+
+    // }
+    // const IsAsondate = this.PortfolioAppraisalsForm.get('FromDate');
+    // IsAsondate.setValidators(Validators.required); IsAsondate.updateValueAndValidity();
+    this.submitted = true;
+    if (this.PortfolioAppraisalsForm.invalid) {
+      return; 
+    }
+    else{
+    
         //this.sucess=true;
         const datat = this.PortfolioAppraisalsForm.value;
 
@@ -252,9 +302,23 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
     } 
   }
 
-  BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,SeqNo) {
+  BindStatementOfExpReport(CustomerAccount,FromDate,Userid,SeqNo) {
     
     
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+let userid1;
+    if(usertype == 1){
+      userid1=Userid
+      var splitted = FromDate.split("-", 3); 
+      FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    }
+    else{
+      userid1=''
+    }
+
+    // var splitted = FromDate.split("-", 3); 
+    // var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     this.loader2=true;
     this.loader1=true;
     this.IsShowRecord=false;
@@ -266,7 +330,8 @@ let ReportType=4
       
       "Fromdate":FromDate,
       "pagecount":SeqNo,
-      "ReportType":  ReportType  
+      "ReportType":  ReportType ,
+      "UserID":userid1
     }
     this._PortfolioAppraisalsService.BindGridAllFieldsView(jason).
         subscribe((data) => {
@@ -335,14 +400,53 @@ let ReportType=4
 
   FetchLatestReport() {
     
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+    var CustomerAccount;
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+      const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+    
+      const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+    
+      const IsAsOndate = this.PortfolioAppraisalsForm.get('FromDate');
+      IsAsOndate.clearValidators(); IsAsOndate.updateValueAndValidity();
+      CustomerAccount=this.PortfolioAppraisalsForm.controls['UserId'].value;
+
+    }
+    else{
+      const IsCustomerAccount = this.PortfolioAppraisalsForm.get('UserId');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+      const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+    
+      const IsAsOndate = this.PortfolioAppraisalsForm.get('FromDate');
+      IsAsOndate.clearValidators(); IsAsOndate.updateValueAndValidity();
+      
+      
+      CustomerAccount= item.AccountNo
+
+    }
+
+    this.submitted = true; 
+   // if (this.CurrentPortfolioForm.controls['CustomerAccount'].invalid) {
+      if (this.PortfolioAppraisalsForm.invalid) {
+      return; 
+    }
+    else{
+
+
     // this.loading = true;
-    this.isShowLoader=true;
+   // this.isShowLoader=true;
      var currentContext = this;
      // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
      var ReportName=4;
     // const datat = this.TransactionStatementViewForm.value;
     // var CustomerAccount=datat.UserId;
-    var CustomerAccount=this.PortfolioAppraisalsForm.controls["UserId"].value;
+  //  var CustomerAccount=this.PortfolioAppraisalsForm.controls["UserId"].value;
      var JsonData ={
            //this.TransactionStatementForm.controls['ToDate']
        "CustomerAccount" : CustomerAccount,
@@ -355,10 +459,11 @@ let ReportType=4
             //  currentContext.transactionStatementView = data.Table;
             //  this.transactionStatementView_Copy=data.Table;
             // this.isShowCustomer=true;
-            this.isShowLoader=false;
+          //  this.isShowLoader=false;
          });
      // console.log(sessionStorage.getItem('ID'));
      //this.loading = false;
+        }
      
    }
 

@@ -39,6 +39,7 @@ export class CurrentPortfolioViewComponent implements OnInit {
   ETSumPercentAssets:number;
   ETSumPercentG_L:number;
   ETSumTotalCost:number;
+  submitted = false;
 
 
 
@@ -82,7 +83,8 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
     this.CurrentPortfolioForm = this.formBuilder.group({  
       //   Formdate:[''],
         // Todate:['',Validators.required],
-         CustomerAccount:[''] ,ReportDate:[''],EmployeeId:['']
+         CustomerAccount:['0',Validators.required] ,ReportDate:['',Validators.required],
+         EmployeeId:['0',Validators.required]
      });
 
 
@@ -161,10 +163,15 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindDefaultGrid(){
     
+
+    var splitted = this.ReportDate.split("-", 3); 
+    var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    
+
     let ReportType=2;
     var JsonData ={
       "UserId" : this.UserId,
-      "ReportDate" : this.ReportDate,   
+      "ReportDate" : ReportDate,   
       "CustomerAccountNo" : this.CustomerAccount,
       "PageCount" : this.PageCount,
       "ReportType":  ReportType  
@@ -263,10 +270,61 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   }
 
   Search(ReportDate){
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+     if(this.CurrentPortfolioForm.controls['CustomerAccount'].value != 0){
+      
+
+     }
+   
+
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+    
+    }
+    else{
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+    //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+  
+
+    }
+    if(usertype == 3){
+
+      
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+
+    }
+    else{
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= item.AccountNo
+      
+   
+
+    }
+    const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+    this.submitted = true;
+    if (this.CurrentPortfolioForm.invalid) {
+      return; 
+    }
+    else{
+      
     this.ReportDate = ReportDate;
     this.CustomerAccount = this.CurrentPortfolioForm.controls['CustomerAccount'].value;
     this.PageCount = 1;
     this.BindCurrentPortFolioReport(this.ReportDate);
+    }
   }
 
   
@@ -337,15 +395,52 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
     FetchLatestReport() {
     
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      var usertype=this.Dbsecurity.Decrypt(item.UserType);
+      var CustomerAccount;
+      if(usertype == 2 ||usertype == 3 || usertype == 4){
+  
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+      
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+
+      }
+      else{
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        
+        
+        CustomerAccount= item.AccountNo
+  
+      }
+
+      this.submitted = true; 
+     // if (this.CurrentPortfolioForm.controls['CustomerAccount'].invalid) {
+        if (this.CurrentPortfolioForm.invalid) {
+        return; 
+      }
+      else{
       // this.loading = true;
       //this.isShowLoader=true;
-      this.loader1 = true;this.loader2 = true;
+     // this.loader1 = true;this.loader2 = true;
        var currentContext = this;
        // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
        var ReportName=2;
       // const datat = this.TransactionStatementViewForm.value;
       // var CustomerAccount=datat.UserId;
-      var CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+    //  CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
        var JsonData ={
              //this.TransactionStatementForm.controls['ToDate']
          "CustomerAccount" : CustomerAccount,
@@ -359,10 +454,11 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;
              // this.isShowLoader=false; 
-             this.loader1 = false;this.loader2 = false;
+           //  this.loader1 = false;this.loader2 = false;
            });
        // console.log(sessionStorage.getItem('ID'));
        //this.loading = false;
+          }
        
      }
 
