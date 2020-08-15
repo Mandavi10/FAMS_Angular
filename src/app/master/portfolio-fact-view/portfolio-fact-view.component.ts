@@ -113,7 +113,7 @@ rowData = [
     }
     
     const datat = this.PortFolioFactView.value;
-    var AsOnDate=datat.Formdate;
+    var AsOnDate=datat.AsOnDate;
     var ToDate=datat.Todate;
     this.tempGAccountNumber=GAccountNumber;
     this.BindMainGrid(GAccountNumber,AsOnDate,ToDate);
@@ -220,8 +220,12 @@ rowData = [
        
          this.CustomerAccount=datat.CustomerAccountNo;
         
-        var AsOnDate=datat.Formdate;
+        var AsOnDate=datat.AsOnDate;
+        var splitted = AsOnDate.split("-", 3); 
+        AsOnDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
         var ToDate=datat.ToDate;
+        var splitted1 = ToDate.split("-", 3); 
+        ToDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
         this.BindMainGrid(this.CustomerAccount,AsOnDate,ToDate)
     }
    
