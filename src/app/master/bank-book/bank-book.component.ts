@@ -30,15 +30,26 @@ export class BankBookComponent implements OnInit {
   NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;
   IsShowRecord:boolean;  IsShowNoRecord:boolean;
 
-  constructor(private BSService : BankbookService,private router: Router, 
+  constructor(private BSService : BankbookService,private router: Router, private router1:ActivatedRoute,
     private formBuilder: FormBuilder,public datepipe: DatePipe, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit(): void {
+    this.BankBookForm = this.formBuilder.group({  
+      FromDate :['',], ToDate : ['',],CustomerAccount : ['',] , EmployeeId : ['',]
+  });
+
+    let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
+    let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
+   let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+   
+    // this.BankBookForm.controls["FromDate"].setValue(FromDate);
+    // this.BankBookForm.controls["ToDate"].setValue(ToDate);
+   
+    
+
    
     this.loader1 = true; this.loader2 = true;
-    this.BankBookForm = this.formBuilder.group({  
-      FromDate :[''], ToDate : [''],CustomerAccount : ['',] , EmployeeId : ['']
-  });
+   
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType);
 if(this.userType == 3){
@@ -63,7 +74,7 @@ if(this.userType == 3){
     this.CustomerAccount = item.AccountNo;
   }
   this.PageCount = 1;
-  this.BindDefaultData();
+  this.BindDefaultGrid(FromDate,ToDate,CustomerAccount);
   this.loader1 = false; this.loader2 = false;
   }
 
@@ -111,41 +122,53 @@ else{ this.PageCount = 1;}
   }
 
   
-  BindDefaultData(){
-    this.loader1=true;this.loader2=true;
-    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
-    var JsonData ={
-      "UserId" : this.UserId,
-      "CustomerAccount" : this.CustomerAccount ,
-      "PageCount" : this.PageCount
-    }
-    this.BSService.BindDefaultData(JsonData).subscribe(
-      (data) => {
-        this.FromDate = data.Table[0]["FromDate"];
-        this.ToDate = data.Table[0]["ToDate"];
-        this.BankBookForm.controls["FromDate"].setValue(data.Table[0].FromDate);
-        this.BankBookForm.controls["ToDate"].setValue(data.Table[0].ToDate);
-        this.BankBookForm.controls["CustomerAccount"].setValue(data.Table[0].CustomerAccount);
-        if(this.userType != 1 ){
-        this.CustomerAccount = data.Table[0].CustomerAccount;
-        }
-        if(this.userType != 3 ){
-          this.CustomerAccount = data.Table[0].CustomerAccount;
-          }
-        this.PageCount = 1;
-        this.griddiv=true;  
-        this.BindDefaultGrid();     
-      });
-      this.loader1=false;this.loader2=false;
+  // BindDefaultData(){
+    
+  //   this.loader1=true;this.loader2=true;
+  //   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+  //   var JsonData ={
+  //     "UserId" : this.UserId,
+  //     "CustomerAccount" : this.CustomerAccount ,
+  //     "PageCount" : this.PageCount
+  //   }
+  //   this.BSService.BindDefaultData(JsonData).subscribe(
+  //     (data) => {
+  //       this.FromDate = data.Table[0]["FromDate"];
+  //       this.ToDate = data.Table[0]["ToDate"];
+  //       this.BankBookForm.controls["FromDate"].setValue(data.Table[0].FromDate);
+  //       this.BankBookForm.controls["ToDate"].setValue(data.Table[0].ToDate);
+  //       this.BankBookForm.controls["CustomerAccount"].setValue(data.Table[0].CustomerAccount);
+  //       if(this.userType != 1 ){
+  //       this.CustomerAccount = data.Table[0].CustomerAccount;
+  //       }
+  //       if(this.userType != 3 ){
+  //         this.CustomerAccount = data.Table[0].CustomerAccount;
+  //         }
+  //       this.PageCount = 1;
+  //       this.griddiv=true;  
+  //       this.BindDefaultGrid();     
+  //     });
+  //     this.loader1=false;this.loader2=false;
       
-  }
-  BindDefaultGrid(){
+  // }
+
+  BindDefaultGrid(FromDate,ToDate,CustomerAccount){
+    
+    this.BankBookForm.controls["FromDate"].setValue(FromDate);
+    this.BankBookForm.controls["ToDate"].setValue(ToDate);
+      this.BindEmployee();
+    this.BankBookForm.controls["EmployeeId"].setValue(1);
+  
+   this.BindCustomersOnChange(1)
+   this.BankBookForm.controls["CustomerAccount"].setValue(CustomerAccount);
     this.loader1=true;this.loader2=true;
+    this.PageCount = 1;
+    //let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var JsonData ={
       "UserId" : this.UserId,
-      "FromDate" : this.FromDate,   
-      "ToDate" :  this.ToDate,
-      "CustomerAccount" : this.CustomerAccount,
+      "FromDate" : FromDate,   
+      "ToDate" :  ToDate,
+      "CustomerAccount" : CustomerAccount,
       "PageCount" : this.PageCount       
     }
 

@@ -135,6 +135,11 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
     let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
     this.BindGrid(this.GAccountNumber,FromDate,this.SeqNo) ;
   }
+  this.PortfolioSummaryForm.controls["EmployeeId"].setValue(1);
+    this.BindCustomers();
+    this.PortfolioSummaryForm.controls["AsOnDate"].setValue(FromDate);
+    
+    this.PortfolioSummaryForm.controls["UserId"].setValue(this.GAccountNumber);
       // this.TransactionStatementForm.controls["UserId"].setValue("6010005");
       // this.TransactionStatementForm.controls["FromDate"].setValue("2020-06-30");
       // this.TransactionStatementForm.controls["ToDate"].setValue("2020-06-30");

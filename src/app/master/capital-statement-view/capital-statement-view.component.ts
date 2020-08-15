@@ -187,4 +187,17 @@ isFieldValid(field: string) {
     } 
   }
 
+  FetchLatestReport() {
+     this.CustomerAccount=this.StatementCapitalViewForm.controls['CustomerAccount'].value;
+     var JsonData ={
+      "CustomerAccountNo" : this.CustomerAccount.trim(),
+      "PageType" : "6"
+     }   
+     this._CapitalSatementService.GetFetchLatestReport(JsonData).
+         subscribe((data) => {
+           
+         });
+   }
+
+
 }
