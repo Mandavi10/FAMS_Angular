@@ -88,6 +88,7 @@ ngOnInit(): void {
        
         CustomerAccount:['']
       });
+      
       let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
 let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
 let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');

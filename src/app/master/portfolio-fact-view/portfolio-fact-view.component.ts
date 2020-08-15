@@ -321,6 +321,7 @@ rowData = [
     //this.loading = false;
     }
     else
+    
     {
       let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
    
