@@ -39,9 +39,24 @@ export class BankBookComponent implements OnInit {
   });
 
     let CustomerAccount=this.router1.snapshot.queryParamMap.get('CustomerAccount');
-    let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
-   let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
+    
+
+    let FromDate1=this.router1.snapshot.queryParamMap.get('FromDate');
+   let ToDate1=this.router1.snapshot.queryParamMap.get('ToDate');
    
+   var splitted = FromDate1.split("/", 3); 
+ var FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+
+var splitted = ToDate1.split("/", 3); 
+ var ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+var splitted = FromDate1.split("/", 3); 
+ var FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
+
+
+var splitted = ToDate1.split("/", 3); 
+ var ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     // this.BankBookForm.controls["FromDate"].setValue(FromDate);
     // this.BankBookForm.controls["ToDate"].setValue(ToDate);
    

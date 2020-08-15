@@ -11,6 +11,9 @@ import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@a
  import { Bindemployee } from '../../../Models/BankBook/bindemployee'
  import { Allcustomers } from '../../../Models/BankBook/Allcustomers';
  import { Commonfields } from '../../../Models/commonfields';
+ import {AppSettings} from 'src/app/app-settings';
+ import { Injectable , Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-bank-book-view',
   templateUrl: './bank-book-view.component.html',
@@ -24,10 +27,8 @@ export class BankBookViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
 
-    {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
-      // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
-      return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
-
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
       return '<a href="/BankBook?CustomerAccount='  + params.data.CustomerAccountNo + '&FromDate='+ params.data.ReportDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
@@ -51,13 +52,14 @@ BindgridList:Bindgrid;BankBookViewForm:FormGroup;TotalsumgridData:Totalsumgrid;B
   loader1:boolean=false;loader2:boolean=false; isShowLoader:boolean=false;divCustomer:boolean=false;userType:number;HeaderList:Header;
   divEmployee:boolean=false;BindemployeesList:Bindemployee;CustomerAccount:any;PageCount:any;UserId:any;
   TotalRecord:any;PaginationCount:any;divTotal:boolean=true;Code:any="";NoOfPage:any="";Flag:any;
-  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;
+  NoRecord:boolean=true;btnNext:boolean=true;btnPrev:boolean=true;liExport:boolean=false;baseUrl: string = "";
   IsShowRecord:boolean;  IsShowNoRecord:boolean;
  BindGridview1:Bindgridview;
 
-  constructor(private BSService : BankbookService, private Dbsecurity: DbsecurityService,private formbulider: FormBuilder) { }
+  constructor(private BSService : BankbookService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,private Dbsecurity: DbsecurityService,private formbulider: FormBuilder) { }
 
   ngOnInit(): void {
+    this.baseUrl = AppSettings.Login_URL;
     this.BankBookViewForm = this.formbulider.group({
       EmployeeId: [0, ],
       UserId: [0, ],
@@ -66,7 +68,7 @@ BindgridList:Bindgrid;BankBookViewForm:FormGroup;TotalsumgridData:Totalsumgrid;B
   });
   this.BindEmployee();
   this.BindCustomers();
-  this.BankBookViewForm.controls["UserId"].setValue('');
+  this.BankBookViewForm.controls["UserId"].setValue('0');
   
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType);
@@ -140,13 +142,104 @@ if(this.userType == 3){
       
   }
 
+  validation():boolean{
+
+    var flag=true;
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+      let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+      if(emp =="")
+      {
+       document.getElementById("ddlemployeedropdown").classList.add('validate');
+       flag=false;
+      }
+    }
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno =="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.add('validate');
+     flag=false;
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date =="")
+    {
+     document.getElementById("date").classList.add('validate');
+     flag=false;
+    }
+    
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 =="")
+    {
+     document.getElementById("date1").classList.add('validate');
+     flag=false;
+    }
+
+    return flag;
+    // if(flag=true)
+    // {
+    //   this.SearchData();
+    // }
+  }
+
+ RemoveClass(){
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp !="")
+    {
+     document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    }
+  }
+  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno !="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    }
+  }
+    let date=((document.getElementById("date") as HTMLInputElement).value);
+    if(date !="")
+    {
+     document.getElementById("date").classList.remove('validate');
+    }
+    let date1=((document.getElementById("date1") as HTMLInputElement).value);
+    if(date1 !="")
+    {
+     document.getElementById("date1").classList.remove('validate');
+    }
+  }
+
   SearchData(FromDate,ToDate){
-    this.FromDate = FromDate;
-    this.ToDate = ToDate;
-    this.CustomerAccount = this.BankBookViewForm.controls['UserId'].value;
-   
     this.PageCount = 1;
-    this.BindGridView( this.FromDate, this.ToDate,this.CustomerAccount);
+    if (this.validation()) {
+      
+      const datat = this.BankBookViewForm.value;
+      if(datat.UserId=="0")
+      {
+      
+        this.CustomerAccount=datat.UserId; 
+      }
+      else{
+       this.CustomerAccount=datat.UserId;
+      }
+      // var splitted =  this.FromDate.split("-", 3); 
+      // this.FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+      // var splitted =  this.ToDate.split("-", 3); 
+      // this.ToDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+
+      this.FromDate = FromDate;
+      this.ToDate = ToDate;
+      //this.CustomerAccount = this.BankBookViewForm.controls['UserId'].value;
+     
+      
+      
+      this.BindGridView( this.FromDate, this.ToDate,this.CustomerAccount);
+
+    } 
+    // this.RemoveClass();
+    
   }
   
   BindGridView(FromDate,ToDate,CustomerAccount){
@@ -171,6 +264,45 @@ if(this.userType == 3){
 
   FetchLatestReport() {
    
+    let item = JSON.parse(sessionStorage.getItem('User'));
+     var usertype=this.Dbsecurity.Decrypt(item.UserType);
+     
+    // var CustomerAccount;
+    // if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+    //   const IsCustomerAccount = this.BankBookViewForm.get('CustomerAccount');
+    //   IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+    
+    //   const IsEmployee = this.BankBookViewForm.get('EmployeeId');
+    //   IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+    
+    //   const IsReportdate = this.BankBookViewForm.get('ReportDate');
+    //   IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+    //   CustomerAccount=this.BankBookViewForm.controls['CustomerAccount'].value;
+
+    // }
+    // else{
+    //   const IsCustomerAccount = this.BankBookViewForm.get('CustomerAccount');
+    //   IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+    //   const IsEmployee = this.BankBookViewForm.get('EmployeeId');
+    //   IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+    
+    //   const IsReportdate = this.BankBookViewForm.get('ReportDate');
+    //   IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+      
+      
+    //   CustomerAccount= item.AccountNo
+
+    // }
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+   if(usertype != 1){
+    if(acno =="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.add('validate');
+    }
+  }
+else{
     // this.loading = true;
     this.isShowLoader=true;
     var currentContext = this;
@@ -192,7 +324,7 @@ if(this.userType == 3){
     this.isShowLoader=false;
     });
    
-    
+  }
     }
 
   BindDefaultGrid(){
@@ -239,6 +371,9 @@ if(this.userType == 3){
       
   }
 
+  // ReMoveclass1(){
+  //   document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+  // }
 
   BindCustomersOnChange(EmployeeId){
     this.loader1=true;this.loader2=true;
