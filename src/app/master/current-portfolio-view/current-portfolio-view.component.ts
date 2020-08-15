@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentportfolioService } from 'src/app/Services/CurrentPortFolio/currentportfolio.service';
@@ -10,6 +10,8 @@ import {Bindemployee} from '../../../Models/BankBook/bindemployee';
 import {BindCustomers} from '../../../Models/BankBook/bindcustomers';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { Commonfields } from '../../../Models/commonfields';
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-current-portfolio-view',
   templateUrl: './current-portfolio-view.component.html',
@@ -41,7 +43,7 @@ export class CurrentPortfolioViewComponent implements OnInit {
   ETSumTotalCost:number;
   submitted = false;
 
-
+  baseUrl: string = "";
 
   columnDefs = [
     // {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
@@ -52,11 +54,17 @@ export class CurrentPortfolioViewComponent implements OnInit {
    //  {headerName: 'To Date', field: 'ReportDate', width:'150',hide:true},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
-    {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
-      // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
-      // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
-      return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
+    //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
+    //   // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    //   return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // }},
+
+    
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
     }},
+
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
     //  return '<button type="button" class="btn btn-success">View</button>';
     return '<a href="/CurrentPortfolio?CustomerAccountNo='  + params.data.CustomerAccountNo + '&ReportDate='+ params.data.ReportDate  + '">View</a>';
@@ -76,10 +84,11 @@ rowData = [
 
 
 
-constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }
+constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService ,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) { }
 
   ngOnInit(): void {
 
+    this.baseUrl = AppSettings.Login_URL;
     this.CurrentPortfolioForm = this.formBuilder.group({  
       //   Formdate:[''],
         // Todate:['',Validators.required],
@@ -163,7 +172,6 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindDefaultGrid(){
     
-
     var splitted = this.ReportDate.split("-", 3); 
     var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
     
@@ -331,12 +339,14 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   BindCurrentPortFolioReport(ReportDate) {
     
        
+    var splitted = ReportDate.split("-", 3); 
+    var ReportDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = Sessionvalue.UserId;
         let ReportType=2;
         var JsonData ={
           "UserId" : UserId,
-          "ReportDate" : ReportDate,   
+          "ReportDate" : ReportDate1,   
           "CustomerAccountNo" : this.CustomerAccount,
           "PageCount" : this.PageCount,
           "ReportType":  ReportType  
