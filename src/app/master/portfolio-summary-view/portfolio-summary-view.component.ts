@@ -183,7 +183,7 @@ displayFieldCss(field: string) {
     this.SeqNo=1;
     this.submitted = true;
     if (this.validation()) {
-      
+            
       const datat = this.PortfolioSummaryFormView.value;
       if(datat.UserId=="0")
       {
