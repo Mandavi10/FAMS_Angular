@@ -10,8 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 
 
-
-
 @Component({
   selector: 'app-trial-balance-report',
   templateUrl: './trial-balance-report.component.html',
