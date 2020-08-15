@@ -110,6 +110,8 @@ export class PortfolioFactComponent implements OnInit {
     let CustomerAccount1=this.router1.snapshot.queryParamMap.get('CustomerAccount');
     let FromDatee=this.router1.snapshot.queryParamMap.get('FromDate');
     let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
+    var splitted = FromDatee.split("/", 3); 
+var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     this.Showcustdropdown();
 
 
@@ -149,11 +151,11 @@ export class PortfolioFactComponent implements OnInit {
     {
       // alert(GAccountNumber)
       
-      this.BindDefaultData(CustomerAccount1,GUserId)
+      this.BindDefaultData(CustomerAccount1,GUserId,maxDate)
     }
     this.PortFolioForm.controls["Employee1"].setValue(1);
     this.BindCustomers();
-    this.PortFolioForm.controls["Formdate"].setValue(FromDatee);
+    this.PortFolioForm.controls["Formdate"].setValue(maxDate);
     
     this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
    
@@ -529,14 +531,14 @@ this.performance15=res.Table5[3].Data4
 }
 
 
-  BindDefaultData(accountno,userid){
+  BindDefaultData(accountno,userid,maxDate){
     // this.loader1=true;this.loader2=true;
   
     let item = JSON.parse(sessionStorage.getItem('User'));
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
-    let FromDatee=this.router1.snapshot.queryParamMap.get('FromDate');
+    let FromDatee=maxDate;
     let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
   
 
