@@ -368,7 +368,7 @@ rowData = [
       const datat = this.PortFolioFactView.value;
       var AsOnDate=datat.Formdate;
       var ToDate=datat.Todate;
-      this.BindMainGrid(this.tempGAccountNumber,AsOnDate,ToDate);
+      this.BindMainGrid(CustomerAccount,AsOnDate,ToDate);
       });
       // console.log(sessionStorage.getItem('ID'));
       //this.loading = false;

@@ -254,6 +254,7 @@ displayFieldCss(field: string) {
     }
     
     
+
     this.TSService.GetFetchLatestReport(JsonData).
     subscribe((data) => {
     // currentContext.transactionStatementView = data.Table;
@@ -262,7 +263,7 @@ displayFieldCss(field: string) {
     const datat = this.PortfolioSummaryFormView.value;
 var AsOnDate=datat.AsOnDate;
 var ToDate=datat.ToDate;
-    this.BindMainGrid(this.accountNumber,AsOnDate,ToDate)
+    this.BindMainGrid(CustomerAccount,AsOnDate,ToDate)
     
     });
     // console.log(sessionStorage.getItem('ID'));
@@ -299,7 +300,7 @@ var ToDate=datat.ToDate;
     const datat = this.PortfolioSummaryFormView.value;
 var AsOnDate=datat.AsOnDate;
 var ToDate=datat.ToDate;
-    this.BindMainGrid(this.accountNumber,AsOnDate,ToDate)
+    this.BindMainGrid(CustomerAccount,AsOnDate,ToDate)
     
     });
     // console.log(sessionStorage.getItem('ID'));
