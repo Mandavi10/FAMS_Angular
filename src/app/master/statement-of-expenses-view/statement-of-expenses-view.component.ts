@@ -151,7 +151,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
     //var ReportName="Statement of Expenses Clientwise";
     var ReportType="8";
 
-    this.BindStatementExpView("0","","",ReportType.trim());
+    // this.BindStatementExpView("0","","",ReportType.trim());
 
     let item = JSON.parse(sessionStorage.getItem('User'));
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
@@ -163,6 +163,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
     {
       this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber=this.accountNumber;   
+      this.BindStatementExpView(this.accountNumber,"","",ReportType.trim());
     }
 
    else if(this.userType ==3)
@@ -171,7 +172,11 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
       this.GAccountNumber="0";
       this.StatementOfExpenseViewForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
+      // this.statementOfExpView = [];
+      // this.statementOfExpView_Copy=[]];
+
       this.BindEmployee();
+      this.BindStatementExpView(1,"","",ReportType.trim());
       //this.BindCustomer();
      
     }
@@ -181,12 +186,14 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
      this.GUserId=item.UserId.replace('+',' ');;
      this.GAccountNumber="1";
       this.BindCustomer();
+      this.BindStatementExpView(1,"","",ReportType.trim());
     }
     else{
       this.GUserId=item.UserId.replace('+',' ');;
       this.GAccountNumber="0";
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
+      this.BindStatementExpView(1,"","",ReportType.trim());
     }
   
     
@@ -196,13 +203,25 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
     if (this.validation()) {
       if (this.StatementOfExpenseViewForm.valid) {
           const datat = this.StatementOfExpenseViewForm.value;
-        if(datat.UserId=="0")
+          let item = JSON.parse(sessionStorage.getItem('User'));
+    this.userType=this.Dbsecurity.Decrypt(item.UserType);
+    this.accountNumber=item.AccountNo;
+    debugger;
+    if(this.userType ==1)
+    {
+      this.CustomerAccount=this.accountNumber;
+    }
+    else
+    {
+          if(datat.UserId=="0")
           {
           this.CustomerAccount=datat.UserId; 
           }
           else{
           this.CustomerAccount=datat.UserId;
           }
+    }
+        
           var FromDate=datat.FromDate;
           var ToDate=datat.ToDate;
 
@@ -384,7 +403,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
   }
 
   BindStatementExpView(CustomerAccount,FromDate,ToDate,ReportType) {
-    this.loading = true;
+   // this.loading = true;
     var currentContext = this;
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     
@@ -404,7 +423,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
            // this.isShowCustomer=true;
         });
     // console.log(sessionStorage.getItem('ID'));
-    this.loading = false;
+   // this.loading = false;
   }
   BindEmployee(){
     // this.loader1=true;this.loader2=true;
@@ -416,25 +435,27 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
          debugger;
             this.BindemployeesList = data.Table;
             this.isShowsEmployee=true;
+             this.loading = false;
            // this.loader1=false;this.loader2=false;
        });
    }
    BindCustomer() {
-    this.loading = true;
+   // this.loading = true;
     var currentContext = this;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     this._statementexpensesService.BindCustomer(this.Dbsecurity.Decrypt(Sessionvalue.UserId.replace('+',' '))).
         subscribe((data) => {
             currentContext.customer = data.Table;
             this.isShowCustomer=true;
+            this.loading = false;
         });
     // console.log(sessionStorage.getItem('ID'));
-    this.loading = false;
+   // this.loading = false;
   }
 
    BindCustomerOnChange(EmployeeId) {
     // this.EvenOdd=1;
-     this.loading = true;
+    // this.loading = true;
      var currentContext = this;
      this._statementexpensesService.BindCustomer(EmployeeId).
          subscribe((data) => {
@@ -442,7 +463,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
              this.isShowCustomer=true;
          });
      // console.log(sessionStorage.getItem('ID'));
-     this.loading = false;
+     //this.loading = false;
    }
 
    CustomerOn_Change(){
