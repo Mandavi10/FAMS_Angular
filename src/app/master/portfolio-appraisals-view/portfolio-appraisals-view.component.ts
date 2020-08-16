@@ -66,7 +66,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
     {headerName: 'As On Date', field: 'AsOnDate', width:'150'},
     // {headerName: 'To Date', field: 'todate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
-    {headerName: 'Scheme', field: 'scheme', width:'150'},
+    {headerName: 'Scheme', field: 'Scheme', width:'150'},
     // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
     //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
     //  // return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
@@ -535,8 +535,8 @@ let ReportType=4
     
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-          this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
-           
+         /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
+           this.BindDefaultLast(this.GAccountNumber,this.GUserId)
          });
     
         }
