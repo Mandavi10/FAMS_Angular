@@ -18,7 +18,8 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
 
   EvenOdd:number=1;
 
-  gridView1:gridView
+  //gridView1:gridView
+  gridView1:Array<gridView>;
   bindgrid:PortfolioappraisalModel
   isShowEquity:boolean=false;
   isShowFuture:boolean=false;
@@ -103,8 +104,8 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   ngOnInit(): void { 
     this.baseUrl = AppSettings.Login_URL;
     this.PortfolioAppraisalsForm = this.formbulider.group({
-      EmployeeId: [0, Validators.required],
-      UserId: [0,Validators.required ], 
+      EmployeeId: ['', Validators.required],
+      UserId: ['',Validators.required ], 
       FromDate: ['',Validators.required ]
       // ToDate: ['',Validators.required],
   });
@@ -125,11 +126,11 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
       this.GAccountNumber=this.accountNumber;   
     }
 
-   else if(this.userType ==3)
+   else if(this.userType ==3 || this.userType ==4)
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
-      this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
+      //this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
       this.BindEmployee();
       //this.BindCustomer();
@@ -148,16 +149,32 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
     }
-    if ((this.userType ==2 || this.userType ==3)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
+    if ((this.userType ==2 || this.userType ==3 || this.userType ==4)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
    {
+     this.gridView1=[];
+     this.IsShowRecord=true;
     // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-    this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;
+    //this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;
    }
    else
    {
       this.BindDefaultLast(this.GAccountNumber,this.GUserId)
    }
   }
+
+
+  // onGridReady(params) {
+  //   this.gridApi = params.api;
+  //   //this.gridColumnApi = params.columnApi;
+  // }
+  
+  // onBtNext() {
+  //   this.gridApi.paginationGoToNextPage();
+  // }
+  
+  // onBtPrevious() {
+  //   this.gridApi.paginationGoToPreviousPage();
+  // }
 
   BindDefaultLast(GAccountNumber,UserId)
   {
@@ -265,7 +282,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   
 
     }
-    if(usertype == 3){
+    if(usertype == 3 || usertype ==4){
 
       
       const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');

@@ -26,7 +26,9 @@ export class CurrentPortfolioViewComponent implements OnInit {
   CurrentPortfolioForm : FormGroup;IsShowRecord:boolean; CurrentportfolioList1:Currentportfolio;
   CurrentportfolioList : Currentportfolio;HeaderList:Header;
 
-  currentportfolioView:CurrentportfolioView;
+  //currentportfolioView:CurrentportfolioView;
+
+  currentportfolioView:Array<CurrentportfolioView>; 
 
   STSumGL:number;
   STSumIncome:number;
@@ -92,8 +94,8 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
     this.CurrentPortfolioForm = this.formBuilder.group({  
       //   Formdate:[''],
         // Todate:['',Validators.required],
-         CustomerAccount:['0',Validators.required] ,ReportDate:['',Validators.required],
-         EmployeeId:['0',Validators.required]
+         CustomerAccount:['',Validators.required] ,ReportDate:['',Validators.required],
+         EmployeeId:['',Validators.required]
      });
 
 
@@ -101,7 +103,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
      let item = JSON.parse(sessionStorage.getItem('User'));  
     this.userType=this.Dbsecurity.Decrypt( item.UserType);
-    if(this.userType == 3){
+    if(this.userType == 3|| this.userType ==4){
       this.CustNameDive=true;this.EmployeeDiv=true;
        this.UserId = this.Dbsecurity.Decrypt(item.UserId);
        this.CustomerAccount = ""; 
@@ -120,13 +122,17 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       this.CustomerAccount = item.AccountNo;
      }
 
-    //  if(this.userType == 2 || this.userType == 3){     
-    
-    //  }
-    //  else
-    //  {
-      this.BindDefaultData();
-    // }
+     if(this.userType == 2 || this.userType == 3 || this.userType == 4){     
+     // this.BindDefaultData();
+    this.currentportfolioView=[];
+    this.IsShowRecord=true;
+
+      }
+     else
+     {
+      
+    this.BindDefaultData();
+    }
 
   }
 
@@ -152,7 +158,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
         let item = JSON.parse(sessionStorage.getItem('User'));  
         this.userType=this.Dbsecurity.Decrypt( item.UserType);
-        if(this.userType == 2 || this.userType == 3){  
+        if(this.userType == 2 || this.userType == 3|| this.userType == 4){  
           this.CustomerAccount='';   
           this.CurrentPortfolioForm.controls["CustomerAccount"].setValue('');
     
@@ -304,7 +310,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   
 
     }
-    if(usertype == 3){
+    if(usertype == 3 || usertype ==4){
 
       
       const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
