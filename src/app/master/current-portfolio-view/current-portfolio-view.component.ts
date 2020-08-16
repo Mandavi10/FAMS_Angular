@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentportfolioService } from 'src/app/Services/CurrentPortFolio/currentportfolio.service';
@@ -10,6 +10,8 @@ import {Bindemployee} from '../../../Models/BankBook/bindemployee';
 import {BindCustomers} from '../../../Models/BankBook/bindcustomers';
 import {Bindcustomerallfields} from '../../../Models/SummaryReport/Bindcustomerallfields';
 import { Commonfields } from '../../../Models/commonfields';
+import {AppSettings} from 'src/app/app-settings';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-current-portfolio-view',
   templateUrl: './current-portfolio-view.component.html',
@@ -39,8 +41,9 @@ export class CurrentPortfolioViewComponent implements OnInit {
   ETSumPercentAssets:number;
   ETSumPercentG_L:number;
   ETSumTotalCost:number;
+  submitted = false;
 
-
+  baseUrl: string = "";
 
   columnDefs = [
     // {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
@@ -51,11 +54,17 @@ export class CurrentPortfolioViewComponent implements OnInit {
    //  {headerName: 'To Date', field: 'ReportDate', width:'150',hide:true},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
     {headerName: 'Scheme', field: 'scheme', width:'150'},
-    {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
-      // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
-      // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
-      return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
+    //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
+    //   // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
+    //   return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
+    // }},
+
+    
+    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
     }},
+
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
     //  return '<button type="button" class="btn btn-success">View</button>';
     return '<a href="/CurrentPortfolio?CustomerAccountNo='  + params.data.CustomerAccountNo + '&ReportDate='+ params.data.ReportDate  + '">View</a>';
@@ -75,14 +84,16 @@ rowData = [
 
 
 
-constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService) { }
+constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,private _CurrentportfolioService: CurrentportfolioService,private Dbsecurity: DbsecurityService ,private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) { }
 
   ngOnInit(): void {
 
+    this.baseUrl = AppSettings.Login_URL;
     this.CurrentPortfolioForm = this.formBuilder.group({  
       //   Formdate:[''],
         // Todate:['',Validators.required],
-         CustomerAccount:[''] ,ReportDate:[''],EmployeeId:['']
+         CustomerAccount:['0',Validators.required] ,ReportDate:['',Validators.required],
+         EmployeeId:['0',Validators.required]
      });
 
 
@@ -161,10 +172,14 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindDefaultGrid(){
     
+    var splitted = this.ReportDate.split("-", 3); 
+    var ReportDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    
+
     let ReportType=2;
     var JsonData ={
       "UserId" : this.UserId,
-      "ReportDate" : this.ReportDate,   
+      "ReportDate" : ReportDate,   
       "CustomerAccountNo" : this.CustomerAccount,
       "PageCount" : this.PageCount,
       "ReportType":  ReportType  
@@ -263,22 +278,75 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   }
 
   Search(ReportDate){
+
+    let item = JSON.parse(sessionStorage.getItem('User'));
+    var usertype=this.Dbsecurity.Decrypt(item.UserType);
+
+    if(usertype == 2 ||usertype == 3 || usertype == 4){
+
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+     if(this.CurrentPortfolioForm.controls['CustomerAccount'].value != 0){
+      
+
+     }
+   
+
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['CustomerAccount'].value);
+    
+    }
+    else{
+      const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+    //   const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    //  IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+  
+
+    }
+    if(usertype == 3){
+
+      
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+
+    }
+    else{
+      const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+      IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      // CustomerAccountNo= item.AccountNo
+      
+   
+
+    }
+    const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+    IsReportdate.setValidators(Validators.required); IsReportdate.updateValueAndValidity();
+    this.submitted = true;
+    if (this.CurrentPortfolioForm.invalid) {
+      return; 
+    }
+    else{
+      
     this.ReportDate = ReportDate;
     this.CustomerAccount = this.CurrentPortfolioForm.controls['CustomerAccount'].value;
     this.PageCount = 1;
     this.BindCurrentPortFolioReport(this.ReportDate);
+    }
   }
 
   
   BindCurrentPortFolioReport(ReportDate) {
     
        
+    var splitted = ReportDate.split("-", 3); 
+    var ReportDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
         let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
         var UserId = Sessionvalue.UserId;
         let ReportType=2;
         var JsonData ={
           "UserId" : UserId,
-          "ReportDate" : ReportDate,   
+          "ReportDate" : ReportDate1,   
           "CustomerAccountNo" : this.CustomerAccount,
           "PageCount" : this.PageCount,
           "ReportType":  ReportType  
@@ -337,15 +405,52 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
     FetchLatestReport() {
     
+      let item = JSON.parse(sessionStorage.getItem('User'));
+      var usertype=this.Dbsecurity.Decrypt(item.UserType);
+      var CustomerAccount;
+      if(usertype == 2 ||usertype == 3 || usertype == 4){
+  
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();
+      
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+
+      }
+      else{
+        const IsCustomerAccount = this.CurrentPortfolioForm.get('CustomerAccount');
+        IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+
+        const IsEmployee = this.CurrentPortfolioForm.get('EmployeeId');
+        IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();
+      
+        const IsReportdate = this.CurrentPortfolioForm.get('ReportDate');
+        IsReportdate.clearValidators(); IsReportdate.updateValueAndValidity();
+        
+        
+        CustomerAccount= item.AccountNo
+  
+      }
+
+      this.submitted = true; 
+     // if (this.CurrentPortfolioForm.controls['CustomerAccount'].invalid) {
+        if (this.CurrentPortfolioForm.invalid) {
+        return; 
+      }
+      else{
       // this.loading = true;
       //this.isShowLoader=true;
-      this.loader1 = true;this.loader2 = true;
+     // this.loader1 = true;this.loader2 = true;
        var currentContext = this;
        // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
        var ReportName=2;
       // const datat = this.TransactionStatementViewForm.value;
       // var CustomerAccount=datat.UserId;
-      var CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
+    //  CustomerAccount=this.CurrentPortfolioForm.controls['CustomerAccount'].value;
        var JsonData ={
              //this.TransactionStatementForm.controls['ToDate']
          "CustomerAccount" : CustomerAccount,
@@ -359,10 +464,11 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;
              // this.isShowLoader=false; 
-             this.loader1 = false;this.loader2 = false;
+           //  this.loader1 = false;this.loader2 = false;
            });
        // console.log(sessionStorage.getItem('ID'));
        //this.loading = false;
+          }
        
      }
 
