@@ -25,7 +25,7 @@ export class BankBookViewComponent implements OnInit {
     {headerName: 'From Date', field: 'ReportDate', width:'150'},
     {headerName: 'To Date', field: 'ToDate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
-    {headerName: 'Scheme', field: 'scheme', width:'150'},
+    {headerName: 'Scheme', field: 'Scheme', width:'150'},
 
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
       return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
