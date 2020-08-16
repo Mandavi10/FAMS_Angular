@@ -83,7 +83,7 @@ export class StatementDividendViewComponent implements OnInit {
       this.CustomerAccount = item.AccountNo;
      }
      this.baseUrl = AppSettings.Login_URL;
-     if(this.userType==3||this.userType==4){
+     if(this.userType==3||this.userType==4||this.userType==2){
       this.BindViewGridList=[];
      }
      else{

@@ -83,7 +83,7 @@ export class CapitalStatementViewComponent implements OnInit {
       this.UserId = this.Dbsecurity.Decrypt(item.UserId);
       this.CustomerAccount = item.AccountNo;
      }
-     if(this.userType==3||this.userType==4){
+     if(this.userType==3||this.userType==4||this.userType==2){
       this.BindViewGridList=[];
      }
      else{
