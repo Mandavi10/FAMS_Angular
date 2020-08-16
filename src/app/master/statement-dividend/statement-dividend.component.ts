@@ -88,6 +88,13 @@ export class StatementDividendComponent implements OnInit {
     let item = JSON.parse(sessionStorage.getItem('User'));
       var userType=this.Dbsecurity.Decrypt(item.UserType);
       
+      var usertype=this.Dbsecurity.Decrypt(item.UserType);      
+      if(usertype == 4){
+        this.CustNameDive=true;
+        this.divEmployee=true;
+
+      }
+
       var accountNumber=item.AccountNo;
       var GAccountNumber,GUserId;
       
@@ -152,6 +159,7 @@ Showcustdropdown(){
   let item = JSON.parse(sessionStorage.getItem('User'));
   var usertype=this.Dbsecurity.Decrypt(item.UserType);
   var userid1=this.Dbsecurity.Decrypt(item.UserId);
+
 
   if(usertype == 2 || usertype == 4){
     this.CustNameDive=true;
