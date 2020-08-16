@@ -161,7 +161,7 @@ Showcustdropdown(){
   var userid1=this.Dbsecurity.Decrypt(item.UserId);
 
 
-  if(usertype == 2 || usertype == 4){
+  if(usertype == 2){
     this.CustNameDive=true;
     this.divEmployee=false;
 
@@ -173,7 +173,7 @@ Showcustdropdown(){
 
   }
 
-  if(usertype == 3){
+  if(usertype == 3  || usertype == 4){
    // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
     //this.CustomerAccount = "";
     this.CustNameDive=true;
@@ -514,11 +514,11 @@ BindCustomers(){
   // var userid1=this.Dbsecurity.Decrypt(item.UserId);
 
 
-  if(usertype == 2 || usertype == 4){
+  if(usertype == 2 ){
     UserId=item.UserId
   }
 
-  if(usertype == 3){
+  if(usertype == 3 || usertype == 4){
 
    // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
 
