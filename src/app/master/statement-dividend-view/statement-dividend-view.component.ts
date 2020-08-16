@@ -18,7 +18,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 export class StatementDividendViewComponent implements OnInit {
   divEmployee:boolean=false;CustNameDive:boolean=false;userType:any;UserId:any;CustomerAccount:any;
   BindemployeesList:BindEmployees;BindcustomerallfieldsList : Bindcustomerallfields;isShowLoader:boolean=false;
-  BindViewGridList:BindViewGrid;StatementdiviViewForm : FormGroup;Formdate:any;Todate:any;
+  BindViewGridList:Array<BindViewGrid>;StatementdiviViewForm : FormGroup;Formdate:any;Todate:any;
   submitted=false;baseUrl: string = "";
   
   columnDefs = [
@@ -65,7 +65,7 @@ export class StatementDividendViewComponent implements OnInit {
      });
     let item = JSON.parse(sessionStorage.getItem('User'));
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
-    if(this.userType == 3){
+    if(this.userType == 3 || this.userType==4){
       this.CustNameDive=true;this.divEmployee=true;
        this.UserId = this.Dbsecurity.Decrypt(item.UserId);
        this.CustomerAccount = item.AccountNo;
@@ -83,7 +83,12 @@ export class StatementDividendViewComponent implements OnInit {
       this.CustomerAccount = item.AccountNo;
      }
      this.baseUrl = AppSettings.Login_URL;
+     if(this.userType==3||this.userType==4){
+      this.BindViewGridList=[];
+     }
+     else{
      this.BindViewGrid();
+     }
     
   }
   validateAllFormFields(formGroup: FormGroup) {
@@ -161,7 +166,50 @@ get f() {
   }
 
   SearchData(){
-    if(this.StatementdiviViewForm.valid){
+debugger;
+    if(this.userType == 3 || this.userType == 4){
+      const IsEmployeeId = this.StatementdiviViewForm.get('EmployeeId');
+      IsEmployeeId.setValidators(Validators.required); IsEmployeeId.updateValueAndValidity();
+      const IsCustomerAccount = this.StatementdiviViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+     else if(this.userType==2){
+      const IsCustomerAccount = this.StatementdiviViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+    else if(this.userType==1){
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+    else{
+      const IsCustomerAccount = this.StatementdiviViewForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+      const IsEmployee = this.StatementdiviViewForm.get('EmployeeId');
+       IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();   
+      const IsFormdate = this.StatementdiviViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      const IsTodate = this.StatementdiviViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();      
+    }
+
+
+       this.submitted = true; 
+       if (this.StatementdiviViewForm.invalid) {
+       return; 
+     }
+
+
+    else{
     this.isShowLoader=true;
     this.Formdate = this.StatementdiviViewForm.controls["Formdate"].value;
     this.Todate = this.StatementdiviViewForm.controls["Todate"].value;
@@ -189,9 +237,7 @@ get f() {
            this.isShowLoader=false;
       }); 
     }
-    else{
-      this.validateAllFormFields(this.StatementdiviViewForm); 
-    } 
+   
   }
 
   FetchLatestReport() {
