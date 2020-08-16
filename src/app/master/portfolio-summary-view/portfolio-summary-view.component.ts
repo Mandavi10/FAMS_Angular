@@ -71,46 +71,58 @@ rowData = [
      
       CustomerAccount:['']
     });
-   this.isShowLoader=true;
-let item = JSON.parse(sessionStorage.getItem('User'));
-this.baseUrl = AppSettings.Login_URL;
+  
 
+this.baseUrl = AppSettings.Login_URL;
+let item = JSON.parse(sessionStorage.getItem('User'));
 this.userType=this.Dbsecurity.Decrypt(item.UserType);
 this.accountNumber="0";
+const datat = this.PortfolioSummaryFormView.value;
+var AsOnDate=datat.AsOnDate;
+var ToDate=datat.ToDate;
+
 
 if(this.userType ==1)
 {
+  const datat = this.PortfolioSummaryFormView.value;
+var AsOnDate=datat.AsOnDate;
+var ToDate=datat.ToDate;
+  let item = JSON.parse(sessionStorage.getItem('User'));
   this.GUserId=item.UserId.replace('+',' ');
-  this.GAccountNumber=item.AccountNo;   
+  this.BindMainGrid(this.accountNumber,AsOnDate,ToDate);
 }
 else if(this.userType ==2)
 {
+  let item = JSON.parse(sessionStorage.getItem('User'));
   this.isShowCustomer=true;    
   this.GUserId=item.UserId.replace('+',' ');
   this.GAccountNumber="1";
   this.BindCustomers();
+  this.BindMainGrid("1","","");
 }
 
 else if(this.userType ==3)
 {
+  let item = JSON.parse(sessionStorage.getItem('User'));
   this.GUserId=item.UserId.replace('+',' ');
   this.GAccountNumber="0";
   this.PortfolioSummaryFormView.controls["UserId"].setValue(0);
   this.isShowCustomer=true;
   this.BindEmployee();
+  this.BindMainGrid("1","","");
   
 }
 
 else{
+  let item = JSON.parse(sessionStorage.getItem('User'));
   this.GUserId=item.UserId.replace('+',' ');
   this.GAccountNumber="0";
   this.isShowCustomer=false;
   this.isShowsEmployee=false;
+  this.BindMainGrid("1","","");
 }
-const datat = this.PortfolioSummaryFormView.value;
-var AsOnDate=datat.AsOnDate;
-var ToDate=datat.ToDate;
-this.BindMainGrid(this.accountNumber,AsOnDate,ToDate);
+
+
   }
 
   
@@ -123,11 +135,12 @@ displayFieldCss(field: string) {
     };
 }
   BindMainGrid(accountNumber123,AsOnDate,ToDate){
+    this.isShowLoader=true;
     let item = JSON.parse(sessionStorage.getItem('User'));   
     let _apipostdata = new PrimaryDetails();
     _apipostdata.userType=item.UserType;
     _apipostdata.ReportName="3";
-    _apipostdata.UserId=item.UserId.replace('+',' ');
+    
     _apipostdata.accountNumber=accountNumber123;
     _apipostdata.Fromdate=AsOnDate;
     _apipostdata.Todate=ToDate;
@@ -185,6 +198,7 @@ displayFieldCss(field: string) {
     if (this.validation()) {
 
       const datat = this.PortfolioSummaryFormView.value;
+      console.log(datat)
       if(datat.UserId=="0")
       {
       
@@ -195,10 +209,18 @@ displayFieldCss(field: string) {
       }
       var AsOnDate=datat.AsOnDate;
       var ToDate=datat.ToDate;
+      if(ToDate !=undefined)
+      {
+        ToDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
+      }
+      else{
+        ToDate="";
+      }
+      
       var splitted = AsOnDate.split("-", 3); 
       var splitted1 = ToDate.split("-", 3); 
         AsOnDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
-        ToDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
+      
       this.BindMainGrid(this.CustomerAccount,AsOnDate,ToDate)
 
     } 
@@ -224,7 +246,7 @@ displayFieldCss(field: string) {
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var ReportName="3";
     const datat = this.PortfolioSummaryFormView.value;
-    var CustomerAccount=datat.UserId;
+    var CustomerAccount=item.AccountNo;
     var JsonData ={
     //this.TransactionStatementForm.controls['ToDate']
     "CustomerAccount" : CustomerAccount,
