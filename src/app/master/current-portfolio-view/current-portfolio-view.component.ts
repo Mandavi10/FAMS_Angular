@@ -55,7 +55,7 @@ export class CurrentPortfolioViewComponent implements OnInit {
     {headerName: 'Report Date', field: 'ReportDate', width:'150'},
    //  {headerName: 'To Date', field: 'ReportDate', width:'150',hide:true},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
-    {headerName: 'Scheme', field: 'scheme', width:'150'},
+    {headerName: 'Scheme', field: 'Scheme', width:'150'},
     // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
     //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
     //   // return ' <a target="_blank"  href="../../../assets/Files/Portfolio_Report.pdf"> Download</a> ';
@@ -399,7 +399,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
       //   this.loader1 = false;this.loader2 = false;
        
       //   this.IsShowRecord=false;
-      //   // this.IsShowNoRecord=true;
+      //   // this.IsShowNoRecord=true; 
       //   // this.btnNext=false;
         
       // }
