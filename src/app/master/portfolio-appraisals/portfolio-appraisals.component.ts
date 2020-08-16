@@ -135,8 +135,8 @@ var AsOnDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     // let UserId1=this.route.snapshot.queryParamMap.get('FromDate');
     // let FromDate=this.route.snapshot.queryParamMap.get('EmployeeId');
 
-    alert(GAccountNumber)
-    alert(UserId)
+    // alert(GAccountNumber)
+    // alert(UserId)
     // alert(FromDate)
 
     let CustomerAccountNo=this.route.snapshot.queryParamMap.get('CustomerAccountNo');
