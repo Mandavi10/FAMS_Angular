@@ -128,7 +128,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
 
     //var ReportName="Transaction Statement Cleintwise";
     var ReportType="9";
-    this.BindTransactionStatementView("0","","",ReportType.trim());
+    
     let item = JSON.parse(sessionStorage.getItem('User'));
     this.userType=this.Dbsecurity.Decrypt(item.UserType);
     this.accountNumber=item.AccountNo;
@@ -137,6 +137,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
     {
       this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber=this.accountNumber;   
+      this.BindTransactionStatementView(this.accountNumber,"","",ReportType.trim());
     }
 
    else if(this.userType ==3)
@@ -147,6 +148,7 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
       this.isShowCustomer=true;
       this.BindEmployee();
       //this.BindCustomer();
+      this.BindTransactionStatementView(1,"","",ReportType.trim());
      
     }
     else if(this.userType ==2)
@@ -155,12 +157,14 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
      this.GUserId=item.UserId.replace('+',' ');;
      this.GAccountNumber="1";
       this.BindCustomer();
+      this.BindTransactionStatementView(1,"","",ReportType.trim());
     }
     else{
       this.GUserId=item.UserId.replace('+',' ');;
       this.GAccountNumber="0";
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
+      this.BindTransactionStatementView(1,"","",ReportType.trim());
     }
   
     
@@ -170,13 +174,25 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
     if (this.validation()) {
           if (this.TransactionStatementViewForm.valid) {
               const datat = this.TransactionStatementViewForm.value;
-              if(datat.UserId=="0")
+              let item = JSON.parse(sessionStorage.getItem('User'));
+              this.userType=this.Dbsecurity.Decrypt(item.UserType);
+              this.accountNumber=item.AccountNo;
+              debugger;
+              if(this.userType ==1)
               {
-              this.CustomerAccount=datat.UserId; 
+                this.CustomerAccount=this.accountNumber;
               }
-              else{
-              this.CustomerAccount=datat.UserId;
+              else
+              {
+                if(datat.UserId=="0")
+                {
+                this.CustomerAccount=datat.UserId; 
+                }
+                else{
+                this.CustomerAccount=datat.UserId;
+                }
               }
+              
               var FromDate=datat.FromDate;
               var ToDate=datat.ToDate;
 
