@@ -189,12 +189,12 @@ if(this.userType == 3){
     }
   }
   else{
-    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
-    if(emp =="")
-    {
-     document.getElementById("ddlemployeedropdown").classList.add('validate');
-     flag=false;
-    }
+    // let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    // if(emp =="")
+    // {
+    //  document.getElementById("ddlemployeedropdown").classList.add('validate');
+    //  flag=false;
+    // }
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
     if(acno =="0")
     {
