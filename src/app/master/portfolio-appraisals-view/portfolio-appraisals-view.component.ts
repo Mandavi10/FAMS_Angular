@@ -7,6 +7,7 @@ import { PortfolioAppraisals,gridView,Bindemployee,SumPortfolioappraisalModel,Su
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AppSettings} from 'src/app/app-settings';
+import { ColDef, GridApi, ColumnApi,ICellRendererParams  } from 'ag-grid-community';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -99,7 +100,15 @@ rowData = [
 
    
 ];
-constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) { }
+private api: GridApi;
+private defaultColDef;
+private paginationPageSize;
+constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) 
+
+{ 
+
+  
+}
 
   ngOnInit(): void { 
     this.baseUrl = AppSettings.Login_URL;
@@ -160,8 +169,45 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
    {
       this.BindDefaultLast(this.GAccountNumber,this.GUserId)
    }
+   this.paginationPageSize = 10; //set pagination page size
   }
 
+
+  // private gridApi;
+  // paginationmsg:any;
+  // showpagination:boolean;
+
+  // onPaginationChanged() {
+  //   console.log('onPaginationPageLoaded');
+  //   if(this.gridView1.length > 0){
+  //   if (this.gridApi) {
+  //     this.showpagination=true;
+  //     this.paginationmsg= this.gridApi.paginationGetCurrentPage() + 1+' out of '+ this.gridApi.paginationGetTotalPages();
+  //     // setText('#lbLastPageFound', this.gridApi.paginationIsLastPageFound());
+  //     // setText('#lbPageSize', this.gridApi.paginationGetPageSize());
+  //     // setText('#lbCurrentPage', this.gridApi.paginationGetCurrentPage() + 1);
+  //     // setText('#lbTotalPages', this.gridApi.paginationGetTotalPages());
+  //     // setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
+  //   }
+  // }
+  // else{
+  //   this.paginationmsg='';
+  //   this.showpagination=false;
+  // }
+  // }
+  
+  // onGridReady(params) {
+  //   this.gridApi = params.api;
+  //   //this.gridColumnApi = params.columnApi;
+  // }
+  
+  // onBtNext() {
+  //   this.gridApi.paginationGoToNextPage();
+  // }
+  
+  // onBtPrevious() {
+  //   this.gridApi.paginationGoToPreviousPage();
+  // }
 
   // onGridReady(params) {
   //   this.gridApi = params.api;
@@ -486,16 +532,13 @@ let ReportType=4
       "ReportName":ReportName
      }
  
-     
+    
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-            //  currentContext.transactionStatementView = data.Table;
-            //  this.transactionStatementView_Copy=data.Table;
-            // this.isShowCustomer=true;
-          //  this.isShowLoader=false;
+          this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
+           
          });
-     // console.log(sessionStorage.getItem('ID'));
-     //this.loading = false;
+    
         }
      
    }

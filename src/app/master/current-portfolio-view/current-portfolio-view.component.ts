@@ -466,6 +466,8 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
        
        this._CurrentportfolioService.GetFetchLatestReport(JsonData).
            subscribe((data) => {
+            this.CustomerAccount = ""; 
+            this.BindDefaultData();
               //  currentContext.transactionStatementView = data.Table;
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;
