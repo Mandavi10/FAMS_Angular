@@ -1,9 +1,13 @@
 <div class="main-content maincontainer">
   <div class="content">
-    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+    <!-- <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
            <img src="../../assets/images/loader.gif" class="loaderimagepage" />
        </div>
+   </div> -->
+   <div class="loaderOverlay"  *ngIf="loader1" ></div>
+   <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" *ngIf="loader2">
+       <img src="../../assets/images/loader.gif" />
    </div>
      <form [formGroup]="PortfolioAppraisalsForm">
         <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper p-0">

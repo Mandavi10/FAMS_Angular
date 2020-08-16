@@ -52,6 +52,9 @@ export class PortfolioAppraisalsComponent implements OnInit {
  customerlength:number;
  IsShowNoRecord:boolean;
  IsShowRecord:boolean;
+ loader1:boolean;
+ loader2:boolean;
+
   //BindemployeesList:Bindemployee;
 
 
@@ -87,7 +90,7 @@ var AsOnDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       this.GAccountNumber=this.accountNumber;   
     }
 
-   else if(this.userType ==3)
+   else if(this.userType ==3 || this.userType ==4)
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
@@ -213,7 +216,7 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
 
 
 
-         if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3){
+         if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3 && Usertype == 4){
         
       // if(this.PageCount ==10){
         if(this.EvenOdd == (this.customerlength *2)){ 
@@ -233,7 +236,7 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
      {
        this.pagecount -=1;
  
-       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount).
+       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,0,this.pagecount).
        subscribe((data) => {
        //this.statementOfExpenses_Default=data.Table;
       // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
@@ -296,7 +299,7 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
 
 
 
-     if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3){
+     if(this.PortfolioAppraisalsForm.controls['UserId'].value == 0 && Usertype == 3 && Usertype == 4){
         
       // if(this.PageCount ==10){
         if(this.EvenOdd == (this.customerlength *2)){ 
@@ -317,7 +320,7 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
      {
  
       this.pagecount +=1;
-       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount).
+       this._PortfolioAppraisalsService.NextRecordBind(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,0,this.pagecount).
        subscribe((data) => {
        //this.statementOfExpenses_Default=data.Table;
       // this.StatementOfExpenseForm.controls['ToDate'].setValue(currentDate);
@@ -325,7 +328,7 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
          {
            
           //  this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.EvenOdd);
-          this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["ToDate"].value,this.pagecount);
+          this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,0,this.pagecount);
         }
          
        });
@@ -421,8 +424,8 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
 
   BindStatementOfExpReport(CustomerAccount,FromDate,ToDate,SeqNo) {
     
-    this.loading = true;
-    this.isShowLoader=true;
+    // this.loading = true;
+    // this.isShowLoader=true;
     var currentContext = this;
     
 
@@ -432,13 +435,15 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
       "Fromdate":FromDate,
       "pagecount":SeqNo
     }
+    this.loader1=true;
+    this.loader2=true;
+    this.IsShowRecord=false;
     this._PortfolioAppraisalsService.BindGridAllFields(jason).
         subscribe((data) => {
           if((data.Table.length !=0) && (data.Table1.length !=0) && (data.Table2.length !=0) )
           {
             
-            this.IsShowRecord=true;
-            this.IsShowNoRecord=false;
+
              currentContext.cashportfolio = data.Table2;
              currentContext.SumPortfolioappraisalModel = data.Table1;
             // currentContext.statementOfExpenses2 = data.Table2 secoundgrid
@@ -461,6 +466,11 @@ let AsOnDate=this.route.snapshot.queryParamMap.get('AsOnDate');
               this.isShowFutureData=true; 
               this.isShowSecurity=false;
             }
+
+            this.IsShowRecord=true;
+            this.IsShowNoRecord=false;
+            this.loader1=false;
+            this.loader2=false;
             
             // currentContext.statementOfExpenses2 = data.Table2;
 
