@@ -173,6 +173,7 @@ if(this.userType == 3){
      flag=false;
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date =="")
     {
@@ -186,6 +187,21 @@ if(this.userType == 3){
      document.getElementById("date1").classList.add('validate');
      flag=false;
     }
+  }
+  else{
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp =="")
+    {
+     document.getElementById("ddlemployeedropdown").classList.add('validate');
+     flag=false;
+    }
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno =="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.add('validate');
+     flag=false;
+    }
+  }
 
     return flag;
     // if(flag=true)
@@ -210,6 +226,7 @@ if(this.userType == 3){
      document.getElementById("ddlcustomerdropdown").classList.remove('validate');
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date !="")
     {
@@ -220,6 +237,20 @@ if(this.userType == 3){
     {
      document.getElementById("date1").classList.remove('validate');
     }
+  }
+  else{
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno !="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    }
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp !="")
+    {
+     document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    }
+  }
+
   }
 
   SearchData(FromDate,ToDate){
@@ -257,11 +288,19 @@ if(this.userType == 3){
     this.isShowLoader=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
 
-    var splitted = FromDate.split("-", 3); 
-    var FromDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
-
-    var splitted = ToDate.split("-", 3); 
-    var ToDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+    var FromDate1="";
+    var ToDate1 ="";
+  
+     if(FromDate != undefined)
+    {
+      var splitted = FromDate.split("-", 3); 
+       FromDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]); 
+    }
+if( ToDate != undefined){
+  var splitted = ToDate.split("-", 3); 
+  ToDate1 = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
+}
+   
 
     var JsonData ={
       
@@ -377,7 +416,7 @@ if(this.userType == 3){
      
       var FromDate=datat.FromDate;
       var ToDate=datat.ToDate;
-      this.BindGridView(this.CustomerAccount,FromDate,ToDate)
+      this.BindGridView(FromDate,ToDate,CustomerAccount)
       
       });
       // console.log(sessionStorage.getItem('ID'));
@@ -414,7 +453,7 @@ if(this.userType == 3){
       const datat = this.BankBookViewForm.value;
   var FromDate=datat.FromDate;
   var ToDate=datat.ToDate;
-      this.BindGridView(this.CustomerAccount,FromDate,ToDate)
+      this.BindGridView(FromDate,ToDate,CustomerAccount)
       
       });
       // console.log(sessionStorage.getItem('ID'));
