@@ -140,7 +140,8 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
       this.BindTransactionStatementView(this.accountNumber,"","",ReportType.trim());
     }
 
-   else if(this.userType ==3)
+  //  else if(this.userType ==3)
+  else if(this.userType ==3 || this.userType == 4)
     {
       this.GUserId=item.UserId.replace('+',' ');
       this.GAccountNumber="0";
@@ -478,8 +479,9 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
    }
 
    CustomerOn_Change(){
+     debugger;
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
-   
+    var ReportType="9";
    if(acno =="0")
    {
     document.getElementById("ddlcustomerdropdown").classList.add('validate');
@@ -487,6 +489,8 @@ constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string,priv
    else{
     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
    }
+   this.BindTransactionStatementView(acno,"","",ReportType.trim());
+
   }
    validateAllFormFields(formGroup: FormGroup) {
       Object.keys(formGroup.controls).forEach(field => {
