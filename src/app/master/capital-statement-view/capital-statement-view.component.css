@@ -1,4 +1,10 @@
 
+.loaderimagepage {
+  margin-left: -8%;
+  margin-top: 19%;
+  width: 8%;
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
     #createuser .modal-dialog{
       float: right;
