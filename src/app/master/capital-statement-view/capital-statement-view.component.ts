@@ -309,6 +309,19 @@ debugger;
          });
      }
    }
+   ChangeAccountFun(CustomerAccount){
+    this.isShowLoader=true;
+    this.CustomerAccount=CustomerAccount;
+    var JsonData ={
+      "CustomerAccountNo" : this.CustomerAccount.trim(),
+      "PageType" : "6"
+     }   
+     this._CapitalSatementService.ChangeAccountFun(JsonData).
+         subscribe((data) => {
+          this.BindViewGridList = data.Table;
+          this.isShowLoader=false;
+         });
 
+  }
 
 }
