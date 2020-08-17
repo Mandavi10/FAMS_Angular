@@ -13,8 +13,8 @@ export class PortfolioAppraisalsService {
   baseUrl: string = ""; UserId: string = ""; EntityId: string = "";
   constructor(private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string) {
       //this.baseUrl = myAppUrl;
-  this.baseUrl = "http://localhost:55073/";
-  // this.baseUrl = AppSettings.Login_URL;
+ // this.baseUrl = "http://localhost:55073/";
+  this.baseUrl = AppSettings.Login_URL;
   }
 
 
@@ -57,6 +57,17 @@ export class PortfolioAppraisalsService {
       headers 
   });
   }
+//BindGridOncustomerChange
+
+BindGridOncustomerChange(em): Observable<any> {
+  const body = em; 
+  
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/PortfolioAppraisals/BindGridOncustomerChange/', body, {
+    headers 
+});
+}
+
   BindDefaultData(em): Observable<any> {
     const body = em; 
      

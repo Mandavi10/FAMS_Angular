@@ -79,7 +79,7 @@
                       Customer Name:
                     </label>
                     <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                      <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId" [ngClass]="{ 'validate': submitted && f.UserId.errors }">
+                      <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId" (change)="BindOnCustomerchange()" [ngClass]="{ 'validate': submitted && f.UserId.errors }">
                         <option value="" selected>Select</option> 
                         <option value="0" selected>All Customer</option>
                          <option *ngFor="let data of customer" value={{data.UserId}}  >
