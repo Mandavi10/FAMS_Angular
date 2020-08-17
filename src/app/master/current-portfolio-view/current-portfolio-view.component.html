@@ -21,13 +21,19 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
-                        <li (click)="FetchLatestReport($event)" >
+                        <!-- <li (click)="FetchLatestReport($event)" >
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
                             <label>
                                 Fetch Latest Report
                             </label>
-                        </li>
+                        </li> -->
                           
+                        <li (click)="FetchLatestReport($event)">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                            <label>
+                                Fetch Latest Report
+                            </label>
+                        </li>
                         <li (click)="downloadCSVFile($event)">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to PDF"></i>
                             <label>
@@ -66,7 +72,7 @@
                         <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="EmployeeId" #EmployeeId [ngClass]="{ 'validate': submitted && f.EmployeeId.errors }" (change)="BindCustomersOnChange(EmployeeId.value)">
                                 <option value="">Select</option>
-                                <option value="0">All Employee</option>
+                                <!-- <option value="0">All Employee</option> -->
                                 <option *ngFor="let Data of AllEmployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                       
                             </select>                  
                         </div>
@@ -83,7 +89,7 @@
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" (change)="BindOnCustomerchange()" #CustomerAccount [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
         
                                 <option value="">Select</option>
-                                <option value="0">All Customers</option>
+                                <!-- <option value="0">All Customers</option> -->
                                 <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                             </select>
                           
