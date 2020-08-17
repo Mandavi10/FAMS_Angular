@@ -176,6 +176,32 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   }
 
 
+  BindOnCustomerchange(){
+
+    
+    let ReportType=2;
+    var JsonData ={
+    //  "UserId" : this.UserId,
+     // "ReportDate" : ReportDate,   
+      "CustomerAccountNo" : this.CurrentPortfolioForm.controls["CustomerAccount"].value,
+      "PageCount" : this.PageCount,
+      "ReportType":  ReportType  
+    }
+    this.loader1=true;this.loader2=true;
+    this.IsShowRecord=false;
+    this._CurrentportfolioService.BindGridOncustomerChange(JsonData).subscribe(
+      (data) => {
+        this.currentportfolioView=data.Table
+        console.log('default current portfolio');
+        console.log(this.currentportfolioView)
+
+        this.loader1=false;this.loader2=false;
+        this.IsShowRecord=true;
+
+      })
+
+  }
+
   BindDefaultGrid(){
     
     var splitted = this.ReportDate.split("-", 3); 
