@@ -35,8 +35,8 @@ export class PortfolioFactViewComponent implements OnInit {
   IsShowNoRecord:boolean;
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
-    {headerName: 'From Date', field: 'FromDate', width:'150'},
-    {headerName: 'To Date', field: 'ToDate', width:'150'},
+    {headerName: 'As On', field: 'FromDate', width:'150'},
+    //{headerName: 'To Date', field: 'ToDate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
@@ -116,6 +116,7 @@ rowData = [
     else{
       // this.GUserId=item.UserId;
       GAccountNumber="0";
+      this.BindEmployee();
       this.BindMainGrid("1","","");
      
     }
@@ -128,27 +129,29 @@ rowData = [
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid1=this.Dbsecurity.Decrypt(item.UserId);
   
-    if(usertype == 2 || usertype == 4){
-      this.CustNameDive=true;
-      this.divEmployee=false;
-  
-     this.BindCustomers();
-    }
-    else{
+    if(usertype == 1)
+    {
       this.CustNameDive=false;
       this.divEmployee=false;
-  
     }
-  
-    if(usertype == 3){
+    if(usertype == 2){
+      this.CustNameDive=true;
+      this.divEmployee=false;  
+     this.BindCustomers();
+    }
+    if(usertype == 3 ||usertype == 4){
      
       this.CustomerAccount = "";
       this.CustNameDive=true;
       this.divEmployee=true;
       
       this.BindEmployee();
+     
   
     }
+  
+    
+    
   
   }
   BindEmployee(){
@@ -176,11 +179,11 @@ rowData = [
     // var userid1=this.Dbsecurity.Decrypt(item.UserId);
   
   
-    if(usertype == 2 || usertype == 4){
+    if(usertype == 2 ){
       UserId=item.UserId
     }
   
-    if(usertype == 3){
+    if(usertype == 3 || usertype == 4){
   
      // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
   
@@ -254,13 +257,27 @@ rowData = [
    }
    else{
     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+
+    const datat = this.PortFolioFactView.value;
+    console.log(datat)
+   
+    var customeracount=datat.CustomerAccount;
+    var AsOnDate=datat.AsOnDate;
+    if(AsOnDate !="")
+    {
+     var splitted1 = AsOnDate.split("-", 3); 
+    AsOnDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
+   }
+    var ToDate="";
+    this.BindMainGrid(customeracount,AsOnDate,ToDate);
    }
   }
+  
   validation():boolean{
 
     var flag=true;
     let item = JSON.parse(sessionStorage.getItem('User'));
-    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 || this.Dbsecurity.Decrypt(item.UserType)==4){
       let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
       if(emp =="0")
       {
@@ -268,7 +285,7 @@ rowData = [
        flag=false;
       }
     }
-    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2 || this.Dbsecurity.Decrypt(item.UserType)==4){
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
     if(acno =="0")
     {
@@ -276,18 +293,20 @@ rowData = [
      flag=false;
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date =="")
     {
      document.getElementById("date").classList.add('validate');
      flag=false;
     }
+  }
     
     return flag;
   }
   RemoveClass(){
     let item = JSON.parse(sessionStorage.getItem('User'));
-    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==4){
     let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
     if(emp !="0")
     {
@@ -301,11 +320,13 @@ rowData = [
      document.getElementById("ddlcustomerdropdown").classList.remove('validate');
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date !="")
     {
      document.getElementById("date").classList.remove('validate');
     }
+  }
 
   }
   FetchLatestReport() {
