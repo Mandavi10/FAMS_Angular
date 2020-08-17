@@ -5,4 +5,5 @@ export class Bindgridview {
     ToDate : string;
     DownloadLink : string;
     Srno:string;
+    Scheme:string;
 }

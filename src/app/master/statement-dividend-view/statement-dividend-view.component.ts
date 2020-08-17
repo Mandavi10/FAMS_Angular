@@ -272,13 +272,28 @@ debugger;
      else{
     var JsonData ={
      "CustomerAccount" : this.CustomerAccount.trim(),
-     "ReportName" : "6"
+     "ReportName" : "7"
     }   
     this._StatementDividendService.GetFetchLatestReport(JsonData).
         subscribe((data) => {
           this.BindViewGrid();
         });
      }
+  }
+
+  ChangeAccountFun(CustomerAccount){
+    this.isShowLoader=true;
+    this.CustomerAccount=CustomerAccount;
+    var JsonData ={
+      "CustomerAccountNo" : this.CustomerAccount.trim(),
+      "PageType" : "7"
+     }   
+     this._StatementDividendService.ChangeAccountFun(JsonData).
+         subscribe((data) => {
+          this.BindViewGridList = data.Table;
+          this.isShowLoader=false;
+         });
+
   }
 
 }
