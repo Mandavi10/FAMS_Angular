@@ -73,8 +73,8 @@
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlcustomerdropdown" (change)="CustomerOn_Change();RemoveClass();" formControlName="CustomerAccount" >
-                              <option value="">Select</option>
-                              <option value="0" selected>All Customer</option>
+                              <!-- <option value="">Select</option> -->
+                              <option value="0" selected>Select</option>
                               <option *ngFor="let Data of BindcustomerallfieldsList" value={{Data.CustomerAccountNo}} text={{Data.UserName}}>                                         
                             </select>
                           

@@ -477,6 +477,36 @@ let ReportType=4
     this.isShowLoader=false;
   }
 
+  BindOnCustomerchange(){
+
+    
+    let ReportType=4;
+    var JsonData ={
+    //  "UserId" : this.UserId,
+     // "ReportDate" : ReportDate,   
+      "CustomerAccountNo" : this.PortfolioAppraisalsForm.controls["UserId"].value,
+     // "PageCount" : this.PageCount,
+      "ReportType":  ReportType  
+    }
+    this.loader2=true;
+    this.loader1=true;
+    this.IsShowRecord=false;
+    this._PortfolioAppraisalsService.BindGridOncustomerChange(JsonData).subscribe(
+      (data) => {
+        this.gridView1=data.Table;
+        console.log('view portfolio')
+        console.log(this.gridView1)
+
+        this.IsShowRecord=true;
+        this.IsShowNoRecord=false;
+        this.loader2=false;
+        this.loader1=false;
+
+      })
+
+  }
+
+
   FetchLatestReport() {
     
     let item = JSON.parse(sessionStorage.getItem('User'));
