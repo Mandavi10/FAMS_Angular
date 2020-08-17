@@ -64,12 +64,12 @@ export class CurrentPortfolioViewComponent implements OnInit {
 
     
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
     }},
 
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(params){
     //  return '<button type="button" class="btn btn-success">View</button>';
-    return '<a href="/CurrentPortfolio?CustomerAccountNo='  + params.data.CustomerAccountNo + '&ReportDate='+ params.data.ReportDate  + '">View</a>';
+    return '<a href="/CurrentPortfolio?CustomerAccountNo='  + params.data.CustomerAccountNo + '&ReportDate='+ params.data.ReportDate  + '"><button type="button" class="btn btn-success" >View </button></a>';
     }},
   
     
