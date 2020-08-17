@@ -14,7 +14,7 @@
 
 
                         <li (click)="FetchLatestReport($event)">
-                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Fetch Latest Report"></i>
 
                        
 
@@ -74,10 +74,10 @@
                          Customer Name :
                       </label>
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                          <select id="ddlcustomerdropdown" class="dropdown col-sm-12 col-md-12 col-xs-12" (change)="RemoveClass()" #CustomerAccount formControlName="UserId">
+                          <select id="ddlcustomerdropdown" class="dropdown col-sm-12 col-md-12 col-xs-12" (change)="RemoveClass(); BindGridOncustomerchange();" #CustomerAccount formControlName="UserId">
               
                               <option value="0" selected>Select</option>
-                              <option value="">All Customers</option>
+                              <!-- <option value="">All Customers</option> -->
                               <option *ngFor="let Data of BindCustomersList" value={{Data.CustId}} text={{Data.CustomerName}}>                       
                           </select>
                         

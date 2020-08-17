@@ -28,10 +28,10 @@ export class BankBookViewComponent implements OnInit {
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
 
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
-      return '<a href="/BankBook?CustomerAccount='  + params.data.CustomerAccountNo + '&FromDate='+ params.data.ReportDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
+      return '<a href="/BankBook?CustomerAccount='  + params.data.CustomerAccountNo + '&FromDate='+ params.data.ReportDate  + '&ToDate='+ params.data.ToDate  + '"><button type="button" class="btn btn-success" >View </button></a>';
     }
     },
   
@@ -76,7 +76,7 @@ BindgridList:Bindgrid;BankBookViewForm:FormGroup;TotalsumgridData:Totalsumgrid;B
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType); 
   
-if(this.userType == 3){
+if(this.userType == 3  || this.userType == 4 ){
   this.UserId = this.Dbsecurity.Decrypt(item.UserId);
   this.CustomerAccount = ""; 
   this.divCustomer=true;
@@ -137,7 +137,7 @@ if(this.userType == 3){
         if(this.userType != 1 ){
         this.CustomerAccount = data.Table[0].CustomerAccount;
         }
-        if(this.userType != 3 ){
+        if(this.userType != 3  ){
           this.CustomerAccount = data.Table[0].CustomerAccount;
           }
           this.BindGridView(fromdate,todate,this.CustomerAccount);
@@ -157,7 +157,7 @@ if(this.userType == 3){
 
     var flag=true;
     let item = JSON.parse(sessionStorage.getItem('User'));
-    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 || this.Dbsecurity.Decrypt(item.UserType)==4){
       let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
       if(emp =="")
       {
@@ -266,6 +266,13 @@ if(this.userType == 3){
       else{
        this.CustomerAccount=datat.UserId;
       }
+
+      let item = JSON.parse(sessionStorage.getItem('User'));  
+  this.userType=this.Dbsecurity.Decrypt( item.UserType); 
+  
+if(this.userType == 1){
+  this.CustomerAccount=item.AccountNo;
+}
       // var splitted =  this.FromDate.split("-", 3); 
       // this.FromDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
       // var splitted =  this.ToDate.split("-", 3); 
@@ -284,6 +291,29 @@ if(this.userType == 3){
     
   }
   
+  BindGridOncustomerchange(){
+    this.isShowLoader=true;
+    let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+
+    const datat = this.BankBookViewForm.value;
+    this.CustomerAccount=datat.UserId;
+
+    var JsonData ={
+      
+      "CustomerAccount":this.CustomerAccount,
+      "ReportType":'1',
+    }
+    this.BSService.BindGridOncustomerchange(JsonData).subscribe(
+      (data) => {
+        this.BindGridview1=data.Table;
+        
+
+      });
+      this.isShowLoader=false;
+      
+  }
+
+
   BindGridView(FromDate,ToDate,CustomerAccount){
     this.isShowLoader=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
