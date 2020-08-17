@@ -39,8 +39,8 @@ export class PortfolioSummaryViewComponent implements OnInit {
 
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
-    {headerName: 'From Date', field: 'FromDate', width:'150'},
-    {headerName: 'To Date', field: 'ToDate', width:'150'},
+    {headerName: 'As On', field: 'FromDate', width:'150'},
+   // {headerName: 'To Date', field: 'ToDate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
@@ -117,8 +117,9 @@ else{
   let item = JSON.parse(sessionStorage.getItem('User'));
   this.GUserId=item.UserId.replace('+',' ');
   this.GAccountNumber="0";
-  this.isShowCustomer=false;
-  this.isShowsEmployee=false;
+  this.isShowCustomer=true;
+  this.isShowsEmployee=true;
+  this.BindEmployee();
   this.BindMainGrid("1","","");
 }
 
@@ -198,7 +199,7 @@ displayFieldCss(field: string) {
     if (this.validation()) {
 
       const datat = this.PortfolioSummaryFormView.value;
-      console.log(datat)
+      
       if(datat.UserId=="0")
       {
       
@@ -235,6 +236,18 @@ displayFieldCss(field: string) {
    }
    else{
     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    const datat = this.PortfolioSummaryFormView.value;
+   
+   var customeracount=datat.UserId;
+   var AsOnDate=datat.AsOnDate;
+   if(AsOnDate !="")
+   {
+    var splitted1 = AsOnDate.split("-", 3); 
+    AsOnDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
+   }
+   var ToDate="";
+
+   this.BindMainGrid(customeracount,AsOnDate,ToDate);
    }
   }
   FetchLatestReport() {
@@ -339,12 +352,28 @@ var ToDate=datat.ToDate;
      flag=false;
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date =="")
     {
      document.getElementById("date").classList.add('validate');
      flag=false;
     }
+  }
+  else{
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+      if(emp =="0")
+      {
+       document.getElementById("ddlemployeedropdown").classList.add('validate');
+       flag=false;
+      }
+      let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+      if(acno =="0")
+      {
+       document.getElementById("ddlcustomerdropdown").classList.add('validate');
+       flag=false;
+      }
+  }
     
     return flag;
   }
@@ -364,11 +393,25 @@ var ToDate=datat.ToDate;
      document.getElementById("ddlcustomerdropdown").classList.remove('validate');
     }
   }
+  if(this.Dbsecurity.Decrypt(item.UserType)==1){
     let date=((document.getElementById("date") as HTMLInputElement).value);
     if(date !="")
     {
      document.getElementById("date").classList.remove('validate');
     }
+  }
+  else{
+    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    if(emp !="0")
+    {
+     document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    }
+    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+    if(acno !="0")
+    {
+     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+    }
+  }
 
   }
 
