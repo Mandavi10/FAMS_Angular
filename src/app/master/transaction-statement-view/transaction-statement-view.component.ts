@@ -81,10 +81,10 @@ export class TransactionStatementViewComponent implements OnInit {
     //   return ' <a target="_blank"  href="'  + params.data.DownloadLink + '"> Download</a> ';
     // }},
 
-    {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
+    {headerName: 'Download', field: '', width:'100',cellClass:'txtCenter',cellRenderer: (params) => {
       return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
       }},
-     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
+     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'txtCenter',cellRenderer: (params) => {
       return '<a href="/TransactionStatement?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '"><button type="button" class="btn btn-success" >View </button></a>';
     }
     },
