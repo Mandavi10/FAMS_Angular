@@ -74,7 +74,7 @@
                                Customer Name :
                             </label>
                             <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                                <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }">
+                                <select class="dropdown col-sm-12 col-md-12 col-xs-12" formControlName="CustomerAccount" #CustomerAccount [ngClass]="{ 'validate': submitted && f.CustomerAccount.errors }" (change)="ChangeAccountFun(CustomerAccount.value)">
             
                                     <option value="">Select</option>
                                     <!-- <option value="0" selected>All Customer</option> -->
