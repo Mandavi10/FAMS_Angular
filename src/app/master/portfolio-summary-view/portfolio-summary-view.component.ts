@@ -35,7 +35,6 @@ export class PortfolioSummaryViewComponent implements OnInit {
   CustomerAccountNo :any;
   PortfolioSummaryFormView : FormGroup;baseUrl: string = ""; 
 
-
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'As On', field: 'FromDate', width:'150'},

@@ -32,8 +32,7 @@ export class PortfolioFactViewComponent implements OnInit {
   FromDate:string;
   ToDate:string;
   showfromdate:boolean=false;
-  IsShowNoRecord:boolean;
-  
+  IsShowNoRecord:boolean;  
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'As On', field: 'FromDate', width:'150'},
