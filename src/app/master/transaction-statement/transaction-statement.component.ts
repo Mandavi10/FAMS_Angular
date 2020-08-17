@@ -120,16 +120,31 @@ rowData = [
 let FromDate=this.router1.snapshot.queryParamMap.get('FromDate');
 let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 
+// this.BindEmployee();
+// this.BindCustomer();
+
+let item = JSON.parse(sessionStorage.getItem('User'));
+this.userType=this.Dbsecurity.Decrypt(item.UserType);
+
+if(this.userType ==2)
+{
+  this.BindCustomer();
+  this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
+}
+ else if(this.userType ==3 || this.userType == 4)
+{
 this.BindEmployee();
 this.BindCustomer();
+this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
+this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);}
 
 var splitted = FromDate.split("/", 3); 
 FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 var splitted = ToDate.split("/", 3); 
 ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 
-this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
-this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
+// this.TransactionStatementForm.controls["EmployeeId"].setValue(1);
+// this.TransactionStatementForm.controls["UserId"].setValue(CustomerAccount);
 this.TransactionStatementForm.controls["FromDate"].setValue(FromDate);
 this.TransactionStatementForm.controls["ToDate"].setValue(ToDate);
 this.BindGrid(CustomerAccount,FromDate,ToDate,this.SeqNo,this.EvenOdd);
