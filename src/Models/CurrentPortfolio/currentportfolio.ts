@@ -20,5 +20,6 @@ export class CurrentportfolioView
     CustomerAccountNo:string;
     ReportDate:string;//DownloadLink
     DownloadLink:string;
+    Scheme : string;
 
 }

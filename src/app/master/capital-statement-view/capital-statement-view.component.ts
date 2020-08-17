@@ -19,7 +19,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 export class CapitalStatementViewComponent implements OnInit {
   StatementCapitalViewForm:FormGroup;divEmployee:boolean=false;CustNameDive:boolean=false;
   userType:any;UserId:any;CustomerAccount:any;Formdate:any;Todate:any;isShowLoader:boolean=false;
-  BindemployeesList:BindEmployees;BindcustomerallfieldsList:Bindcustomerallfields;BindViewGridList:BindViewGrid;
+  BindemployeesList:BindEmployees;BindcustomerallfieldsList:Bindcustomerallfields;BindViewGridList:Array<BindViewGrid>[];
   submitted=false;baseUrl: string = "";
   
   columnDefs = [
@@ -61,7 +61,7 @@ export class CapitalStatementViewComponent implements OnInit {
     this.StatementCapitalViewForm = this.formBuilder.group({  
       Formdate:['',Validators.required],
       Todate:['',Validators.required],
-      CustomerAccount:['',Validators.required] ,
+      CustomerAccount:[''] ,
       EmployeeId:['']
    });
    let item = JSON.parse(sessionStorage.getItem('User'));
@@ -83,7 +83,12 @@ export class CapitalStatementViewComponent implements OnInit {
       this.UserId = this.Dbsecurity.Decrypt(item.UserId);
       this.CustomerAccount = item.AccountNo;
      }
+     if(this.userType==3||this.userType==4||this.userType==2){
+      this.BindViewGridList=[];
+     }
+     else{
      this.BindViewGrid();
+     }
   }
 
   validateAllFormFields(formGroup: FormGroup) {
@@ -167,8 +172,49 @@ get f() {
   }
 
   SearchData(){
-    debugger;
-    if(this.StatementCapitalViewForm.valid){
+debugger;
+    if(this.userType == 3 || this.userType == 4){
+      const IsEmployeeId = this.StatementCapitalViewForm.get('EmployeeId');
+      IsEmployeeId.setValidators(Validators.required); IsEmployeeId.updateValueAndValidity();
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+     else if(this.userType==2){
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+    else if(this.userType==1){
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.setValidators(Validators.required); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.setValidators(Validators.required); IsFormdate.updateValueAndValidity();
+    }
+    else{
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.clearValidators(); IsCustomerAccount.updateValueAndValidity();
+      const IsEmployee = this.StatementCapitalViewForm.get('EmployeeId');
+       IsEmployee.clearValidators(); IsEmployee.updateValueAndValidity();   
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();      
+    }
+
+
+       this.submitted = true; 
+       if (this.StatementCapitalViewForm.invalid) {
+       return; 
+     }
+
+    else{
     this.isShowLoader=true;
     this.Formdate = this.StatementCapitalViewForm.controls["Formdate"].value;
     this.Todate = this.StatementCapitalViewForm.controls["Todate"].value;
@@ -196,9 +242,7 @@ get f() {
            this.isShowLoader=false;
       });
     }
-    else{
-      this.validateAllFormFields(this.StatementCapitalViewForm); 
-    } 
+   
   }
 
   FetchLatestReport() {
@@ -215,7 +259,18 @@ get f() {
     let item = JSON.parse(sessionStorage.getItem('User'));
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     //var CustomerAccount;
-    if(usertype == 2 ||usertype == 3 || usertype == 4){
+    if(usertype == 3 || usertype == 4){
+      const IsEmployeeId = this.StatementCapitalViewForm.get('EmployeeId');
+      IsEmployeeId.setValidators(Validators.required); IsEmployeeId.updateValueAndValidity(); 
+      const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
+      IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
+      const IsTodate = this.StatementCapitalViewForm.get('Todate');
+      IsTodate.clearValidators(); IsTodate.updateValueAndValidity();
+      const IsFormdate = this.StatementCapitalViewForm.get('Formdate');
+      IsFormdate.clearValidators(); IsFormdate.updateValueAndValidity();
+      this.CustomerAccount=this.StatementCapitalViewForm.controls['CustomerAccount'].value;
+    }
+    else if(usertype == 2){
       const IsCustomerAccount = this.StatementCapitalViewForm.get('CustomerAccount');
       IsCustomerAccount.setValidators(Validators.required); IsCustomerAccount.updateValueAndValidity();      
       const IsTodate = this.StatementCapitalViewForm.get('Todate');

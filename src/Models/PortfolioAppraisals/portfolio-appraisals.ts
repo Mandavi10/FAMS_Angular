@@ -14,6 +14,8 @@ export class Commonfields {
 export class gridView {
     CustomerAccountNo : string;
     AsOnDate : string;
+    DownloadLink:string;
+    Scheme : string;
 }
 
 

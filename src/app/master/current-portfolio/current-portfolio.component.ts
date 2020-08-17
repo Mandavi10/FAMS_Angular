@@ -78,7 +78,7 @@ export class CurrentPortfolioComponent implements OnInit {
 
     
 
-    if(this.userType == 3){
+    if(this.userType == 3 || this.userType == 4){
       this.CustNameDive=true;this.EmployeeDiv=true;
        this.UserId = this.Dbsecurity.Decrypt(item.UserId);
        this.CustomerAccount = ""; 
@@ -319,7 +319,7 @@ export class CurrentPortfolioComponent implements OnInit {
       if(this.PageCount != 0 || this.PageCount !="" ){
       if((this.PageCount%2) == 1){      
         this.loader1=true;this.loader2=true;
-      if(this.userType == 3){
+      if(this.userType == 3 || this.userType == 4){
         this.BindCurrentPortFolioReport(this.ReportDate);
       } 
       else if(this.userType == 1 ){

@@ -51,12 +51,8 @@ export class BankBookComponent implements OnInit {
 var splitted = ToDate1.split("/", 3); 
  var ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 
-var splitted = FromDate1.split("/", 3); 
- var FromDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 
 
-var splitted = ToDate1.split("/", 3); 
- var ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     // this.BankBookForm.controls["FromDate"].setValue(FromDate);
     // this.BankBookForm.controls["ToDate"].setValue(ToDate);
    
@@ -171,8 +167,11 @@ else{ this.PageCount = 1;}
     
     this.BankBookForm.controls["FromDate"].setValue(FromDate);
     this.BankBookForm.controls["ToDate"].setValue(ToDate);
-      this.BindEmployee();
-    this.BankBookForm.controls["EmployeeId"].setValue(1);
+    let item = JSON.parse(sessionStorage.getItem('User'));  
+    this.userType=this.Dbsecurity.Decrypt( item.UserType);
+  if(this.userType == 3){
+     this.BindEmployee();
+    this.BankBookForm.controls["EmployeeId"].setValue(1);}
   
    this.BindCustomersOnChange(1)
    this.BankBookForm.controls["CustomerAccount"].setValue(CustomerAccount);

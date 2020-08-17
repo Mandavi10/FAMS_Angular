@@ -7,6 +7,7 @@ import { PortfolioAppraisals,gridView,Bindemployee,SumPortfolioappraisalModel,Su
 import { Customer} from '../../../Models/HoldingReport/holdingReport';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AppSettings} from 'src/app/app-settings';
+import { ColDef, GridApi, ColumnApi,ICellRendererParams  } from 'ag-grid-community';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -18,7 +19,8 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
 
   EvenOdd:number=1;
 
-  gridView1:gridView
+  //gridView1:gridView
+  gridView1:Array<gridView>;
   bindgrid:PortfolioappraisalModel
   isShowEquity:boolean=false;
   isShowFuture:boolean=false;
@@ -64,7 +66,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
     {headerName: 'As On Date', field: 'AsOnDate', width:'150'},
     // {headerName: 'To Date', field: 'todate', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccountNo', width:'150'},
-    {headerName: 'Scheme', field: 'scheme', width:'150'},
+    {headerName: 'Scheme', field: 'Scheme', width:'150'},
     // {headerName: 'Download', field: 'DownloadLink', width:'100',cellClass:'text-center', cellRenderer: function clickNextRendererFunc(params){
     //   // return '    <i class="fa fa-file-excel-o" aria-hidden="true" title="Download"></i>';
     //  // return ' <a target="_blank"  href="'+ params.data.DownloadLink  + '"> Download</a> ';
@@ -98,13 +100,21 @@ rowData = [
 
    
 ];
-constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) { }
+private api: GridApi;
+private defaultColDef;
+private paginationPageSize;
+constructor(private router: Router,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService, private _http: HttpClient, @Inject('BASE_URL') myAppUrl: string ) 
+
+{ 
+
+  
+}
 
   ngOnInit(): void { 
     this.baseUrl = AppSettings.Login_URL;
     this.PortfolioAppraisalsForm = this.formbulider.group({
-      EmployeeId: [0, Validators.required],
-      UserId: [0,Validators.required ], 
+      EmployeeId: ['', Validators.required],
+      UserId: ['',Validators.required ], 
       FromDate: ['',Validators.required ]
       // ToDate: ['',Validators.required],
   });
@@ -125,11 +135,11 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
       this.GAccountNumber=this.accountNumber;   
     }
 
-   else if(this.userType ==3)
+   else if(this.userType ==3 || this.userType ==4)
     {
       this.GUserId=item.UserId;
       this.GAccountNumber="0";
-      this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
+      //this.PortfolioAppraisalsForm.controls["UserId"].setValue(0);
       this.isShowCustomer=true;
       this.BindEmployee();
       //this.BindCustomer();
@@ -148,16 +158,69 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
       this.isShowCustomer=false;
       this.isShowsEmployee=false;
     }
-    if ((this.userType ==2 || this.userType ==3)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
+    if ((this.userType ==2 || this.userType ==3 || this.userType ==4)&&this.PortfolioAppraisalsForm.controls["UserId"].value==0 && this.PortfolioAppraisalsForm.controls["FromDate"].value==""  ) 
    {
+     this.gridView1=[];
+     this.IsShowRecord=true;
     // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
-    this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;
+    //this.BindStatementOfExpReport(this.PortfolioAppraisalsForm.controls["UserId"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;
    }
    else
    {
       this.BindDefaultLast(this.GAccountNumber,this.GUserId)
    }
+   this.paginationPageSize = 10; //set pagination page size
   }
+
+
+  // private gridApi;
+  // paginationmsg:any;
+  // showpagination:boolean;
+
+  // onPaginationChanged() {
+  //   console.log('onPaginationPageLoaded');
+  //   if(this.gridView1.length > 0){
+  //   if (this.gridApi) {
+  //     this.showpagination=true;
+  //     this.paginationmsg= this.gridApi.paginationGetCurrentPage() + 1+' out of '+ this.gridApi.paginationGetTotalPages();
+  //     // setText('#lbLastPageFound', this.gridApi.paginationIsLastPageFound());
+  //     // setText('#lbPageSize', this.gridApi.paginationGetPageSize());
+  //     // setText('#lbCurrentPage', this.gridApi.paginationGetCurrentPage() + 1);
+  //     // setText('#lbTotalPages', this.gridApi.paginationGetTotalPages());
+  //     // setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
+  //   }
+  // }
+  // else{
+  //   this.paginationmsg='';
+  //   this.showpagination=false;
+  // }
+  // }
+  
+  // onGridReady(params) {
+  //   this.gridApi = params.api;
+  //   //this.gridColumnApi = params.columnApi;
+  // }
+  
+  // onBtNext() {
+  //   this.gridApi.paginationGoToNextPage();
+  // }
+  
+  // onBtPrevious() {
+  //   this.gridApi.paginationGoToPreviousPage();
+  // }
+
+  // onGridReady(params) {
+  //   this.gridApi = params.api;
+  //   //this.gridColumnApi = params.columnApi;
+  // }
+  
+  // onBtNext() {
+  //   this.gridApi.paginationGoToNextPage();
+  // }
+  
+  // onBtPrevious() {
+  //   this.gridApi.paginationGoToPreviousPage();
+  // }
 
   BindDefaultLast(GAccountNumber,UserId)
   {
@@ -265,7 +328,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
   
 
     }
-    if(usertype == 3){
+    if(usertype == 3 || usertype ==4){
 
       
       const IsEmployee = this.PortfolioAppraisalsForm.get('EmployeeId');
@@ -469,16 +532,13 @@ let ReportType=4
       "ReportName":ReportName
      }
  
-     
+    
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
-            //  currentContext.transactionStatementView = data.Table;
-            //  this.transactionStatementView_Copy=data.Table;
-            // this.isShowCustomer=true;
-          //  this.isShowLoader=false;
+         /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
+           this.BindDefaultLast(this.GAccountNumber,this.GUserId)
          });
-     // console.log(sessionStorage.getItem('ID'));
-     //this.loading = false;
+    
         }
      
    }

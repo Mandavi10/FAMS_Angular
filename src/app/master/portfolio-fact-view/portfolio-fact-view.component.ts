@@ -72,8 +72,12 @@ rowData = [
       AsOnDate:['']
 
     })
-    this.isShowLoader=true;
    
+    const datat = this.PortFolioFactView.value;
+    var AsOnDate=datat.AsOnDate;
+    var ToDate=datat.Todate;
+    this.tempGAccountNumber=GAccountNumber;
+    
 
     this.Showcustdropdown();
 
@@ -87,6 +91,7 @@ rowData = [
     {
       GUserId=item.UserId;
       GAccountNumber=item.AccountNo;;   
+      this.BindMainGrid(GAccountNumber,AsOnDate,ToDate);
     }
     else if(userType ==2)
     {
@@ -94,6 +99,7 @@ rowData = [
     //  GUserId=item.UserId;
      GAccountNumber="1";
      this.BindCustomers();
+     this.BindMainGrid("1","","");
       
     }
 
@@ -103,20 +109,18 @@ rowData = [
       GAccountNumber="0";
       this.BindEmployee();
       // this.StatementOfExpenseForm.controls["UserId"].setValue(0);
+      this.BindMainGrid("1","","");
     
     }
     
     else{
       // this.GUserId=item.UserId;
       GAccountNumber="0";
+      this.BindMainGrid("1","","");
      
     }
+   
     
-    const datat = this.PortFolioFactView.value;
-    var AsOnDate=datat.AsOnDate;
-    var ToDate=datat.Todate;
-    this.tempGAccountNumber=GAccountNumber;
-    this.BindMainGrid(GAccountNumber,AsOnDate,ToDate);
     
   }
   Showcustdropdown(){ 
@@ -193,11 +197,12 @@ rowData = [
       });
   }
   BindMainGrid(GAccountNumber,AsOnDate,ToDate){
+    this.isShowLoader=true;
     let item = JSON.parse(sessionStorage.getItem('User'));   
     let _apipostdata = new PrimaryDetails();
     _apipostdata.userType=item.UserType;
     _apipostdata.ReportName="5";
-    _apipostdata.UserId=item.UserId.replace('+',' ');
+    
     _apipostdata.accountNumber=GAccountNumber;
     _apipostdata.Fromdate=AsOnDate;
     _apipostdata.Todate=ToDate;
@@ -218,14 +223,22 @@ rowData = [
     if (this.validation()) {
         const datat = this.PortFolioFactView.value;
        
-         this.CustomerAccount=datat.CustomerAccountNo;
+         this.CustomerAccount=datat.CustomerAccount;
         
         var AsOnDate=datat.AsOnDate;
         var splitted = AsOnDate.split("-", 3); 
         AsOnDate = (splitted[2] +"/"+ splitted[1] +"/"+ splitted[0]);
         var ToDate=datat.ToDate;
+        if(ToDate !=undefined)
+      {
         var splitted1 = ToDate.split("-", 3); 
         ToDate = (splitted1[2] +"/"+ splitted1[1] +"/"+ splitted1[0]);
+      }
+      else{
+        ToDate="";
+      }
+       
+        
         this.BindMainGrid(this.CustomerAccount,AsOnDate,ToDate)
     }
    
@@ -303,7 +316,7 @@ rowData = [
     // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     var ReportName="5";
     const datat = this.PortFolioFactView.value;
-    var CustomerAccount=datat.UserId;
+    var CustomerAccount=item.AccountNo;
     var JsonData ={
     //this.TransactionStatementForm.controls['ToDate']
     "CustomerAccount" : CustomerAccount,
@@ -319,7 +332,7 @@ rowData = [
     const datat = this.PortFolioFactView.value;
     var AsOnDate=datat.Formdate;
     var ToDate=datat.Todate;
-    this.BindMainGrid(this.tempGAccountNumber,AsOnDate,ToDate);
+    this.BindMainGrid(CustomerAccount,AsOnDate,ToDate);
     });
     // console.log(sessionStorage.getItem('ID'));
     //this.loading = false;
@@ -339,7 +352,7 @@ rowData = [
       // let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
       var ReportName="5";
       const datat = this.PortFolioFactView.value;
-      var CustomerAccount=datat.UserId;
+      var CustomerAccount=datat.CustomerAccount;
       var JsonData ={
       //this.TransactionStatementForm.controls['ToDate']
       "CustomerAccount" : CustomerAccount,
@@ -355,7 +368,7 @@ rowData = [
       const datat = this.PortFolioFactView.value;
       var AsOnDate=datat.Formdate;
       var ToDate=datat.Todate;
-      this.BindMainGrid(this.tempGAccountNumber,AsOnDate,ToDate);
+      this.BindMainGrid(CustomerAccount,AsOnDate,ToDate);
       });
       // console.log(sessionStorage.getItem('ID'));
       //this.loading = false;
