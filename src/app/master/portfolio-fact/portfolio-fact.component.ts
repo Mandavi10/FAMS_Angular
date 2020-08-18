@@ -153,11 +153,25 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       
       this.BindDefaultData(CustomerAccount1,GUserId,maxDate)
     }
-    this.PortFolioForm.controls["Employee1"].setValue(1);
-    this.BindCustomers();
+    if(userType ==2)
+{
+  this.BindCustomers();
+  this.PortFolioForm.controls["UseCustomerAccountrId"].setValue(CustomerAccount1);
+}
+else if(userType ==3 || userType == 4)
+{
+this.BindEmployee();
+this.BindCustomers();
+this.PortFolioForm.controls["Employee1"].setValue(1);
+this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+}
+    
+   
+    
     this.PortFolioForm.controls["Formdate"].setValue(maxDate);
     
-    this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+   
+    
    
    // this.BindDefaultData();
   }
@@ -539,8 +553,8 @@ this.performance15=res.Table5[3].Data4
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
-    let FromDatee=maxDate;
-    let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
+    let FromDatee=this.router1.snapshot.queryParamMap.get('ToDate');
+    let ToDatee=maxDate; 
   
 
     //  var Jasondata={
