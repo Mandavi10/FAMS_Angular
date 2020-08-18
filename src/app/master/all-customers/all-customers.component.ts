@@ -28,6 +28,7 @@ export class AllCustomersComponent implements OnInit {
   CustomerId:number;
   Temp: number = 1; 
   linkedPMSEmployee:LinkedPMSEmployee;
+  btnexportexl:boolean=true;
 
   isShowLoader:boolean=false;
 
@@ -87,12 +88,14 @@ this.isShowGrid=true;
   }
   Cancel()
   {
+    this.btnexportexl=true;
     this.isShowForm=false;
     this.isShowGrid=true;
   }
   
   ShowGridOrForm()
   {
+    this.btnexportexl=false;
 this.isShowForm=true;
 this.isShowGrid=false;
   }
@@ -234,6 +237,7 @@ SaveData(){
         this.isShowGrid=true;
 
         this.isShowLoader=false;
+        this.btnexportexl=true;
 
 
 
@@ -278,6 +282,7 @@ SaveData(){
           this.isShowGrid=true;
 
           this.isShowLoader=false;
+          this.btnexportexl=true;
         }
         else
         {

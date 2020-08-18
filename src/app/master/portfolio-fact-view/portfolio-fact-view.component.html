@@ -51,12 +51,12 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                 <form [formGroup]="PortFolioFactView">
-                <div class="col-md-4 col-sm-3 col-xs-12" *ngIf="divEmployee">
+                <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="divEmployee">
                     <div class="form-group">
-                        <label class="col-sm-5 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-5 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                            Employee :
                         </label>
-                        <div class="col-sm-7 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlemployeedropdown" formControlName="Employee1" (change)="BindCustomers();RemoveClass();">
         
                                 <option value="0">Select</option>
@@ -65,12 +65,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-3 col-xs-12 " *ngIf="CustNameDive">
+                <div class="col-md-3 col-sm-3 col-xs-12 " *ngIf="CustNameDive">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                            Customer Name:
                         </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                             <select class="dropdown col-sm-12 col-md-12 col-xs-12" id="ddlcustomerdropdown" (change)="CustomerOn_Change();RemoveClass();" formControlName="CustomerAccount" >
                               <!-- <option value="">Select</option> -->
                               <option value="0" selected>Select</option>
@@ -80,27 +80,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                            As On:
                         </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                             <input type="date" class="col-sm-12 col-md-12 col-xs-12" id="date" (change)="RemoveClass();" formControlName="AsOnDate" >
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 " *ngIf="showfromdate">
                     <div class="form-group">
-                        <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
+                        <label class="col-sm-3 col-md-5 col-xs-3 control-label no-padding" for="form-field-1">
                          To Date :
                         </label>
-                        <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
+                        <div class="col-sm-9 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                             <input type="date" class="col-sm-12 col-md-12 col-xs-12"   formControlName="Todate">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-3 mt-2 btnsearch">
+                <div class="col-md-1  col-sm-2 col-xs-3 mt-2 btnsearch">
                         <!-- <button type="button" class="btn btn-success btnasearch">Search</button> -->
                         <button type="submit" (click)="bindGrid()" class="btn btn-success ml-4"> Search</button>
                 </div>

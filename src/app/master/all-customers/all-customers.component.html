@@ -18,7 +18,7 @@
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-                        <li (click)="downloadCSVFile($event)">
+                        <li (click)="downloadCSVFile($event)" *ngIf="btnexportexl">
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
                             <label>
                                 Export to Excel

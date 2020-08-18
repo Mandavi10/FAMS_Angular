@@ -70,6 +70,7 @@ public isDropDownVisible = false;
 constructor(private router: Router,private multiSelectService: MultiSelectService) { }
 
 ngOnInit(): void {
+  debugger;
     this.Isdiv2=false;
     this.Isdiv1=true;
   
