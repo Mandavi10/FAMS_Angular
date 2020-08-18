@@ -177,12 +177,14 @@ displayFieldCss(field: string) {
    }
    BindCustomerOnChange(EmployeeId) {
     
+    this.isShowLoader=true;
    this.SeqNo=1;
     var currentContext = this;
     this.TSService.BindCustomer(EmployeeId).
         subscribe((data) => {
             currentContext.customer = data.Table;
             this.isShowCustomer=true;
+            this.isShowLoader=false;
         });
     
   }
@@ -191,7 +193,7 @@ displayFieldCss(field: string) {
 
 
   onSubmit() {
-
+debugger;
     this.SeqNo=1;
     this.submitted = true;
     if (this.validation()) {
@@ -228,12 +230,14 @@ displayFieldCss(field: string) {
   CustomerOn_Change(){
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
    
-   if(acno =="0")
-   {
-    document.getElementById("ddlcustomerdropdown").classList.add('validate');
-   }
-   else{
-    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+  //  if(acno =="0")
+  //  {
+  //   document.getElementById("ddlcustomerdropdown").classList.add('validate');
+  //  }
+  //  else{
+  //   document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+  if(acno !="0")
+    {
     const datat = this.PortfolioSummaryFormView.value;
    
    var customeracount=datat.UserId;
@@ -246,7 +250,8 @@ displayFieldCss(field: string) {
    var ToDate="";
 
    this.BindMainGrid(customeracount,AsOnDate,ToDate);
-   }
+  }
+   //}
   }
   FetchLatestReport() {
     
@@ -272,8 +277,8 @@ displayFieldCss(field: string) {
     // this.transactionStatementView_Copy=data.Table;
     // this.isShowCustomer=true;
     const datat = this.PortfolioSummaryFormView.value;
-var AsOnDate=datat.AsOnDate;
-var ToDate=datat.ToDate;
+var AsOnDate="";
+var ToDate="";
     this.BindMainGrid(CustomerAccount,AsOnDate,ToDate)
     
     });
@@ -309,8 +314,8 @@ var ToDate=datat.ToDate;
     // this.transactionStatementView_Copy=data.Table;
     // this.isShowCustomer=true;
     const datat = this.PortfolioSummaryFormView.value;
-var AsOnDate=datat.AsOnDate;
-var ToDate=datat.ToDate;
+    var AsOnDate="";
+    var ToDate="";
     this.BindMainGrid(CustomerAccount,AsOnDate,ToDate)
     
     });
@@ -334,7 +339,7 @@ var ToDate=datat.ToDate;
 
     var flag=true;
     let item = JSON.parse(sessionStorage.getItem('User'));
-    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==4){
       let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
       if(emp =="0")
       {
@@ -342,7 +347,7 @@ var ToDate=datat.ToDate;
        flag=false;
       }
     }
-    if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+    if(this.Dbsecurity.Decrypt(item.UserType)==4||this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
     if(acno =="0")
     {
@@ -358,33 +363,33 @@ var ToDate=datat.ToDate;
      flag=false;
     }
   }
-  else{
-    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
-      if(emp =="0")
-      {
-       document.getElementById("ddlemployeedropdown").classList.add('validate');
-       flag=false;
-      }
-      let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
-      if(acno =="0")
-      {
-       document.getElementById("ddlcustomerdropdown").classList.add('validate');
-       flag=false;
-      }
-  }
+  // else{
+  //   let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+  //     if(emp =="0")
+  //     {
+  //      document.getElementById("ddlemployeedropdown").classList.add('validate');
+  //      flag=false;
+  //     }
+  //     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+  //     if(acno =="0")
+  //     {
+  //      document.getElementById("ddlcustomerdropdown").classList.add('validate');
+  //      flag=false;
+  //     }
+  // }
     
     return flag;
   }
   RemoveClass(){
     let item = JSON.parse(sessionStorage.getItem('User'));
-    if(this.Dbsecurity.Decrypt(item.UserType)==3){
+    if(this.Dbsecurity.Decrypt(item.UserType)==3 || this.Dbsecurity.Decrypt(item.UserType)==4){
     let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
     if(emp !="0")
     {
      document.getElementById("ddlemployeedropdown").classList.remove('validate');
     }
   }
-  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2  || this.Dbsecurity.Decrypt(item.UserType)==4){
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
     if(acno !="0")
     {
@@ -398,18 +403,18 @@ var ToDate=datat.ToDate;
      document.getElementById("date").classList.remove('validate');
     }
   }
-  else{
-    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
-    if(emp !="0")
-    {
-     document.getElementById("ddlemployeedropdown").classList.remove('validate');
-    }
-    let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
-    if(acno !="0")
-    {
-     document.getElementById("ddlcustomerdropdown").classList.remove('validate');
-    }
-  }
+  // else{
+  //   let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+  //   if(emp !="0")
+  //   {
+  //    document.getElementById("ddlemployeedropdown").classList.remove('validate');
+  //   }
+  //   let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
+  //   if(acno !="0")
+  //   {
+  //    document.getElementById("ddlcustomerdropdown").classList.remove('validate');
+  //   }
+  // }
 
   }
 

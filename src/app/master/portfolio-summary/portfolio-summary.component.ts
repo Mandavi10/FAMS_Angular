@@ -95,7 +95,7 @@ let ToDate=this.router1.snapshot.queryParamMap.get('ToDate');
 var splitted = FromDate.split("/", 3); 
 var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 
-
+debugger;
 
   let item = JSON.parse(sessionStorage.getItem('User'));
 // this.UserId = item.UserId;
@@ -109,8 +109,15 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber=CustomerAccount;   
   }
+  else if(this.userType ==2)
+  {
+    this.isShowCustomer=true;    
+    this.GUserId=item.UserId.replace('+',' ');
+    this.GAccountNumber=CustomerAccount;
+    this.BindCustomers();
+  }
 
- else if(this.userType ==3)
+ else if(this.userType ==3 || this.userType ==4)
   {
     this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber=CustomerAccount;
@@ -119,13 +126,7 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     this.BindEmployee();
     //this.BindCustomers();
   }
-  else if(this.userType ==2)
-  {
-    this.isShowCustomer=true;    
-    this.GUserId=item.UserId.replace('+',' ');
-    this.GAccountNumber=CustomerAccount;
-    this.BindCustomers();
-  }
+  
   else{
     this.GUserId=item.UserId.replace('+',' ');
     this.GAccountNumber=CustomerAccount;
