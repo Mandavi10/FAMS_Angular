@@ -32,7 +32,7 @@ export class PortfolioFactViewComponent implements OnInit {
   FromDate:string;
   ToDate:string;
   showfromdate:boolean=false;
-  IsShowNoRecord:boolean;
+  IsShowNoRecord:boolean;  
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'As On', field: 'FromDate', width:'150'},
@@ -40,10 +40,10 @@ export class PortfolioFactViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
-      return '<a href="/PortfolioFact?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
+      return '<a href="/PortfolioFact?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '"><button type="button" class="btn btn-success" >View </button></a>';
     }
     },
   
@@ -208,7 +208,7 @@ rowData = [
     
     _apipostdata.accountNumber=GAccountNumber;
     _apipostdata.Fromdate=AsOnDate;
-    _apipostdata.Todate=ToDate;
+    _apipostdata.Todate=AsOnDate;
     this.TSService.BindMainGrid(JSON.stringify(_apipostdata)).subscribe(
       (data) => {
         this.isShowLoader=false;

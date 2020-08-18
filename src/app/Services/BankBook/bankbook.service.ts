@@ -62,6 +62,16 @@ export class BankbookService {
       headers 
   });
   }
+
+  BindGridOncustomerchange(em:any): Observable<any> {
+     
+    const body = em; 
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this._http.post<any>(this.baseUrl + 'api/BankBook/BindGridOncustomerchange', body, {
+      headers 
+  });
+  }
+
   GetFetchLatestReport(em:any): Observable<any> {
    
     const body = em; 

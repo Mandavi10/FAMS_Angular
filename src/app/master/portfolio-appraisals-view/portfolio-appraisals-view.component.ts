@@ -75,7 +75,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
 
 
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank" href="'+ this.baseUrl +'' + params.data.DownloadLink + '"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
     }},
 
 
@@ -85,7 +85,7 @@ export class PortfolioAppraisalsViewComponent implements OnInit {
       // return '<a href="/PortfolioAppraisals?EmployeeId='  + this.PortfolioAppraisalsForm.controls["EmployeeId"].value  + '&UserId='+ this.PortfolioAppraisalsForm.controls["UserId"].value   + '&FromDate='+ this.PortfolioAppraisalsForm.controls["FromDate"].value  + '">' + params.value + '</a>';
       // return '<button type="button" class="btn btn-success">View</button>';
      
-      return '<a href="/PortfolioAppraisals?CustomerAccountNo='  + params.data.CustomerAccountNo + '&AsOnDate='+ params.data.AsOnDate + '">View</a>';
+      return '<a href="/PortfolioAppraisals?CustomerAccountNo='  + params.data.CustomerAccountNo + '&AsOnDate='+ params.data.AsOnDate + '"><button type="button" class="btn btn-success" >View </button></a>';
     }},
 
   
@@ -477,14 +477,25 @@ let ReportType=4
     this.isShowLoader=false;
   }
 
-  BindOnCustomerchange(){
+  BindOnCustomerchange(flag){
 
-    
+    var customeraccount;
+    if( flag == 0)
+{
+  customeraccount=this.PortfolioAppraisalsForm.controls["UserId"].value
+}
+else
+{
+  customeraccount= flag;
+}
+
+
     let ReportType=4;
     var JsonData ={
     //  "UserId" : this.UserId,
      // "ReportDate" : ReportDate,   
-      "CustomerAccountNo" : this.PortfolioAppraisalsForm.controls["UserId"].value,
+      // "CustomerAccountNo" : this.PortfolioAppraisalsForm.controls["UserId"].value,
+      "CustomerAccountNo" : customeraccount,
      // "PageCount" : this.PageCount,
       "ReportType":  ReportType  
     }
@@ -566,7 +577,8 @@ let ReportType=4
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
          /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
-           this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+          //  this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+          this.BindOnCustomerchange(CustomerAccount)
          });
     
         }

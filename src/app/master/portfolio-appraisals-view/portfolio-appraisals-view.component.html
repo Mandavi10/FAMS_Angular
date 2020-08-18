@@ -20,9 +20,15 @@
             <div class="rightmenu">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
-
+<!-- 
                         <li (click)="FetchLatestReport($event)" >
                             <i class="fa fa-file-excel-o" aria-hidden="true" title="Fetch Latest Report"></i>
+                            <label>
+                                Fetch Latest Report
+                            </label>
+                        </li> -->
+                        <li (click)="FetchLatestReport($event)">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" title="Fetch Latest Report"></i>
                             <label>
                                 Fetch Latest Report
                             </label>
@@ -66,7 +72,7 @@
                       <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
                           <select class="dropdown col-sm-12 col-md-12 col-xs-12" #EmployeeId formControlName="EmployeeId" [ngClass]="{ 'validate': submitted && f.EmployeeId.errors }" (change)="BindCustomerOnChange(EmployeeId.value)" >
                             <option value="" selected>Select</option> 
-                            <option value="0">All Employee</option>
+                            <!-- <option value="0">All Employee</option> -->
                             <option *ngFor="let Data of BindemployeesList" value={{Data.PMSEmpId}} text={{Data.EmployeeName}}>                                            
                           </select>
                                         
@@ -79,9 +85,9 @@
                       Customer Name:
                     </label>
                     <div class="col-sm-7 col-md-7 col-xs-9 no-padding-left displayinlineblock">
-                      <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId" (change)="BindOnCustomerchange()" [ngClass]="{ 'validate': submitted && f.UserId.errors }">
+                      <select class="col-md-12 col-xs-12 col-sm-12"  formControlName="UserId" (change)="BindOnCustomerchange(0)" [ngClass]="{ 'validate': submitted && f.UserId.errors }">
                         <option value="" selected>Select</option> 
-                        <option value="0" selected>All Customer</option>
+                        <!-- <option value="0" selected>All Customer</option> -->
                          <option *ngFor="let data of customer" value={{data.UserId}}  >
                              {{data.UserName}}
                          </option>
@@ -94,7 +100,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="col-sm-3 col-md-4 col-xs-3 control-label no-padding" for="form-field-1">
-                           As On:
+                           As On Date:
                         </label>
                         <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left displayinlineblock">
                             <input type="date" class="col-sm-12 col-md-12 col-xs-12" formControlName="FromDate"  [ngClass]="{ 'validate': submitted && f.FromDate.errors }"value="{{currentdate | date:'yyyy-mm-dd'}}" #Fromdate >                        </div>

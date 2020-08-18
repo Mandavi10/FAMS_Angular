@@ -3,7 +3,6 @@ import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { timer } from 'rxjs';
 import { Injectable , Inject } from '@angular/core';
-
 import{DbsecurityService}from '../../Services/dbsecurity.service';
 import { FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -36,7 +35,6 @@ export class PortfolioSummaryViewComponent implements OnInit {
   CustomerAccountNo :any;
   PortfolioSummaryFormView : FormGroup;baseUrl: string = ""; 
 
-
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'As On', field: 'FromDate', width:'150'},
@@ -44,10 +42,10 @@ export class PortfolioSummaryViewComponent implements OnInit {
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Scheme', field: 'Scheme', width:'150'},
     {headerName: 'Download', field: '', width:'100',cellClass:'text-center',cellRenderer: (params) => {
-      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"> Download</a> ';
+      return ' <a target="_blank"  href="'+ this.baseUrl +''  + params.data.DownloadLink + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> ';
     }},
     {headerName: 'Data View Mode', field: 'viewmode', width:'150', cellClass:'text-center',cellRenderer: (params) => {
-      return '<a href="/PortfolioSummary?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '">View</a>';
+      return '<a href="/PortfolioSummary?CustomerAccount='  + params.data.CustomerAccount + '&FromDate='+ params.data.FromDate  + '&ToDate='+ params.data.ToDate  + '"><button type="button" class="btn btn-success" >View </button></a>';
     }
     },
   
@@ -144,7 +142,7 @@ displayFieldCss(field: string) {
     
     _apipostdata.accountNumber=accountNumber123;
     _apipostdata.Fromdate=AsOnDate;
-    _apipostdata.Todate=ToDate;
+    _apipostdata.Todate=AsOnDate;
     this.TSService.BindMainGrid(JSON.stringify(_apipostdata)).subscribe(
       (data) => {
         this.isShowLoader=false;
