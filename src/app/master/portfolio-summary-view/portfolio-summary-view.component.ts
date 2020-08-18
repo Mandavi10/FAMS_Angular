@@ -142,7 +142,7 @@ displayFieldCss(field: string) {
     
     _apipostdata.accountNumber=accountNumber123;
     _apipostdata.Fromdate=AsOnDate;
-    _apipostdata.Todate=ToDate;
+    _apipostdata.Todate=AsOnDate;
     this.TSService.BindMainGrid(JSON.stringify(_apipostdata)).subscribe(
       (data) => {
         this.isShowLoader=false;

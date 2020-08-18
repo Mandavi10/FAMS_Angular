@@ -176,8 +176,18 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
   }
 
 
-  BindOnCustomerchange(){
+  BindOnCustomerchange(flag){
 
+
+    var customeraccount;
+    if( flag == 0)
+{
+  customeraccount=this.CurrentPortfolioForm.controls["CustomerAccount"].value
+}
+else
+{
+  customeraccount= flag;
+}
     
     let ReportType=2;
     var JsonData ={
@@ -492,8 +502,9 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
        
        this._CurrentportfolioService.GetFetchLatestReport(JsonData).
            subscribe((data) => {
-            this.CustomerAccount = ""; 
-            this.BindDefaultData();
+            // this.CustomerAccount = ""; 
+            // this.BindDefaultData();
+            this.BindOnCustomerchange(CustomerAccount)
               //  currentContext.transactionStatementView = data.Table;
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;

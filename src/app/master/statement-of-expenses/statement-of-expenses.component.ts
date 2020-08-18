@@ -111,12 +111,21 @@ ToDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
 //  FromDate=this.datePipe.transform(FromDate,"yyyy-MM-dd");
 // ToDate=this.datePipe.transform(ToDate,"yyyy-MM-dd");
 
+let item = JSON.parse(sessionStorage.getItem('User'));
+this.userType=this.Dbsecurity.Decrypt(item.UserType);
 
+if(this.userType ==2)
+{
+  this.BindCustomer();
+  this.StatementOfExpenseForm.controls["UserId"].setValue(CustomerAccount);
+}
+ else if(this.userType ==3 || this.userType == 4)
+{
 this.BindEmployee();
 this.BindCustomer();
-debugger;
 this.StatementOfExpenseForm.controls["EmployeeId"].setValue(1);
 this.StatementOfExpenseForm.controls["UserId"].setValue(CustomerAccount);
+}
 //alert(FromDate+'--'+ToDate);
 
  //alert(this.datePipe.transform(FromDate,"yyyy-MM-dd"));
