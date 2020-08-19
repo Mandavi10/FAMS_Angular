@@ -169,6 +169,7 @@ rowData = [
 
   BindCustomers(){
 
+    this.isShowLoader=true;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let UserId;
     // let  Data = new Commonfields();
@@ -197,6 +198,7 @@ rowData = [
         
            this.BindcustomerallfieldsList = data.Table;
            this.customerlength = data.Table.length;
+           this.isShowLoader=false;
       });
   }
   BindMainGrid(GAccountNumber,AsOnDate,ToDate){
@@ -208,7 +210,7 @@ rowData = [
     
     _apipostdata.accountNumber=GAccountNumber;
     _apipostdata.Fromdate=AsOnDate;
-    _apipostdata.Todate=ToDate;
+    _apipostdata.Todate=AsOnDate;
     this.TSService.BindMainGrid(JSON.stringify(_apipostdata)).subscribe(
       (data) => {
         this.isShowLoader=false;
@@ -313,7 +315,7 @@ rowData = [
      document.getElementById("ddlemployeedropdown").classList.remove('validate');
     }
   }
-  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2){
+  if(this.Dbsecurity.Decrypt(item.UserType)==3 ||this.Dbsecurity.Decrypt(item.UserType)==2 ||this.Dbsecurity.Decrypt(item.UserType)==4){
     let acno=((document.getElementById("ddlcustomerdropdown") as HTMLInputElement).value);
     if(acno !="0")
     {

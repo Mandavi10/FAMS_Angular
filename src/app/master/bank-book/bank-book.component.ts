@@ -53,8 +53,8 @@ var splitted = ToDate1.split("/", 3);
 
 
 
-    // this.BankBookForm.controls["FromDate"].setValue(FromDate);
-    // this.BankBookForm.controls["ToDate"].setValue(ToDate);
+    this.BankBookForm.controls["FromDate"].setValue(FromDate);
+   this.BankBookForm.controls["ToDate"].setValue(ToDate);
    
     
 
@@ -63,7 +63,7 @@ var splitted = ToDate1.split("/", 3);
    
   let item = JSON.parse(sessionStorage.getItem('User'));  
   this.userType=this.Dbsecurity.Decrypt( item.UserType);
-if(this.userType == 3){
+if(this.userType == 3 ||  this.userType == 4){
   this.UserId = this.Dbsecurity.Decrypt(item.UserId);
   this.CustomerAccount = ""; 
   this.divCustomer=true;
@@ -96,7 +96,7 @@ if(this.userType == 3){
     if(this.PageCount != 0 || this.PageCount !="" ){
       this.loader1=true;this.loader2=true;
     this.griddiv=true;
-    if(this.userType == 3){
+    if(this.userType == 3 ||  this.userType == 4){
       this.BindGrid(this.FromDate,this.ToDate);
     } 
     else if(this.userType == 1 ){
@@ -125,7 +125,7 @@ else{ this.PageCount = 1;}
       (data) => {
         this.FromDate = data.Table[0]["FromDate"];
         this.ToDate = data.Table[0]["ToDate"];
-        if(this.userType != 3 ){
+        if(this.userType != 3   ){
         this.CustomerAccount = data.Table[0]["CustomerAccount"];
         }
         this.BindGrid(this.FromDate,this.ToDate);
@@ -169,7 +169,7 @@ else{ this.PageCount = 1;}
     this.BankBookForm.controls["ToDate"].setValue(ToDate);
     let item = JSON.parse(sessionStorage.getItem('User'));  
     this.userType=this.Dbsecurity.Decrypt( item.UserType);
-  if(this.userType == 3){
+  if(this.userType == 3 ||  this.userType == 4){
      this.BindEmployee();
     this.BankBookForm.controls["EmployeeId"].setValue(1);}
   

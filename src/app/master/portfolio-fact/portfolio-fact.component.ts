@@ -103,7 +103,7 @@ export class PortfolioFactComponent implements OnInit {
     this.PortFolioForm=this.formbuilder.group({
       CustomerAccount:['',Validators.required],
       Formdate:['',Validators.required],
-      Todate:['',Validators.required] ,
+      Todate:[''] ,
       Employee1:['',Validators.required]
 
     })
@@ -153,11 +153,26 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       
       this.BindDefaultData(CustomerAccount1,GUserId,maxDate)
     }
-    this.PortFolioForm.controls["Employee1"].setValue(1);
-    this.BindCustomers();
+    if(userType ==2)
+{
+  this.BindCustomers();
+  this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+}
+else if(userType ==3 || userType == 4)
+{
+this.BindEmployee();
+
+this.PortFolioForm.controls["Employee1"].setValue(1);
+this.BindCustomers();
+this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+}
+    
+   
+    
     this.PortFolioForm.controls["Formdate"].setValue(maxDate);
     
-    this.PortFolioForm.controls["CustomerAccount"].setValue(CustomerAccount1);
+   
+    
    
    // this.BindDefaultData();
   }
@@ -170,19 +185,15 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     var usertype=this.Dbsecurity.Decrypt(item.UserType);
     var userid1=this.Dbsecurity.Decrypt(item.UserId);
   
-    if(usertype == 2 || usertype == 4){
+    if(usertype == 2 ){
       this.CustNameDive=true;
       this.divEmployee=false;
   
      this.BindCustomers();
     }
-    else{
-      this.CustNameDive=false;
-      this.divEmployee=false;
+    
   
-    }
-  
-    if(usertype == 3){
+    else if(usertype == 3 || usertype == 4){
      
       this.CustomerAccount = "";
       this.CustNameDive=true;
@@ -190,6 +201,11 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
       
       this.BindEmployee();
 
+  
+    }
+    else{
+      this.CustNameDive=false;
+      this.divEmployee=false;
   
     }
   
@@ -213,7 +229,7 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
   }
 
   BindCustomers(){
-
+debugger;
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let UserId;
     // let  Data = new Commonfields();
@@ -224,15 +240,16 @@ var maxDate = (splitted[2] +"-"+ splitted[1] +"-"+ splitted[0]);
     // var userid1=this.Dbsecurity.Decrypt(item.UserId);
   
   
-    if(usertype == 2 || usertype == 4){
+    if(usertype == 2 ){
       UserId=item.UserId
     }
   
-    if(usertype == 3){
+    if(usertype == 3 || usertype == 4){
   
      // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
   
      UserId =this.Dbsecurity.Encrypt(this.PortFolioForm.controls['Employee1'].value);
+     
   
     }
   
@@ -539,8 +556,8 @@ this.performance15=res.Table5[3].Data4
     let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     let  Data = new Commonfields();
     Data.UserId = Sessionvalue.UserId;
-    let FromDatee=maxDate;
-    let ToDatee=this.router1.snapshot.queryParamMap.get('ToDate');
+    let FromDatee=this.router1.snapshot.queryParamMap.get('ToDate');
+    let ToDatee=maxDate; 
   
 
     //  var Jasondata={
@@ -855,12 +872,17 @@ this.showGrid=false;
       
     }
   
-    if(usertype == 3){
+    if(usertype == 3 || usertype == 4){
   
         
-      const IsEmployee = this.PortFolioForm.get('Employee1');
-      IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
-      // CustomerAccountNo= this.Dbsecurity.Encrypt(this.capitalStatForm.controls['Employee1'].value);
+      
+      let Employee= this.Dbsecurity.Decrypt(this.PortFolioForm.controls['Employee1'].value);
+      if(Employee==undefined|| Employee=="")
+      {
+        const IsEmployee = this.PortFolioForm.get('Employee1');
+        IsEmployee.setValidators(Validators.required); IsEmployee.updateValueAndValidity();
+      }
+      
   
     }
     else{
@@ -909,6 +931,7 @@ this.showGrid=false;
       //    // this.NextData(''); 
       //    // return false;
       //  }
+     
    var jasondata= {
     "fromdate":this.PortFolioForm.controls['Formdate'].value ,
     "PageCount": this.PageCount,

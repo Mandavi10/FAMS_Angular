@@ -177,6 +177,7 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
 
   BindOnCustomerchange(flag){
+
     var customeraccount;
     if( flag == 0)
 {
@@ -505,7 +506,9 @@ else
            subscribe((data) => {
             // this.CustomerAccount = ""; 
             // this.BindDefaultData();
+
            this.BindOnCustomerchange(CustomerAccount)
+
               //  currentContext.transactionStatementView = data.Table;
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;

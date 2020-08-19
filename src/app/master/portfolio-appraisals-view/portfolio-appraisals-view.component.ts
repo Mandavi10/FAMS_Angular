@@ -261,6 +261,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
 
   BindEmployee(){
     // this.loader1=true;this.loader2=true;
+    this.loader1=true;
      let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
     // let  Data = new Commonfields();
      //Data.UserId = Sessionvalue.UserId;
@@ -270,6 +271,7 @@ constructor(private router: Router,private _PortfolioAppraisalsService:Portfolio
             this.BindemployeesList = data.Table;
             this.isShowsEmployee=true;
            // this.loader1=false;this.loader2=false;
+           this.loader1=false;
        });
    }
    BindCustomerOnChange(EmployeeId) {
@@ -479,6 +481,7 @@ let ReportType=4
 
   BindOnCustomerchange(flag){
 
+
     var customeraccount;
     if( flag == 0)
 {
@@ -489,6 +492,9 @@ else
   customeraccount= flag;
 }
     
+
+
+
     let ReportType=4;
     var JsonData ={
     //  "UserId" : this.UserId,
@@ -576,7 +582,9 @@ else
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
          /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
+
           // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+
           this.BindOnCustomerchange(CustomerAccount)
          });
     
