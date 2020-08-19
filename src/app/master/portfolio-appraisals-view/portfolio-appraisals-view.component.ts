@@ -477,14 +477,24 @@ let ReportType=4
     this.isShowLoader=false;
   }
 
-  BindOnCustomerchange(){
+  BindOnCustomerchange(flag){
 
+    var customeraccount;
+    if( flag == 0)
+{
+  customeraccount=this.PortfolioAppraisalsForm.controls["UserId"].value
+}
+else
+{
+  customeraccount= flag;
+}
     
     let ReportType=4;
     var JsonData ={
     //  "UserId" : this.UserId,
      // "ReportDate" : ReportDate,   
-      "CustomerAccountNo" : this.PortfolioAppraisalsForm.controls["UserId"].value,
+      // "CustomerAccountNo" : this.PortfolioAppraisalsForm.controls["UserId"].value,
+      "CustomerAccountNo" : customeraccount,
      // "PageCount" : this.PageCount,
       "ReportType":  ReportType  
     }
@@ -566,7 +576,8 @@ let ReportType=4
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
          /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
-           this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+          // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+          this.BindOnCustomerchange(CustomerAccount)
          });
     
         }
