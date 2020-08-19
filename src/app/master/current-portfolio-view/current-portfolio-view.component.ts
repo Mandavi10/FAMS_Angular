@@ -178,7 +178,6 @@ constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,priv
 
   BindOnCustomerchange(flag){
 
-
     var customeraccount;
     if( flag == 0)
 {
@@ -189,11 +188,14 @@ else
   customeraccount= flag;
 }
     
+
+
     let ReportType=2;
     var JsonData ={
     //  "UserId" : this.UserId,
      // "ReportDate" : ReportDate,   
-      "CustomerAccountNo" : this.CurrentPortfolioForm.controls["CustomerAccount"].value,
+      // "CustomerAccountNo" : this.CurrentPortfolioForm.controls["CustomerAccount"].value,
+      "CustomerAccountNo" :customeraccount,
       "PageCount" : this.PageCount,
       "ReportType":  ReportType  
     }
@@ -504,7 +506,9 @@ else
            subscribe((data) => {
             // this.CustomerAccount = ""; 
             // this.BindDefaultData();
-            this.BindOnCustomerchange(CustomerAccount)
+
+           this.BindOnCustomerchange(CustomerAccount)
+
               //  currentContext.transactionStatementView = data.Table;
               //  this.transactionStatementView_Copy=data.Table;
               // this.isShowCustomer=true;
