@@ -61,6 +61,7 @@ export class PortfolioAppraisalsComponent implements OnInit {
   constructor(private router: Router,private route:ActivatedRoute,private _PortfolioAppraisalsService:PortfolioAppraisalsService,private formbulider: FormBuilder, private Dbsecurity: DbsecurityService) { }
 
   ngOnInit() {
+    debugger;
     this.PortfolioAppraisalsForm = this.formbulider.group({
       EmployeeId: [0, ],
       UserId: [0, ],
