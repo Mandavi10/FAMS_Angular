@@ -481,6 +481,7 @@ let ReportType=4
 
   BindOnCustomerchange(flag){
 
+
     var customeraccount;
     if( flag == 0)
 {
@@ -490,6 +491,8 @@ else
 {
   customeraccount= flag;
 }
+    
+
 
 
     let ReportType=4;
@@ -579,7 +582,9 @@ else
      this._PortfolioAppraisalsService.GetFetchLatestReport(JsonData).
          subscribe((data) => {
          /// this.BindStatementOfExpReport('0',this.PortfolioAppraisalsForm.controls["FromDate"].value,this.PortfolioAppraisalsForm.controls["FromDate"].value,this.EvenOdd) ;    
-          //  this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+
+          // this.BindDefaultLast(this.GAccountNumber,this.GUserId)
+
           this.BindOnCustomerchange(CustomerAccount)
          });
     

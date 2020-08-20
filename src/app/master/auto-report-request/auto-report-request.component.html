@@ -1,5 +1,10 @@
 <div class="main-content maincontainer">
   <div class="content">
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+      <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+          <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+      </div>
+    </div>
       <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
           <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                <span class="legal">Auto Report Request</span>
@@ -66,27 +71,24 @@
           <div class="row mt-2">
             <div class="col-sm-10 col-md-12 col-xs-10">
               <div class="emailTitle">
-                <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Portfolio Appraisal</label>
+                <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="4">Portfolio Appraisal</label>
               </div>
 
               <div class="roleTitle">
-                <span class="btnred">
-                  Daily</span>
-                    </div>
+                <span class="btnred" id="4_1" (click)="PortfolioAppraisal1($event)">Daily</span>
+             </div>
               <div class="roleTitle">
-              <span class="btnred">Monthly</span>
-                  </div>
-               
-
+               <span class="btnred" id="4_2" (click)="PortfolioAppraisal2($event)">Monthly</span>
+             </div>
               <div class="roleTitle">
-                <span class="btnred">Quarterly</span>
+                <span class="btnred" id="4_3" (click)="PortfolioAppraisal3($event)">Quarterly</span>
               </div>
               <div class="roleTitle">
-                <span class="btngreen">Half Yearly</span>
+                <span class="btnred" id="4_4" (click)="PortfolioAppraisal4($event)">Half Yearly</span>
               </div>
 
               <div class="roleTitle">
-                <span class="btnred">Yearly</span>
+                <span class="btnred" id="4_5" (click)="PortfolioAppraisal5($event)">Yearly</span>
               </div>
             </div>
          </div>
@@ -94,28 +96,25 @@
                <div class="row mt-2">
                   <div class="col-sm-10 col-md-12 col-xs-10">
                     <div class="emailTitle">
-                      <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Performance Appraisal</label>
+                      <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="3">Performance Appraisal</label>
                     </div>
-
                     <div class="roleTitle">
-                      <span class="btnred">
-                        Daily</span>
-                          </div>
+                      <span class="btnred" id="3_1" (click)="PerformanceAppraisal1($event)">Daily</span>
+                   </div>
                     <div class="roleTitle">
-                      <span class="btnred">Monthly</span>
-                          </div>
-                       
-        
-                      <div class="roleTitle">
-                        <span class="btnred">Quarterly</span>
-                      </div>
-                      <div class="roleTitle">
-                        <span class="btnred">Half Yearly</span>
-                      </div>
-        
-                      <div class="roleTitle">
-                        <span class="btngreen">Yearly</span>
-                      </div>
+                     <span class="btnred" id="3_2" (click)="PerformanceAppraisal2($event)">Monthly</span>
+                   </div>
+                    <div class="roleTitle">
+                      <span class="btnred" id="3_3" (click)="PerformanceAppraisal3($event)">Quarterly</span>
+                    </div>
+                    <div class="roleTitle">
+                      <span class="btnred" id="3_4" (click)="PerformanceAppraisal4($event)">Half Yearly</span>
+                    </div>
+      
+                    <div class="roleTitle">
+                      <span class="btnred" id="3_5" (click)="PerformanceAppraisal5($event)">Yearly</span>
+                    </div>
+                   
                   </div>
                </div>
 
@@ -123,29 +122,26 @@
  <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Portfolio Fact Sheet</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="5">Portfolio Fact Sheet</label>
   </div>
  
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="5_1" (click)="PortfolioFactSheet1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btnred">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btngreen">Yearly</span>
-    </div>
+   <span class="btnred" id="5_2" (click)="PortfolioFactSheet2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="5_3" (click)="PortfolioFactSheet3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="5_4" (click)="PortfolioFactSheet4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="5_5" (click)="PortfolioFactSheet5($event)">Yearly</span>
+  </div>
+ 
 </div>
 </div>
 
@@ -153,29 +149,24 @@
 <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Current Portfolio</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="2">Current Portfolio</label>
   </div>
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="2_1" (click)="CurrentPortfolio1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btngreen">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btnred">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btnred">Yearly</span>
-    </div>
-
+   <span class="btnred" id="2_2" (click)="CurrentPortfolio2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="2_3" (click)="CurrentPortfolio3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="2_4" (click)="CurrentPortfolio4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="2_5" (click)="CurrentPortfolio5($event)">Yearly</span>
+  </div>
 </div>
 </div>
 
@@ -184,28 +175,24 @@
 <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Statement Dividend</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="7">Statement Dividend</label>
   </div>
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="7_1" (click)="StatementofDividend1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btngreen">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btnred">Yearly</span>
-    </div>
+   <span class="btnred" id="7_2" (click)="StatementofDividend2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="7_3" (click)="StatementofDividend3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="7_4" (click)="StatementofDividend4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="7_5" (click)="StatementofDividend5($event)">Yearly</span>
+  </div>
 
 </div>
 </div>
@@ -215,28 +202,50 @@
 <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Bank Book</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="1">Bank Book</label>
+  </div>
+
+  
+  <div class="roleTitle">
+    <span class="btnred" id="1_1" (click)="BANKBOOK1($event)">Daily</span>
+ </div>
+  <div class="roleTitle">
+   <span class="btnred" id="1_2" (click)="BANKBOOK2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="1_3" (click)="BANKBOOK3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="1_4" (click)="BANKBOOK4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="1_5" (click)="BANKBOOK5($event)">Yearly</span>
+  </div>
+</div>
+</div>
+
+
+<div class="row mt-2">
+  <div class="col-sm-10 col-md-12 col-xs-10">
+    <div class="emailTitle">
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="6">Statement of Capital Gain/Loss</label>
   </div>
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="6_1" (click)="StatementofCapital1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btnred">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btngreen">Yearly</span>
-    </div>
+   <span class="btnred" id="6_2" (click)="StatementofCapital2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="6_3" (click)="StatementofCapital3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="6_4" (click)="StatementofCapital4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="6_5" (click)="StatementofCapital5($event)">Yearly</span>
+  </div>
 
 </div>
 </div>
@@ -245,29 +254,24 @@
 <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Statement of Capital Gain/Loss</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="8">Statement of Expenses</label>
   </div>
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="8_1" (click)="StatementofExpenses1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btngreen">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btnred">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btnred">Yearly</span>
-    </div>
-
+   <span class="btnred" id="8_2" (click)="StatementofExpenses2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="8_3" (click)="StatementofExpenses3($event)">Quarterly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="8_4" (click)="StatementofExpenses4($event)">Half Yearly</span>
+  </div>
+  <div class="roleTitle">
+    <span class="btnred" id="8_5" (click)="StatementofExpenses5($event)">Yearly</span>
+  </div>
 
 </div>
 </div>
@@ -276,58 +280,24 @@
 <div class="row mt-2">
   <div class="col-sm-10 col-md-12 col-xs-10">
     <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Statement of Expenses</label>
+    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle" id="9">Transaction Statement</label>
   </div>
 
   <div class="roleTitle">
-    <span class="btnred">
-      Daily</span>
-        </div>
+    <span class="btnred" id="9_1" (click)="TransactionStatement1($event)">Daily</span>
+ </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btngreen">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btnred">Yearly</span>
-    </div>
-
-</div>
-</div>
-
-
-<div class="row mt-2">
-  <div class="col-sm-10 col-md-12 col-xs-10">
-    <div class="emailTitle">
-    <label class="col-sm-10 col-md-12 col-xs-10 control-label boxstyle">Transaction Statement</label>
+   <span class="btnred" id="9_2" (click)="TransactionStatement2($event)">Monthly</span>
+ </div>
+  <div class="roleTitle">
+    <span class="btnred" id="9_3" (click)="TransactionStatement3($event)">Quarterly</span>
   </div>
-
   <div class="roleTitle">
-    <span  class="btngreen">
-      Daily</span>
-        </div>
+    <span class="btnred" id="9_4" (click)="TransactionStatement4($event)">Half Yearly</span>
+  </div>
   <div class="roleTitle">
-    <span class="btnred">Monthly</span>
-        </div>
-     
-
-    <div class="roleTitle">
-      <span class="btnred">Quarterly</span>
-    </div>
-    <div class="roleTitle">
-      <span class="btnred">Half Yearly</span>
-    </div>
-
-    <div class="roleTitle">
-      <span class="btnred">Yearly</span>
-    </div>
+    <span class="btnred" id="9_5" (click)="TransactionStatement5($event)">Yearly</span>
+  </div>
 
 </div>
 </div>
@@ -336,19 +306,47 @@
                 
               </div>
               </div>
-              <div class="paginationDiv">
+              <!-- <div class="paginationDiv">
                 <span class="previousBtn" >Previous</span>
                 <span class="paginationCount">2</span>
                 <span class="nextBtn" >Next</span>
             
-              </div>
+              </div> -->
         </div>
       </div>
       
     </div>
     <div class="btnDiv">
-      <input type="button" class="btn btn-success mr-2" value="Submit"/>
+      <!-- <input type="button" class="btn btn-success mr-2" value="Submit"/> -->
+      <button type="submit" (click)="onSubmit()" class="btn btn-success"> Submit</button>
        <!-- <input type="button" class="btn btn-success mr-2" value="Discard"/> -->
        </div>
+
+       <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+       
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hidesavepopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <p><span [innerHTML]="message"></span></p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hidesavepopup()">Ok</button>
+      
+    </div>
+        
+        </div>
+        </div>
+</div>
   </div>
 </div>
