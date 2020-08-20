@@ -244,11 +244,11 @@ if(this.userType == 3  || this.userType == 4 ){
     {
      document.getElementById("ddlcustomerdropdown").classList.remove('validate');
     }
-    let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
-    if(emp !="")
-    {
-     document.getElementById("ddlemployeedropdown").classList.remove('validate');
-    }
+    // let emp=((document.getElementById("ddlemployeedropdown") as HTMLInputElement).value);
+    // if(emp !="")
+    // {
+    //  document.getElementById("ddlemployeedropdown").classList.remove('validate');
+    // }
   }
 
   }
@@ -446,7 +446,8 @@ if( ToDate != undefined){
      
       var FromDate=datat.FromDate;
       var ToDate=datat.ToDate;
-      this.BindGridView(FromDate,ToDate,CustomerAccount)
+      this.BindGridOncustomerchange();
+      //this.BindGridView(FromDate,ToDate,CustomerAccount)
       
       });
       // console.log(sessionStorage.getItem('ID'));
@@ -543,10 +544,12 @@ if( ToDate != undefined){
 
   BindCustomersOnChange(EmployeeId){
     this.loader1=true;this.loader2=true;
+    this.isShowLoader=true;
     let  Data = new Commonfields();
     Data.UserId = EmployeeId ;
     this.BSService.BindCustomers(JSON.stringify(Data)).subscribe(
       (data) => {
+        this.isShowLoader=false;
            this.BindCustomersList = data.Table;
            this.loader1=false;this.loader2=false;
       });
