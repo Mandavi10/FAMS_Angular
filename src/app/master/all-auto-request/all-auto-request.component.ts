@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { AllAutoRequest} from '../../../Models/AllAutoRequest/AllAutoRequest';
+import { AllAutoRequest,ViewAllAutoReportRequest} from '../../../Models/AllAutoRequest/AllAutoRequest';
 import { AutoreportrequestService} from 'src/app/Services/AutoReportRequest/autoreportrequest.service';
 
 
@@ -12,18 +12,25 @@ import { AutoreportrequestService} from 'src/app/Services/AutoReportRequest/auto
 
 export class AllAutoRequestComponent implements OnInit {
   allAutoRequest:AllAutoRequest;
+  allAutoRequest_Copy:AllAutoRequest;
+  viewAllAutoReportRequest:ViewAllAutoReportRequest;
   isShowLoader:boolean;
+  reportName:string;
+  message:string;
+
+  PromptMessage:string;
+
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
     {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
-    {headerName: 'Request Received On', field: 'CreatedOn', width:'150'},
-    {headerName: 'Action', field: 'Action', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
+    {headerName: 'Request Received On', field: 'CreatedOn', width:'200'},
+    {headerName: 'Action', field: 'Action',cellRenderer: function clickNextRendererFunc(){
         return '<button type="button" class="btn btn-success">Send</button>';
       }},
-      {headerName: 'View', field: 'Action', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
-        return '<button type="button" (click)="ViewClick()" class="btn btn-success">View</button>';
-      }},
+      // {headerName: 'View', field: 'Action', width:'150', cellClass:'text-center',cellRenderer: function clickNextRendererFunc(){
+      //   return '<button type="button" (click)="ViewClick()" class="btn btn-success">View</button>';
+      // }},
   
 ];
 
@@ -37,18 +44,95 @@ rowData = [
 ];
 showModalstatemaster: boolean;
 showModalsavepopup:boolean;
+PromptshowModalsavepopup:boolean;
 
 onRowSelected(event){
   debugger;
+  //alert(event.data.CustomerAccount + '--' +event.data.CustomerName)
     // if (event.column.colId != "all" ) // only first column clicked
     // {
      
     // }
-     if ((event.column.colId == "View" ) && (event.node.selected) ){
-         
+   
+    //event.data.PMSAccountNumber
+     if ((event.column.colId != "Action" ) && (event.node.selected) ){
+      this.reportName="Report Request: "+event.data.CustomerName;
+      this.ViewAllAutoReportRequest(event.data.CustomerAccount);
+      this.showModalstatemaster = true; 
+  
+    }
+    else  if ((event.column.colId == "Action" ) && (event.node.selected) ){  
+     // alert('Send button click');    
+      this.SendMailAllAutoReportRequest(event.data.CustomerAccount);
+    }
+  }
+
+
+  AllAutoRequestSearch(evt: any) {
+    debugger;
+    let searchText = evt.target.value.toLocaleLowerCase();    
+    if(searchText ===  '' || searchText === undefined || searchText === null)
+    {
+      this.allAutoRequest  = JSON.parse(JSON.stringify(this.allAutoRequest_Copy));
+    }
+    else{
+      let gridArr = JSON.parse(JSON.stringify(this.allAutoRequest_Copy));
+      let finalArr = [];
+      gridArr.forEach(row => {
+
+        var CustomerName = row.CustomerName;
+        var CustomerAccount = row.CustomerAccount;
+        var CreatedOn = row.CreatedOn;
+        
+        var isCustomerName = CustomerName.toLocaleLowerCase().includes(searchText) ;
+        var isCustomerAccount = CustomerAccount.toLocaleLowerCase().includes(searchText) ;
+        var isCreatedOn = CreatedOn.toLocaleLowerCase().includes(searchText) ;
+  
+       if( isCustomerName || isCustomerAccount || isCreatedOn)
+        {
+          finalArr.push(row);
+        }
+        
+      });
+      this.allAutoRequest  = JSON.parse(JSON.stringify(finalArr));
     }
   }
   
+  SendMailAllAutoReportRequest(CustomerAccount) {
+    var JsonData ={
+      "CustomerAccount" : CustomerAccount
+      }
+    var currentContext = this;
+     this.isShowLoader=true;
+     this._autoreportrequestService.SendMailAllAutoReportRequest(JsonData).
+         subscribe((data) => {
+           if(data.Success=="1")
+           {
+            this.isShowLoader=false;
+            this.message="Mail sent sucessfully.!";
+            this.onClicksavepopup();
+           }
+         });
+   }
+
+  ViewAllAutoReportRequest(CustomerAccount) {
+    var JsonData ={
+      "CustomerAccount" : CustomerAccount
+      }
+    var currentContext = this;
+     this.isShowLoader=true;
+     this._autoreportrequestService.ViewAllAutoReportRequest(JsonData).
+         subscribe((data) => {
+           console.log(data);
+         //  var i=0;
+           if(data.Table.length >=0)
+           {
+           currentContext.viewAllAutoReportRequest=data.Table;
+           }
+           this.isShowLoader=false;
+            
+         });
+   }
 
 BindAllAutoReportRequest() {
   var currentContext = this;
@@ -66,7 +150,6 @@ BindAllAutoReportRequest() {
        });
  }
 onClickstatemaster(event) {
- 
   this.showModalstatemaster = true;
   }
   
@@ -81,6 +164,9 @@ onClicksavepopup() {
 hidesavepopup() {
  this.showModalsavepopup = false;
 }
+
+
+
   constructor(private _autoreportrequestService: AutoreportrequestService) { }
 
   ngOnInit(): void {

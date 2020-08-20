@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{DbsecurityService}from 'src/app/Services/dbsecurity.service';
 import { AutoreportrequestService} from 'src/app/Services/AutoReportRequest/autoreportrequest.service';
-
+import { Router,ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-auto-report-request',
   templateUrl: './auto-report-request.component.html',
@@ -15,7 +15,10 @@ export class AutoReportRequestComponent implements OnInit {
   showModalsavepopup:boolean;
   isShowLoader:boolean;
 
-  constructor(private Dbsecurity: DbsecurityService,private _autoreportrequestService: AutoreportrequestService) { }
+  PromptshowModalsavepopup:boolean;
+  PromptMessage:string;
+
+  constructor(private router: Router,private Dbsecurity: DbsecurityService,private _autoreportrequestService: AutoreportrequestService) { }
 
   ngOnInit() {
     debugger;
@@ -24,7 +27,405 @@ export class AutoReportRequestComponent implements OnInit {
   this.CustomerAccount = item.AccountNo;
     this.BindAutoReportRequest(this.CustomerAccount);
   }
+  Prompt1() {
+    this.PromptMessage="Are you sure you want to have these changes.?";
+    this.PromptshowModalsavepopup = true;
+  }
+  YesClick(event) { 
+    this.PromptshowModalsavepopup = false;
+   
+  var li4_1= document.getElementById('4_1');
+  var li4_2 = document.getElementById('4_2');
+  var li4_3 = document.getElementById('4_3');
+  var li4_4 = document.getElementById('4_4');
+  var li4_5 = document.getElementById('4_5');
+ var ReportType4=0;
+ var FrequencyType4=0;
+  if(li4_1.className=="btngreen")
+  {
+    ReportType4=4;
+    FrequencyType4=1;
+  }
+ else if(li4_2.className=="btngreen")
+  {
+    ReportType4=4;
+    FrequencyType4=2;
+  }
+  else if(li4_3.className=="btngreen")
+  {
+    ReportType4=4;
+    FrequencyType4=3;
+  }
+  else if(li4_4.className=="btngreen")
+  {
+    ReportType4=4;
+    FrequencyType4=4;
+  }
+  else if(li4_5.className=="btngreen")
+  {
+    ReportType4=4;
+    FrequencyType4=5;
+  }
 
+
+
+  var li3_1= document.getElementById('3_1');
+  var li3_2 = document.getElementById('3_2');
+  var li3_3 = document.getElementById('3_3');
+  var li3_4 = document.getElementById('3_4');
+  var li3_5 = document.getElementById('3_5');
+ var ReportType3=0;
+ var FrequencyType3=0;
+  if(li3_1.className=="btngreen")
+  {
+    ReportType3=3;
+    FrequencyType3=1;
+  }
+ else if(li3_2.className=="btngreen")
+  {
+    ReportType3=3;
+    FrequencyType3=2;
+  }
+  else if(li3_3.className=="btngreen")
+  {
+    ReportType3=3;
+    FrequencyType3=3;
+  }
+  else if(li3_4.className=="btngreen")
+  {
+    ReportType3=3;
+    FrequencyType3=4;
+  }
+  else if(li3_5.className=="btngreen")
+  {
+    ReportType3=3;
+    FrequencyType3=5;
+  }
+
+
+  var li5_1= document.getElementById('5_1');
+  var li5_2 = document.getElementById('5_2');
+  var li5_3 = document.getElementById('5_3');
+  var li5_4 = document.getElementById('5_4');
+  var li5_5 = document.getElementById('5_5');
+ var ReportType5=0;
+ var FrequencyType5=0;
+  if(li5_1.className=="btngreen")
+  {
+    ReportType5=5;
+    FrequencyType5=1;
+  }
+ else if(li5_2.className=="btngreen")
+  {
+    ReportType5=5;
+    FrequencyType5=2;
+  }
+  else if(li5_3.className=="btngreen")
+  {
+    ReportType5=5;
+    FrequencyType5=3;
+  }
+  else if(li5_4.className=="btngreen")
+  {
+    ReportType5=5;
+    FrequencyType5=4;
+  }
+  else if(li5_5.className=="btngreen")
+  {
+    ReportType5=5;
+    FrequencyType5=5;
+  }
+
+
+
+  var li2_1= document.getElementById('2_1');
+  var li2_2 = document.getElementById('2_2');
+  var li2_3 = document.getElementById('2_3');
+  var li2_4 = document.getElementById('2_4');
+  var li2_5 = document.getElementById('2_5');
+ var ReportType2=0;
+ var FrequencyType2=0;
+  if(li2_1.className=="btngreen")
+  {
+    ReportType2=2;
+    FrequencyType2=1;
+  }
+ else if(li2_2.className=="btngreen")
+  {
+    ReportType2=2;
+    FrequencyType2=2;
+  }
+  else if(li2_3.className=="btngreen")
+  {
+    ReportType2=2;
+    FrequencyType2=3;
+  }
+  else if(li2_4.className=="btngreen")
+  {
+    ReportType2=2;
+    FrequencyType2=4;
+  }
+  else if(li2_5.className=="btngreen")
+  {
+    ReportType2=2;
+    FrequencyType2=5;
+  }
+
+
+
+  var li7_1= document.getElementById('7_1');
+  var li7_2 = document.getElementById('7_2');
+  var li7_3 = document.getElementById('7_3');
+  var li7_4 = document.getElementById('7_4');
+  var li7_5 = document.getElementById('7_5');
+ var ReportType7=0;
+ var FrequencyType7=0;
+  if(li7_1.className=="btngreen")
+  {
+    ReportType7=7;
+    FrequencyType7=1;
+  }
+ else if(li7_2.className=="btngreen")
+  {
+    ReportType7=7;
+    FrequencyType7=2;
+  }
+  else if(li7_3.className=="btngreen")
+  {
+    ReportType7=7;
+    FrequencyType7=3;
+  }
+  else if(li7_4.className=="btngreen")
+  {
+    ReportType7=7;
+    FrequencyType7=4;
+  }
+  else if(li7_5.className=="btngreen")
+  {
+    ReportType7=7;
+    FrequencyType7=5;
+  }
+
+
+
+
+  var li1_1= document.getElementById('1_1');
+  var li1_2 = document.getElementById('1_2');
+  var li1_3 = document.getElementById('1_3');
+  var li1_4 = document.getElementById('1_4');
+  var li1_5 = document.getElementById('1_5');
+ var ReportType1=0;
+ var FrequencyType1=0;
+  if(li1_1.className=="btngreen")
+  {
+    ReportType1=1;
+    FrequencyType7=1;
+  }
+ else if(li1_2.className=="btngreen")
+  {
+    ReportType1=1;
+    FrequencyType1=2;
+  }
+  else if(li1_3.className=="btngreen")
+  {
+    ReportType1=1;
+    FrequencyType1=3;
+  }
+  else if(li1_4.className=="btngreen")
+  {
+    ReportType1=1;
+    FrequencyType1=4;
+  }
+  else if(li1_5.className=="btngreen")
+  {
+    ReportType1=1;
+    FrequencyType1=5;
+  }
+
+
+
+  var li6_1= document.getElementById('6_1');
+  var li6_2 = document.getElementById('6_2');
+  var li6_3 = document.getElementById('6_3');
+  var li6_4 = document.getElementById('6_4');
+  var li6_5 = document.getElementById('6_5');
+ var ReportType6=0;
+ var FrequencyType6=0;
+  if(li6_1.className=="btngreen")
+  {
+    ReportType6=6;
+    FrequencyType6=1;
+  }
+ else if(li6_2.className=="btngreen")
+  {
+    ReportType6=6;
+    FrequencyType6=2;
+  }
+  else if(li6_3.className=="btngreen")
+  {
+    ReportType6=6;
+    FrequencyType6=3;
+  }
+  else if(li6_4.className=="btngreen")
+  {
+    ReportType6=6;
+    FrequencyType6=4;
+  }
+  else if(li6_5.className=="btngreen")
+  {
+    ReportType6=6;
+    FrequencyType6=5;
+  }
+
+
+  var li8_1= document.getElementById('8_1');
+  var li8_2 = document.getElementById('8_2');
+  var li8_3 = document.getElementById('8_3');
+  var li8_4 = document.getElementById('8_4');
+  var li8_5 = document.getElementById('8_5');
+ var ReportType8=0;
+ var FrequencyType8=0;
+  if(li8_1.className=="btngreen")
+  {
+    ReportType8=8;
+    FrequencyType8=1;
+  }
+ else if(li8_2.className=="btngreen")
+  {
+    ReportType8=8;
+    FrequencyType8=2;
+  }
+  else if(li8_3.className=="btngreen")
+  {
+    ReportType8=8;
+    FrequencyType8=3;
+  }
+  else if(li8_4.className=="btngreen")
+  {
+    ReportType8=8;
+    FrequencyType8=4;
+  }
+  else if(li8_5.className=="btngreen")
+  {
+    ReportType8=8;
+    FrequencyType8=5;
+  }
+
+
+  var li9_1= document.getElementById('9_1');
+  var li9_2 = document.getElementById('9_2');
+  var li9_3 = document.getElementById('9_3');
+  var li9_4 = document.getElementById('9_4');
+  var li9_5 = document.getElementById('9_5');
+ var ReportType9=0;
+ var FrequencyType9=0;
+  if(li9_1.className=="btngreen")
+  {
+    ReportType9=9;
+    FrequencyType9=1;
+  }
+ else if(li9_2.className=="btngreen")
+  {
+    ReportType9=9;
+    FrequencyType9=2;
+  }
+  else if(li9_3.className=="btngreen")
+  {
+    ReportType9=9;
+    FrequencyType9=3;
+  }
+  else if(li9_4.className=="btngreen")
+  {
+    ReportType9=9;
+    FrequencyType9=4;
+  }
+  else if(li9_5.className=="btngreen")
+  {
+    ReportType9=9;
+    FrequencyType9=5;
+  }
+
+
+
+  debugger;
+  if(ReportType4 !=0  && FrequencyType4!=0)
+  {
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType4,FrequencyType:FrequencyType4})
+   // this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType4},{FrequencyType:FrequencyType4})
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType4},{FrequencyType:FrequencyType4})
+     //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType4+'---'+FrequencyType4);
+  }
+  if(ReportType3 !=0  && FrequencyType3!=0)
+  {
+     //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType3+'---'+FrequencyType3);
+    // this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType3},{FrequencyType:FrequencyType3})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType3,FrequencyType:FrequencyType3})
+  }
+  if(ReportType5 !=0  && FrequencyType5!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType5+'---'+FrequencyType5);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType5},{FrequencyType:FrequencyType5})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType5,FrequencyType:FrequencyType5})
+  }
+  if(ReportType2 !=0  && FrequencyType2!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType2+'---'+FrequencyType2);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType2},{FrequencyType:FrequencyType2})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType2,FrequencyType:FrequencyType2})
+  }
+  if(ReportType7 !=0  && FrequencyType7!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType7+'---'+FrequencyType7);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType7},{FrequencyType:FrequencyType7})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType7,FrequencyType:FrequencyType7})
+  }
+  if(ReportType1 !=0  && FrequencyType1!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType1+'---'+FrequencyType1);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType1},{FrequencyType:FrequencyType1})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType1,FrequencyType:FrequencyType1})
+  }
+  if(ReportType6 !=0  && FrequencyType6!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType6+'---'+FrequencyType6);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType6},{FrequencyType:FrequencyType6})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType6,FrequencyType:FrequencyType6})
+  }
+
+  if(ReportType8 !=0  && FrequencyType8!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType8+'---'+FrequencyType8);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType8},{FrequencyType:FrequencyType8})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType8,FrequencyType:FrequencyType8})
+  }
+
+  if(ReportType9 !=0  && FrequencyType9!=0)
+  {
+    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType9+'---'+FrequencyType9);
+    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType9},{FrequencyType:FrequencyType9})
+    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType9,FrequencyType:FrequencyType9})
+  }
+
+// alert(JSON.stringify(this.FrequencyData))
+// console.log(JSON.stringify(this.FrequencyData));
+if (this.FrequencyData.length==0)
+  {
+    this.message="Please select Frequency Type !";
+    this.onClicksavepopup();
+  }
+else{
+this.SaveAutoReportRequest(this.FrequencyData);
+this.FrequencyData=[];
+}
+//this._autoreportrequestService.SaveAutoReportRequest()
+
+
+    }
+    
+    NoClick() {
+     this.PromptshowModalsavepopup = false;
+     this.router.navigate(['/Home']);
+    }
   PortfolioAppraisal1(evt: any) {
     debugger;
  
@@ -1324,7 +1725,7 @@ hidesavepopup() {
         if (data.ResultSaveUpdate = '1') {
           this.isShowLoader=false;
            // sessionStorage.setItem('ID', this._custodian.Result.toString());
-            this.message = 'Record saved Successfully';
+            this.message = 'Request submitted sucessfully.!';
             //alert(this.message);
             this.onClicksavepopup();
             
@@ -1383,398 +1784,9 @@ hidesavepopup() {
   
  onSubmit() {
   debugger;
+  this.Prompt1();
   
-  // let item = JSON.parse(sessionStorage.getItem('User'));
-  // this.UserId = this.Dbsecurity.Decrypt(item.UserId);
-  // this.CustomerAccount = item.AccountNo;
-
-
-  var li4_1= document.getElementById('4_1');
-  var li4_2 = document.getElementById('4_2');
-  var li4_3 = document.getElementById('4_3');
-  var li4_4 = document.getElementById('4_4');
-  var li4_5 = document.getElementById('4_5');
- var ReportType4=0;
- var FrequencyType4=0;
-  if(li4_1.className=="btngreen")
-  {
-    ReportType4=4;
-    FrequencyType4=1;
-  }
- else if(li4_2.className=="btngreen")
-  {
-    ReportType4=4;
-    FrequencyType4=2;
-  }
-  else if(li4_3.className=="btngreen")
-  {
-    ReportType4=4;
-    FrequencyType4=3;
-  }
-  else if(li4_4.className=="btngreen")
-  {
-    ReportType4=4;
-    FrequencyType4=4;
-  }
-  else if(li4_5.className=="btngreen")
-  {
-    ReportType4=4;
-    FrequencyType4=5;
-  }
-
-
-
-  var li3_1= document.getElementById('3_1');
-  var li3_2 = document.getElementById('3_2');
-  var li3_3 = document.getElementById('3_3');
-  var li3_4 = document.getElementById('3_4');
-  var li3_5 = document.getElementById('3_5');
- var ReportType3=0;
- var FrequencyType3=0;
-  if(li3_1.className=="btngreen")
-  {
-    ReportType3=3;
-    FrequencyType3=1;
-  }
- else if(li3_2.className=="btngreen")
-  {
-    ReportType3=3;
-    FrequencyType3=2;
-  }
-  else if(li3_3.className=="btngreen")
-  {
-    ReportType3=3;
-    FrequencyType3=3;
-  }
-  else if(li3_4.className=="btngreen")
-  {
-    ReportType3=3;
-    FrequencyType3=4;
-  }
-  else if(li3_5.className=="btngreen")
-  {
-    ReportType3=3;
-    FrequencyType3=5;
-  }
-
-
-  var li5_1= document.getElementById('5_1');
-  var li5_2 = document.getElementById('5_2');
-  var li5_3 = document.getElementById('5_3');
-  var li5_4 = document.getElementById('5_4');
-  var li5_5 = document.getElementById('5_5');
- var ReportType5=0;
- var FrequencyType5=0;
-  if(li5_1.className=="btngreen")
-  {
-    ReportType5=5;
-    FrequencyType5=1;
-  }
- else if(li5_2.className=="btngreen")
-  {
-    ReportType5=5;
-    FrequencyType5=2;
-  }
-  else if(li5_3.className=="btngreen")
-  {
-    ReportType5=5;
-    FrequencyType5=3;
-  }
-  else if(li5_4.className=="btngreen")
-  {
-    ReportType5=5;
-    FrequencyType5=4;
-  }
-  else if(li5_5.className=="btngreen")
-  {
-    ReportType5=5;
-    FrequencyType5=5;
-  }
-
-
-
-  var li2_1= document.getElementById('2_1');
-  var li2_2 = document.getElementById('2_2');
-  var li2_3 = document.getElementById('2_3');
-  var li2_4 = document.getElementById('2_4');
-  var li2_5 = document.getElementById('2_5');
- var ReportType2=0;
- var FrequencyType2=0;
-  if(li2_1.className=="btngreen")
-  {
-    ReportType2=2;
-    FrequencyType2=1;
-  }
- else if(li2_2.className=="btngreen")
-  {
-    ReportType2=2;
-    FrequencyType2=2;
-  }
-  else if(li2_3.className=="btngreen")
-  {
-    ReportType2=2;
-    FrequencyType2=3;
-  }
-  else if(li2_4.className=="btngreen")
-  {
-    ReportType2=2;
-    FrequencyType2=4;
-  }
-  else if(li2_5.className=="btngreen")
-  {
-    ReportType2=2;
-    FrequencyType2=5;
-  }
-
-
-
-  var li7_1= document.getElementById('7_1');
-  var li7_2 = document.getElementById('7_2');
-  var li7_3 = document.getElementById('7_3');
-  var li7_4 = document.getElementById('7_4');
-  var li7_5 = document.getElementById('7_5');
- var ReportType7=0;
- var FrequencyType7=0;
-  if(li7_1.className=="btngreen")
-  {
-    ReportType7=7;
-    FrequencyType7=1;
-  }
- else if(li7_2.className=="btngreen")
-  {
-    ReportType7=7;
-    FrequencyType7=2;
-  }
-  else if(li7_3.className=="btngreen")
-  {
-    ReportType7=7;
-    FrequencyType7=3;
-  }
-  else if(li7_4.className=="btngreen")
-  {
-    ReportType7=7;
-    FrequencyType7=4;
-  }
-  else if(li7_5.className=="btngreen")
-  {
-    ReportType7=7;
-    FrequencyType7=5;
-  }
-
-
-
-
-  var li1_1= document.getElementById('1_1');
-  var li1_2 = document.getElementById('1_2');
-  var li1_3 = document.getElementById('1_3');
-  var li1_4 = document.getElementById('1_4');
-  var li1_5 = document.getElementById('1_5');
- var ReportType1=0;
- var FrequencyType1=0;
-  if(li1_1.className=="btngreen")
-  {
-    ReportType1=1;
-    FrequencyType7=1;
-  }
- else if(li1_2.className=="btngreen")
-  {
-    ReportType1=1;
-    FrequencyType1=2;
-  }
-  else if(li1_3.className=="btngreen")
-  {
-    ReportType1=1;
-    FrequencyType1=3;
-  }
-  else if(li1_4.className=="btngreen")
-  {
-    ReportType1=1;
-    FrequencyType1=4;
-  }
-  else if(li1_5.className=="btngreen")
-  {
-    ReportType1=1;
-    FrequencyType1=5;
-  }
-
-
-
-  var li6_1= document.getElementById('6_1');
-  var li6_2 = document.getElementById('6_2');
-  var li6_3 = document.getElementById('6_3');
-  var li6_4 = document.getElementById('6_4');
-  var li6_5 = document.getElementById('6_5');
- var ReportType6=0;
- var FrequencyType6=0;
-  if(li6_1.className=="btngreen")
-  {
-    ReportType6=6;
-    FrequencyType6=1;
-  }
- else if(li6_2.className=="btngreen")
-  {
-    ReportType6=6;
-    FrequencyType6=2;
-  }
-  else if(li6_3.className=="btngreen")
-  {
-    ReportType6=6;
-    FrequencyType6=3;
-  }
-  else if(li6_4.className=="btngreen")
-  {
-    ReportType6=6;
-    FrequencyType6=4;
-  }
-  else if(li6_5.className=="btngreen")
-  {
-    ReportType6=6;
-    FrequencyType6=5;
-  }
-
-
-  var li8_1= document.getElementById('8_1');
-  var li8_2 = document.getElementById('8_2');
-  var li8_3 = document.getElementById('8_3');
-  var li8_4 = document.getElementById('8_4');
-  var li8_5 = document.getElementById('8_5');
- var ReportType8=0;
- var FrequencyType8=0;
-  if(li8_1.className=="btngreen")
-  {
-    ReportType8=8;
-    FrequencyType8=1;
-  }
- else if(li8_2.className=="btngreen")
-  {
-    ReportType8=8;
-    FrequencyType8=2;
-  }
-  else if(li8_3.className=="btngreen")
-  {
-    ReportType8=8;
-    FrequencyType8=3;
-  }
-  else if(li8_4.className=="btngreen")
-  {
-    ReportType8=8;
-    FrequencyType8=4;
-  }
-  else if(li8_5.className=="btngreen")
-  {
-    ReportType8=8;
-    FrequencyType8=5;
-  }
-
-
-  var li9_1= document.getElementById('9_1');
-  var li9_2 = document.getElementById('9_2');
-  var li9_3 = document.getElementById('9_3');
-  var li9_4 = document.getElementById('9_4');
-  var li9_5 = document.getElementById('9_5');
- var ReportType9=0;
- var FrequencyType9=0;
-  if(li9_1.className=="btngreen")
-  {
-    ReportType9=9;
-    FrequencyType9=1;
-  }
- else if(li9_2.className=="btngreen")
-  {
-    ReportType9=9;
-    FrequencyType9=2;
-  }
-  else if(li9_3.className=="btngreen")
-  {
-    ReportType9=9;
-    FrequencyType9=3;
-  }
-  else if(li9_4.className=="btngreen")
-  {
-    ReportType9=9;
-    FrequencyType9=4;
-  }
-  else if(li9_5.className=="btngreen")
-  {
-    ReportType9=9;
-    FrequencyType9=5;
-  }
-
-
-
-  debugger;
-  if(ReportType4 !=0  && FrequencyType4!=0)
-  {
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType4,FrequencyType:FrequencyType4})
-   // this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType4},{FrequencyType:FrequencyType4})
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType4},{FrequencyType:FrequencyType4})
-     //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType4+'---'+FrequencyType4);
-  }
-  if(ReportType3 !=0  && FrequencyType3!=0)
-  {
-     //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType3+'---'+FrequencyType3);
-    // this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType3},{FrequencyType:FrequencyType3})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType3,FrequencyType:FrequencyType3})
-  }
-  if(ReportType5 !=0  && FrequencyType5!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType5+'---'+FrequencyType5);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType5},{FrequencyType:FrequencyType5})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType5,FrequencyType:FrequencyType5})
-  }
-  if(ReportType2 !=0  && FrequencyType2!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType2+'---'+FrequencyType2);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType2},{FrequencyType:FrequencyType2})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType2,FrequencyType:FrequencyType2})
-  }
-  if(ReportType7 !=0  && FrequencyType7!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType7+'---'+FrequencyType7);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType7},{FrequencyType:FrequencyType7})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType7,FrequencyType:FrequencyType7})
-  }
-  if(ReportType1 !=0  && FrequencyType1!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType1+'---'+FrequencyType1);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType1},{FrequencyType:FrequencyType1})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType1,FrequencyType:FrequencyType1})
-  }
-  if(ReportType6 !=0  && FrequencyType6!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType6+'---'+FrequencyType6);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType6},{FrequencyType:FrequencyType6})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType6,FrequencyType:FrequencyType6})
-  }
-
-  if(ReportType8 !=0  && FrequencyType8!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType8+'---'+FrequencyType8);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType8},{FrequencyType:FrequencyType8})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType8,FrequencyType:FrequencyType8})
-  }
-
-  if(ReportType9 !=0  && FrequencyType9!=0)
-  {
-    //alert(this.UserId +'---'+this.CustomerAccount+ '---'+ReportType9+'---'+FrequencyType9);
-    //this.FrequencyData.push({UserId:this.UserId},{CustomerAccount:this.CustomerAccount},{ReportType:ReportType9},{FrequencyType:FrequencyType9})
-    this.FrequencyData.push({UserId:this.UserId,CustomerAccount:this.CustomerAccount,ReportType:ReportType9,FrequencyType:FrequencyType9})
-  }
-
-// alert(JSON.stringify(this.FrequencyData))
-// console.log(JSON.stringify(this.FrequencyData));
-if (this.FrequencyData.length==0)
-  {
-    this.message="Please select Frequency Type !";
-    this.onClicksavepopup();
-  }
-else{
-this.SaveAutoReportRequest(this.FrequencyData);
-this.FrequencyData=[];
-}
-//this._autoreportrequestService.SaveAutoReportRequest()
-
-
+  
 
    
  }
