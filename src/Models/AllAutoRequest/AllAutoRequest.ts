@@ -8,3 +8,9 @@ export class AllAutoRequest {
     CreatedBy : any;
     UserId : any ;
 }
+
+
+export class ViewAllAutoReportRequest {
+    ReportName : string;
+    FrequencyType : string;
+}

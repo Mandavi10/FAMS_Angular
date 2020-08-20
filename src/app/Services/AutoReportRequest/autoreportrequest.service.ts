@@ -19,6 +19,31 @@ export class AutoreportrequestService {
 //     this.UserId = Sessionvalue.UserId;
 //    return this._http.get<any>(this.baseUrl + 'api/AllCustomer/BindGrid/'+ this.UserId);
 // }
+
+
+// BindPopUp(): Observable<any> {  
+//   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
+//   this.UserId = Sessionvalue.UserId;
+//  return this._http.get<any>(this.baseUrl + 'api/AutoReportRequest/BindPopUp');
+// }
+
+
+SendMailAllAutoReportRequest(em:any): Observable<any> {
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AutoReportRequest/SendMailAllAutoReportRequest', body, {
+    headers 
+});
+}
+
+ViewAllAutoReportRequest(em:any): Observable<any> {
+  const body = em; 
+  const headers = new HttpHeaders().set('content-type', 'application/json');
+  return this._http.post<any>(this.baseUrl + 'api/AutoReportRequest/ViewAllAutoReportRequest', body, {
+    headers 
+});
+}
+
 BindAllAutoReportRequest(): Observable<any> {  
   let Sessionvalue = JSON.parse(sessionStorage.getItem('User'));
   this.UserId = Sessionvalue.UserId;
