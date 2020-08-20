@@ -428,716 +428,296 @@ this.FrequencyData=[];
     }
   PortfolioAppraisal1(evt: any) {
     debugger;
- 
-    var element4_1 = document.getElementById("4_1");
-    var element4_2 = document.getElementById("4_2");
-    var element4_3 = document.getElementById("4_3");
-    var element4_4 = document.getElementById("4_4");
-    var element4_5 = document.getElementById("4_5");
+    if(evt.target.id!="4_1")
+    {
+      var element4_1 = document.getElementById("4_1");
+      element4_1.classList.remove("btngreen");
+      element4_1.classList.add("btnred");
+    }
 
-    element4_1.classList.remove("btngreen");
-    element4_2.classList.remove("btngreen");
+    if(evt.target.id!="4_2")
+    {
+      var element4_2 = document.getElementById("4_2");
+      element4_2.classList.remove("btngreen");
+      element4_2.classList.add("btnred");
+    }
+
+    if(evt.target.id!="4_3")
+    {
+    var element4_3 = document.getElementById("4_3");
     element4_3.classList.remove("btngreen");
-    element4_4.classList.remove("btngreen");
-    element4_5.classList.remove("btngreen");
- 
- 
-    element4_1.classList.add("btnred");
-    element4_2.classList.add("btnred");
     element4_3.classList.add("btnred");
+    }
+
+    if(evt.target.id!="4_4")
+    {
+    var element4_4 = document.getElementById("4_4");
+    element4_4.classList.remove("btngreen");
     element4_4.classList.add("btnred");
-    element4_5.classList.add("btnred");
- 
- 
+    }
+
+    if(evt.target.id!="4_5")
+    {
+      var element4_5 = document.getElementById("4_5");
+      element4_5.classList.remove("btngreen");
+      element4_5.classList.add("btnred");
+    }
  
     var element = document.getElementById(evt.target.id);
     // alert(evt.target.id)
     // alert(element.className)
 
     debugger;
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
+    // element.classList.remove("btnred");
+    // element.classList.add("btngreen");
     
-    // if(element.className=="btngreen")
-    // {
-    //   element.classList.remove("btngreen");
-    //   element.classList.add("btnred");
-    // }
-    // else if(element.className=="btnred"){
-    //   element.classList.remove("btnred");
-    //   element.classList.add("btngreen");
-    // }
+    if(element.className=="btngreen")
+    {
+      element.classList.remove("btngreen");
+      element.classList.add("btnred");
+    }
+    else if(element.className=="btnred"){
+      element.classList.remove("btnred");
+      element.classList.add("btngreen");
+    }
    }
-   PortfolioAppraisal2(evt: any) {
-     debugger;
-     var element4_1 = document.getElementById("4_1");
-     var element4_2 = document.getElementById("4_2");
-     var element4_3 = document.getElementById("4_3");
-     var element4_4 = document.getElementById("4_4");
-     var element4_5 = document.getElementById("4_5");
-     element4_1.classList.remove("btngreen");
-     element4_2.classList.remove("btngreen");
-     element4_3.classList.remove("btngreen");
-     element4_4.classList.remove("btngreen");
-     element4_5.classList.remove("btngreen");
- 
-    element4_1.classList.add("btnred");
-    element4_2.classList.add("btnred");
-    element4_3.classList.add("btnred");
-    element4_4.classList.add("btnred");
-    element4_5.classList.add("btnred");
-  
-     var element = document.getElementById(evt.target.id);
-     element.classList.remove("btnred");
-     element.classList.add("btngreen");
-
-
-
-    //  alert(evt.target.id)
-    // alert(element.className)
-
-    // if(element.className=="btngreen")
-    // {
-    //   element.classList.remove("btngreen");
-    //   element.classList.add("btnred");
-    // }
-    // else if(element.className=="btnred"){
-    //   element.classList.remove("btnred");
-    //   element.classList.add("btngreen");
-    // }
-    
-     
-   }
-   PortfolioAppraisal3(evt: any) {
-     debugger;
-     var element4_1 = document.getElementById("4_1");
-     var element4_2 = document.getElementById("4_2");
-     var element4_3 = document.getElementById("4_3");
-     var element4_4 = document.getElementById("4_4");
-     var element4_5 = document.getElementById("4_5");
-     element4_1.classList.remove("btngreen");
-     element4_2.classList.remove("btngreen");
-     element4_3.classList.remove("btngreen");
-     element4_4.classList.remove("btngreen");
-     element4_5.classList.remove("btngreen");
- 
-     element4_1.classList.add("btnred");
-    element4_2.classList.add("btnred");
-    element4_3.classList.add("btnred");
-    element4_4.classList.add("btnred");
-    element4_5.classList.add("btnred");
-     var element = document.getElementById(evt.target.id);
-     element.classList.remove("btnred");
-     element.classList.add("btngreen");
-   }
- 
-   PortfolioAppraisal4(evt: any) {
-     debugger;
-     var element4_1 = document.getElementById("4_1");
-     var element4_2 = document.getElementById("4_2");
-     var element4_3 = document.getElementById("4_3");
-     var element4_4 = document.getElementById("4_4");
-     var element4_5 = document.getElementById("4_5");
-     element4_1.classList.remove("btngreen");
-     element4_2.classList.remove("btngreen");
-     element4_3.classList.remove("btngreen");
-     element4_4.classList.remove("btngreen");
-     element4_5.classList.remove("btngreen");
-     element4_1.classList.add("btnred");
-     element4_2.classList.add("btnred");
-     element4_3.classList.add("btnred");
-     element4_4.classList.add("btnred");
-     element4_5.classList.add("btnred");
- 
-     var element = document.getElementById(evt.target.id);
-     element.classList.remove("btnred");
-     element.classList.add("btngreen");
-   }
- 
-   PortfolioAppraisal5(evt: any) {
-     debugger;
-     var element4_1 = document.getElementById("4_1");
-     var element4_2 = document.getElementById("4_2");
-     var element4_3 = document.getElementById("4_3");
-     var element4_4 = document.getElementById("4_4");
-     var element4_5 = document.getElementById("4_5");
-     element4_1.classList.remove("btngreen");
-     element4_2.classList.remove("btngreen");
-     element4_3.classList.remove("btngreen");
-     element4_4.classList.remove("btngreen");
-     element4_5.classList.remove("btngreen");
- 
-     element4_1.classList.add("btnred");
-    element4_2.classList.add("btnred");
-    element4_3.classList.add("btnred");
-    element4_4.classList.add("btnred");
-    element4_5.classList.add("btnred");
-     var element = document.getElementById(evt.target.id);
-     element.classList.remove("btnred");
-     element.classList.add("btngreen");
-   }
+   
  //Performance Appraisal start
 
   PerformanceAppraisal1(evt: any) {
    debugger;
 
-   var element3_1 = document.getElementById("3_1");
-   var element3_2 = document.getElementById("3_2");
-   var element3_3 = document.getElementById("3_3");
-   var element3_4 = document.getElementById("3_4");
-   var element3_5 = document.getElementById("3_5");
-   element3_1.classList.remove("btngreen");
-   element3_2.classList.remove("btngreen");
-   element3_3.classList.remove("btngreen");
-   element3_4.classList.remove("btngreen");
-   element3_5.classList.remove("btngreen");
+   if(evt.target.id!="3_1")
+    {
+      var element3_1 = document.getElementById("3_1");
+      element3_1.classList.remove("btngreen");
+      element3_1.classList.add("btnred");
+    }
 
+    if(evt.target.id!="3_2")
+    {
+      var element3_2 = document.getElementById("3_2");
+      element3_2.classList.remove("btngreen");
+      element3_2.classList.add("btnred");
+    }
 
-   element3_1.classList.add("btnred");
-   element3_2.classList.add("btnred");
-   element3_3.classList.add("btnred");
-   element3_4.classList.add("btnred");
-   element3_5.classList.add("btnred");
-
-
-
-   var element = document.getElementById(evt.target.id);
-   element.classList.remove("btnred");
-   element.classList.add("btngreen");
-  }
-  PerformanceAppraisal2(evt: any) {
-    debugger;
-
-    var element3_1 = document.getElementById("3_1");
-    var element3_2 = document.getElementById("3_2");
+    if(evt.target.id!="3_3")
+    {
     var element3_3 = document.getElementById("3_3");
-    var element3_4 = document.getElementById("3_4");
-    var element3_5 = document.getElementById("3_5");
-    element3_1.classList.remove("btngreen");
-    element3_2.classList.remove("btngreen");
     element3_3.classList.remove("btngreen");
-    element3_4.classList.remove("btngreen");
-    element3_5.classList.remove("btngreen");
- 
- 
-    element3_1.classList.add("btnred");
-    element3_2.classList.add("btnred");
     element3_3.classList.add("btnred");
+    }
+
+    if(evt.target.id!="3_4")
+    {
+    var element3_4 = document.getElementById("3_4");
+    element3_4.classList.remove("btngreen");
     element3_4.classList.add("btnred");
-    element3_5.classList.add("btnred");
- 
- 
+    }
+
+    if(evt.target.id!="3_5")
+    {
+      var element3_5 = document.getElementById("3_5");
+      element3_5.classList.remove("btngreen");
+      element3_5.classList.add("btnred");
+    }
  
     var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-  }
-  PerformanceAppraisal3(evt: any) {
+    // alert(evt.target.id)
+    // alert(element.className)
+
     debugger;
+    // element.classList.remove("btnred");
+    // element.classList.add("btngreen");
+    
+    if(element.className=="btngreen")
+    {
+      element.classList.remove("btngreen");
+      element.classList.add("btnred");
+    }
+    else if(element.className=="btnred"){
+      element.classList.remove("btnred");
+      element.classList.add("btngreen");
+    }
 
-   var element3_1 = document.getElementById("3_1");
-   var element3_2 = document.getElementById("3_2");
-   var element3_3 = document.getElementById("3_3");
-   var element3_4 = document.getElementById("3_4");
-   var element3_5 = document.getElementById("3_5");
-   element3_1.classList.remove("btngreen");
-   element3_2.classList.remove("btngreen");
-   element3_3.classList.remove("btngreen");
-   element3_4.classList.remove("btngreen");
-   element3_5.classList.remove("btngreen");
-
-
-   element3_1.classList.add("btnred");
-   element3_2.classList.add("btnred");
-   element3_3.classList.add("btnred");
-   element3_4.classList.add("btnred");
-   element3_5.classList.add("btnred");
-
-
-
-   var element = document.getElementById(evt.target.id);
-   element.classList.remove("btnred");
-   element.classList.add("btngreen");
   }
-
-  PerformanceAppraisal4(evt: any) {
-    debugger;
-
-    var element3_1 = document.getElementById("3_1");
-    var element3_2 = document.getElementById("3_2");
-    var element3_3 = document.getElementById("3_3");
-    var element3_4 = document.getElementById("3_4");
-    var element3_5 = document.getElementById("3_5");
-    element3_1.classList.remove("btngreen");
-    element3_2.classList.remove("btngreen");
-    element3_3.classList.remove("btngreen");
-    element3_4.classList.remove("btngreen");
-    element3_5.classList.remove("btngreen");
- 
- 
-    element3_1.classList.add("btnred");
-    element3_2.classList.add("btnred");
-    element3_3.classList.add("btnred");
-    element3_4.classList.add("btnred");
-    element3_5.classList.add("btnred");
- 
- 
- 
-    var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-  }
-
-  PerformanceAppraisal5(evt: any) {
-    debugger;
-
-   var element3_1 = document.getElementById("3_1");
-   var element3_2 = document.getElementById("3_2");
-   var element3_3 = document.getElementById("3_3");
-   var element3_4 = document.getElementById("3_4");
-   var element3_5 = document.getElementById("3_5");
-   element3_1.classList.remove("btngreen");
-   element3_2.classList.remove("btngreen");
-   element3_3.classList.remove("btngreen");
-   element3_4.classList.remove("btngreen");
-   element3_5.classList.remove("btngreen");
-
-
-   element3_1.classList.add("btnred");
-   element3_2.classList.add("btnred");
-   element3_3.classList.add("btnred");
-   element3_4.classList.add("btnred");
-   element3_5.classList.add("btnred");
-
-
-
-   var element = document.getElementById(evt.target.id);
-   element.classList.remove("btnred");
-   element.classList.add("btngreen");
-  }
-
+  
 //Portfolio Fact Sheet start
 PortfolioFactSheet1(evt: any) {
     debugger;
  
-    var element5_1 = document.getElementById("5_1");
-    var element5_2 = document.getElementById("5_2");
-    var element5_3 = document.getElementById("5_3");
-    var element5_4 = document.getElementById("5_4");
-    var element5_5 = document.getElementById("5_5");
-    element5_1.classList.remove("btngreen");
-    element5_2.classList.remove("btngreen");
-    element5_3.classList.remove("btngreen");
-    element5_4.classList.remove("btngreen");
-    element5_5.classList.remove("btngreen");
- 
- 
-    element5_1.classList.add("btnred");
-    element5_2.classList.add("btnred");
-    element5_3.classList.add("btnred");
-    element5_4.classList.add("btnred");
-    element5_5.classList.add("btnred");
- 
- 
- 
-    var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-   }
-   PortfolioFactSheet2(evt: any) {
-    debugger;
- 
-    var element5_1 = document.getElementById("5_1");
-    var element5_2 = document.getElementById("5_2");
-    var element5_3 = document.getElementById("5_3");
-    var element5_4 = document.getElementById("5_4");
-    var element5_5 = document.getElementById("5_5");
-    element5_1.classList.remove("btngreen");
-    element5_2.classList.remove("btngreen");
-    element5_3.classList.remove("btngreen");
-    element5_4.classList.remove("btngreen");
-    element5_5.classList.remove("btngreen");
- 
- 
-    element5_1.classList.add("btnred");
-    element5_2.classList.add("btnred");
-    element5_3.classList.add("btnred");
-    element5_4.classList.add("btnred");
-    element5_5.classList.add("btnred");
- 
- 
- 
-    var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-   }
-   PortfolioFactSheet3(evt: any) {
-    debugger;
- 
-    var element5_1 = document.getElementById("5_1");
-    var element5_2 = document.getElementById("5_2");
-    var element5_3 = document.getElementById("5_3");
-    var element5_4 = document.getElementById("5_4");
-    var element5_5 = document.getElementById("5_5");
-    element5_1.classList.remove("btngreen");
-    element5_2.classList.remove("btngreen");
-    element5_3.classList.remove("btngreen");
-    element5_4.classList.remove("btngreen");
-    element5_5.classList.remove("btngreen");
- 
- 
-    element5_1.classList.add("btnred");
-    element5_2.classList.add("btnred");
-    element5_3.classList.add("btnred");
-    element5_4.classList.add("btnred");
-    element5_5.classList.add("btnred");
- 
- 
- 
-    var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-   }
+    if(evt.target.id!="5_1")
+    {
+      var element5_1 = document.getElementById("5_1");
+      element5_1.classList.remove("btngreen");
+      element5_1.classList.add("btnred");
+    }
 
-   PortfolioFactSheet4(evt: any) {
-    debugger;
- 
-    var element5_1 = document.getElementById("5_1");
-    var element5_2 = document.getElementById("5_2");
+    if(evt.target.id!="5_2")
+    {
+      var element5_2 = document.getElementById("5_2");
+      element5_2.classList.remove("btngreen");
+      element5_2.classList.add("btnred");
+    }
+
+    if(evt.target.id!="5_3")
+    {
     var element5_3 = document.getElementById("5_3");
-    var element5_4 = document.getElementById("5_4");
-    var element5_5 = document.getElementById("5_5");
-    element5_1.classList.remove("btngreen");
-    element5_2.classList.remove("btngreen");
     element5_3.classList.remove("btngreen");
-    element5_4.classList.remove("btngreen");
-    element5_5.classList.remove("btngreen");
- 
- 
-    element5_1.classList.add("btnred");
-    element5_2.classList.add("btnred");
     element5_3.classList.add("btnred");
+    }
+
+    if(evt.target.id!="5_4")
+    {
+    var element5_4 = document.getElementById("5_4");
+    element5_4.classList.remove("btngreen");
     element5_4.classList.add("btnred");
-    element5_5.classList.add("btnred");
- 
- 
+    }
+
+    if(evt.target.id!="5_5")
+    {
+      var element5_5 = document.getElementById("5_5");
+      element5_5.classList.remove("btngreen");
+      element5_5.classList.add("btnred");
+    }
  
     var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
-   }
+    // alert(evt.target.id)
+    // alert(element.className)
 
-   PortfolioFactSheet5(evt: any) {
     debugger;
- 
-    var element5_1 = document.getElementById("5_1");
-    var element5_2 = document.getElementById("5_2");
-    var element5_3 = document.getElementById("5_3");
-    var element5_4 = document.getElementById("5_4");
-    var element5_5 = document.getElementById("5_5");
-    element5_1.classList.remove("btngreen");
-    element5_2.classList.remove("btngreen");
-    element5_3.classList.remove("btngreen");
-    element5_4.classList.remove("btngreen");
-    element5_5.classList.remove("btngreen");
- 
- 
-    element5_1.classList.add("btnred");
-    element5_2.classList.add("btnred");
-    element5_3.classList.add("btnred");
-    element5_4.classList.add("btnred");
-    element5_5.classList.add("btnred");
- 
- 
- 
-    var element = document.getElementById(evt.target.id);
-    element.classList.remove("btnred");
-    element.classList.add("btngreen");
+    // element.classList.remove("btnred");
+    // element.classList.add("btngreen");
+    
+    if(element.className=="btngreen")
+    {
+      element.classList.remove("btngreen");
+      element.classList.add("btnred");
+    }
+    else if(element.className=="btnred"){
+      element.classList.remove("btnred");
+      element.classList.add("btngreen");
+    }
+
    }
-
-
+   
 
 //Current Portfolio start
  CurrentPortfolio1(evt: any) {
   debugger;
 
-  var element2_1 = document.getElementById("2_1");
-  var element2_2 = document.getElementById("2_2");
+  if(evt.target.id!="2_1")
+  {
+    var element2_1 = document.getElementById("2_1");
+    element2_1.classList.remove("btngreen");
+    element2_1.classList.add("btnred");
+  }
+
+  if(evt.target.id!="2_2")
+  {
+    var element2_2 = document.getElementById("2_2");
+    element2_2.classList.remove("btngreen");
+    element2_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="2_3")
+  {
   var element2_3 = document.getElementById("2_3");
-  var element2_4 = document.getElementById("2_4");
-  var element2_5 = document.getElementById("2_5");
-  element2_1.classList.remove("btngreen");
-  element2_2.classList.remove("btngreen");
   element2_3.classList.remove("btngreen");
-  element2_4.classList.remove("btngreen");
-  element2_5.classList.remove("btngreen");
-
-
-  element2_1.classList.add("btnred");
-  element2_2.classList.add("btnred");
   element2_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="2_4")
+  {
+  var element2_4 = document.getElementById("2_4");
+  element2_4.classList.remove("btngreen");
   element2_4.classList.add("btnred");
-  element2_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="2_5")
+  {
+    var element2_5 = document.getElementById("2_5");
+    element2_5.classList.remove("btngreen");
+    element2_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
+  // alert(evt.target.id)
+  // alert(element.className)
 
- CurrentPortfolio2(evt: any) {
   debugger;
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
 
-  var element2_1 = document.getElementById("2_1");
-  var element2_2 = document.getElementById("2_2");
-  var element2_3 = document.getElementById("2_3");
-  var element2_4 = document.getElementById("2_4");
-  var element2_5 = document.getElementById("2_5");
-  element2_1.classList.remove("btngreen");
-  element2_2.classList.remove("btngreen");
-  element2_3.classList.remove("btngreen");
-  element2_4.classList.remove("btngreen");
-  element2_5.classList.remove("btngreen");
-
-
-  element2_1.classList.add("btnred");
-  element2_2.classList.add("btnred");
-  element2_3.classList.add("btnred");
-  element2_4.classList.add("btnred");
-  element2_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- CurrentPortfolio3(evt: any) {
-  debugger;
-
-  var element2_1 = document.getElementById("2_1");
-  var element2_2 = document.getElementById("2_2");
-  var element2_3 = document.getElementById("2_3");
-  var element2_4 = document.getElementById("2_4");
-  var element2_5 = document.getElementById("2_5");
-  element2_1.classList.remove("btngreen");
-  element2_2.classList.remove("btngreen");
-  element2_3.classList.remove("btngreen");
-  element2_4.classList.remove("btngreen");
-  element2_5.classList.remove("btngreen");
-
-
-  element2_1.classList.add("btnred");
-  element2_2.classList.add("btnred");
-  element2_3.classList.add("btnred");
-  element2_4.classList.add("btnred");
-  element2_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- CurrentPortfolio4(evt: any) {
-  debugger;
-
-  var element2_1 = document.getElementById("2_1");
-  var element2_2 = document.getElementById("2_2");
-  var element2_3 = document.getElementById("2_3");
-  var element2_4 = document.getElementById("2_4");
-  var element2_5 = document.getElementById("2_5");
-  element2_1.classList.remove("btngreen");
-  element2_2.classList.remove("btngreen");
-  element2_3.classList.remove("btngreen");
-  element2_4.classList.remove("btngreen");
-  element2_5.classList.remove("btngreen");
-
-
-  element2_1.classList.add("btnred");
-  element2_2.classList.add("btnred");
-  element2_3.classList.add("btnred");
-  element2_4.classList.add("btnred");
-  element2_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
-
- CurrentPortfolio5(evt: any) {
-  debugger;
-
-  var element2_1 = document.getElementById("2_1");
-  var element2_2 = document.getElementById("2_2");
-  var element2_3 = document.getElementById("2_3");
-  var element2_4 = document.getElementById("2_4");
-  var element2_5 = document.getElementById("2_5");
-  element2_1.classList.remove("btngreen");
-  element2_2.classList.remove("btngreen");
-  element2_3.classList.remove("btngreen");
-  element2_4.classList.remove("btngreen");
-  element2_5.classList.remove("btngreen");
-
-
-  element2_1.classList.add("btnred");
-  element2_2.classList.add("btnred");
-  element2_3.classList.add("btnred");
-  element2_4.classList.add("btnred");
-  element2_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
+ } 
 
 //Statement of Dividend.pdf start
 StatementofDividend1(evt: any) {
   debugger;
 
-  var element7_1 = document.getElementById("7_1");
-  var element7_2 = document.getElementById("7_2");
+  if(evt.target.id!="7_1")
+  {
+    var element7_1 = document.getElementById("7_1");
+    element7_1.classList.remove("btngreen");
+    element7_1.classList.add("btnred");
+  }
+
+  if(evt.target.id!="7_2")
+  {
+    var element7_2 = document.getElementById("7_2");
+    element7_2.classList.remove("btngreen");
+    element7_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="7_3")
+  {
   var element7_3 = document.getElementById("7_3");
-  var element7_4 = document.getElementById("7_4");
-  var element7_5 = document.getElementById("7_5");
-  element7_1.classList.remove("btngreen");
-  element7_2.classList.remove("btngreen");
   element7_3.classList.remove("btngreen");
-  element7_4.classList.remove("btngreen");
-  element7_5.classList.remove("btngreen");
-
-
-  element7_1.classList.add("btnred");
-  element7_2.classList.add("btnred");
   element7_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="7_4")
+  {
+  var element7_4 = document.getElementById("7_4");
+  element7_4.classList.remove("btngreen");
   element7_4.classList.add("btnred");
-  element7_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="7_5")
+  {
+    var element7_5 = document.getElementById("7_5");
+    element7_5.classList.remove("btngreen");
+    element7_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
+  // alert(evt.target.id)
+  // alert(element.className)
 
- StatementofDividend2(evt: any) {
   debugger;
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
 
-  var element7_1 = document.getElementById("7_1");
-  var element7_2 = document.getElementById("7_2");
-  var element7_3 = document.getElementById("7_3");
-  var element7_4 = document.getElementById("7_4");
-  var element7_5 = document.getElementById("7_5");
-  element7_1.classList.remove("btngreen");
-  element7_2.classList.remove("btngreen");
-  element7_3.classList.remove("btngreen");
-  element7_4.classList.remove("btngreen");
-  element7_5.classList.remove("btngreen");
-
-
-  element7_1.classList.add("btnred");
-  element7_2.classList.add("btnred");
-  element7_3.classList.add("btnred");
-  element7_4.classList.add("btnred");
-  element7_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- StatementofDividend3(evt: any) {
-  debugger;
-
-  var element7_1 = document.getElementById("7_1");
-  var element7_2 = document.getElementById("7_2");
-  var element7_3 = document.getElementById("7_3");
-  var element7_4 = document.getElementById("7_4");
-  var element7_5 = document.getElementById("7_5");
-  element7_1.classList.remove("btngreen");
-  element7_2.classList.remove("btngreen");
-  element7_3.classList.remove("btngreen");
-  element7_4.classList.remove("btngreen");
-  element7_5.classList.remove("btngreen");
-
-
-  element7_1.classList.add("btnred");
-  element7_2.classList.add("btnred");
-  element7_3.classList.add("btnred");
-  element7_4.classList.add("btnred");
-  element7_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- StatementofDividend4(evt: any) {
-  debugger;
-
-  var element7_1 = document.getElementById("7_1");
-  var element7_2 = document.getElementById("7_2");
-  var element7_3 = document.getElementById("7_3");
-  var element7_4 = document.getElementById("7_4");
-  var element7_5 = document.getElementById("7_5");
-  element7_1.classList.remove("btngreen");
-  element7_2.classList.remove("btngreen");
-  element7_3.classList.remove("btngreen");
-  element7_4.classList.remove("btngreen");
-  element7_5.classList.remove("btngreen");
-
-
-  element7_1.classList.add("btnred");
-  element7_2.classList.add("btnred");
-  element7_3.classList.add("btnred");
-  element7_4.classList.add("btnred");
-  element7_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
- StatementofDividend5(evt: any) {
-  debugger;
-
-  var element7_1 = document.getElementById("7_1");
-  var element7_2 = document.getElementById("7_2");
-  var element7_3 = document.getElementById("7_3");
-  var element7_4 = document.getElementById("7_4");
-  var element7_5 = document.getElementById("7_5");
-  element7_1.classList.remove("btngreen");
-  element7_2.classList.remove("btngreen");
-  element7_3.classList.remove("btngreen");
-  element7_4.classList.remove("btngreen");
-  element7_5.classList.remove("btngreen");
-
-
-  element7_1.classList.add("btnred");
-  element7_2.classList.add("btnred");
-  element7_3.classList.add("btnred");
-  element7_4.classList.add("btnred");
-  element7_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
  }
 
 
@@ -1145,138 +725,59 @@ StatementofDividend1(evt: any) {
  BANKBOOK1(evt: any) {
   debugger;
 
-  var element1_1 = document.getElementById("1_1");
-  var element1_2 = document.getElementById("1_2");
+  if(evt.target.id!="1_1")
+  {
+    var element1_1 = document.getElementById("1_1");
+    element1_1.classList.remove("btngreen");
+    element1_1.classList.add("btnred");
+  }
+
+  if(evt.target.id!="1_2")
+  {
+    var element1_2 = document.getElementById("1_2");
+    element1_2.classList.remove("btngreen");
+    element1_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="1_3")
+  {
   var element1_3 = document.getElementById("1_3");
-  var element1_4 = document.getElementById("1_4");
-  var element1_5 = document.getElementById("1_5");
-  element1_1.classList.remove("btngreen");
-  element1_2.classList.remove("btngreen");
   element1_3.classList.remove("btngreen");
-  element1_4.classList.remove("btngreen");
-  element1_5.classList.remove("btngreen");
-
-
-  element1_1.classList.add("btnred");
-  element1_2.classList.add("btnred");
   element1_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="1_4")
+  {
+  var element1_4 = document.getElementById("1_4");
+  element1_4.classList.remove("btngreen");
   element1_4.classList.add("btnred");
-  element1_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="1_5")
+  {
+    var element1_5 = document.getElementById("1_5");
+    element1_5.classList.remove("btngreen");
+    element1_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
+  // alert(evt.target.id)
+  // alert(element.className)
 
- BANKBOOK2(evt: any) {
   debugger;
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
 
-  var element1_1 = document.getElementById("1_1");
-  var element1_2 = document.getElementById("1_2");
-  var element1_3 = document.getElementById("1_3");
-  var element1_4 = document.getElementById("1_4");
-  var element1_5 = document.getElementById("1_5");
-  element1_1.classList.remove("btngreen");
-  element1_2.classList.remove("btngreen");
-  element1_3.classList.remove("btngreen");
-  element1_4.classList.remove("btngreen");
-  element1_5.classList.remove("btngreen");
-
-
-  element1_1.classList.add("btnred");
-  element1_2.classList.add("btnred");
-  element1_3.classList.add("btnred");
-  element1_4.classList.add("btnred");
-  element1_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
- BANKBOOK3(evt: any) {
-  debugger;
-
-  var element1_1 = document.getElementById("1_1");
-  var element1_2 = document.getElementById("1_2");
-  var element1_3 = document.getElementById("1_3");
-  var element1_4 = document.getElementById("1_4");
-  var element1_5 = document.getElementById("1_5");
-  element1_1.classList.remove("btngreen");
-  element1_2.classList.remove("btngreen");
-  element1_3.classList.remove("btngreen");
-  element1_4.classList.remove("btngreen");
-  element1_5.classList.remove("btngreen");
-
-
-  element1_1.classList.add("btnred");
-  element1_2.classList.add("btnred");
-  element1_3.classList.add("btnred");
-  element1_4.classList.add("btnred");
-  element1_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
- BANKBOOK4(evt: any) {
-  debugger;
-
-  var element1_1 = document.getElementById("1_1");
-  var element1_2 = document.getElementById("1_2");
-  var element1_3 = document.getElementById("1_3");
-  var element1_4 = document.getElementById("1_4");
-  var element1_5 = document.getElementById("1_5");
-  element1_1.classList.remove("btngreen");
-  element1_2.classList.remove("btngreen");
-  element1_3.classList.remove("btngreen");
-  element1_4.classList.remove("btngreen");
-  element1_5.classList.remove("btngreen");
-
-
-  element1_1.classList.add("btnred");
-  element1_2.classList.add("btnred");
-  element1_3.classList.add("btnred");
-  element1_4.classList.add("btnred");
-  element1_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
- BANKBOOK5(evt: any) {
-  debugger;
-
-  var element1_1 = document.getElementById("1_1");
-  var element1_2 = document.getElementById("1_2");
-  var element1_3 = document.getElementById("1_3");
-  var element1_4 = document.getElementById("1_4");
-  var element1_5 = document.getElementById("1_5");
-  element1_1.classList.remove("btngreen");
-  element1_2.classList.remove("btngreen");
-  element1_3.classList.remove("btngreen");
-  element1_4.classList.remove("btngreen");
-  element1_5.classList.remove("btngreen");
-
-
-  element1_1.classList.add("btnred");
-  element1_2.classList.add("btnred");
-  element1_3.classList.add("btnred");
-  element1_4.classList.add("btnred");
-  element1_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
  }
 
 
@@ -1284,430 +785,181 @@ StatementofDividend1(evt: any) {
  StatementofCapital1(evt: any) {
   debugger;
 
-  var element6_1 = document.getElementById("6_1");
-  var element6_2 = document.getElementById("6_2");
+  if(evt.target.id!="6_1")
+  {
+    var element6_1 = document.getElementById("6_1");
+    element6_1.classList.remove("btngreen");
+    element6_1.classList.add("btnred");
+  }
+
+  if(evt.target.id!="6_2")
+  {
+    var element6_2 = document.getElementById("6_2");
+    element6_2.classList.remove("btngreen");
+    element6_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="6_3")
+  {
   var element6_3 = document.getElementById("6_3");
-  var element6_4 = document.getElementById("6_4");
-  var element6_5 = document.getElementById("6_5");
-  element6_1.classList.remove("btngreen");
-  element6_2.classList.remove("btngreen");
   element6_3.classList.remove("btngreen");
-  element6_4.classList.remove("btngreen");
-  element6_5.classList.remove("btngreen");
-
-
-  element6_1.classList.add("btnred");
-  element6_2.classList.add("btnred");
   element6_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="6_4")
+  {
+  var element6_4 = document.getElementById("6_4");
+  element6_4.classList.remove("btngreen");
   element6_4.classList.add("btnred");
-  element6_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="6_5")
+  {
+    var element6_5 = document.getElementById("6_5");
+    element6_5.classList.remove("btngreen");
+    element6_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
+  // alert(evt.target.id)
+  // alert(element.className)
 
- StatementofCapital2(evt: any) {
   debugger;
-
-  var element6_1 = document.getElementById("6_1");
-  var element6_2 = document.getElementById("6_2");
-  var element6_3 = document.getElementById("6_3");
-  var element6_4 = document.getElementById("6_4");
-  var element6_5 = document.getElementById("6_5");
-  element6_1.classList.remove("btngreen");
-  element6_2.classList.remove("btngreen");
-  element6_3.classList.remove("btngreen");
-  element6_4.classList.remove("btngreen");
-  element6_5.classList.remove("btngreen");
-
-
-  element6_1.classList.add("btnred");
-  element6_2.classList.add("btnred");
-  element6_3.classList.add("btnred");
-  element6_4.classList.add("btnred");
-  element6_5.classList.add("btnred");
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
 
 
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
  }
-
-
- StatementofCapital3(evt: any) {
-  debugger;
-
-  var element6_1 = document.getElementById("6_1");
-  var element6_2 = document.getElementById("6_2");
-  var element6_3 = document.getElementById("6_3");
-  var element6_4 = document.getElementById("6_4");
-  var element6_5 = document.getElementById("6_5");
-  element6_1.classList.remove("btngreen");
-  element6_2.classList.remove("btngreen");
-  element6_3.classList.remove("btngreen");
-  element6_4.classList.remove("btngreen");
-  element6_5.classList.remove("btngreen");
-
-
-  element6_1.classList.add("btnred");
-  element6_2.classList.add("btnred");
-  element6_3.classList.add("btnred");
-  element6_4.classList.add("btnred");
-  element6_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
-
- StatementofCapital4(evt: any) {
-  debugger;
-
-  var element6_1 = document.getElementById("6_1");
-  var element6_2 = document.getElementById("6_2");
-  var element6_3 = document.getElementById("6_3");
-  var element6_4 = document.getElementById("6_4");
-  var element6_5 = document.getElementById("6_5");
-  element6_1.classList.remove("btngreen");
-  element6_2.classList.remove("btngreen");
-  element6_3.classList.remove("btngreen");
-  element6_4.classList.remove("btngreen");
-  element6_5.classList.remove("btngreen");
-
-
-  element6_1.classList.add("btnred");
-  element6_2.classList.add("btnred");
-  element6_3.classList.add("btnred");
-  element6_4.classList.add("btnred");
-  element6_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
-
- StatementofCapital5(evt: any) {
-  debugger;
-
-  var element6_1 = document.getElementById("6_1");
-  var element6_2 = document.getElementById("6_2");
-  var element6_3 = document.getElementById("6_3");
-  var element6_4 = document.getElementById("6_4");
-  var element6_5 = document.getElementById("6_5");
-  element6_1.classList.remove("btngreen");
-  element6_2.classList.remove("btngreen");
-  element6_3.classList.remove("btngreen");
-  element6_4.classList.remove("btngreen");
-  element6_5.classList.remove("btngreen");
-
-
-  element6_1.classList.add("btnred");
-  element6_2.classList.add("btnred");
-  element6_3.classList.add("btnred");
-  element6_4.classList.add("btnred");
-  element6_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
 
 
  //Statement of Expenses start
  StatementofExpenses1(evt: any) {
   debugger;
 
-  var element8_1 = document.getElementById("8_1");
-  var element8_2 = document.getElementById("8_2");
+ 
+  if(evt.target.id!="8_1")
+  {
+    var element8_1 = document.getElementById("8_1");
+    element8_1.classList.remove("btngreen");
+    element8_1.classList.add("btnred");
+  }
+
+  if(evt.target.id!="8_2")
+  {
+    var element8_2 = document.getElementById("8_2");
+    element8_2.classList.remove("btngreen");
+    element8_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="8_3")
+  {
   var element8_3 = document.getElementById("8_3");
-  var element8_4 = document.getElementById("8_4");
-  var element8_5 = document.getElementById("8_5");
-  element8_1.classList.remove("btngreen");
-  element8_2.classList.remove("btngreen");
   element8_3.classList.remove("btngreen");
-  element8_4.classList.remove("btngreen");
-  element8_5.classList.remove("btngreen");
-
-
-  element8_1.classList.add("btnred");
-  element8_2.classList.add("btnred");
   element8_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="8_4")
+  {
+  var element8_4 = document.getElementById("8_4");
+  element8_4.classList.remove("btngreen");
   element8_4.classList.add("btnred");
-  element8_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="8_5")
+  {
+    var element8_5 = document.getElementById("8_5");
+    element8_5.classList.remove("btngreen");
+    element8_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
- StatementofExpenses2(evt: any) {
+  // alert(evt.target.id)
+  // alert(element.className)
+
   debugger;
-
-  var element8_1 = document.getElementById("8_1");
-  var element8_2 = document.getElementById("8_2");
-  var element8_3 = document.getElementById("8_3");
-  var element8_4 = document.getElementById("8_4");
-  var element8_5 = document.getElementById("8_5");
-  element8_1.classList.remove("btngreen");
-  element8_2.classList.remove("btngreen");
-  element8_3.classList.remove("btngreen");
-  element8_4.classList.remove("btngreen");
-  element8_5.classList.remove("btngreen");
-
-
-  element8_1.classList.add("btnred");
-  element8_2.classList.add("btnred");
-  element8_3.classList.add("btnred");
-  element8_4.classList.add("btnred");
-  element8_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- StatementofExpenses3(evt: any) {
-  debugger;
-
-  var element8_1 = document.getElementById("8_1");
-  var element8_2 = document.getElementById("8_2");
-  var element8_3 = document.getElementById("8_3");
-  var element8_4 = document.getElementById("8_4");
-  var element8_5 = document.getElementById("8_5");
-  element8_1.classList.remove("btngreen");
-  element8_2.classList.remove("btngreen");
-  element8_3.classList.remove("btngreen");
-  element8_4.classList.remove("btngreen");
-  element8_5.classList.remove("btngreen");
-
-
-  element8_1.classList.add("btnred");
-  element8_2.classList.add("btnred");
-  element8_3.classList.add("btnred");
-  element8_4.classList.add("btnred");
-  element8_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- StatementofExpenses4(evt: any) {
-  debugger;
-
-  var element8_1 = document.getElementById("8_1");
-  var element8_2 = document.getElementById("8_2");
-  var element8_3 = document.getElementById("8_3");
-  var element8_4 = document.getElementById("8_4");
-  var element8_5 = document.getElementById("8_5");
-  element8_1.classList.remove("btngreen");
-  element8_2.classList.remove("btngreen");
-  element8_3.classList.remove("btngreen");
-  element8_4.classList.remove("btngreen");
-  element8_5.classList.remove("btngreen");
-
-
-  element8_1.classList.add("btnred");
-  element8_2.classList.add("btnred");
-  element8_3.classList.add("btnred");
-  element8_4.classList.add("btnred");
-  element8_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- StatementofExpenses5(evt: any) {
-  debugger;
-
-  var element8_1 = document.getElementById("8_1");
-  var element8_2 = document.getElementById("8_2");
-  var element8_3 = document.getElementById("8_3");
-  var element8_4 = document.getElementById("8_4");
-  var element8_5 = document.getElementById("8_5");
-  element8_1.classList.remove("btngreen");
-  element8_2.classList.remove("btngreen");
-  element8_3.classList.remove("btngreen");
-  element8_4.classList.remove("btngreen");
-  element8_5.classList.remove("btngreen");
-
-
-  element8_1.classList.add("btnred");
-  element8_2.classList.add("btnred");
-  element8_3.classList.add("btnred");
-  element8_4.classList.add("btnred");
-  element8_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
  }
 
 
  //Transaction Statement start
  TransactionStatement1(evt: any) {
   debugger;
+  if(evt.target.id!="9_1")
+  {
+    var element9_1 = document.getElementById("9_1");
+    element9_1.classList.remove("btngreen");
+    element9_1.classList.add("btnred");
+  }
 
-  var element9_1 = document.getElementById("9_1");
-  var element9_2 = document.getElementById("9_2");
+  if(evt.target.id!="9_2")
+  {
+    var element9_2 = document.getElementById("9_2");
+    element9_2.classList.remove("btngreen");
+    element9_2.classList.add("btnred");
+  }
+
+  if(evt.target.id!="9_3")
+  {
   var element9_3 = document.getElementById("9_3");
-  var element9_4 = document.getElementById("9_4");
-  var element9_5 = document.getElementById("9_5");
-  element9_1.classList.remove("btngreen");
-  element9_2.classList.remove("btngreen");
   element9_3.classList.remove("btngreen");
-  element9_4.classList.remove("btngreen");
-  element9_5.classList.remove("btngreen");
-
-
-  element9_1.classList.add("btnred");
-  element9_2.classList.add("btnred");
   element9_3.classList.add("btnred");
+  }
+
+  if(evt.target.id!="9_4")
+  {
+  var element9_4 = document.getElementById("9_4");
+  element9_4.classList.remove("btngreen");
   element9_4.classList.add("btnred");
-  element9_5.classList.add("btnred");
+  }
 
-
+  if(evt.target.id!="9_5")
+  {
+    var element9_5 = document.getElementById("9_5");
+    element9_5.classList.remove("btngreen");
+    element9_5.classList.add("btnred");
+  }
 
   var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
+  // alert(evt.target.id)
+  // alert(element.className)
 
- TransactionStatement2(evt: any) {
   debugger;
+  // element.classList.remove("btnred");
+  // element.classList.add("btngreen");
+  
+  if(element.className=="btngreen")
+  {
+    element.classList.remove("btngreen");
+    element.classList.add("btnred");
+  }
+  else if(element.className=="btnred"){
+    element.classList.remove("btnred");
+    element.classList.add("btngreen");
+  }
 
-  var element9_1 = document.getElementById("9_1");
-  var element9_2 = document.getElementById("9_2");
-  var element9_3 = document.getElementById("9_3");
-  var element9_4 = document.getElementById("9_4");
-  var element9_5 = document.getElementById("9_5");
-  element9_1.classList.remove("btngreen");
-  element9_2.classList.remove("btngreen");
-  element9_3.classList.remove("btngreen");
-  element9_4.classList.remove("btngreen");
-  element9_5.classList.remove("btngreen");
-
-
-  element9_1.classList.add("btnred");
-  element9_2.classList.add("btnred");
-  element9_3.classList.add("btnred");
-  element9_4.classList.add("btnred");
-  element9_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
  }
 
- TransactionStatement3(evt: any) {
-  debugger;
-
-  var element9_1 = document.getElementById("9_1");
-  var element9_2 = document.getElementById("9_2");
-  var element9_3 = document.getElementById("9_3");
-  var element9_4 = document.getElementById("9_4");
-  var element9_5 = document.getElementById("9_5");
-  element9_1.classList.remove("btngreen");
-  element9_2.classList.remove("btngreen");
-  element9_3.classList.remove("btngreen");
-  element9_4.classList.remove("btngreen");
-  element9_5.classList.remove("btngreen");
-
-
-  element9_1.classList.add("btnred");
-  element9_2.classList.add("btnred");
-  element9_3.classList.add("btnred");
-  element9_4.classList.add("btnred");
-  element9_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
- TransactionStatement4(evt: any) {
-  debugger;
-
-  var element9_1 = document.getElementById("9_1");
-  var element9_2 = document.getElementById("9_2");
-  var element9_3 = document.getElementById("9_3");
-  var element9_4 = document.getElementById("9_4");
-  var element9_5 = document.getElementById("9_5");
-  element9_1.classList.remove("btngreen");
-  element9_2.classList.remove("btngreen");
-  element9_3.classList.remove("btngreen");
-  element9_4.classList.remove("btngreen");
-  element9_5.classList.remove("btngreen");
-
-
-  element9_1.classList.add("btnred");
-  element9_2.classList.add("btnred");
-  element9_3.classList.add("btnred");
-  element9_4.classList.add("btnred");
-  element9_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
-
-
- TransactionStatement5(evt: any) {
-  debugger;
-
-  var element9_1 = document.getElementById("9_1");
-  var element9_2 = document.getElementById("9_2");
-  var element9_3 = document.getElementById("9_3");
-  var element9_4 = document.getElementById("9_4");
-  var element9_5 = document.getElementById("9_5");
-  element9_1.classList.remove("btngreen");
-  element9_2.classList.remove("btngreen");
-  element9_3.classList.remove("btngreen");
-  element9_4.classList.remove("btngreen");
-  element9_5.classList.remove("btngreen");
-
-
-  element9_1.classList.add("btnred");
-  element9_2.classList.add("btnred");
-  element9_3.classList.add("btnred");
-  element9_4.classList.add("btnred");
-  element9_5.classList.add("btnred");
-
-
-
-  var element = document.getElementById(evt.target.id);
-  element.classList.remove("btnred");
-  element.classList.add("btngreen");
- }
  onClicksavepopup() {
   this.showModalsavepopup = true;
 }
