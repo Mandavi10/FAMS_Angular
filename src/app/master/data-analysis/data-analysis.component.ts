@@ -173,17 +173,14 @@ export class DataAnalysisComponent implements OnInit {
 	Employeeshowhid=true;Customershowhid=true; Table:Employee;Table1:Customer;Table2:ReportLink;
 	Customercodearray=[]; Table1Length:number=0;
 	ReportAccountNo:string='';
-  Showfirst:number=1; ShowSecond:number=1; Showthird:number=1; Showfour:number=1;
+  Showfirst:number=0; ShowSecond:number=0; Showthird:number=0; Showfour:number=0;
   Reportfirst1:number=0; ReportSecond:number=0;Reportthird:number=0;Reportfour:number=0;
 Pie1array=[];Pie2array=[];Pie3array=[];Pie4array=[];
 
   Report1R(Data)
   {
-	  
-	  debugger;
-	 // alert(this.Showfirst)
  this.Reportfirst1=Data;
- //this.Showfirst=0;
+ this.Showfirst=0;
  
  this.isGrid = false;
  this.isChart = false;
@@ -193,7 +190,7 @@ Pie1array=[];Pie2array=[];Pie3array=[];Pie4array=[];
   Report2R(Data)
   {
  this.ReportSecond=Data;
- //this.ShowSecond=0;
+ this.ShowSecond=0;
  this.isGrid1 = false;
  this.isChart1 = false;
  this.isPie1 = false;
@@ -202,7 +199,7 @@ Pie1array=[];Pie2array=[];Pie3array=[];Pie4array=[];
   Report3R(Data)
   {
  this.Reportthird=Data;
- //this.Showthird=0;
+ this.Showthird=0;
  this.isGrid2 = false;
  this.isChart2 = false;
  this.isPie2 = false;
@@ -210,7 +207,7 @@ Pie1array=[];Pie2array=[];Pie3array=[];Pie4array=[];
   Report4R(Data)
   {
  this.Reportfour=Data;
- //this.Showfour=0;
+ this.Showfour=0;
  this.isGrid3 = false;
  this.isChart3 = false;
  this.isPie3 = false;
@@ -370,9 +367,7 @@ isFieldValid(field: string) {
    }
 	Generate_click()
 	{
-		debugger;
-		if (this.Datanalysis.valid) 
-		{
+		if (this.Datanalysis.valid) {
 //==============================================Case 1===========================================
   if(this.Showfirst !=0 && this.Reportfirst1 !=0)
   {
@@ -380,9 +375,7 @@ isFieldValid(field: string) {
 	var date= Selecteddate.split('-');
 	
 	if(this.Showfirst==1)
-	{
-		//this.Showfirst,this.Reportfirst1,
-		//this.ReportAccountNo="6010003";
+	{this.Showfirst,this.Reportfirst1,this.ReportAccountNo,
 		this.Bindpie1(date[0],date[1],this.ReportAccountNo,this.Showfirst,this.Reportfirst1);
 	
 	}
