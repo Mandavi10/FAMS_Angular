@@ -12,7 +12,7 @@ import {AppSettings} from 'src/app/app-settings';
 })
 export class HomeComponent implements OnInit {
   ChangePassWordPopUp : boolean = false; CommonfieldsList : Commonfields; ChangePasswordForm: FormGroup;showModalsavepopup: boolean = false;
-  SubjectNote:string='';
+  SubjectNote:string='';OtherTab:boolean=false;
 
   OrderProcessing:boolean=false;
 
@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
     var UsertType  = this.Dbsecurity.Decrypt(item1.UserType);
     this.BindAllPost();
     this.BindAllPostcount();
+    if(UsertType =="2"){this.OtherTab=true;}
 if(UsertType !="1"){
 }
 else{

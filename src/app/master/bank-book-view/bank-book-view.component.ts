@@ -484,7 +484,7 @@ if( ToDate != undefined){
       const datat = this.BankBookViewForm.value;
   var FromDate=datat.FromDate;
   var ToDate=datat.ToDate;
-      this.BindGridView(FromDate,ToDate,CustomerAccount)
+  this.BindGridOncustomerchange();
       
       });
       // console.log(sessionStorage.getItem('ID'));
