@@ -64,7 +64,7 @@
           [showToolPanel]="true"
           rowSelection="single"
           [pagination]="true" [paginationAutoPageSize]="true"
-          (cellClicked)="onRowSelected($event)"
+          (cellClicked)='onCellClicked($event)'
           >
           </ag-grid-angular>
           <!-- <div class="col-md-12 col-sm-12 col-xs-12">

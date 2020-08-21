@@ -22,7 +22,13 @@ export class AllAutoRequestComponent implements OnInit {
 
   columnDefs = [
     {headerName: 'Sr. No.', field: 'SrNo', width:'80'},
-    {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
+    // {headerName: 'Customer Name', field: 'CustomerName', width:'150'},
+
+    {headerName: 'Customer Name', field: 'CustomerName', width: 120, cellRenderer: function(params) {
+   // return '<a href="#">' + params.value + '</a>';
+      return '<a href="javascript:void(0);" >'+ params.value +'</a>';
+          }
+    },
     {headerName: 'Customer Account', field: 'CustomerAccount', width:'150'},
     {headerName: 'Request Received On', field: 'CreatedOn', width:'200'},
     {headerName: 'Action', field: 'Action',cellRenderer: function clickNextRendererFunc(){
@@ -46,7 +52,7 @@ showModalstatemaster: boolean;
 showModalsavepopup:boolean;
 PromptshowModalsavepopup:boolean;
 
-onRowSelected(event){
+onCellClicked(event){
   debugger;
   //alert(event.data.CustomerAccount + '--' +event.data.CustomerName)
     // if (event.column.colId != "all" ) // only first column clicked
@@ -54,15 +60,18 @@ onRowSelected(event){
      
     // }
    
+    //alert (event.column.colId);
     //event.data.PMSAccountNumber
-     if ((event.column.colId != "Action" ) && (event.node.selected) ){
+     if (event.column.colId == "CustomerName"){
+       //alert('CustomerClick');    
+      // event.preventDefault();
       this.reportName="Report Request: "+event.data.CustomerName;
       this.ViewAllAutoReportRequest(event.data.CustomerAccount);
       this.showModalstatemaster = true; 
   
     }
-    else  if ((event.column.colId == "Action" ) && (event.node.selected) ){  
-     // alert('Send button click');    
+    else  if (event.column.colId == "Action" ){  
+     // alert('send buttonn click')   
       this.SendMailAllAutoReportRequest(event.data.CustomerAccount);
     }
   }
@@ -145,6 +154,7 @@ BindAllAutoReportRequest() {
          if(data.Table.length >=0)
          {
           this.allAutoRequest = data.Table;
+          this.allAutoRequest_Copy=data.Table;
          }
           
        });
