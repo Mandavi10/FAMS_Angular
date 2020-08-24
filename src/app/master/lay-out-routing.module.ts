@@ -62,6 +62,10 @@ const routes: Routes = [
 {path: 'CurrentPortfolio', loadChildren: './current-portfolio/current-portfolio.module#CurrentPortfolioModule'},
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
 {path: 'AutoReportRequest', loadChildren: './auto-report-request/auto-report-request.module#AutoReportRequestModule'},
+{path: 'StockExchangeMaster', loadChildren: './stock-exchange-master/stock-exchange-master.module#StockExchangeMasterModule'},
+
+
+
 
 
 {path: 'DataAnalysis', loadChildren: './data-analysis/data-analysis.module#DataAnalysisModule'},
