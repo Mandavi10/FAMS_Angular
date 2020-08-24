@@ -1,4 +1,12 @@
-
+.txttCenter{margin-left:0px !important; color:#003974 !important}
+.addIcon{position: absolute;
+  right: 6px;
+  top: 7px;
+  font-size: 14px;
+  color: #082644;
+  font-weight: bold;}
+  .divScroll{overflow-y: auto;
+    max-height: 490px !important;}
   .chipsContainer{
     padding: 5px 0px 5px 5px;
     width: 84%;

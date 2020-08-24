@@ -28,6 +28,9 @@ export class BrokerMasterComponent implements OnInit {
     {headerName: 'Stock Exchange Name', field: 'StockExchangeName' ,width:160},
     {headerName: 'Email', field: 'Email',width:150 },
     {headerName: 'Telephone', field: 'Telephone', width: 130},
+    {headerName: 'Upload Template', field: 'Upload', width: 130, cellClass:'txttCenter',cellRenderer: function clickNextRendererFunc(){
+       return '<i class="fa fa-upload" aria-hidden="true"></i>';
+    }},
 ];
 
 rowData = [

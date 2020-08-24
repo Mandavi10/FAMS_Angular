@@ -36,15 +36,14 @@ export class AllCustomersComponent implements OnInit {
     {headerName: 'Sr. No.', field: 'Sno', width:'80'},
     {headerName: 'Customer Account', field: 'AccountNo', width:'150'},
     {headerName: 'User Name', field: 'UserName', width:'150'},
-    {headerName: 'User Email', field: 'EmailId', width:'150'},
-    {headerName: 'Active', field: 'Active', width:'150'},
-    {headerName: 'Scheme', field: 'scheme', width:'150'},
+    {headerName: 'User Email', field: 'EmailId', width:'200'},
+    {headerName: 'Active', field: 'Active', width:'150'}
 ];
 
 rowData = [
-    {  srNo: '1', CustomerAccount:'Demo demo demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo', scheme:''},
-    {  srNo: '2', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo' , scheme:''},
-    {  srNo: '3', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo' , scheme:''}
+    {  srNo: '1', CustomerAccount:'Demo demo demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'},
+    {  srNo: '2', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'},
+    {  srNo: '3', CustomerAccount:'Demo', UserName:'Demo',  UserEmail: 'Demo', Active: 'Demo'}
    
    
 ];
