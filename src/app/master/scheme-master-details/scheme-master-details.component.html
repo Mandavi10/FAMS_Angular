@@ -70,13 +70,23 @@
             </div>
             <!-- <div> -->
             <ag-grid-angular
-                style="width: 100%; height: 412px;"
+                style="width: 100%; height: 370px;"
                 class="ag-theme-alpine"
                 [rowData]="rowData"
                 [columnDefs]="columnDefs"
                 [enableFilter]="false">
             </ag-grid-angular>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                 <div class="paginationDiv">
+                        <span class="previousBtn">Previous</span>
+                        <span class="paginationCount">50 out of 200</span>
+                        <span class="nextBtn">Next</span>
+                    </div>
+            </div> 
         </div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 p-0 mt-5">
 
         <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -148,7 +158,7 @@
 
 
         </div>
-
+    </div>
 <div class="col-md-12 col-sm-12 col-xs-12">
         <button type="submit" class="btn btn-success pull-right"> Submit</button>
         <button type="submit" class="btn btn-success pull-right mr-2"> Inactive</button>

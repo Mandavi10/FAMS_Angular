@@ -20,18 +20,7 @@ export class SchemeMasterDetailsComponent implements OnInit {
 
 rowData = [
     { SrNo: '1', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '2', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '3', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '4', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '5', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '6', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '7', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '8', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '9', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '10', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '11', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    { SrNo: '12', Security: 'Security', Sector: 'Sector', FromQty: '545', ToQty: '545', Price: '5465' , Discount: '45'},
-    
+   
 
   ];
 
