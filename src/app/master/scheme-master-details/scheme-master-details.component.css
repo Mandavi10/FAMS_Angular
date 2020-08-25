@@ -1,6 +1,12 @@
 .warningPopup .modal-dialog, .successPopup .modal-dialog {
     margin-top: 46px !important;
   }
+
+  .paginationDiv {
+    position: fixed;
+    right: 0px;
+    bottom: 122px;
+}
     .chipsContainer{
       padding: 5px 0px 5px 5px;
       width: 84%;
