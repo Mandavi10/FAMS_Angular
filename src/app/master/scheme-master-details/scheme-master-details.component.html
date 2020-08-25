@@ -1,0 +1,161 @@
+<div class="main-content maincontainer">
+  <div class="content">
+        <div class="col-md-12 col-sm-12 col-xs-12 mt-4" *ngIf="isShowLoader">
+            <div class="col-md-12 col-sm-12 col-xs-12 loaderposition">
+                <img src="../../assets/images/loader.gif" class="loaderimagepage" />
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal">Scheme Master Details</span>           
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+                        <li>
+                            <i class="fa fa-file-excel-o" aria-hidden="true" title="Export to Excel"></i>
+                            <label>
+                                Export to Excel
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-upload" aria-hidden="true" title="Upload"></i>
+                            <label>
+                                Upload
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                            Scheme Code:
+                        </label>
+                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                            <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                            
+                        </div>
+                    </div>
+               
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                        Scheme Name:
+                    </label>
+                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                        <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        </div>
+     
+      
+        <div class="col-md-12 col-sm-12 col-xs-12 tableDiv" id="tbldiv" style="display:block">
+            <div class="filter">
+                    <input type="text"  placeholder="Search" />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <!-- <div> -->
+            <ag-grid-angular
+                style="width: 100%; height: 412px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData"
+                [columnDefs]="columnDefs"
+                [enableFilter]="false">
+            </ag-grid-angular>
+        </div>
+
+        <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                Effective from:
+                        </label>
+                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                            <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                            
+                        </div>
+                    </div>
+               
+
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                            Scheme Discount:
+                    </label>
+                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                        <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                        
+                    </div>
+                </div>
+
+            </div>
+           
+           
+
+        </div>
+
+
+        </div>
+        <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                    Effective To:
+                            </label>
+                            <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                                <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                                
+                            </div>
+                        </div>
+        
+                    </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                Scheme Price:
+                        </label>
+                        <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
+                            <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" />
+                            
+                        </div>
+                    </div>
+               
+
+            </div>
+          
+            
+
+        </div>
+
+
+        </div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+        <button type="submit" class="btn btn-success pull-right"> Submit</button>
+        <button type="submit" class="btn btn-success pull-right mr-2"> Inactive</button>
+    </div>
+   <!-- </div> -->
+  </div>
+
+</div>
+
+

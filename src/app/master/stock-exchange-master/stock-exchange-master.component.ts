@@ -57,7 +57,7 @@ export class StockExchangeMasterComponent implements OnInit {
     
     }
     
-    hidepholidaymaster() {
+    hideholidaymaster() {
     this.showModalholidaymaster = false;
     }
   constructor() { }

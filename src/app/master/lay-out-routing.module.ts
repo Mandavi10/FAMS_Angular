@@ -63,7 +63,7 @@ const routes: Routes = [
 {path: 'StatementDividend', loadChildren: './statement-dividend/statement-dividend.module#StatementDividendModule'},
 {path: 'AutoReportRequest', loadChildren: './auto-report-request/auto-report-request.module#AutoReportRequestModule'},
 {path: 'StockExchangeMaster', loadChildren: './stock-exchange-master/stock-exchange-master.module#StockExchangeMasterModule'},
-
+{path: 'SchemeMasterDetails', loadChildren: './scheme-master-details/scheme-master-details.module#SchemeMasterDetailsModule'},
 
 
 

@@ -50,21 +50,25 @@ export class SchemeMasterComponent implements OnInit {
   columnDefs = [
    
     {headerName: 'Sr.No', field: 'SrNo', width:100 },
-    {headerName: 'Scheme No.', field: 'schemeno', width:150 },
+    {headerName: 'Scheme ID', field: 'schemeno', width:150 },
     {headerName: 'Scheme Name', field: 'schemename', width:150},
-    // {headerName: 'Scheme Number', field: 'SchemaNumber',width:150},
     {headerName: 'Status', field: 'Status',width:150},
-    {headerName: 'Created On', field: 'Createdon', width:130},
-    {headerName: 'Created By', field: 'Createdby' ,width:160},
-    {headerName: 'Expired On', field: 'expiredon',width:150 },
-    {headerName: 'Expired By', field: 'expiredby', width: 130},
+    {headerName: 'Effective Date', field: 'Createdon', width:130},
+    {headerName: 'Expiration Date', field: 'Createdby' ,width:160},
+    {headerName: 'Created on ', field: 'expiredon',width:150 },
+    {headerName: 'Created by', field: 'expiredby', width: 130},
+    {headerName: 'Active On', field: 'ActiveOn',width:150},
+    {headerName: 'Active By', field: 'ActiveBy', width:130},
+    {headerName: 'Inactive on', field: 'Inactiveon' ,width:160},
+    {headerName: 'Inactive by', field: 'Inactiveby',width:150 },
+    {headerName: 'Expired on', field: 'Expiredon', width: 130},
 ];
 
 rowData = [
-    { SrNo: '1', schemeno: '0008765', schemename: 'Custodian', Status: 'Active', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
-    { SrNo: '2', schemeno: '0008765', schemename: 'Custodian', Status: 'Expire', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' },
-    { SrNo: '3', schemeno: '0008765', schemename: 'Custodian', Status: 'Active', Createdon: '06/08/2020',Createdby: 'Tarun Sharma' , expiredon: '06/08/2020', expiredby: 'Tarun Sharma' }
-];
+    { SrNo: '1', schemeno: '0008765', schemename: 'Custodian', Status: 'Created', Createdon: '24/08/2020',Createdby: 'Abhishek Vats' , expiredon: '25/08/2020', expiredby: 'Abhishek Vats', ActiveOn:'24/08/2020', ActiveBy:'Abhishek Vats', Inactiveon:'26/08/2020', Inactiveby:'Vishal Verma', Expiredon:'28/08/2020'},
+    
+
+  ];
 
 columnDefs1 = [
   {headerName: 'Sr. No.', field: 'srNo', width:'80'},

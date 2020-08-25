@@ -36,11 +36,11 @@
                         </label>
                     </li>
                         <!-- <li (click)="onClickupdatepopup()"> -->
-                        <li (click)="onClickupdatepopup($event)" [style.display]="showNew ? 'block' : 'none'">
+                        <li><a routerLink="/SchemeMasterDetails" routerLinkActive="active">
                             <i class="fa fa-plus" aria-hidden="true" title="New"></i>
                             <label>
                                 New
-                            </label>
+                            </label></a>
                         </li>
                     </ul>
                 </div>
@@ -76,140 +76,7 @@
    <!-- </div> -->
       
      
-    <div class="modal successPopup" id="createuser" [style.display]="showModalupdatepopup ? 'block' : 'none'">
-    <div class="modal-dialog model-lg">
-        <div class="modal-content">
-        
-            <button type="button" class="closeDiv" data-dismiss="modal" (click)="hideupdatepopup()">&times;</button>
-        
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-            <div class="col-md-12 col-sm-12 col-xs-12 contnt-wrapper">
-                <div class="col-sm-12 col-md-6 col-xs-12 no-padding">
-                    <h4 class="pageTitle">
-                        Scheme Master
-                            </h4>
-    
-                </div>
-                <div class="rightmenu">
-                    <div class="toolbar pull-right">
-                        
-                    </div>
-                </div>
-            </div>
-            
-                <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block">
-                    <form [formGroup]="SchemaMasterFormGrp" autocomplete="off" class="form" appNorightclick>
-                                            <div class="row no-padding mt-2">
-                                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-
-                                                  
-
-                                             
-
-
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Scheme No.:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <div class="form-group input-group" >
-                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Scheme Name:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <div class="form-group input-group" >
-                                                            <input type="text" required name="schemaNumber" class="col-sm-12 col-md-12 col-xs-12" formControlName="SchemaNumber"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Description:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <div class="form-group input-group" >
-                                                                <textarea id="w3review" name="w3review" rows="4" cols="50" style="width: 100%;">
-                                                                    </textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               <div class="col-md-12 col-xs-12 col-sm-12 p-0">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Securities:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <!-- <div class="form-group input-group" >
-                                                                    <input type="text"   class="col-sm-12 col-md-12 col-xs-12" />
-                                                                </div> -->
-                                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                                                <option value="" selected>Select</option>
-                                                                <option value="">Securities 1</option>
-                                                                <option value="">Securities 2</option>
-                                                                <option value="">Securities 3</option>
-                                                            </select>
-
-                                                         
-                                                        </div>
-                                                        <span class="plusicon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                    </div>
-                                                </div>
-                                                
-
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 col-md-5 col-xs-6 control-label no-padding" for="form-field-1">
-                                                            Sector:
-                                                        </label>
-                                                        <div class="col-sm-6 col-md-7 col-xs-6 no-padding-left displayinlineblock">
-                                                            <select class="dropdown col-sm-12 col-md-12 col-xs-12">
-                                                                <option value="" selected>Select</option>
-                                                                <option value="">Sector 1</option>
-                                                                <option value="">Sector 2</option>
-                                                                <option value="">Sector 3</option>
-                                                            </select>
-
-                                                          
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                                
-                                                        
-                                                    </div>
-                                                </div>
-                            
-                        </form>
-                    </div>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-success">Save</button>  -->
-        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Create</button>
-        <button type="submit" (click)="onSubmit()" class="btn btn-success"> Expire</button>
-        
-        
-        </div>
-        
-        </div>
-        </div>
-    </div>
+ 
      
 
     <div class="modal successPopup" id="myModal" [style.display]="showModalsavepopup ? 'block' : 'none'">
